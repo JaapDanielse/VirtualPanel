@@ -1,0 +1,32 @@
+0  S  PanelConnected	vp_void	
+1  S  StaticDisplay	vp_void	
+2  R  ApplicationName	vp_string	MinimalPanel
+3  R  StaticDisplay	vp_boolean	True
+4  R  DynamicDisplay	vp_boolean	True
+5  R  Button_3	vp_string	$ONOFF
+6  R  ScrollBar_2	vp_string	mply
+7  R  MaxScrollBar_2	vp_int	50
+8  R  Led_1	vp_string	$OFF
+9  R  Led_1	vp_string	$RED
+10  R  ScrollBar_2	vp_int	50
+11  R  Display_2	vp_string	25
+12  S  DynamicDisplay	vp_void	
+13  R  Display_1	vp_string	3400
+14  S  DynamicDisplay	vp_void	
+15  R  Display_1	vp_string	225
+16  S  DynamicDisplay	vp_void	
+17  R  Display_1	vp_string	3025
+18  S  DynamicDisplay	vp_void	
+19  R  Display_1	vp_string	10875
+20  S  DynamicDisplay	vp_void	
+21  R  Display_1	vp_string	10975
+22  S  DynamicDisplay	vp_void	
+23  R  Display_1	vp_string	4725
+24  S  DynamicDisplay	vp_void	
+25  R  Display_1	vp_string	1975
+26  S  DynamicDisplay	vp_void	
+27  R  Display_1	vp_string	13100
+28  S  DynamicDisplay	vp_void	
+29  R  Display_1	vp_string	14625
+30  S  DynamicDisplay	vp_void	
+31  R  Display_1	vp_string	17675
