@@ -1,7 +1,7 @@
 // Clock (using PanelOne) 
 
-#include "PanelOne.h"
-#include <TimeLib.h>  
+#include <PanelOne.h>
+#include <TimeLib.h>
 
 void setup()
 {

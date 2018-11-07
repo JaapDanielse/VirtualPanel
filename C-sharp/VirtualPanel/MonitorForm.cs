@@ -25,13 +25,13 @@ namespace VirtualPanel
 
         private void Arduinoport_MessageReceived(object sender, MessageEventArgs mse)
         {
-                if ((ChannelId)mse.ChannelID == ChannelId.StatField_1) label1.Text = mse.Data.ToString();
-                if ((ChannelId)mse.ChannelID == ChannelId.StatField_2) label2.Text = mse.Data.ToString();
-                if ((ChannelId)mse.ChannelID == ChannelId.StatField_3) label3.Text = mse.Data.ToString();
-                if ((ChannelId)mse.ChannelID == ChannelId.StatField_4) label4.Text = mse.Data.ToString();
-                if ((ChannelId)mse.ChannelID == ChannelId.StatField_5) label5.Text = mse.Data.ToString();
-                if ((ChannelId)mse.ChannelID == ChannelId.StatField_6) label6.Text = mse.Data.ToString();
-                if ((ChannelId)mse.ChannelID == ChannelId.StatMonitor)
+                if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_1) label1.Text = mse.Data.ToString();
+                if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_2) label2.Text = mse.Data.ToString();
+                if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_3) label3.Text = mse.Data.ToString();
+                if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_4) label4.Text = mse.Data.ToString();
+                if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_5) label5.Text = mse.Data.ToString();
+                if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_6) label6.Text = mse.Data.ToString();
+                if ((ChannelId)mse.ChannelID == ChannelId.MonitorTextBox)
                 {
                     if (monitor) WriteMonitor(mse.Data.ToString());
                 }
@@ -78,7 +78,10 @@ namespace VirtualPanel
 
         private void MonFileDialogButton_Click(object sender, EventArgs e)
         {
-            File.WriteAllText("PanelOneMon.txt", textBox1.Text);
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(saveFileDialog1.FileName, textBox1.Text);
+            }
         }
     }
 }

@@ -40,6 +40,7 @@
             this.MonitorHoldButton = new System.Windows.Forms.Button();
             this.MonFileDialogButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // label1
@@ -151,6 +152,13 @@
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "txt";
+            this.saveFileDialog1.FileName = "PanelOneMonitor";
+            this.saveFileDialog1.Filter = "\"Txt files (*.txt)|*.txt|All files (*.*)|*.*\"";
+            this.saveFileDialog1.Title = "Save Monitor File";
+            // 
             // MonitorForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -190,5 +198,6 @@
         private System.Windows.Forms.Button MonitorHoldButton;
         private System.Windows.Forms.Button MonFileDialogButton;
         private System.Windows.Forms.Button ClearButton;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

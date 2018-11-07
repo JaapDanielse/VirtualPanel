@@ -42,3 +42,4 @@ D:\User\Dropbox\dev\VirtualPanel\C-sharp\VirtualPanel\bin\Debug\VirtualPanel.pdb
 D:\User\Dropbox\dev\VirtualPanel\C-sharp\VirtualPanel\obj\Debug\VirtualPanel.csprojResolveAssemblyReference.cache
 D:\User\Dropbox\dev\VirtualPanel\C-sharp\VirtualPanel\obj\Debug\VirtualPanel.MonitorForm.resources
 D:\User\Dropbox\dev\VirtualPanel\C-sharp\VirtualPanel\obj\Debug\VirtualPanel.MsgLogForm.resources
+D:\User\Dropbox\dev\VirtualPanel\C-sharp\VirtualPanel\obj\Debug\VirtualPanel.GraphForm.resources

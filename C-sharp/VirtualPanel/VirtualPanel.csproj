@@ -76,6 +76,12 @@
     <Compile Include="ArduinoPort.cs" />
     <Compile Include="ExtentionMethods.cs" />
     <Compile Include="CustomEventArgs.cs" />
+    <Compile Include="GraphForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphForm.Designer.cs">
+      <DependentUpon>GraphForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MonitorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     <Compile Include="MsgLogForm.Designer.cs">
       <DependentUpon>MsgLogForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PersistentPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Type.cs" />
     <Compile Include="VirtualPanelForm.cs">
       <SubType>Form</SubType>
@@ -97,6 +106,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GraphForm.resx">
+      <DependentUpon>GraphForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MonitorForm.resx">
       <DependentUpon>MonitorForm.cs</DependentUpon>
     </EmbeddedResource>

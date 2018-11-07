@@ -39,18 +39,18 @@ namespace VirtualPanel
 
         public void WriteMonitor(String inputline)
         {
-            if (lines >= 1000)
-            {
-                logmonitor.Clear();
-                lines = 0;
-            }
-
-            logmonitor.AppendText(inputline + Environment.NewLine);
-
             if (!onHold)
-                logmonitor.ScrollToCaret();
+            {
+                if (lines >= 1000)
+                {
+                    logmonitor.Clear();
+                    lines = 0;
+                }
 
-            lines++;
+                logmonitor.AppendText(inputline + Environment.NewLine); 
+                logmonitor.ScrollToCaret();
+                lines++;
+            }
         }
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)

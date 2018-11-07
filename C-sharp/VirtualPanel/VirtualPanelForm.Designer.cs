@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VirtualPanelForm));
-            this.button_Setup = new System.Windows.Forms.Button();
             this.connected_box = new System.Windows.Forms.PictureBox();
             this.connection_label = new System.Windows.Forms.Label();
             this.Led1 = new System.Windows.Forms.PictureBox();
@@ -54,9 +53,6 @@
             this.button11 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.button_Com = new System.Windows.Forms.Button();
-            this.button_Statistics = new System.Windows.Forms.Button();
             this.ApplicationTitle = new System.Windows.Forms.Label();
             this.ScrollBar2 = new System.Windows.Forms.VScrollBar();
             this.ScrollBar3 = new System.Windows.Forms.VScrollBar();
@@ -82,6 +78,12 @@
             this.Led4 = new System.Windows.Forms.PictureBox();
             this.Led5 = new System.Windows.Forms.PictureBox();
             this.Led6 = new System.Windows.Forms.PictureBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.messageLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.connected_box)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -89,7 +91,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Led12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led10)).BeginInit();
-            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Led7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led9)).BeginInit();
@@ -99,44 +100,32 @@
             ((System.ComponentModel.ISupportInitialize)(this.Led4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led6)).BeginInit();
+            this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
-            // 
-            // button_Setup
-            // 
-            this.button_Setup.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.button_Setup.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button_Setup.FlatAppearance.BorderSize = 0;
-            this.button_Setup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Setup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Setup.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button_Setup.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.button_Setup.Location = new System.Drawing.Point(66, 8);
-            this.button_Setup.Margin = new System.Windows.Forms.Padding(0);
-            this.button_Setup.Name = "button_Setup";
-            this.button_Setup.Size = new System.Drawing.Size(47, 20);
-            this.button_Setup.TabIndex = 4;
-            this.button_Setup.Text = "log";
-            this.button_Setup.UseCompatibleTextRendering = true;
-            this.button_Setup.UseVisualStyleBackColor = false;
-            this.button_Setup.Click += new System.EventHandler(this.button_Setup_Click);
             // 
             // connected_box
             // 
             this.connected_box.BackColor = System.Drawing.Color.Black;
-            this.connected_box.Location = new System.Drawing.Point(173, 15);
+            this.connected_box.Location = new System.Drawing.Point(41, 15);
             this.connected_box.Name = "connected_box";
             this.connected_box.Size = new System.Drawing.Size(13, 6);
             this.connected_box.TabIndex = 7;
             this.connected_box.TabStop = false;
+            this.connected_box.Click += new System.EventHandler(this.connected_box_Click);
+            this.connected_box.MouseLeave += new System.EventHandler(this.mouseLeave);
+            this.connected_box.MouseHover += new System.EventHandler(this.mouseHover);
             // 
             // connection_label
             // 
             this.connection_label.AutoSize = true;
-            this.connection_label.Location = new System.Drawing.Point(191, 10);
+            this.connection_label.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.connection_label.Location = new System.Drawing.Point(62, 11);
             this.connection_label.Name = "connection_label";
             this.connection_label.Size = new System.Drawing.Size(76, 13);
             this.connection_label.TabIndex = 9;
             this.connection_label.Text = "not connected";
+            this.connection_label.Click += new System.EventHandler(this.connected_box_Click);
             // 
             // Led1
             // 
@@ -357,59 +346,13 @@
             this.button17.UseVisualStyleBackColor = true;
             this.button17.Click += new System.EventHandler(this.button_Click);
             // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.panel3.Controls.Add(this.button_Com);
-            this.panel3.Controls.Add(this.button_Statistics);
-            this.panel3.Controls.Add(this.connection_label);
-            this.panel3.Controls.Add(this.ApplicationTitle);
-            this.panel3.Controls.Add(this.connected_box);
-            this.panel3.Controls.Add(this.button_Setup);
-            this.panel3.Location = new System.Drawing.Point(1, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(502, 33);
-            this.panel3.TabIndex = 43;
-            // 
-            // button_Com
-            // 
-            this.button_Com.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.button_Com.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button_Com.FlatAppearance.BorderSize = 0;
-            this.button_Com.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Com.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Com.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button_Com.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.button_Com.Location = new System.Drawing.Point(120, 8);
-            this.button_Com.Name = "button_Com";
-            this.button_Com.Size = new System.Drawing.Size(47, 20);
-            this.button_Com.TabIndex = 11;
-            this.button_Com.Text = "com";
-            this.button_Com.UseCompatibleTextRendering = true;
-            this.button_Com.UseVisualStyleBackColor = false;
-            this.button_Com.Click += new System.EventHandler(this.button_Com_Click);
-            // 
-            // button_Statistics
-            // 
-            this.button_Statistics.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.button_Statistics.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button_Statistics.FlatAppearance.BorderSize = 0;
-            this.button_Statistics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Statistics.Location = new System.Drawing.Point(11, 8);
-            this.button_Statistics.Name = "button_Statistics";
-            this.button_Statistics.Size = new System.Drawing.Size(48, 20);
-            this.button_Statistics.TabIndex = 10;
-            this.button_Statistics.Text = "mon";
-            this.button_Statistics.UseCompatibleTextRendering = true;
-            this.button_Statistics.UseVisualStyleBackColor = false;
-            this.button_Statistics.Click += new System.EventHandler(this.Button_Statistics_Click);
-            // 
             // ApplicationTitle
             // 
             this.ApplicationTitle.AllowDrop = true;
+            this.ApplicationTitle.BackColor = System.Drawing.Color.CornflowerBlue;
             this.ApplicationTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplicationTitle.ForeColor = System.Drawing.Color.White;
-            this.ApplicationTitle.Location = new System.Drawing.Point(224, 6);
+            this.ApplicationTitle.Location = new System.Drawing.Point(225, 9);
             this.ApplicationTitle.Name = "ApplicationTitle";
             this.ApplicationTitle.Size = new System.Drawing.Size(266, 20);
             this.ApplicationTitle.TabIndex = 8;
@@ -615,7 +558,7 @@
             // Led3
             // 
             this.Led3.BackColor = System.Drawing.Color.Red;
-            this.Led3.Location = new System.Drawing.Point(136, 148);
+            this.Led3.Location = new System.Drawing.Point(137, 148);
             this.Led3.Name = "Led3";
             this.Led3.Size = new System.Drawing.Size(13, 6);
             this.Led3.TabIndex = 57;
@@ -648,13 +591,71 @@
             this.Led6.TabIndex = 60;
             this.Led6.TabStop = false;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.AutoSize = false;
+            this.menuStrip1.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(503, 36);
+            this.menuStrip1.TabIndex = 61;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.monitorToolStripMenuItem,
+            this.graphToolStripMenuItem,
+            this.messageLogToolStripMenuItem});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(29, 32);
+            this.toolStripMenuItem1.Text = "▼";
+            // 
+            // monitorToolStripMenuItem
+            // 
+            this.monitorToolStripMenuItem.Name = "monitorToolStripMenuItem";
+            this.monitorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.monitorToolStripMenuItem.Text = "Monitor";
+            this.monitorToolStripMenuItem.Click += new System.EventHandler(this.monitorToolStripMenuItem_Click);
+            // 
+            // graphToolStripMenuItem
+            // 
+            this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
+            this.graphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.graphToolStripMenuItem.Text = "Graph";
+            this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
+            // 
+            // messageLogToolStripMenuItem
+            // 
+            this.messageLogToolStripMenuItem.Name = "messageLogToolStripMenuItem";
+            this.messageLogToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.messageLogToolStripMenuItem.Text = "MessageLog";
+            this.messageLogToolStripMenuItem.Click += new System.EventHandler(this.messageLogToolStripMenuItem_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.pictureBox2.Location = new System.Drawing.Point(34, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(26, 30);
+            this.pictureBox2.TabIndex = 62;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.connected_box_Click);
+            this.pictureBox2.MouseLeave += new System.EventHandler(this.mouseLeave);
+            this.pictureBox2.MouseHover += new System.EventHandler(this.mouseHover);
+            // 
             // VirtualPanelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(503, 215);
+            this.Controls.Add(this.connected_box);
+            this.Controls.Add(this.connection_label);
             this.Controls.Add(this.Led6);
+            this.Controls.Add(this.ApplicationTitle);
             this.Controls.Add(this.Led5);
             this.Controls.Add(this.Led4);
             this.Controls.Add(this.Led3);
@@ -662,7 +663,6 @@
             this.Controls.Add(this.Led9);
             this.Controls.Add(this.Led8);
             this.Controls.Add(this.Led7);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.Led1);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.panel1);
@@ -691,8 +691,11 @@
             this.Controls.Add(this.scrolllabel4);
             this.Controls.Add(this.scrolllabel3);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "VirtualPanelForm";
             this.Text = "ArduinoVirtualPanel";
@@ -703,8 +706,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Led12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led10)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Led7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led9)).EndInit();
@@ -714,12 +715,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.Led4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led6)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button button_Setup;
         private System.Windows.Forms.PictureBox connected_box;
         private System.Windows.Forms.PictureBox Led1;
         private System.Windows.Forms.Label connection_label;
@@ -735,7 +739,6 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button17;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.PictureBox Led13;
         private System.Windows.Forms.PictureBox Led12;
         private System.Windows.Forms.PictureBox Led11;
@@ -759,10 +762,8 @@
         private System.Windows.Forms.PictureBox Led9;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button_Statistics;
         private System.Windows.Forms.VScrollBar ScrollBar1;
         private System.Windows.Forms.Label scrolllabel1;
-        private System.Windows.Forms.Button button_Com;
         private System.Windows.Forms.Label display1;
         private System.Windows.Forms.Label display4;
         private System.Windows.Forms.Label display3;
@@ -771,6 +772,12 @@
         private System.Windows.Forms.PictureBox Led4;
         private System.Windows.Forms.PictureBox Led5;
         private System.Windows.Forms.PictureBox Led6;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem monitorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem graphToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem messageLogToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 

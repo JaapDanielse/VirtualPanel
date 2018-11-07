@@ -15,7 +15,7 @@ namespace VirtualPanel
         StaticDisplay,   // StaticDisplay
         DynamicDisplay,  // DynamicDisplay
         UnixTime,        // UnixTime
-                         //
+        //
         Button_1,  // Button_1
         Button_2,  // Button_2
         Button_3,  // Button_3
@@ -57,32 +57,59 @@ namespace VirtualPanel
         Led_11,  // Led_11
         Led_12,  // Led_12
         Led_13,  // Led_13
-                 //
+        //
         Display_1, // Display 1
         Display_2, // Display 2
         Display_3, // Display 3
         Display_4, // Display 4
         //
-        StatField_1, // StatField 1
-        StatField_2, // StatField 2
-        StatField_3, // StatField 3
-        StatField_4, // StatField 4
-        StatField_5, // StatField 5
-        StatField_6, // StatField 6
+        MonitorField_1, // StatField 1
+        MonitorField_2, // StatField 2
+        MonitorField_3, // StatField 3
+        MonitorField_4, // StatField 4
+        MonitorField_5, // StatField 5
+        MonitorField_6, // StatField 6
         //
-        StatMonitor  // StatMonitor
+        MonitorTextBox,  // StatMonitor
+        //
+        Graph, // false/true, byte (1(draw), 2(stat), 3(run)
+        GraphDrawLine, // ULong 4x byte (Fx,Fy,Tx,Ty)
+        GraphSampleCount, // byte 
+        GraphGrid, // 
+        GraphPen, // $FINE, $THICK, $RED, $GREEN, $YELLOW, $ORANGE, $WHITE, $BLUE 
+        GraphDraw, //
+        GraphText, //
+        //
+        GraphValue_1, // byte 
+        GraphValue_2, // byte 
+        GraphValue_3, // byte 
+        GraphValue_4, // byte 
+        GraphValue_5, // byte 
+        //
+        GraphCaption_1, //
+        GraphCaption_2, //
+        //
+        GraphLabel_1, //
+        GraphLabel_2, //
+        GraphLabel_3, //
+        GraphLabel_4, //
+        GraphLabel_5, //
+        //
+        GraphButton_1, //
+        GraphButton_2, //
+        GraphButton_3, //
+        GraphButton_4  //
         //
     }
-
-
 
     public partial class VirtualPanelForm : Form
     {
         private MsgLogForm settings;
         private MonitorForm stats;
+        private GraphForm graph;
         private ArduinoPort port;
         private List<Tuple<ChannelId, Control>> pannelControlList;
-        Boolean StaticDisplay = false;
+        public static Boolean StaticDisplay = false;
         int MsgNum = 0;
 
 
@@ -137,15 +164,22 @@ namespace VirtualPanel
             stats = new MonitorForm(port);
             stats.Show();
             stats.Visible = false;
+
             settings = new MsgLogForm(port);
             settings.Show();
             settings.Visible = false;
-            
+
+            graph = new GraphForm(port);
+            graph.Show();
+            graph.Visible = false;
+
 
             foreach (var t in pannelControlList)
             {
                 t.Item2.Visible = false;
             }
+
+            panel1.Visible = false;
 
             scrolllabel1.Visible = false;
             scrolllabel2.Visible = false;
@@ -166,6 +200,7 @@ namespace VirtualPanel
             port.Disconnected += Port_Disconnected;
             port.MessageReceived += Port_MessageReceived;
             port.Open();
+            connected_box.BackColor = Color.DarkGreen;
 
             Debug.WriteLine(" button 17 hex > " + string.Format("{0:X2}", (byte)ChannelId.PanelConnected) + "0");
         }
@@ -173,7 +208,7 @@ namespace VirtualPanel
         private void Port_Disconnected(object sender, ConnectedEventArgs e)
         {
             connection_label.Text = "not connected";
-            connected_box.BackColor = Color.Black;
+            if (connected_box.BackColor == Color.Lime) connected_box.BackColor = Color.DarkGreen;
 
         }
 
@@ -181,8 +216,10 @@ namespace VirtualPanel
         {
             connection_label.Text = args.Portname;
             connected_box.BackColor = Color.Lime;
+            panel1.Visible = true;
             if (port.IsConnected) port.Send((byte)ChannelId.PanelConnected);
             if (port.IsConnected) port.Send((byte)ChannelId.StaticDisplay);
+
         }
 
         private void Port_MessageReceived(object sender, MessageEventArgs mse)
@@ -190,15 +227,20 @@ namespace VirtualPanel
             MsgNum++;
             ChannelId id = (ChannelId) mse.ChannelID;
 
-            Tuple<ChannelId, Control> control = pannelControlList.Find(t => t.Item1 == (ChannelId)mse.ChannelID);
+            Tuple<ChannelId, Control> control = pannelControlList.Find(t => t.Item1 == id);
 
             if (control != null)
                 SetAppearance(control.Item2, mse);
             else
             {
                 if (id == ChannelId.UnixTime) SendUnixTime(mse);
-                if (id == ChannelId.StaticDisplay  && mse.Type == vp_type.vp_boolean) StaticDisplay  = (bool)mse.Data; 
-                if (id == ChannelId.DynamicDisplay && mse.Type == vp_type.vp_boolean) timer1.Enabled = (bool)mse.Data; 
+                if (id == ChannelId.StaticDisplay  && mse.Type == vp_type.vp_boolean) StaticDisplay  = (bool)mse.Data;
+                if (id == ChannelId.DynamicDisplay && mse.Type == vp_type.vp_boolean) timer1.Enabled = (bool)mse.Data;
+                if (id == ChannelId.DynamicDisplay && mse.Type == vp_type.vp_int)
+                {
+                    if ((int)mse.Data >= 100 && (int)mse.Data <= 1000) timer1.Interval = (int)mse.Data;
+                    timer1.Enabled = true;
+                }
                 if (id == ChannelId.MaxScrollBar_1 && mse.Type == vp_type.vp_int) ScrollBar1.Maximum = (int)mse.Data + 9;
                 if (id == ChannelId.MaxScrollBar_2 && mse.Type == vp_type.vp_int) ScrollBar2.Maximum = (int)mse.Data + 9;
                 if (id == ChannelId.MaxScrollBar_3 && mse.Type == vp_type.vp_int) ScrollBar3.Maximum = (int)mse.Data + 9;
@@ -214,8 +256,25 @@ namespace VirtualPanel
             if (control is VScrollBar) SetScrollBarAppearance((VScrollBar)control, mse);
         }
 
+        public static Color String2Color(string ColorString)
+        {
+            Color convertedColor = Color.Empty;
 
-        private void SetButtonAppearance(Button button, MessageEventArgs mse)
+            if (ColorString == "$YELLOW") convertedColor = Color.Yellow;
+            if (ColorString == "$ORANGE") convertedColor = Color.Orange;
+            if (ColorString == "$RED")   convertedColor = Color.Red;
+            if (ColorString == "$BLUE")  convertedColor = Color.DodgerBlue;
+            if (ColorString == "$GREEN") convertedColor = Color.Lime;
+            if (ColorString == "$BLACK") convertedColor = Color.Black;
+            if (ColorString == "$WHITE") convertedColor = Color.White;
+            if (ColorString == "$BLACK") convertedColor = Color.Black;
+
+            return convertedColor;
+        }
+
+
+  
+        public static void SetButtonAppearance(Button button, MessageEventArgs mse)
         {
             int channelId = mse.ChannelID;
 
@@ -224,9 +283,17 @@ namespace VirtualPanel
             else
                 button.Visible = true;
 
+
+
             if (mse.Type == vp_type.vp_string)
             {
-                if ((string)mse.Data == "$LEFT")
+                Color col = String2Color((string)mse.Data);
+
+                if (!col.IsEmpty)
+                {
+                    button.ForeColor = col; //
+                }
+                else if ((string)mse.Data == "$LEFT")
                 {
                     button.Font = new Font("Wingdings 3", 10);
                     button.Text = "";
@@ -283,32 +350,8 @@ namespace VirtualPanel
                 }
                 else if ((string)mse.Data == "$STOP")
                 {
-                    button.Font = new Font("Wingdings 2", 11); 
+                    button.Font = new Font("Wingdings 2", 11);
                     button.Text = "";
-                }
-                else if ((string)mse.Data == "$RED")
-                {
-                    button.ForeColor = Color.Red; //
-                }
-                else if ((string)mse.Data == "$GREEN")
-                {
-                    button.ForeColor = Color.Lime; //
-                }
-                else if ((string)mse.Data == "$YELLOW")
-                {
-                    button.ForeColor = Color.Yellow; //
-                }
-                else if ((string)mse.Data == "$ORANGE")
-                {
-                    button.ForeColor = Color.Orange; //
-                }
-                else if ((string)mse.Data == "$BLACK")
-                {
-                    button.ForeColor = Color.Black; //
-                }
-                else if ((string)mse.Data == "$WHITE")
-                {
-                    button.ForeColor = Color.White; //
                 }
                 else
                 {
@@ -323,7 +366,7 @@ namespace VirtualPanel
             }
         }
 
-        
+
         private void SetLedAppearance(PictureBox led, MessageEventArgs mse)
         {
             int channelId = mse.ChannelID;
@@ -337,6 +380,7 @@ namespace VirtualPanel
                 if ((string)mse.Data == "$BLACK") led.BackColor = Color.Black;
                 if ((string)mse.Data == "$RED") led.BackColor = Color.Red;
                 if ((string)mse.Data == "$GREEN") led.BackColor = Color.Lime;
+                if ((string)mse.Data == "$BLUE") led.BackColor = Color.DodgerBlue;
                 if ((string)mse.Data == "$YELLOW") led.BackColor = Color.Yellow;
                 if ((string)mse.Data == "$ORANGE") led.BackColor = Color.Orange;
                 if ((string)mse.Data == "$WHITE") led.BackColor = Color.White;
@@ -386,6 +430,10 @@ namespace VirtualPanel
                 else if ((string)mse.Data == "$ORANGE")
                 {
                     display.ForeColor = Color.Orange;
+                }
+                else if ((string)mse.Data == "$BLUE")
+                {
+                    display.ForeColor = Color.DodgerBlue;
                 }
                 else if ((string)mse.Data == "$WHITE")
                 {
@@ -475,43 +523,6 @@ namespace VirtualPanel
         }
 
 
-        #region Port data
-
-        #endregion
-
-        #region Event Handlers Buttons
-
-        private void button_Setup_Click(object sender, EventArgs e)
-        {
-            if (settings.Visible == true)
-            {
-                //led_Setup.BackColor = Color.Gray;
-                settings.Visible = false;
-            }
-            else
-            {
-                settings.Location = new Point(Location.X, Location.Y + Height);
-                //led_Setup.BackColor = Color.Yellow;
-                settings.Visible = true;
-            }
-        }
-
-        private void Button_Statistics_Click(object sender, EventArgs e)
-        {
-            if (stats.Visible == true)
-            {
-                //led_Setup.BackColor = Color.Gray;
-                stats.Visible = false;
-            }
-            else
-            {
-                stats.Location = new Point(Location.X, Location.Y + Height);
-                //led_Setup.BackColor = Color.Yellow;
-                stats.Visible = true;
-            }
-        }
-        #endregion
-
         private void button_Click(object sender, EventArgs e)
         {
             Tuple<ChannelId, Control> channel = pannelControlList.Find(t => t.Item2 == sender);
@@ -522,6 +533,7 @@ namespace VirtualPanel
                 if (StaticDisplay && port.IsConnected) port.Send((byte)ChannelId.StaticDisplay);
             }
         }
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -540,12 +552,73 @@ namespace VirtualPanel
             }
         }
 
-        private void button_Com_Click(object sender, EventArgs e)
+
+        private void monitorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (stats.Visible == true)
+            {
+                stats.Visible = false;
+            }
+            else
+            {
+                stats.Location = new Point(Location.X, Location.Y + Height);
+                stats.Visible = true;
+            }
+        }
+
+        private void messageLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (settings.Visible == true)
+            {
+                settings.Visible = false;
+            }
+            else
+            {
+                settings.Location = new Point(Location.X, Location.Y + Height);
+                settings.Visible = true;
+            }
+        }
+
+
+        private void connected_box_Click(object sender, EventArgs e)
         {
             if (port.IsConnected)
+            {
                 port.Close();
+                connected_box.BackColor = Color.Black;
+            }
             else
+            {
                 port.Open();
+                connected_box.BackColor = Color.DarkGreen;
+            }
+        }
+
+
+        private void graphToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (graph.Visible == true)
+            {
+                graph.Visible = false;
+            }
+            else
+            {
+                graph.Location = new Point(Location.X, Location.Y + Height);
+                graph.Visible = true;
+            }
+
+        }
+
+
+        private void mouseHover(object sender, EventArgs e)
+        {
+            pictureBox2.BackColor = Color.LightBlue;
+        }
+
+
+        private void mouseLeave(object sender, EventArgs e)
+        {
+            pictureBox2.BackColor = Color.CornflowerBlue;
         }
     }
 }

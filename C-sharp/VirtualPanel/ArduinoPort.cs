@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO.Ports;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -129,13 +130,23 @@ namespace VirtualPanel
 
                     if (port.IsOpen) port.Close();
                     port.PortName = name;
-                    port.Open();
+
+                    // It can happen that Windows will give us incorrect port names, if this occurs we skip the processing for it.
+                    try
+                    {
+                        port.Open();
+                    }
+                    catch (IOException ex)
+                    {
+                        continue;
+                    }
 
                     DateTime then = DateTime.Now + SearchPortTimeout;
                     DateTime send_id = DateTime.Now + SearchPollFrequency;
 
                     while (then > DateTime.Now)
                     {
+
                         if (send_id < DateTime.Now)
                         {
                             port.WriteLine("ID");
@@ -165,6 +176,7 @@ namespace VirtualPanel
                         Thread.Sleep((int)SearchPollFrequency.TotalMilliseconds);
                     }
 
+
                     port.Close();
                 }
 
@@ -180,7 +192,7 @@ namespace VirtualPanel
             port.DataReceived -= Port_DataReceived;
             checkPort.Stop();
 
-            if (restart) // Connection is lost
+            if (restart && !port_finder.IsBusy) // Connection is lost
                 port_finder.RunWorkerAsync();
 
             else        // Disconnect is requested from UI

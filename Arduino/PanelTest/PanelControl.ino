@@ -3,12 +3,12 @@
 #define NextButton Button_4 //
 
 
-void PanelCallback(int channel, int type) 
+void PanelCallback(int event, int type) 
 { 
   // PanelCallback is called when a message is received from the panel 
   // only channel and type are passed as parameters. Panel data available as public library vars
   
-  switch (channel) 
+  switch (event) 
   {
     case PanelConnected: // receive panel connected message
     { 
@@ -17,9 +17,32 @@ void PanelCallback(int channel, int type)
       Panel.Send(Display_1, "$BIG");       // set display 1 (time) to big font
       Panel.Send(Display_1, "$BOLD");      // set display 1 (time) to bold 
       Panel.Send(Display_2, "$BLACK");     // set display 2 (date) to black
-      Panel.Send(DynamicDisplay,true);     // enable dynamic display request
+      Panel.Send(DynamicDisplay,100);     // enable dynamic display request
       Panel.Send(Button_4,  "next");
       Panel.Send(UnixTime, true);          // request time
+      Panel.Send(GraphGrid, 15);
+      Panel.Send(GraphCaption_1, "100");
+      Panel.Send(GraphCaption_2, "0");
+      Panel.Send(GraphButton_1, "GrBttn 1");
+      Panel.Send(GraphButton_2, "GrBttn 2");
+      Panel.Send(GraphButton_3, "GrBttn 3");
+      Panel.Send(GraphButton_4, "GrBttn 4");
+      
+      Panel.Send(GraphLabel_1, "$YELLOW");
+      Panel.Send(GraphLabel_1, "GraphLabel_1");
+      Panel.Send(GraphLabel_2, "$ORANGE");
+      Panel.Send(GraphLabel_2, "GraphLabel_2");
+      Panel.Send(GraphLabel_3, "$RED");
+      Panel.Send(GraphLabel_3, "GraphLabel_3");
+      Panel.Send(GraphLabel_4, "$BLUE");
+      Panel.Send(GraphLabel_4, "GraphLabel_4");
+      Panel.Send(GraphLabel_5, "$GREEN");
+      Panel.Send(GraphLabel_5, "GraphLabel_5");
+      Panel.Send(GraphDraw,Line(50,50,50,200)); // Output date to display 2
+      Panel.Send(GraphDraw,Line(50,200,200,200)); // Output date to display 2
+      Panel.Send(GraphDraw,Line(200,200,200,50)); // Output date to display 2
+      Panel.Send(GraphDraw,Line(200,50,50,50)); // Output date to display 2
+
       break; 
     }
 
@@ -35,23 +58,48 @@ void PanelCallback(int channel, int type)
       break;
     }
 
+    case GraphButton_1: yellow = !yellow; break;
+    case GraphButton_2: orange = !orange; break;
+    case GraphButton_3: red = !red; break;
+    case GraphButton_4: blue = !blue; break;
+
     case DynamicDisplay: // dynamic display request (requested every 500ms)
     {
       Panel.Sendf(Display_1,"%02d:%02d:%02d",hour(), minute(), second()); // Output time to display 1
       Panel.Sendf(Display_2,"%02d-%02d-%04d",day(), month(), year()); // Output date to display 2
+        if(blue) Panel.Send(GraphValue_5,(byte)random(0,51));
+  if(blue) Panel.Send(GraphValue_4,(byte)random(51,102));
+  if(red) Panel.Send(GraphValue_3,(byte)random(102,153));
+  if(orange)Panel.Send(GraphValue_2,(byte)random(153,204));
+  if(yellow) Panel.Send(GraphValue_1,(byte)random(204,255));
+
+      //Panel.Send(GraphValue_1, (byte)255);
+      
       break;
     }
 
     default:
     {
-       if (channel > 4 && channel < 22) 
-         Panel.Sendf(StatMonitor,"ChannelId %d Button_%d Pressed", channel, channel-4 );
-       if (channel > 21 && channel < 27)
-         Panel.Sendf(StatMonitor,"ChannelId %d ScrollBar_%d Value %d", channel, channel-21, Panel.vpr_int );
+       if (event > 4 && event < 22) 
+         Panel.Sendf(MonitorScrollBox,"ChannelId %d Button_%d Pressed", event, event-4 );
+       if (event > 21 && event < 27)
+         Panel.Sendf(MonitorScrollBox,"ChannelId %d ScrollBar_%d Value %d", event, event-21, Panel.vpr_int );
     }
   }
 }
 
+
+unsigned long Line( byte xs, byte ys, byte xe, byte ye)
+{
+  unsigned long linepoints;
+
+  linepoints = ye;
+  linepoints += (unsigned long)xe << 8 ;
+  linepoints += (unsigned long)ys << 16 ;
+  linepoints += (unsigned long)xs << 24 ;
+  
+  return(linepoints);
+}
 
 void SwitchPanel()
 {
@@ -89,13 +137,13 @@ void SwitchPanel()
 
 void AllButtonPanel()
 {
-  Panel.Send(StatMonitor, "AllButtonPanel");
-  Panel.Send(StatField_1, false);
-  Panel.Send(StatField_2, (byte)254 );
-  Panel.Send(StatField_3, (int)-32768 );
-  Panel.Send(StatField_4, (unsigned int)65535 );
-  Panel.Send(StatField_5, (long)-2147483648 );
-  Panel.Send(StatField_6, (unsigned long)4294967295 );
+  Panel.Send(MonitorScrollBox, "AllButtonPanel");
+  Panel.Send(MonitorField_1, false);
+  Panel.Send(MonitorField_2, (byte)254 );
+  Panel.Send(MonitorField_3, (int)-32768 );
+  Panel.Send(MonitorField_4, (unsigned int)65535 );
+  Panel.Send(MonitorField_5, (long)-2147483648 );
+  Panel.Send(MonitorField_6, (unsigned long)4294967295 );
   
   Panel.Send(Display_1, "display 1");
   Panel.Send(Display_2, "display 2");
@@ -126,31 +174,31 @@ void AllButtonPanel()
 
 
   Panel.Send(Led_1,  "$OFF");
-  Panel.Send(Led_2,  "$OFF");
+  Panel.Send(Led_2,  "$WHITE");
   Panel.Send(Led_3,  "$YELLOW");
-  Panel.Send(Led_4,  "$YELLOW");
-  Panel.Send(Led_5,  "$ORANGE");
-  Panel.Send(Led_6,  "$ORANGE");
-  Panel.Send(Led_7,  "$RED");
-  Panel.Send(Led_8,  "$RED");
-  Panel.Send(Led_9,  "$GREEN");
-  Panel.Send(Led_10,  "$YELLOW");
-  Panel.Send(Led_11,  "$YELLOW");
-  Panel.Send(Led_12,  "$GREEN");
-  Panel.Send(Led_13,  "$GREEN");
+  Panel.Send(Led_4,  "$ORANGE");
+  Panel.Send(Led_5,  "$RED");
+  Panel.Send(Led_6,  "$BLUE");
+  Panel.Send(Led_7,  "$GREEN");
+  Panel.Send(Led_8,  "$YELLOW");
+  Panel.Send(Led_9,  "$ORANGE");
+  Panel.Send(Led_10,  "$BLUE");
+  Panel.Send(Led_11,  "$GREEN");
+  Panel.Send(Led_12,  "$YELLOW");
+  Panel.Send(Led_13,  "$ORANGE");
 
 }
 
 
 void ScrollbarPanel()
 {
-  Panel.Send(StatMonitor, "ScrollBarPanel");
-  Panel.Send(StatField_1);
-  Panel.Send(StatField_2, (byte)0 );
-  Panel.Send(StatField_3, (int)32767 );
-  Panel.Send(StatField_4, (unsigned int)65535 );
-  Panel.Send(StatField_5, (long)2147483647 );
-  Panel.Send(StatField_6, (unsigned long)4294967295 );
+  Panel.Send(MonitorScrollBox, "MonitorScrollBox");
+  Panel.Send(MonitorField_1, "MonitorField_1");
+  Panel.Send(MonitorField_2, "MonitorField_2");
+  Panel.Send(MonitorField_3, "MonitorField_3");
+  Panel.Send(MonitorField_4, "MonitorField_4");
+  Panel.Send(MonitorField_5, "MonitorField_5");
+  Panel.Send(MonitorField_6, "MonitorField_6");
 
   Panel.Send(Display_1, "display 1");
   Panel.Send(Display_2, "display 2");
@@ -173,29 +221,30 @@ void ScrollbarPanel()
   Panel.Send(Button_6,  "button 6");
   Panel.Send(Button_7,  "button 7");
   Panel.Send(Button_8,  "button 8");
-
-  Panel.Send(Led_2,  "$YELLOW");
+ 
+  Panel.Send(Led_2,  "$WHITE");
   Panel.Send(Led_3,  "$YELLOW");
-  Panel.Send(Led_4,  "$YELLOW");
-  Panel.Send(Led_5,  "$ORANGE");
-  Panel.Send(Led_6,  "$ORANGE");
+  Panel.Send(Led_4,  "$ORANGE");
+  Panel.Send(Led_5,  "$RED");
+  Panel.Send(Led_6,  "$BLUE");
 
-  Panel.Send(Led_10,  "$YELLOW");
-  Panel.Send(Led_11,  "$YELLOW");
-  Panel.Send(Led_12,  "$GREEN");
-  Panel.Send(Led_13,  "$GREEN");
+  Panel.Send(Led_10,  "$BLUE");
+  Panel.Send(Led_11,  "$GREEN");
+  Panel.Send(Led_12,  "$YELLOW");
+  Panel.Send(Led_13,  "$ORANGE");
+
 }
 
 
 void ControlPanel()
 {
-  Panel.Send(StatMonitor, "ControlPanel");
-  Panel.Send(StatField_1, false);
-  Panel.Send(StatField_2, (byte)254 );
-  Panel.Send(StatField_3, (int)-32768 );
-  Panel.Send(StatField_4, (unsigned int)65535 );
-  Panel.Send(StatField_5, (long)-2147483648 );
-  Panel.Send(StatField_6, (unsigned long)4294967295 );
+  Panel.Send(MonitorScrollBox, "ControlPanel");
+  Panel.Send(MonitorField_1, false);
+  Panel.Send(MonitorField_2, (byte)254 );
+  Panel.Send(MonitorField_3, (int)-32768 );
+  Panel.Send(MonitorField_4, (unsigned int)65535 );
+  Panel.Send(MonitorField_5, (long)-2147483648 );
+  Panel.Send(MonitorField_6, (unsigned long)4294967295 );
 
   Panel.Send(Display_1, "display 1");
   Panel.Send(Display_2, "display 2");
