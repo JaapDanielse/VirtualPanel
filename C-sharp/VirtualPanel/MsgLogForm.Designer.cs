@@ -40,7 +40,7 @@
             // btn_reset
             // 
             this.btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_reset.Location = new System.Drawing.Point(12, 237);
+            this.btn_reset.Location = new System.Drawing.Point(12, 206);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(95, 23);
             this.btn_reset.TabIndex = 3;
@@ -51,9 +51,9 @@
             // LogFileButton
             // 
             this.LogFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogFileButton.Location = new System.Drawing.Point(421, 237);
+            this.LogFileButton.Location = new System.Drawing.Point(414, 205);
             this.LogFileButton.Name = "LogFileButton";
-            this.LogFileButton.Size = new System.Drawing.Size(70, 23);
+            this.LogFileButton.Size = new System.Drawing.Size(80, 24);
             this.LogFileButton.TabIndex = 4;
             this.LogFileButton.Text = "file";
             this.LogFileButton.UseVisualStyleBackColor = true;
@@ -62,9 +62,9 @@
             // LogClearButton
             // 
             this.LogClearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogClearButton.Location = new System.Drawing.Point(345, 237);
+            this.LogClearButton.Location = new System.Drawing.Point(330, 205);
             this.LogClearButton.Name = "LogClearButton";
-            this.LogClearButton.Size = new System.Drawing.Size(70, 23);
+            this.LogClearButton.Size = new System.Drawing.Size(80, 24);
             this.LogClearButton.TabIndex = 5;
             this.LogClearButton.Text = "clear";
             this.LogClearButton.UseVisualStyleBackColor = true;
@@ -73,9 +73,9 @@
             // LogHoldButton
             // 
             this.LogHoldButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogHoldButton.Location = new System.Drawing.Point(264, 237);
+            this.LogHoldButton.Location = new System.Drawing.Point(244, 205);
             this.LogHoldButton.Name = "LogHoldButton";
-            this.LogHoldButton.Size = new System.Drawing.Size(70, 23);
+            this.LogHoldButton.Size = new System.Drawing.Size(80, 24);
             this.LogHoldButton.TabIndex = 6;
             this.LogHoldButton.Text = "hold";
             this.LogHoldButton.UseVisualStyleBackColor = true;
@@ -96,7 +96,7 @@
             this.logmonitor.Name = "logmonitor";
             this.logmonitor.ReadOnly = true;
             this.logmonitor.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.logmonitor.Size = new System.Drawing.Size(479, 215);
+            this.logmonitor.Size = new System.Drawing.Size(479, 180);
             this.logmonitor.TabIndex = 8;
             this.logmonitor.Text = "";
             // 
@@ -105,7 +105,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.ClientSize = new System.Drawing.Size(503, 268);
+            this.ClientSize = new System.Drawing.Size(503, 241);
             this.Controls.Add(this.logmonitor);
             this.Controls.Add(this.LogHoldButton);
             this.Controls.Add(this.LogClearButton);

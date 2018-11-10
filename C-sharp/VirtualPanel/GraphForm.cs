@@ -33,6 +33,7 @@ namespace VirtualPanel
         List<int> GraphValues_5 = new List<int>();
 
         int DrawPenSize = 1;
+        Color DrawTextColor = Color.White;
         Color DrawColor = Color.White;
         Color PlotColor_1 = Color.Yellow;
         Color PlotColor_2 = Color.Orange;
@@ -61,8 +62,7 @@ namespace VirtualPanel
             pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.GraphLabel_3, graphLabel3));
             pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.GraphLabel_4, graphLabel4));
             pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.GraphLabel_5, graphLabel5));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.GraphCaption_1, graphCaption1));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.GraphCaption_2, graphCaption2));
+
 
 
             arduinoport.MessageReceived += Arduinoport_MessageReceived;
@@ -90,8 +90,6 @@ namespace VirtualPanel
             graphLabel3.Text = "";
             graphLabel4.Text = "";
             graphLabel5.Text = "";
-            graphCaption1.Text = "";
-            graphCaption2.Text = "";
         }
 
 
@@ -119,22 +117,25 @@ namespace VirtualPanel
             if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_byte) GraphValueAdd((int)mse.Data, GraphValues_3);
             if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_4 && mse.Type == vp_type.vp_byte) GraphValueAdd((int)mse.Data, GraphValues_4);
             if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_5 && mse.Type == vp_type.vp_byte) GraphValueAdd((int)mse.Data, GraphValues_5);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_1 && mse.Type == vp_type.vp_string) { graphCaption1.Text = (string)mse.Data; }
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_2 && mse.Type == vp_type.vp_string) { graphCaption2.Text = (string)mse.Data; }
             if (!Hold) GraphPictureBox1.Invalidate();
         }
 
         private void Drawtext(string data)
         {
-            Graphics g = GraphPictureBox1.CreatePersistentGraphics();
-            g.DrawString(data, new Font("Verdana", 8), new SolidBrush(Color.White), DrawtextPoint);
-            GraphPictureBox1.Invalidate();
-            g.Dispose();
+            Color col = VirtualPanelForm.String2Color(data);
+            if (!col.IsEmpty)
+                DrawTextColor = col; //
+            else
+            {
+                Graphics g = GraphPictureBox1.CreatePersistentGraphics();
+                g.DrawString(data, new Font("Verdana", 8), new SolidBrush(DrawTextColor), DrawtextPoint);
+                GraphPictureBox1.Invalidate();
+                g.Dispose();
+            }
         }
 
         private void DrawTextPos(int data)
         {
-
             string hexdata = "";
             int x = 0;
             int y = 0;
@@ -172,18 +173,11 @@ namespace VirtualPanel
         }
 
 
-
         private void SetDrawPen(string PenColor)
         {
-            if ((string)PenColor == "$YELLOW") DrawColor = Color.Yellow;
-            if ((string)PenColor == "$ORANGE") DrawColor = Color.Orange;
-            if ((string)PenColor == "$RED") DrawColor = Color.Red;
-            if ((string)PenColor == "$BLUE") DrawColor = Color.DodgerBlue;
-            if ((string)PenColor == "$GREEN") DrawColor = Color.Lime;
-            if ((string)PenColor == "$BLACK") DrawColor = Color.Black;
-            if ((string)PenColor == "$WHITE") DrawColor = Color.White;
-            if ((string)PenColor == "$BLACK") DrawColor = Color.Black;
-         }
+            Color col = VirtualPanelForm.String2Color(PenColor);
+            if (!col.IsEmpty) DrawColor = col; //
+        }
 
         private void SetLabelAppearance(Label control, MessageEventArgs mse)
         {
@@ -203,14 +197,9 @@ namespace VirtualPanel
             }
             else if (mse.Type == vp_type.vp_string)
             {
-                if      ((string)mse.Data == "$YELLOW") { p.BackColor = Color.Yellow; p.Visible = true; }
-                else if ((string)mse.Data == "$ORANGE") { p.BackColor = Color.Orange; p.Visible = true; }
-                else if ((string)mse.Data == "$RED")    { p.BackColor = Color.Red; p.Visible = true; }
-                else if ((string)mse.Data == "$BLUE")   { p.BackColor = Color.DodgerBlue; p.Visible = true; }
-                else if ((string)mse.Data == "$GREEN")  { p.BackColor = Color.Lime; p.Visible = true; }
-                else if ((string)mse.Data == "$BLACK")  { p.BackColor = Color.Black; p.Visible = true; }
-                else if ((string)mse.Data == "$WHITE")  { p.BackColor = Color.White; p.Visible = true; }
-                else if ((string)mse.Data == "$OFF")    { p.Visible = false; }
+                Color col = VirtualPanelForm.String2Color((string)mse.Data);
+                if (!col.IsEmpty) { p.BackColor = col; p.Visible = true; }
+                else if ((string)mse.Data == "$OFF") { p.Visible = false; }
                 else control.Text = (string)mse.Data;
             }
             else
@@ -279,10 +268,7 @@ namespace VirtualPanel
             Pen mypen = new Pen(PenColor, 1);
             if (drawing.Count > 1)
                 g.DrawLines(mypen, drawing.ToArray());
-
         }
-
-
 
         private long Map(long x, long in_min, long in_max, long out_min, long out_max)
         {
@@ -293,15 +279,16 @@ namespace VirtualPanel
         {
             Hold = !Hold;
             if (Hold) GraphHoldButton.Text = "resume"; else GraphHoldButton.Text = "hold";
-
         }
 
         private void GraphImageDialogButton_Click(object sender, EventArgs e)
         {
-            Bitmap png = new Bitmap(GraphPictureBox1.Width, GraphPictureBox1.Height);
-            GraphPictureBox1.DrawToBitmap(png, GraphPictureBox1.ClientRectangle);
-            png.Save("test.png");
-            //bmp.Save("test.bmp", ImageFormat.Bmp);
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap png = new Bitmap(GraphPictureBox1.Width, GraphPictureBox1.Height);
+                GraphPictureBox1.DrawToBitmap(png, GraphPictureBox1.ClientRectangle);
+                png.Save(saveFileDialog1.FileName);
+            }
         }
 
 

@@ -45,8 +45,7 @@
             this.PenColor4 = new System.Windows.Forms.PictureBox();
             this.PenColor5 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.graphCaption1 = new System.Windows.Forms.Label();
-            this.graphCaption2 = new System.Windows.Forms.Label();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.GraphPictureBox1 = new VirtualPanel.PersistentPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.PenColor1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PenColor2)).BeginInit();
@@ -78,7 +77,7 @@
             // 
             // graphButton3
             // 
-            this.graphButton3.Location = new System.Drawing.Point(11, 119);
+            this.graphButton3.Location = new System.Drawing.Point(12, 119);
             this.graphButton3.Name = "graphButton3";
             this.graphButton3.Size = new System.Drawing.Size(48, 48);
             this.graphButton3.TabIndex = 3;
@@ -88,7 +87,7 @@
             // 
             // graphButton4
             // 
-            this.graphButton4.Location = new System.Drawing.Point(11, 173);
+            this.graphButton4.Location = new System.Drawing.Point(12, 173);
             this.graphButton4.Name = "graphButton4";
             this.graphButton4.Size = new System.Drawing.Size(48, 48);
             this.graphButton4.TabIndex = 4;
@@ -99,7 +98,7 @@
             // graphLabel1
             // 
             this.graphLabel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.graphLabel1.Location = new System.Drawing.Point(343, 14);
+            this.graphLabel1.Location = new System.Drawing.Point(343, 11);
             this.graphLabel1.Name = "graphLabel1";
             this.graphLabel1.Size = new System.Drawing.Size(147, 24);
             this.graphLabel1.TabIndex = 9;
@@ -109,7 +108,7 @@
             // graphLabel4
             // 
             this.graphLabel4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.graphLabel4.Location = new System.Drawing.Point(343, 119);
+            this.graphLabel4.Location = new System.Drawing.Point(343, 120);
             this.graphLabel4.Name = "graphLabel4";
             this.graphLabel4.Size = new System.Drawing.Size(147, 24);
             this.graphLabel4.TabIndex = 7;
@@ -119,7 +118,7 @@
             // graphLabel2
             // 
             this.graphLabel2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.graphLabel2.Location = new System.Drawing.Point(343, 50);
+            this.graphLabel2.Location = new System.Drawing.Point(343, 48);
             this.graphLabel2.Name = "graphLabel2";
             this.graphLabel2.Size = new System.Drawing.Size(147, 24);
             this.graphLabel2.TabIndex = 12;
@@ -129,7 +128,7 @@
             // graphLabel5
             // 
             this.graphLabel5.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.graphLabel5.Location = new System.Drawing.Point(343, 155);
+            this.graphLabel5.Location = new System.Drawing.Point(343, 157);
             this.graphLabel5.Name = "graphLabel5";
             this.graphLabel5.Size = new System.Drawing.Size(147, 24);
             this.graphLabel5.TabIndex = 13;
@@ -159,7 +158,7 @@
             // graphLabel3
             // 
             this.graphLabel3.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.graphLabel3.Location = new System.Drawing.Point(343, 85);
+            this.graphLabel3.Location = new System.Drawing.Point(343, 84);
             this.graphLabel3.Name = "graphLabel3";
             this.graphLabel3.Size = new System.Drawing.Size(147, 24);
             this.graphLabel3.TabIndex = 16;
@@ -169,7 +168,7 @@
             // PenColor1
             // 
             this.PenColor1.BackColor = System.Drawing.Color.Black;
-            this.PenColor1.Location = new System.Drawing.Point(340, 14);
+            this.PenColor1.Location = new System.Drawing.Point(340, 11);
             this.PenColor1.Name = "PenColor1";
             this.PenColor1.Size = new System.Drawing.Size(3, 24);
             this.PenColor1.TabIndex = 19;
@@ -196,7 +195,7 @@
             // PenColor4
             // 
             this.PenColor4.BackColor = System.Drawing.Color.Black;
-            this.PenColor4.Location = new System.Drawing.Point(340, 119);
+            this.PenColor4.Location = new System.Drawing.Point(340, 120);
             this.PenColor4.Name = "PenColor4";
             this.PenColor4.Size = new System.Drawing.Size(3, 24);
             this.PenColor4.TabIndex = 22;
@@ -205,7 +204,7 @@
             // PenColor5
             // 
             this.PenColor5.BackColor = System.Drawing.Color.Black;
-            this.PenColor5.Location = new System.Drawing.Point(340, 155);
+            this.PenColor5.Location = new System.Drawing.Point(340, 157);
             this.PenColor5.Name = "PenColor5";
             this.PenColor5.Size = new System.Drawing.Size(3, 24);
             this.PenColor5.TabIndex = 23;
@@ -219,27 +218,13 @@
             this.panel1.Size = new System.Drawing.Size(505, 24);
             this.panel1.TabIndex = 24;
             // 
-            // graphCaption1
+            // saveFileDialog1
             // 
-            this.graphCaption1.AutoSize = true;
-            this.graphCaption1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.graphCaption1.ForeColor = System.Drawing.Color.White;
-            this.graphCaption1.Location = new System.Drawing.Point(68, 12);
-            this.graphCaption1.Name = "graphCaption1";
-            this.graphCaption1.Size = new System.Drawing.Size(48, 13);
-            this.graphCaption1.TabIndex = 17;
-            this.graphCaption1.Text = "caption1";
-            // 
-            // graphCaption2
-            // 
-            this.graphCaption2.AutoSize = true;
-            this.graphCaption2.BackColor = System.Drawing.Color.Black;
-            this.graphCaption2.ForeColor = System.Drawing.Color.White;
-            this.graphCaption2.Location = new System.Drawing.Point(68, 203);
-            this.graphCaption2.Name = "graphCaption2";
-            this.graphCaption2.Size = new System.Drawing.Size(48, 13);
-            this.graphCaption2.TabIndex = 18;
-            this.graphCaption2.Text = "caption2";
+            this.saveFileDialog1.DefaultExt = "png";
+            this.saveFileDialog1.FileName = "PanelOneGraphImage";
+            this.saveFileDialog1.Filter = "\"Image files (*.png)|*.png|All files|*.*\"";
+            this.saveFileDialog1.RestoreDirectory = true;
+            this.saveFileDialog1.Title = "Save graph image file";
             // 
             // GraphPictureBox1
             // 
@@ -257,14 +242,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(503, 236);
+            this.ClientSize = new System.Drawing.Size(503, 241);
             this.Controls.Add(this.PenColor5);
             this.Controls.Add(this.PenColor4);
             this.Controls.Add(this.PenColor3);
             this.Controls.Add(this.PenColor2);
             this.Controls.Add(this.PenColor1);
-            this.Controls.Add(this.graphCaption2);
-            this.Controls.Add(this.graphCaption1);
             this.Controls.Add(this.graphLabel3);
             this.Controls.Add(this.GraphImageDialogButton);
             this.Controls.Add(this.GraphHoldButton);
@@ -291,7 +274,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.PenColor5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GraphPictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -313,8 +295,7 @@
         private System.Windows.Forms.PictureBox PenColor4;
         private System.Windows.Forms.PictureBox PenColor5;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label graphCaption1;
-        private System.Windows.Forms.Label graphCaption2;
         private PersistentPictureBox GraphPictureBox1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

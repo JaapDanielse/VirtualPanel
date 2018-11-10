@@ -268,6 +268,7 @@ namespace VirtualPanel
             if (ColorString == "$BLACK") convertedColor = Color.Black;
             if (ColorString == "$WHITE") convertedColor = Color.White;
             if (ColorString == "$BLACK") convertedColor = Color.Black;
+            if (ColorString == "$OFF") convertedColor = Color.Black;
 
             return convertedColor;
         }
@@ -375,15 +376,13 @@ namespace VirtualPanel
 
             if (mse.Type == vp_type.vp_string)
             {
+                Color col = String2Color((string)mse.Data);
+
+                if (!col.IsEmpty)
+                {
+                    led.BackColor = col; //
+                }
                 led.Visible = true;
-                if ((string)mse.Data == "$OFF") led.BackColor = Color.Black;
-                if ((string)mse.Data == "$BLACK") led.BackColor = Color.Black;
-                if ((string)mse.Data == "$RED") led.BackColor = Color.Red;
-                if ((string)mse.Data == "$GREEN") led.BackColor = Color.Lime;
-                if ((string)mse.Data == "$BLUE") led.BackColor = Color.DodgerBlue;
-                if ((string)mse.Data == "$YELLOW") led.BackColor = Color.Yellow;
-                if ((string)mse.Data == "$ORANGE") led.BackColor = Color.Orange;
-                if ((string)mse.Data == "$WHITE") led.BackColor = Color.White;
             }
         }
 
@@ -398,7 +397,13 @@ namespace VirtualPanel
             }
             else if (mse.Type == vp_type.vp_string)
             {
-                if ((string)mse.Data == "$BOLD")
+                Color col = String2Color((string)mse.Data);
+
+                if (!col.IsEmpty)
+                {
+                    display.ForeColor = col; //
+                }
+                else if ((string)mse.Data == "$BOLD")
                 {
                     display.Font = new Font(display.Font, FontStyle.Bold);
                 }
@@ -410,34 +415,6 @@ namespace VirtualPanel
                 else if ((string)mse.Data == "$BIG")
                 {
                     display.Font = new Font("Microsoft Sans Serif", 18);
-                }
-                else if ((string)mse.Data == "$BLACK")
-                {
-                    display.ForeColor = Color.Black;
-                }
-                else if ((string)mse.Data == "$RED")
-                {
-                    display.ForeColor = Color.Red;
-                }
-                else if ((string)mse.Data == "$GREEN")
-                {
-                    display.ForeColor = Color.Lime;
-                }
-                else if ((string)mse.Data == "$YELLOW")
-                {
-                    display.ForeColor = Color.Yellow;
-                }
-                else if ((string)mse.Data == "$ORANGE")
-                {
-                    display.ForeColor = Color.Orange;
-                }
-                else if ((string)mse.Data == "$BLUE")
-                {
-                    display.ForeColor = Color.DodgerBlue;
-                }
-                else if ((string)mse.Data == "$WHITE")
-                {
-                    display.ForeColor = Color.White;
                 }
                 else
                     display.Text = (string)mse.Data;
@@ -606,7 +583,6 @@ namespace VirtualPanel
                 graph.Location = new Point(Location.X, Location.Y + Height);
                 graph.Visible = true;
             }
-
         }
 
 

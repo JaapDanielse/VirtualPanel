@@ -47,15 +47,15 @@ void PanelCallback(int event, int type)
 
 void Swipe(int Angle, int Distance)
 {
-   #define MinDist 5 //
+   #define MinDist 10//
    #define OldSize 10//
 
+   static int OldAngle=0;
    static int OldIdx=0;
    static byte xsOld[OldSize];
    static byte ysOld[OldSize];
    static byte xeOld[OldSize];
    static byte yeOld[OldSize];
-  
 
    OldIdx++; 
    if (OldIdx == OldSize) OldIdx = 0;
@@ -82,13 +82,15 @@ void Swipe(int Angle, int Distance)
    byte xe = 5 + (Distance * cos(RadAngle) + 120);
    byte ye = 210-(Distance * sin(RadAngle) + 20) ;
 
+   OldAngle = Angle;
+   
    Panel.Send(GraphDraw,"$YELLOW");
    Panel.Send(GraphDraw,Line(xs,ys,xe,ye));
    xsOld[OldIdx] = xs;
    ysOld[OldIdx] = ys;
    xeOld[OldIdx] = xe;
    yeOld[OldIdx] = ye;
-   
+
    Panel.Sendf(GraphLabel_1, "Angle %d", Angle);
    
 }
