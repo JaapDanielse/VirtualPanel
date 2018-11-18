@@ -41,7 +41,7 @@ namespace VirtualPanel
         {
             if (!onHold)
             {
-                if (lines >= 1000)
+                if (lines >= 2000)
                 {
                     logmonitor.Clear();
                     lines = 0;
@@ -51,6 +51,12 @@ namespace VirtualPanel
                 logmonitor.ScrollToCaret();
                 lines++;
             }
+        }
+
+        public void LogFormClear()
+        {
+            logmonitor.Clear();
+            lines = 0;
         }
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)

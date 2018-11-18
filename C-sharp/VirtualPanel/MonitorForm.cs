@@ -31,7 +31,7 @@ namespace VirtualPanel
                 if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_4) label4.Text = mse.Data.ToString();
                 if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_5) label5.Text = mse.Data.ToString();
                 if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_6) label6.Text = mse.Data.ToString();
-                if ((ChannelId)mse.ChannelID == ChannelId.MonitorTextBox)
+                if ((ChannelId)mse.ChannelID == ChannelId.MonitorScrollBox)
                 {
                     if (monitor) WriteMonitor(mse.Data.ToString());
                 }
@@ -47,6 +47,18 @@ namespace VirtualPanel
 
             textBox1.AppendText(inputline + "\n");
             lines++;
+        }
+
+        public void MonitorClear()
+        {
+            textBox1.Text = "";
+            lines = 0;
+            label1.Text = "";
+            label2.Text = "";
+            label3.Text = "";
+            label4.Text = "";
+            label5.Text = "";
+            label6.Text = "";
         }
 
 

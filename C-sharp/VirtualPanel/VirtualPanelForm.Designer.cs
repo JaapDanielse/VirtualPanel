@@ -84,6 +84,7 @@
             this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.messageLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.resetArduinoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.connected_box)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -608,7 +609,8 @@
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.monitorToolStripMenuItem,
             this.graphToolStripMenuItem,
-            this.messageLogToolStripMenuItem});
+            this.messageLogToolStripMenuItem,
+            this.resetArduinoToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(29, 32);
             this.toolStripMenuItem1.Text = "▼";
@@ -645,6 +647,13 @@
             this.pictureBox2.Click += new System.EventHandler(this.connected_box_Click);
             this.pictureBox2.MouseLeave += new System.EventHandler(this.mouseLeave);
             this.pictureBox2.MouseHover += new System.EventHandler(this.mouseHover);
+            // 
+            // resetArduinoToolStripMenuItem
+            // 
+            this.resetArduinoToolStripMenuItem.Name = "resetArduinoToolStripMenuItem";
+            this.resetArduinoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.resetArduinoToolStripMenuItem.Text = "Reset Arduino";
+            this.resetArduinoToolStripMenuItem.Click += new System.EventHandler(this.resetArduinoToolStripMenuItem_Click);
             // 
             // VirtualPanelForm
             // 
@@ -778,6 +787,7 @@
         private System.Windows.Forms.ToolStripMenuItem graphToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem messageLogToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.ToolStripMenuItem resetArduinoToolStripMenuItem;
     }
 }
 

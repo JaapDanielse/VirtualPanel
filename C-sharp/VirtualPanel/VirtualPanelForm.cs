@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Windows.Forms;
 
 namespace VirtualPanel
@@ -12,9 +13,12 @@ namespace VirtualPanel
         //
         ApplicationName, // ApplicationName
         PanelConnected,  // PannelConnected
+        Reset,           // Reset
         StaticDisplay,   // StaticDisplay
         DynamicDisplay,  // DynamicDisplay
         UnixTime,        // UnixTime
+        PanelColor,      // Panel
+        Pling,           // Pling
         //
         Button_1,  // Button_1
         Button_2,  // Button_2
@@ -63,21 +67,22 @@ namespace VirtualPanel
         Display_3, // Display 3
         Display_4, // Display 4
         //
-        MonitorField_1, // StatField 1
-        MonitorField_2, // StatField 2
-        MonitorField_3, // StatField 3
-        MonitorField_4, // StatField 4
-        MonitorField_5, // StatField 5
-        MonitorField_6, // StatField 6
+        Monitor,        // Monitor
+        MonitorField_1, // MonitorField_1
+        MonitorField_2, // MonitorField_2
+        MonitorField_3, // MonitorField_3
+        MonitorField_4, // MonitorField_4
+        MonitorField_5, // MonitorField_5
+        MonitorField_6, // MonitorField_6
         //
-        MonitorTextBox,  // StatMonitor
+        MonitorScrollBox,  // StatMonitor
         //
         Graph, // false/true, byte (1(draw), 2(stat), 3(run)
-        GraphDrawLine, // ULong 4x byte (Fx,Fy,Tx,Ty)
+        GraphGrid, // byte number of segments
         GraphSampleCount, // byte 
-        GraphGrid, // 
         GraphPen, // $FINE, $THICK, $RED, $GREEN, $YELLOW, $ORANGE, $WHITE, $BLUE 
-        GraphDraw, //
+        GraphDrawLine, // ULong 4x byte (Fx,Fy,Tx,Ty) UInt 2 x byte (X,Y)
+        GraphDrawPixel, // UInt 2 x byte (X,Y)
         GraphText, //
         //
         GraphValue_1, // byte 
@@ -173,18 +178,45 @@ namespace VirtualPanel
             graph.Show();
             graph.Visible = false;
 
+            Panel_Reset();
+            panel1.Visible = false;
+
+            port.Connected += Port_Connected;
+            port.Disconnected += Port_Disconnected;
+            port.MessageReceived += Port_MessageReceived;
+            port.Open();
+            connected_box.BackColor = Color.DarkGreen;
+        }
+
+        private void Panel_Reset()
+        {
+            stats.Visible = false;
+            settings.Visible = false;
+            graph.Visible = false;
 
             foreach (var t in pannelControlList)
             {
                 t.Item2.Visible = false;
+                t.Item2.ForeColor = Color.Black;
             }
 
             panel1.Visible = false;
+
+            settings.LogFormClear();
+            stats.MonitorClear();
+            graph.GraphPanelClear();
 
             scrolllabel1.Visible = false;
             scrolllabel2.Visible = false;
             scrolllabel3.Visible = false;
             scrolllabel4.Visible = false;
+
+            display1.ForeColor = Color.White;
+            display2.ForeColor = Color.White;
+            display3.ForeColor = Color.White;
+            display4.ForeColor = Color.White;
+
+            ApplicationTitle.ForeColor = Color.White;
 
             display1.Text = "";
             display2.Text = "";
@@ -195,14 +227,10 @@ namespace VirtualPanel
             display4.BringToFront();
 
             button3.Select();
+            StaticDisplay = false;
+            timer1.Enabled = false;
+            panel1.Visible = true;
 
-            port.Connected += Port_Connected;
-            port.Disconnected += Port_Disconnected;
-            port.MessageReceived += Port_MessageReceived;
-            port.Open();
-            connected_box.BackColor = Color.DarkGreen;
-
-            Debug.WriteLine(" button 17 hex > " + string.Format("{0:X2}", (byte)ChannelId.PanelConnected) + "0");
         }
 
         private void Port_Disconnected(object sender, ConnectedEventArgs e)
@@ -216,7 +244,7 @@ namespace VirtualPanel
         {
             connection_label.Text = args.Portname;
             connected_box.BackColor = Color.Lime;
-            panel1.Visible = true;
+            Panel_Reset();
             if (port.IsConnected) port.Send((byte)ChannelId.PanelConnected);
             if (port.IsConnected) port.Send((byte)ChannelId.StaticDisplay);
 
@@ -241,6 +269,18 @@ namespace VirtualPanel
                     if ((int)mse.Data >= 100 && (int)mse.Data <= 1000) timer1.Interval = (int)mse.Data;
                     timer1.Enabled = true;
                 }
+                if (id == ChannelId.Pling) SystemSounds.Asterisk.Play();
+                if (id == ChannelId.Monitor && mse.Type == vp_type.vp_boolean)
+                {
+                    stats.Location = new Point(Location.X, Location.Y + Height);
+                    stats.Visible = (bool)mse.Data;
+                }
+                if (id == ChannelId.Graph && mse.Type == vp_type.vp_boolean)
+                {
+                    graph.Location = new Point(Location.X, Location.Y + Height);
+                    graph.Visible = (bool)mse.Data;
+                }
+
                 if (id == ChannelId.MaxScrollBar_1 && mse.Type == vp_type.vp_int) ScrollBar1.Maximum = (int)mse.Data + 9;
                 if (id == ChannelId.MaxScrollBar_2 && mse.Type == vp_type.vp_int) ScrollBar2.Maximum = (int)mse.Data + 9;
                 if (id == ChannelId.MaxScrollBar_3 && mse.Type == vp_type.vp_int) ScrollBar3.Maximum = (int)mse.Data + 9;
@@ -306,7 +346,7 @@ namespace VirtualPanel
                 }
                 else if ((string)mse.Data == "$DOT")
                 {
-                    button.Font = new Font("Wingdings", 10);
+                    button.Font = new Font("Wingdings", 11);
                     button.Text = "";
                 }
                 else if ((string)mse.Data == "$DOWN")
@@ -595,6 +635,11 @@ namespace VirtualPanel
         private void mouseLeave(object sender, EventArgs e)
         {
             pictureBox2.BackColor = Color.CornflowerBlue;
+        }
+
+        private void resetArduinoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            port.Reset();
         }
     }
 }

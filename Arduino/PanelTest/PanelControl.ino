@@ -1,7 +1,8 @@
 //
 
 #define NextButton Button_4 //
-
+boolean Graphmode = false;
+boolean Monmode = false;
 
 void PanelCallback(int event, int type) 
 { 
@@ -38,10 +39,10 @@ void PanelCallback(int event, int type)
       Panel.Send(GraphLabel_4, "GraphLabel_4");
       Panel.Send(GraphLabel_5, "$GREEN");
       Panel.Send(GraphLabel_5, "GraphLabel_5");
-      Panel.Send(GraphDraw,Line(50,50,50,200)); // Output date to display 2
-      Panel.Send(GraphDraw,Line(50,200,200,200)); // Output date to display 2
-      Panel.Send(GraphDraw,Line(200,200,200,50)); // Output date to display 2
-      Panel.Send(GraphDraw,Line(200,50,50,50)); // Output date to display 2
+      //Panel.Send(GraphDraw,Line(50,50,50,200)); // Output date to display 2
+      //Panel.Send(GraphDraw,Line(50,200,200,200)); // Output date to display 2
+      //Panel.Send(GraphDraw,Line(200,200,200,50)); // Output date to display 2
+      //Panel.Send(GraphDraw,Line(200,50,50,50)); // Output date to display 2
 
       break; 
     }
@@ -55,8 +56,25 @@ void PanelCallback(int event, int type)
     case NextButton:
     {
       SwitchPanel();
+      Panel.Send(Pling);
       break;
     }
+
+    case Button_5:
+    {
+      Graphmode = !Graphmode;
+      Panel.Send(Graph,Graphmode);
+      break;
+    }
+
+    case Button_6:
+    {
+      Monmode = !Monmode;
+      Panel.Send(Monitor,Monmode);
+      break;
+    }
+
+    
 
     case GraphButton_1: yellow = !yellow; break;
     case GraphButton_2: orange = !orange; break;
@@ -67,11 +85,11 @@ void PanelCallback(int event, int type)
     {
       Panel.Sendf(Display_1,"%02d:%02d:%02d",hour(), minute(), second()); // Output time to display 1
       Panel.Sendf(Display_2,"%02d-%02d-%04d",day(), month(), year()); // Output date to display 2
-        if(blue) Panel.Send(GraphValue_5,(byte)random(0,51));
-  if(blue) Panel.Send(GraphValue_4,(byte)random(51,102));
-  if(red) Panel.Send(GraphValue_3,(byte)random(102,153));
-  if(orange)Panel.Send(GraphValue_2,(byte)random(153,204));
-  if(yellow) Panel.Send(GraphValue_1,(byte)random(204,255));
+      if(blue)  Panel.Send(GraphValue_5,(byte)random(0,51));   //green
+      if(blue)  Panel.Send(GraphValue_4,(byte)random(51,102));
+      if(red)   Panel.Send(GraphValue_3,(byte)random(102,153));
+      if(orange)Panel.Send(GraphValue_2,(byte)random(153,204));
+      if(yellow)Panel.Send(GraphValue_1,(byte)random(204,255)); 
 
       //Panel.Send(GraphValue_1, (byte)255);
       
@@ -80,10 +98,10 @@ void PanelCallback(int event, int type)
 
     default:
     {
-       if (event > 4 && event < 22) 
-         Panel.Sendf(MonitorScrollBox,"ChannelId %d Button_%d Pressed", event, event-4 );
-       if (event > 21 && event < 27)
-         Panel.Sendf(MonitorScrollBox,"ChannelId %d ScrollBar_%d Value %d", event, event-21, Panel.vpr_int );
+       if (event >= 8 && event <= 24) 
+         Panel.Sendf(MonitorScrollBox,"ChannelId %d Button_%d Pressed", event, event-7 );
+       if (event >= 25 && event <= 28)
+         Panel.Sendf(MonitorScrollBox,"ChannelId %d ScrollBar_%d Value %d", event, event-24, Panel.vpr_int );
     }
   }
 }

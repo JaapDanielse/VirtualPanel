@@ -16,7 +16,7 @@ namespace VirtualPanel
 
         int GridCount = 0;
         int SampleCount = 50;
-        int GraphType = 1;
+        int GraphType = 0;
         int GraphWidth = 0;
         int GraphHeight = 0;
 
@@ -33,6 +33,10 @@ namespace VirtualPanel
         List<int> GraphValues_5 = new List<int>();
 
         int DrawPenSize = 1;
+
+        string GraphCaption1Text = "";
+        string GraphCaption2Text = "";
+
         Color DrawTextColor = Color.White;
         Color DrawColor = Color.White;
         Color PlotColor_1 = Color.Yellow;
@@ -42,6 +46,8 @@ namespace VirtualPanel
         Color PlotColor_5 = Color.Lime;
 
         Point DrawtextPoint = new Point(0, 0);
+        Point LinePoint = new Point(0, 0);
+        bool LinePointValid = false;
 
         private ArduinoPort arduinoport;
 
@@ -63,8 +69,6 @@ namespace VirtualPanel
             pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.GraphLabel_4, graphLabel4));
             pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.GraphLabel_5, graphLabel5));
 
-
-
             arduinoport.MessageReceived += Arduinoport_MessageReceived;
             //GraphPanelClear();
 
@@ -79,7 +83,7 @@ namespace VirtualPanel
             PenColor5.Visible = false;
         }
 
-        private void GraphPanelClear()
+        public void GraphPanelClear()
         {
             graphButton1.Text = "";
             graphButton2.Text = "";
@@ -90,6 +94,27 @@ namespace VirtualPanel
             graphLabel3.Text = "";
             graphLabel4.Text = "";
             graphLabel5.Text = "";
+            GraphCaption1Text = "";
+            GraphCaption2Text = "";
+            DrawPenSize = 1;
+            DrawTextColor = Color.White;
+            DrawColor = Color.White;
+            PlotColor_1 = Color.Yellow;
+            PlotColor_2 = Color.Orange;
+            PlotColor_3 = Color.Red;
+            PlotColor_4 = Color.DodgerBlue;
+            PlotColor_5 = Color.Lime;
+            GraphValues_1.Clear();
+            GraphValues_2.Clear();
+            GraphValues_3.Clear();
+            GraphValues_4.Clear();
+            GraphValues_5.Clear();
+            GridCount = 0;
+            SampleCount = 50;
+            GraphType = 0;
+            GridSize = 0;
+            Hold = false;
+
         }
 
 
@@ -105,13 +130,17 @@ namespace VirtualPanel
                 if (control.Item2 is Label) SetLabelAppearance((Label)control.Item2, mse);
             }
 
-
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphDraw && mse.Type == vp_type.vp_ulong) DrawPersitentLine((Int64)mse.Data);
+            if ((ChannelId)mse.ChannelID == ChannelId.GraphPen && mse.Type == vp_type.vp_string) SetDrawPen((string)mse.Data);
+            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_ulong) DrawPersitentLine((Int64)mse.Data);
+            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_uint) DrawLinePoint((Int32)mse.Data);
+            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_void) LinePointValid = false;
+            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawPixel && mse.Type == vp_type.vp_uint) DrawPixel((Int32)mse.Data);
             if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_uint) DrawTextPos((Int32)mse.Data);
             if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_string) Drawtext((string)mse.Data);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphDraw && mse.Type == vp_type.vp_string) SetDrawPen((string)mse.Data);
 
             if ((ChannelId)mse.ChannelID == ChannelId.GraphGrid && mse.Type == vp_type.vp_int) GridCount = (int)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_1 && mse.Type == vp_type.vp_string) GraphCaption1Text = (string)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_2 && mse.Type == vp_type.vp_string) GraphCaption2Text = (string)mse.Data;
             if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_1 && mse.Type == vp_type.vp_byte) GraphValueAdd((int)mse.Data, GraphValues_1);
             if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_2 && mse.Type == vp_type.vp_byte) GraphValueAdd((int)mse.Data, GraphValues_2);
             if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_byte) GraphValueAdd((int)mse.Data, GraphValues_3);
@@ -142,6 +171,8 @@ namespace VirtualPanel
             hexdata = Convert.ToUInt16(data).ToString("X4");
             x = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(0, 2), 16)));
             y = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(2, 2), 16)));
+            y = GraphPictureBox1.Height - y;
+
             DrawtextPoint = new Point(x, y);
         }
 
@@ -158,25 +189,76 @@ namespace VirtualPanel
             ys = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(2, 2), 16)));
             xe = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(4, 2), 16)));
             ye = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(6, 2), 16)));
+            ys = GraphPictureBox1.Height - ys;
+            ye = GraphPictureBox1.Height - ye;
+
             Graphics g = GraphPictureBox1.CreatePersistentGraphics();
             g.DrawLine(new Pen(DrawColor, DrawPenSize), xs, ys, xe, ye);
             GraphPictureBox1.Invalidate();
             g.Dispose();
+
+            LinePoint = new Point(xe, ye);
+            LinePointValid = true;
         }
 
-        private void DrawPersitentPixel(Point p1)
+        private void DrawLinePoint(int data)
         {
+            Point DrawPoint;
+
+            string hexdata = "";
+            int x = 0;
+            int y = 0;
+
+            hexdata = Convert.ToUInt16(data).ToString("X4");
+            x = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(0, 2), 16)));
+            y = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(2, 2), 16)));
+            y = GraphPictureBox1.Height - y;
+
+            DrawPoint = new Point(x, y);
+
+            if (LinePointValid)
+            {
+                Graphics g = GraphPictureBox1.CreatePersistentGraphics();
+                g.DrawLine(new Pen(DrawColor, DrawPenSize), LinePoint, DrawPoint);
+                LinePoint = DrawPoint;
+                g.Dispose();
+            }
+            else
+            {
+                LinePoint = new Point(x, y);
+                LinePointValid = true;
+            }
+
+        }
+
+        private void DrawPixel(int Data)
+        {
+            Point DrawPoint;
+
+            string hexdata = "";
+            int x = 0;
+            int y = 0;
+            hexdata = Convert.ToUInt16(Data).ToString("X4");
+            x = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(0, 2), 16)));
+            y = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(2, 2), 16)));
+            y = GraphPictureBox1.Height - y;
+
+            DrawPoint = new Point(x, y);
+
             Graphics g = GraphPictureBox1.CreatePersistentGraphics();
-            g.FillRectangle(new SolidBrush(Color.YellowGreen), p1.X, p1.Y, 1, 1);
+            g.FillRectangle(new SolidBrush(DrawColor), DrawPoint.X, DrawPoint.Y, 1, 1);
             GraphPictureBox1.Invalidate();
             g.Dispose();
         }
-
 
         private void SetDrawPen(string PenColor)
         {
             Color col = VirtualPanelForm.String2Color(PenColor);
             if (!col.IsEmpty) DrawColor = col; //
+            if (PenColor == "$1PX") DrawPenSize = 1;
+            if (PenColor == "$2PX") DrawPenSize = 2;
+            if (PenColor == "$3PX") DrawPenSize = 3;
+            if (PenColor == "$4PX") DrawPenSize = 4;
         }
 
         private void SetLabelAppearance(Label control, MessageEventArgs mse)
@@ -252,6 +334,9 @@ namespace VirtualPanel
             GraphDrawPlot(GraphValues_4, g, PlotColor_4);
             GraphDrawPlot(GraphValues_5, g, PlotColor_5);
 
+            g.DrawString(GraphCaption1Text, new Font("Verdana", 8), new SolidBrush(DrawTextColor), new Point(10, 10));
+            g.DrawString(GraphCaption2Text, new Font("Verdana", 8), new SolidBrush(DrawTextColor), new Point(10, 200));
+
         }
 
 
@@ -262,7 +347,7 @@ namespace VirtualPanel
 
             for (int i = 0; i < Valuelist.Count(); i++)
             {
-                int GraphValue = (GraphHeight - VMarginSpace) - (int)Map(Valuelist[i], 0, 255, (VMarginSpace / 2), GraphHeight - (VMarginSpace / 2));
+                int GraphValue = GraphHeight - (int)Map(Valuelist[i], 0, 255, VMarginSpace/2, GraphHeight - (VMarginSpace/2));
                 drawing.Add(new PointF(i * XStep, GraphValue));
             }
             Pen mypen = new Pen(PenColor, 1);

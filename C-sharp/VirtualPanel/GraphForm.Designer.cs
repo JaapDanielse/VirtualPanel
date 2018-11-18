@@ -57,7 +57,7 @@
             // 
             // graphButton2
             // 
-            this.graphButton2.Location = new System.Drawing.Point(11, 65);
+            this.graphButton2.Location = new System.Drawing.Point(12, 68);
             this.graphButton2.Name = "graphButton2";
             this.graphButton2.Size = new System.Drawing.Size(48, 48);
             this.graphButton2.TabIndex = 1;
@@ -77,7 +77,7 @@
             // 
             // graphButton3
             // 
-            this.graphButton3.Location = new System.Drawing.Point(12, 119);
+            this.graphButton3.Location = new System.Drawing.Point(12, 125);
             this.graphButton3.Name = "graphButton3";
             this.graphButton3.Size = new System.Drawing.Size(48, 48);
             this.graphButton3.TabIndex = 3;
@@ -87,7 +87,7 @@
             // 
             // graphButton4
             // 
-            this.graphButton4.Location = new System.Drawing.Point(12, 173);
+            this.graphButton4.Location = new System.Drawing.Point(12, 183);
             this.graphButton4.Name = "graphButton4";
             this.graphButton4.Size = new System.Drawing.Size(48, 48);
             this.graphButton4.TabIndex = 4;
@@ -137,7 +137,7 @@
             // 
             // GraphHoldButton
             // 
-            this.GraphHoldButton.Location = new System.Drawing.Point(340, 197);
+            this.GraphHoldButton.Location = new System.Drawing.Point(340, 207);
             this.GraphHoldButton.Name = "GraphHoldButton";
             this.GraphHoldButton.Size = new System.Drawing.Size(70, 24);
             this.GraphHoldButton.TabIndex = 14;
@@ -147,7 +147,7 @@
             // 
             // GraphImageDialogButton
             // 
-            this.GraphImageDialogButton.Location = new System.Drawing.Point(420, 197);
+            this.GraphImageDialogButton.Location = new System.Drawing.Point(420, 205);
             this.GraphImageDialogButton.Name = "GraphImageDialogButton";
             this.GraphImageDialogButton.Size = new System.Drawing.Size(70, 24);
             this.GraphImageDialogButton.TabIndex = 15;
@@ -232,7 +232,7 @@
             this.GraphPictureBox1.Location = new System.Drawing.Point(66, 11);
             this.GraphPictureBox1.Name = "GraphPictureBox1";
             this.GraphPictureBox1.OnPaintPersistent = false;
-            this.GraphPictureBox1.Size = new System.Drawing.Size(263, 210);
+            this.GraphPictureBox1.Size = new System.Drawing.Size(263, 220);
             this.GraphPictureBox1.TabIndex = 25;
             this.GraphPictureBox1.TabStop = false;
             this.GraphPictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.GraphPictureBox1_Paint);
@@ -264,7 +264,7 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "GraphForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Graph";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GraphForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.PenColor1)).EndInit();
