@@ -37,3 +37,7 @@ ehthumbs.db
 Thumbs.db
 *.suo
 *.json
+packages/
+bin/
+obj/
+.vs/
