@@ -16,7 +16,6 @@ namespace VirtualPanel
 
         int GridCount = 0;
         int SampleCount = 50;
-        int GraphType = 0;
         int GraphWidth = 0;
         int GraphHeight = 0;
 
@@ -111,7 +110,6 @@ namespace VirtualPanel
             GraphValues_5.Clear();
             GridCount = 0;
             SampleCount = 50;
-            GraphType = 0;
             GridSize = 0;
             Hold = false;
 

@@ -136,7 +136,7 @@ namespace VirtualPanel
                     {
                         port.Open();
                     }
-                    catch (IOException ex)
+                    catch (IOException)
                     {
                         continue;
                     }
