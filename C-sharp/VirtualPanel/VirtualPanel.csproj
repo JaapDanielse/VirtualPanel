@@ -146,7 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Control_Panel.ico" />
-    <Content Include="DummyLoad.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

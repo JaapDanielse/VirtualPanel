@@ -41,3 +41,4 @@ packages/
 bin/
 obj/
 .vs/
+/C-sharp/.vs
