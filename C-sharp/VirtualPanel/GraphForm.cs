@@ -338,17 +338,17 @@ namespace VirtualPanel
 
             if (GridCount != 0)
             {
-                for (int i = 0; i <= GridSize; i++)
+                for (int i = 0; i <= GridCount+1; i++)
                 {
-                    float lineY = i * (GraphHeight / ((float)GridSize - 1));
+                    float lineY = i * (GraphHeight / (float)GridCount);
                     g.DrawLine(mypen, 0.0f, lineY, GraphWidth, lineY);
                 }
 
-               int HGridSize = (int)(GridSize * 1.2);
+               int HGridCount = (int)(GridCount * 1.2);
 
-               for (int i = 0; i <= HGridSize ; i++)
+               for (int i = 0; i <= HGridCount+1; i++)
                {
-                    float lineX = i * (GraphWidth / ((float)HGridSize-1));
+                    float lineX = i * (GraphWidth / (float)HGridCount);
                     g.DrawLine(mypen, lineX, 0.0f, lineX, GraphHeight);
                }
 
@@ -356,7 +356,7 @@ namespace VirtualPanel
 
 
                 VMarginSpace = (GraphHeight % GridCount);
-                GridSize = ((GraphHeight - VMarginSpace) / GridCount);
+                //GridSize = ((GraphHeight - VMarginSpace) / GridCount);
                 HMarginSpace = (GraphWidth % GridSize);
 
                 //for (int i = VMarginSpace / 2; i <= GraphHeight - (VMarginSpace / 2); i += GridSize)
