@@ -35,3 +35,10 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+*.suo
+*.json
+packages/
+bin/
+obj/
+.vs/
+/C-sharp/.vs

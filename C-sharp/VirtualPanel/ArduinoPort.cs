@@ -136,9 +136,13 @@ namespace VirtualPanel
                     {
                         port.Open();
                     }
-                    catch (IOException ex)
+                    catch (IOException)
                     {
-                        continue;
+                        continue; // Happens when a port is broken or not compatible.
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        continue; // Happens when a port is already in use by some other program.
                     }
 
                     DateTime then = DateTime.Now + SearchPortTimeout;
