@@ -36,7 +36,7 @@ void PanelCallback(int event, int type)
 
     case DynamicDisplay: // dynamic display request (requested every 500ms)
     {
-      if (Direction) Angle+=5; else Angle-=5;
+      if (Direction) Angle+=2; else Angle-=2;
       if (Angle <= 0 || Angle >= 180) Direction = !Direction; 
       Angle = constrain( Angle, 0, 180);
       Swipe(Angle, Distance);
@@ -86,7 +86,7 @@ void DrawCircles()
 void Swipe(int Angle, int Distance)
 {
    #define MinDist 10//
-   #define OldSize 10//
+   #define OldSize 50//
 
    static int OldAngle=0;
    static int OldIdx=0;
@@ -104,8 +104,8 @@ void Swipe(int Angle, int Distance)
    int TmpIdx2 = OldIdx-4;
    if (TmpIdx2 < 0) TmpIdx2 = OldSize + TmpIdx2;
    
-   Panel.Send(GraphPen,"$BLACK");
-   Panel.Send(GraphDrawLine,Line(xsOld[OldIdx],ysOld[OldIdx],xeOld[OldIdx],yeOld[OldIdx]));
+   //Panel.Send(GraphPen,"$BLACK");
+   //Panel.Send(GraphDrawLine,Line(xsOld[OldIdx],ysOld[OldIdx],xeOld[OldIdx],yeOld[OldIdx]));
 
    Panel.Send(GraphPen,"$BLUE");
    Panel.Send(GraphDrawLine,Line(xsOld[TmpIdx2],ysOld[TmpIdx2],xeOld[TmpIdx2],yeOld[TmpIdx2]));

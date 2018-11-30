@@ -3,11 +3,10 @@
 #include "PanelOne.h"
 #include <TimeLib.h>  
 
+boolean Graphmode = false;
+boolean Monmode = false;
+
 byte GraphValue=0;
-boolean yellow = true;
-boolean orange = true;
-boolean red = true;
-boolean blue = true;
 
 void setup()
 {

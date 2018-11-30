@@ -76,12 +76,14 @@
     <Compile Include="ArduinoPort.cs" />
     <Compile Include="ExtentionMethods.cs" />
     <Compile Include="CustomEventArgs.cs" />
+    <Compile Include="Graph.cs" />
     <Compile Include="GraphForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GraphForm.Designer.cs">
       <DependentUpon>GraphForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Imagic.cs" />
     <Compile Include="MonitorForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -211,18 +211,25 @@ namespace VirtualPanel
             scrolllabel3.Visible = false;
             scrolllabel4.Visible = false;
 
-            display1.ForeColor = Color.White;
-            display2.ForeColor = Color.White;
-            display3.ForeColor = Color.White;
-            display4.ForeColor = Color.White;
 
             ApplicationTitle.ForeColor = Color.White;
 
             display1.Text = "";
+            display1.ForeColor = Color.White;
+            display1.Font = new Font("Microsoft Sans Serif", 14);
+            display1.Font = new Font(display1.Font, FontStyle.Regular);
             display2.Text = "";
+            display2.ForeColor = Color.White;
+            display2.Font = new Font("Microsoft Sans Serif", 14);
+            display2.Font = new Font(display2.Font, FontStyle.Regular);
             display3.Text = "";
+            display3.ForeColor = Color.White;
+            display3.Font = new Font("Microsoft Sans Serif", 14);
+            display3.Font = new Font(display3.Font, FontStyle.Regular);
             display4.Text = "";
-
+            display4.ForeColor = Color.White;
+            display4.Font = new Font("Microsoft Sans Serif", 14);
+            display4.Font = new Font(display4.Font, FontStyle.Regular);
             display3.BringToFront();
             display4.BringToFront();
 
@@ -231,6 +238,8 @@ namespace VirtualPanel
             timer1.Enabled = false;
             panel1.Visible = true;
 
+            if (port.IsConnected) port.Send((byte)ChannelId.PanelConnected);
+            if (port.IsConnected) port.Send((byte)ChannelId.StaticDisplay);
         }
 
         private void Port_Disconnected(object sender, ConnectedEventArgs e)
@@ -245,8 +254,6 @@ namespace VirtualPanel
             connection_label.Text = args.Portname;
             connected_box.BackColor = Color.Lime;
             Panel_Reset();
-            if (port.IsConnected) port.Send((byte)ChannelId.PanelConnected);
-            if (port.IsConnected) port.Send((byte)ChannelId.StaticDisplay);
 
         }
 
@@ -264,23 +271,28 @@ namespace VirtualPanel
                 if (id == ChannelId.UnixTime) SendUnixTime(mse);
                 if (id == ChannelId.StaticDisplay  && mse.Type == vp_type.vp_boolean) StaticDisplay  = (bool)mse.Data;
                 if (id == ChannelId.DynamicDisplay && mse.Type == vp_type.vp_boolean) timer1.Enabled = (bool)mse.Data;
+
                 if (id == ChannelId.DynamicDisplay && mse.Type == vp_type.vp_int)
                 {
                     if ((int)mse.Data >= 100 && (int)mse.Data <= 1000) timer1.Interval = (int)mse.Data;
                     timer1.Enabled = true;
                 }
+
                 if (id == ChannelId.Pling) SystemSounds.Asterisk.Play();
+
                 if (id == ChannelId.Monitor && mse.Type == vp_type.vp_boolean)
                 {
                     stats.Location = new Point(Location.X, Location.Y + Height);
                     stats.Visible = (bool)mse.Data;
                 }
+
                 if (id == ChannelId.Graph && mse.Type == vp_type.vp_boolean)
                 {
                     graph.Location = new Point(Location.X, Location.Y + Height);
                     graph.Visible = (bool)mse.Data;
                 }
 
+                if (id == ChannelId.Reset) Panel_Reset();
                 if (id == ChannelId.MaxScrollBar_1 && mse.Type == vp_type.vp_int) ScrollBar1.Maximum = (int)mse.Data + 9;
                 if (id == ChannelId.MaxScrollBar_2 && mse.Type == vp_type.vp_int) ScrollBar2.Maximum = (int)mse.Data + 9;
                 if (id == ChannelId.MaxScrollBar_3 && mse.Type == vp_type.vp_int) ScrollBar3.Maximum = (int)mse.Data + 9;
