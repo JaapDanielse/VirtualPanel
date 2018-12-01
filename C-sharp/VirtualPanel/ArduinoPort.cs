@@ -11,8 +11,9 @@ namespace VirtualPanel
 {
     public class ArduinoPort
     {
-        private readonly String ID;
-
+        public Boolean AutoSearchPortName { get; set; }
+        public String PortName { get { return port.PortName; } set { port.PortName = value; } }
+        public String DeviceID { get; set; }
         public Boolean IsConnected { get { return connected; } }
         public TimeSpan SearchPortTimeout { get; set; } = TimeSpan.FromMilliseconds(2000);
         public TimeSpan SearchPollFrequency { get; set; } = TimeSpan.FromMilliseconds(500);
@@ -29,9 +30,9 @@ namespace VirtualPanel
         public event EventHandler<ConnectedEventArgs> Connected;
         public event EventHandler<ConnectedEventArgs> Disconnected;
 
-        public ArduinoPort(string id, int baudrate = 115200)
+        public ArduinoPort(string device_id, int baudrate = 115200)
         {
-            ID = id;
+            DeviceID = device_id;
 
             // Set up port object.
             port = new SerialPort();
@@ -59,6 +60,25 @@ namespace VirtualPanel
 
         }
 
+        public ArduinoPort(String portname, string device_id, int baudrate = 115200)
+        {
+            DeviceID = device_id;
+
+            port = new SerialPort(portname, baudrate);
+            port.Parity = Parity.None;
+            port.DataBits = 8;
+            port.StopBits = StopBits.One;
+            port.Handshake = Handshake.None;
+            port.RtsEnable = true;
+            port.NewLine = "\r\n";
+
+            // Setup port checker timer.
+            checkPort.Elapsed += CheckPort_Elapsed;
+
+            AutoSearchPortName = false;
+
+        }
+
         private void CheckPort_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (connected && !port.IsOpen)
@@ -66,7 +86,7 @@ namespace VirtualPanel
         }
 
         public void Open()
-        {
+        {   
             if (!connected && !port_finder.IsBusy)
                 port_finder.RunWorkerAsync();
         }
@@ -173,7 +193,7 @@ namespace VirtualPanel
 
                         foreach (var data in chunks)
                         {
-                            if (data.Contains(ID))
+                            if (data.Contains(DeviceID))
                                 return;
                         }
 
