@@ -23,7 +23,7 @@ namespace VirtualPanel
             arduinoport.MessageReceived += Arduinoport_MessageReceived;
         }
 
-        private void Arduinoport_MessageReceived(object sender, MessageEventArgs mse)
+        private void Arduinoport_MessageReceived(object sender, MessageEventArgs<object> mse)
         {
                 if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_1) label1.Text = mse.Data.ToString();
                 if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_2) label2.Text = mse.Data.ToString();

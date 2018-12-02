@@ -5,13 +5,13 @@ using System.Text;
 
 namespace VirtualPanel
 {
-    public class MessageEventArgs : EventArgs
+    public class MessageEventArgs<T> : EventArgs
     {
         public int ChannelID { get; }
         public vp_type Type { get; }
-        public object Data { get; }
+        public T Data { get; }
 
-        public MessageEventArgs(int channel, vp_type type, object data)
+        public MessageEventArgs(int channel, vp_type type, T data)
         {
             ChannelID = channel;
             Type = type;

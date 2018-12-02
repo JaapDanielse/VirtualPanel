@@ -26,12 +26,12 @@ namespace VirtualPanel
             arduinoport.MessageReceived += Arduinoport_MessageReceived;
         }
 
-        private void Arduinoport_MessageReceived(object sender, MessageEventArgs e)
+        private void Arduinoport_MessageReceived(object sender, MessageEventArgs<object> e)
         {
             WriteMonitor(MsgNum++ + "  R  " + ((ChannelId)e.ChannelID).ToString() + "\t" + e.Type.ToString() + "\t" + e.Data.ToString());
         }
 
-        private void Arduinoport_MessageSent(object sender, MessageEventArgs e)
+        private void Arduinoport_MessageSent(object sender, MessageEventArgs<object> e)
         {
             WriteMonitor(MsgNum++ + "  S  " + ((ChannelId)e.ChannelID).ToString() + "\t" + e.Type.ToString() + "\t" + e.Data.ToString());
 

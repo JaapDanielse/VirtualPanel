@@ -25,8 +25,8 @@ namespace VirtualPanel
         private String read_buffer;
         private System.Timers.Timer checkPort = new System.Timers.Timer(100);
 
-        public event EventHandler<MessageEventArgs> MessageReceived;
-        public event EventHandler<MessageEventArgs> MessageSent;
+        public event EventHandler<MessageEventArgs<object>> MessageReceived;
+        public event EventHandler<MessageEventArgs<object>> MessageSent;
         public event EventHandler<ConnectedEventArgs> Connected;
         public event EventHandler<ConnectedEventArgs> Disconnected;
 
@@ -278,7 +278,7 @@ namespace VirtualPanel
         {
             String message = channel.ToString("X2") + ((byte)type).ToString("X1") + data;
             this.Write(message);
-            MessageSent?.ThreadAwareRaise(this, new MessageEventArgs(channel, type, data));
+            MessageSent?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, data));
         }
 
         // Write to Arduino port (GUI thread)
@@ -372,7 +372,7 @@ namespace VirtualPanel
                     continue;
                 }
 
-                MessageReceived?.ThreadAwareRaise(this, new MessageEventArgs(channel, type, messagedata));
+                MessageReceived?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, messagedata));
             }
         }
 
