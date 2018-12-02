@@ -6,6 +6,8 @@ using System.Linq;
 using System.Media;
 using System.Windows.Forms;
 
+using ArduinoCom;
+
 namespace VirtualPanel
 {
      public enum ChannelId
