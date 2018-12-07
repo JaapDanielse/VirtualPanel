@@ -236,6 +236,7 @@ namespace VirtualPanel
             button3.Select();
             StaticDisplay = false;
             timer1.Enabled = false;
+            timer1.Interval = 500;
             panel1.Visible = true;
 
             if (port.IsConnected) port.Send((byte)ChannelId.PanelConnected);
@@ -321,6 +322,7 @@ namespace VirtualPanel
             if (ColorString == "$WHITE") convertedColor = Color.White;
             if (ColorString == "$BLACK") convertedColor = Color.Black;
             if (ColorString == "$OFF") convertedColor = Color.Black;
+            if (ColorString == "$DEL") convertedColor = Color.Black;
 
             return convertedColor;
         }

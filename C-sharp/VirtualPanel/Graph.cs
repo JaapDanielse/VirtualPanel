@@ -78,6 +78,12 @@ namespace VirtualPanel
             ValueRange = valuerange;
         }
 
+        public void ClearData()
+        {
+            values.Clear();
+            valueBuffer.Clear();
+        }
+
         public void AddValue(float value)
         {
             if (Type == GraphType.Rolling)

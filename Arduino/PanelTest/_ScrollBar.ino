@@ -30,12 +30,6 @@ void ScrollBarCallback(int event, int type)
       break;
     }
 
-    case DynamicDisplay: // dynamic display request (requested every 500ms)
-    {
-      AllButtonDynamic();
-      break;
-    }
-
     default:
     {
       if (event >= 8 && event <= 24) 
@@ -48,9 +42,10 @@ void ScrollBarCallback(int event, int type)
 }
 
 
-
 void ScrollBarInit()
 {
+  Panel.Send(ApplicationName,"PanelTest - ScrollBar"); // set the application name
+
   Panel.Send(MonitorScrollBox, "MonitorScrollBox");
   Panel.Send(MonitorField_1, "MonitorField_1");
   Panel.Send(MonitorField_2, "MonitorField_2");

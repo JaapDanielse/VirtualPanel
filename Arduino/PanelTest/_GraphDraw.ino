@@ -9,14 +9,14 @@ void DrawCallback(int event, int type)
   {
     case PanelConnected: // receive panel connected message
     { 
-      Panel.Send(ApplicationName,"Panel Test"); // set the application name
+      Panel.Send(ApplicationName,"PanelTest - Draw"); // set the application name
 
       Panel.Send(Button_4,  "next");
       Panel.Send(Button_5,  "graph");
       Panel.Send(Button_6,  "mon");
 
-      Panel.Send(GraphText, Point(10,210));
-      Panel.Send(GraphText, "Time of flight sensor sweep");
+      Panel.Send(GraphText, Point(5,210));
+      Panel.Send(GraphText, "Simulated distance sensor sweep");
       Panel.Send(DynamicDisplay,100); 
       Panel.Send(Graph,true); 
       
@@ -26,7 +26,7 @@ void DrawCallback(int event, int type)
 
     case Button_4:
     {
-      PanelMode = Clock;
+      PanelMode = Roling;
       Panel.Send(Reset);
       break;
     }
@@ -90,8 +90,7 @@ void DrawCircles()
    Panel.Send(GraphPen,"$1PX");
    Panel.Send(GraphCaption_2,"0 deg                                          180 deg");
    Panel.Send(GraphDrawPixel,Point(200,200));
-   
-  
+
 }
 
 
@@ -116,9 +115,9 @@ void Swipe(int Angle, int Distance)
    int TmpIdx2 = OldIdx-4;
    if (TmpIdx2 < 0) TmpIdx2 = OldSize + TmpIdx2;
    
-   //Panel.Send(GraphPen,"$BLACK");
-   //Panel.Send(GraphDrawLine,Line(xsOld[OldIdx],ysOld[OldIdx],xeOld[OldIdx],yeOld[OldIdx]));
-
+   Panel.Send(GraphPen,"$DEL");
+   Panel.Send(GraphDrawLine,Line(xsOld[OldIdx],ysOld[OldIdx],xeOld[OldIdx],yeOld[OldIdx]));
+   
    Panel.Send(GraphPen,"$BLUE");
    Panel.Send(GraphDrawLine,Line(xsOld[TmpIdx2],ysOld[TmpIdx2],xeOld[TmpIdx2],yeOld[TmpIdx2]));
 
@@ -141,7 +140,7 @@ void Swipe(int Angle, int Distance)
    xeOld[OldIdx] = xe;
    yeOld[OldIdx] = ye;
 
-   Panel.Sendf(GraphLabel_1, "Angle %d", Angle);
+   Panel.Sendf(GraphLabel_1, "Angle %d", 180-Angle);
    
 }
 

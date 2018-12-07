@@ -30,12 +30,6 @@ void AllButtonCallback(int event, int type)
       break;
     }
 
-    case DynamicDisplay: // dynamic display request (requested every 500ms)
-    {
-      AllButtonDynamic();
-      break;
-    }
-
     default:
     {
       if (event >= 8 && event <= 24) 
@@ -45,11 +39,6 @@ void AllButtonCallback(int event, int type)
       break;
     }
   }
-}
-
-void AllButtonDynamic()
-{
-  
 }
 
 

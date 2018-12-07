@@ -14,9 +14,7 @@ namespace VirtualPanel
     public partial class GraphForm : Form
     {
 
-        int GridSize = 10;
-        int GridCount = 0;
-        int SampleCount = 50;
+        int GridCount = 10;
         int GraphWidth = 0;
         int GraphHeight = 0;
         bool Grid = false;
@@ -33,12 +31,6 @@ namespace VirtualPanel
         Graph GraphPlot_5 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
 
         Rectangle GridRectangle = new Rectangle(0, 0, 263, 220);
-
-        //List<int> GraphValues_1 = new List<int>();
-        //List<int> GraphValues_2 = new List<int>();
-        //List<int> GraphValues_3 = new List<int>();
-        //List<int> GraphValues_4 = new List<int>();
-        //List<int> GraphValues_5 = new List<int>();
 
         Imagic PersistentDrawing = new Imagic();
 
@@ -65,8 +57,6 @@ namespace VirtualPanel
         {
             arduinoport = port;
             InitializeComponent();
-
-            //DrawPersitentLine(new Point(0, 0), new Point(200, 200));
 
             pannelControlList = new List<Tuple<ChannelId, Control>>();
             pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.GraphButton_1, graphButton1));
@@ -129,25 +119,17 @@ namespace VirtualPanel
             PenColor3.Visible = false;
             PenColor4.Visible = false;
             PenColor5.Visible = false;
+            Grid = false;
+            GridCount = 10;
             GraphPlot_1 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
             GraphPlot_2 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
             GraphPlot_3 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
             GraphPlot_4 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
             GraphPlot_5 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
-            //GraphValues_1.Clear();
-            //GraphValues_2.Clear();
-            //GraphValues_3.Clear();
-            //GraphValues_4.Clear();
-            //GraphValues_5.Clear();
-            GridCount = 20;
-            SampleCount = 50;
-            //GraphType = 0;
-            GridSize = 10;
             PersistentDrawing.Clear();
             Hold = false;
 
         }
-
 
         private void Arduinoport_MessageReceived(object sender, MessageEventArgs mse)
         {
@@ -157,30 +139,66 @@ namespace VirtualPanel
 
             if (!Hold)
             {
-            if (control != null)
-            {
-                if (control.Item2 is Button) VirtualPanelForm.SetButtonAppearance((Button)control.Item2, mse);
-                if (control.Item2 is Label) SetLabelAppearance((Label)control.Item2, mse);
-            }
+                if (control != null)
+                {
+                    if (control.Item2 is Button) VirtualPanelForm.SetButtonAppearance((Button)control.Item2, mse);
+                    if (control.Item2 is Label) SetLabelAppearance((Label)control.Item2, mse);
+                }
 
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphPen && mse.Type == vp_type.vp_string) SetDrawPen((string)mse.Data);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_ulong) DrawPersitentLine((Int64)mse.Data);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_uint) DrawLinePoint((Int32)mse.Data);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_void) LinePointValid = false;
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawPixel && mse.Type == vp_type.vp_uint) DrawPixel((Int32)mse.Data);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_uint) DrawTextPos((Int32)mse.Data);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_string) Drawtext((string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.Graph && mse.Type == vp_type.vp_string)
+                {
+                    if((string)mse.Data == "$CLEAR") { PersistentDrawing.Clear(); }
+                }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphPen && mse.Type == vp_type.vp_string) SetDrawPen((string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_ulong) DrawPersitentLine((Int64)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_uint) DrawLinePoint((Int32)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_void) LinePointValid = false;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawPixel && mse.Type == vp_type.vp_uint) DrawPixel((Int32)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_uint) DrawTextPos((Int32)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_string) Drawtext((string)mse.Data);
 
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphGrid && mse.Type == vp_type.vp_int) GridCount = (int)mse.Data;
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_1 && mse.Type == vp_type.vp_string) GraphCaption1Text = (string)mse.Data;
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_2 && mse.Type == vp_type.vp_string) GraphCaption2Text = (string)mse.Data;
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_1 && mse.Type == vp_type.vp_byte) GraphValueAdd((int)mse.Data, GraphPlot_1);
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_2 && mse.Type == vp_type.vp_byte) GraphValueAdd((int)mse.Data, GraphPlot_2);
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_byte) GraphValueAdd((int)mse.Data, GraphPlot_3);
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_4 && mse.Type == vp_type.vp_byte) GraphValueAdd((int)mse.Data, GraphPlot_4);
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_5 && mse.Type == vp_type.vp_byte) GraphValueAdd((int)mse.Data, GraphPlot_5);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphSampleCount && mse.Type == vp_type.vp_int)
+                {
+                    GraphPlot_1.SampleCount = (Int32)mse.Data;
+                    GraphPlot_2.SampleCount = (Int32)mse.Data;
+                    GraphPlot_3.SampleCount = (Int32)mse.Data;
+                    GraphPlot_4.SampleCount = (Int32)mse.Data;
+                    GraphPlot_5.SampleCount = (Int32)mse.Data;
+                }
+
+
+
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphGrid && mse.Type == vp_type.vp_boolean) Grid = (bool)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphGrid && mse.Type == vp_type.vp_int) { Grid = true; GridCount = (int)mse.Data; }
+
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_1 && mse.Type == vp_type.vp_string) SetGraphAttr(PlotColor_1, (string)mse.Data, GraphPlot_1);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_2 && mse.Type == vp_type.vp_string) SetGraphAttr(PlotColor_2, (string)mse.Data, GraphPlot_2);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_string) SetGraphAttr(PlotColor_3, (string)mse.Data, GraphPlot_3);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_4 && mse.Type == vp_type.vp_string) SetGraphAttr(PlotColor_4, (string)mse.Data, GraphPlot_4);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_5 && mse.Type == vp_type.vp_string) SetGraphAttr(PlotColor_5, (string)mse.Data, GraphPlot_5);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_1 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_1); Grid = true; }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_2 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_2); Grid = true; }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_3); Grid = true; }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_4 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_4); Grid = true; }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_5 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_5); Grid = true; }
+
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_1 && mse.Type == vp_type.vp_string) GraphCaption1Text = (string)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_2 && mse.Type == vp_type.vp_string) GraphCaption2Text = (string)mse.Data;
+
                 GraphPictureBox1.Invalidate();
+            }
         }
+
+        private void SetGraphAttr(Color PlotColor, string data, Graph GraphPlot)
+        {
+            Color col = VirtualPanelForm.String2Color(data);
+            if (!col.IsEmpty)
+                PlotColor = col; //
+            else
+            {
+                if (data == "$ROLLING") GraphPlot.Type = GraphType.Rolling;
+                if (data == "$STATIC") GraphPlot.Type = GraphType.Static;
+            }
         }
 
         private void Drawtext(string data)
@@ -190,8 +208,8 @@ namespace VirtualPanel
                 DrawTextColor = col; //
             else
             {
-                PersistentDrawing.Add(new Text(DrawtextPoint, data, DrawTextColor,8));
-                if (!Hold) GraphPictureBox1.Invalidate();
+                PersistentDrawing.Add(new Text(DrawtextPoint, data, DrawTextColor, 8));
+                GraphPictureBox1.Invalidate();
             }
         }
 
@@ -205,7 +223,10 @@ namespace VirtualPanel
             y = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(2, 2), 16)));
             y = GraphPictureBox1.Height - y;
 
-            DrawtextPoint = new Point(x, y);
+            if (DrawColor == Color.Black)
+                DrawtextPoint = new Point(x, y);
+            else
+                DrawtextPoint = new Point(x, y);
         }
 
         private void DrawPersitentLine(Int64 MyLine)
@@ -224,7 +245,10 @@ namespace VirtualPanel
             ys = GraphPictureBox1.Height - ys;
             ye = GraphPictureBox1.Height - ye;
 
-            PersistentDrawing.Add(new Line(xs, ys, xe, ye, DrawColor, DrawPenSize));
+            if (DrawColor == Color.Black)
+                PersistentDrawing.Delete(new Line(xs, ys, xe, ye, DrawColor, DrawPenSize));
+            else
+                PersistentDrawing.Add(new Line(xs, ys, xe, ye, DrawColor, DrawPenSize));
             GraphPictureBox1.Invalidate();
         }
 
@@ -245,7 +269,11 @@ namespace VirtualPanel
 
             if (LinePointValid)
             {
-                PersistentDrawing.Add(new Line(LinePoint, DrawPoint, DrawColor, DrawPenSize));
+                if (DrawColor == Color.Black)
+                    PersistentDrawing.Delete(new Line(LinePoint, DrawPoint, DrawColor, DrawPenSize));
+                else
+                    PersistentDrawing.Add(new Line(LinePoint, DrawPoint, DrawColor, DrawPenSize));
+
                 GraphPictureBox1.Invalidate();
                 LinePoint = DrawPoint;
             }
@@ -270,7 +298,11 @@ namespace VirtualPanel
 
             DrawPoint = new Point(x, y);
 
-            PersistentDrawing.Add(new Pixel(DrawPoint.X, DrawPoint.Y, DrawColor));
+            if (DrawColor == Color.Black)
+                PersistentDrawing.Delete(new Pixel(DrawPoint.X, DrawPoint.Y, DrawColor));
+            else
+                PersistentDrawing.Add(new Pixel(DrawPoint.X, DrawPoint.Y, DrawColor));
+
             GraphPictureBox1.Invalidate();
         }
 
@@ -309,15 +341,12 @@ namespace VirtualPanel
             }
             else
                 control.Text = mse.Data.ToString();
-          }
+        }
 
 
         private void GraphValueAdd(int Value, Graph GraphPlot)
         {
-           // if (Valuelist.Count >= SampleCount) Valuelist.RemoveAt(0);
-            //    Valuelist.Add(Value);
-
-             GraphPlot.AddValue(255-Value);
+            GraphPlot.AddValue(255 - Value);
         }
 
         private void GraphForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -334,49 +363,24 @@ namespace VirtualPanel
             Graphics g = e.Graphics;
             Pen mypen = new Pen(Color.DimGray, 1);
 
-            //g.Clear(Color.Black);
-
-            if (GridCount != 0)
+            if (Grid)
             {
-                for (int i = 0; i <= GridCount+1; i++)
+                for (int i = 0; i <= GridCount + 1; i++)
                 {
                     float lineY = i * (GraphHeight / (float)GridCount);
                     g.DrawLine(mypen, 0.0f, lineY, GraphWidth, lineY);
                 }
 
-               int HGridCount = (int)(GridCount * 1.2);
+                int HGridCount = (int)(GridCount * 1.2);
 
-               for (int i = 0; i <= HGridCount+1; i++)
-               {
+                for (int i = 0; i <= HGridCount + 1; i++)
+                {
                     float lineX = i * (GraphWidth / (float)HGridCount);
                     g.DrawLine(mypen, lineX, 0.0f, lineX, GraphHeight);
-               }
-
-
-
-
-                VMarginSpace = (GraphHeight % GridCount);
-                //GridSize = ((GraphHeight - VMarginSpace) / GridCount);
-                HMarginSpace = (GraphWidth % GridSize);
-
-                //for (int i = VMarginSpace / 2; i <= GraphHeight - (VMarginSpace / 2); i += GridSize)
-                //{
-                //    g.DrawLine(mypen, 0, i, GraphWidth, i);
-                //}
-
-                //for (int i = HMarginSpace / 2; i <= GraphWidth - (HMarginSpace / 2); i += GridSize)
-                //{
-                //    g.DrawLine(mypen, i, VMarginSpace / 2, i, GraphHeight - (VMarginSpace / 2) - 1);
-                //}
                 }
+            }
 
-           // GraphDrawPlot(GraphValues_1, g, PlotColor_1);
-           // GraphDrawPlot(GraphValues_2, g, PlotColor_2);
-           // GraphDrawPlot(GraphValues_3, g, PlotColor_3);
-           // GraphDrawPlot(GraphValues_4, g, PlotColor_4);
-           // GraphDrawPlot(GraphValues_5, g, PlotColor_5);
-
-            g.DrawString(GraphCaption1Text, new Font("Verdana", 8), new SolidBrush(DrawTextColor), new Point(10, 2));
+            g.DrawString(GraphCaption1Text, new Font("Verdana", 8), new SolidBrush(DrawTextColor), new Point(10, 5));
             g.DrawString(GraphCaption2Text, new Font("Verdana", 8), new SolidBrush(DrawTextColor), new Point(10, 205));
 
             GraphPlot_1.Draw(g, PlotColor_1, 1, GraphPictureBox1.ClientRectangle);
@@ -386,24 +390,8 @@ namespace VirtualPanel
             GraphPlot_5.Draw(g, PlotColor_5, 1, GraphPictureBox1.ClientRectangle);
 
             PersistentDrawing.Draw(g);
-
         }
 
-
-        void GraphDrawPlot(List<int> Valuelist, Graphics g, Color PenColor)
-        {
-            float XStep = (float)GraphWidth / (SampleCount - 1);
-            List<PointF> drawing = new List<PointF>();
-
-            for (int i = 0; i < Valuelist.Count(); i++)
-            {
-                int GraphValue = GraphHeight - (int)Map(Valuelist[i], 0, 255, VMarginSpace/2, GraphHeight - (VMarginSpace/2));
-                drawing.Add(new PointF(i * XStep, GraphValue));
-            }
-            Pen mypen = new Pen(PenColor, 1);
-            if (drawing.Count > 1)
-                g.DrawLines(mypen, drawing.ToArray());
-        }
 
         private long Map(long x, long in_min, long in_max, long out_min, long out_max)
         {
