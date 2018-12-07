@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using ArduinoCom;
 
 namespace VirtualPanel
 {
@@ -149,7 +146,7 @@ namespace VirtualPanel
         }
 
 
-        private void Arduinoport_MessageReceived(object sender, MessageEventArgs mse)
+        private void Arduinoport_MessageReceived(object sender, MessageEventArgs<object> mse)
         {
             ChannelId id = (ChannelId)mse.ChannelID;
 
@@ -284,7 +281,7 @@ namespace VirtualPanel
             if (PenColor == "$4PX") DrawPenSize = 4;
         }
 
-        private void SetLabelAppearance(Label control, MessageEventArgs mse)
+        private void SetLabelAppearance(Label control, MessageEventArgs<object> mse)
         {
             PictureBox p = null;
 
