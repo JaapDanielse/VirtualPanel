@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Media;
 using System.Windows.Forms;
 
@@ -10,7 +8,7 @@ using ArduinoCom;
 
 namespace VirtualPanel
 {
-     public enum ChannelId
+    public enum ChannelId
     {
         //
         ApplicationName, // ApplicationName

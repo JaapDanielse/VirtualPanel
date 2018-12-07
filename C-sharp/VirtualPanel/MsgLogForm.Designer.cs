@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MsgLogForm));
             this.btn_reset = new System.Windows.Forms.Button();
             this.LogFileButton = new System.Windows.Forms.Button();
@@ -35,6 +36,7 @@
             this.LogHoldButton = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.logmonitor = new System.Windows.Forms.RichTextBox();
+            this.WriteLog = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btn_reset
@@ -100,6 +102,11 @@
             this.logmonitor.TabIndex = 8;
             this.logmonitor.Text = "";
             // 
+            // WriteLog
+            // 
+            this.WriteLog.Enabled = true;
+            this.WriteLog.Tick += new System.EventHandler(this.WriteLog_Tick);
+            // 
             // MsgLogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -128,5 +135,6 @@
         internal System.Windows.Forms.Button LogHoldButton;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.RichTextBox logmonitor;
+        private System.Windows.Forms.Timer WriteLog;
     }
 }

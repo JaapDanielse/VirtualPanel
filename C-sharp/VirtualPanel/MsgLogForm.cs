@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 using ArduinoCom;
+using System.Text;
 
 namespace VirtualPanel
 {
@@ -12,6 +14,8 @@ namespace VirtualPanel
         private ArduinoPort arduinoport;
         private int MsgNum = 0;
         private bool onHold=false;
+
+        private List<String> log = new List<string>();
 
         public MsgLogForm(ArduinoPort port)
         {
@@ -23,29 +27,13 @@ namespace VirtualPanel
 
         private void Arduinoport_MessageReceived(object sender, MessageEventArgs<object> e)
         {
-            WriteMonitor(MsgNum++ + "  R  " + ((ChannelId)e.ChannelID).ToString() + "\t" + e.Type.ToString() + "\t" + e.Data.ToString());
+            log.Add(MsgNum++ + "  R  " + ((ChannelId)e.ChannelID).ToString() + "\t" + e.Type.ToString() + "\t" + e.Data.ToString());
         }
 
         private void Arduinoport_MessageSent(object sender, MessageEventArgs<object> e)
         {
-            WriteMonitor(MsgNum++ + "  S  " + ((ChannelId)e.ChannelID).ToString() + "\t" + e.Type.ToString() + "\t" + e.Data.ToString());
+            log.Add(MsgNum++ + "  S  " + ((ChannelId)e.ChannelID).ToString() + "\t" + e.Type.ToString() + "\t" + e.Data.ToString());
 
-        }
-
-        public void WriteMonitor(String inputline)
-        {
-            if (!onHold)
-            {
-                if (lines >= 2000)
-                {
-                    logmonitor.Clear();
-                    lines = 0;
-                }
-
-                logmonitor.AppendText(inputline + Environment.NewLine); 
-                logmonitor.ScrollToCaret();
-                lines++;
-            }
         }
 
         public void LogFormClear()
@@ -89,6 +77,33 @@ namespace VirtualPanel
                 File.WriteAllText(saveFileDialog1.FileName, logmonitor.Text);
             }
             
+        }
+
+        private void WriteLog_Tick(object sender, EventArgs e)
+        {
+            if (!onHold)
+            {
+                StringBuilder builder = new StringBuilder();
+
+                foreach (var line in log)
+                {
+                    builder.AppendLine(line);
+                    lines++;
+
+                    if (lines >= 2000)
+                    {
+                        builder.Clear();
+                        logmonitor.Clear();
+                        lines = 0;
+                    }
+                }
+
+                logmonitor.AppendText(builder.ToString());
+                log.Clear();
+
+                if (this.Visible)                  
+                    logmonitor.ScrollToCaret();
+            }
         }
     }
 }

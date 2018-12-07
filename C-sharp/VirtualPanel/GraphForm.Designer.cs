@@ -46,7 +46,7 @@
             this.PenColor5 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.GraphPictureBox1 = new VirtualPanel.PersistentPictureBox();
+            this.GraphPictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.PenColor1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PenColor2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PenColor3)).BeginInit();
@@ -229,11 +229,10 @@
             // GraphPictureBox1
             // 
             this.GraphPictureBox1.BackColor = System.Drawing.Color.Black;
-            this.GraphPictureBox1.Location = new System.Drawing.Point(66, 11);
+            this.GraphPictureBox1.Location = new System.Drawing.Point(67, 11);
             this.GraphPictureBox1.Name = "GraphPictureBox1";
-            this.GraphPictureBox1.OnPaintPersistent = false;
             this.GraphPictureBox1.Size = new System.Drawing.Size(263, 220);
-            this.GraphPictureBox1.TabIndex = 25;
+            this.GraphPictureBox1.TabIndex = 27;
             this.GraphPictureBox1.TabStop = false;
             this.GraphPictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.GraphPictureBox1_Paint);
             // 
@@ -243,6 +242,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(503, 241);
+            this.Controls.Add(this.GraphPictureBox1);
             this.Controls.Add(this.PenColor5);
             this.Controls.Add(this.PenColor4);
             this.Controls.Add(this.PenColor3);
@@ -259,7 +259,6 @@
             this.Controls.Add(this.graphButton3);
             this.Controls.Add(this.graphButton1);
             this.Controls.Add(this.graphButton2);
-            this.Controls.Add(this.GraphPictureBox1);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -295,7 +294,7 @@
         private System.Windows.Forms.PictureBox PenColor4;
         private System.Windows.Forms.PictureBox PenColor5;
         private System.Windows.Forms.Panel panel1;
-        private PersistentPictureBox GraphPictureBox1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.PictureBox GraphPictureBox1;
     }
 }
