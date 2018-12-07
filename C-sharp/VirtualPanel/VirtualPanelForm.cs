@@ -6,6 +6,8 @@ using System.Linq;
 using System.Media;
 using System.Windows.Forms;
 
+using ArduinoCom;
+
 namespace VirtualPanel
 {
      public enum ChannelId
@@ -258,7 +260,7 @@ namespace VirtualPanel
 
         }
 
-        private void Port_MessageReceived(object sender, MessageEventArgs mse)
+        private void Port_MessageReceived(object sender, MessageEventArgs<object> mse)
         {
             MsgNum++;
             ChannelId id = (ChannelId) mse.ChannelID;
@@ -301,7 +303,7 @@ namespace VirtualPanel
             }
         }
 
-        private void SetAppearance(Control control, MessageEventArgs mse)
+        private void SetAppearance(Control control, MessageEventArgs<object> mse)
         {
             if (control is Button) SetButtonAppearance((Button)control, mse);
             if (control is PictureBox) SetLedAppearance((PictureBox)control, mse);
@@ -329,7 +331,7 @@ namespace VirtualPanel
 
 
   
-        public static void SetButtonAppearance(Button button, MessageEventArgs mse)
+        public static void SetButtonAppearance(Button button, MessageEventArgs<object> mse)
         {
             int channelId = mse.ChannelID;
 
@@ -422,7 +424,7 @@ namespace VirtualPanel
         }
 
 
-        private void SetLedAppearance(PictureBox led, MessageEventArgs mse)
+        private void SetLedAppearance(PictureBox led, MessageEventArgs<object> mse)
         {
             int channelId = mse.ChannelID;
 
@@ -441,7 +443,7 @@ namespace VirtualPanel
         }
 
 
-        private void SetDisplayAppearance(Label display, MessageEventArgs mse)
+        private void SetDisplayAppearance(Label display, MessageEventArgs<object> mse)
         {
             display.Visible = true;
 
@@ -477,7 +479,7 @@ namespace VirtualPanel
                 display.Text = mse.Data.ToString();
         }
 
-        private void SetScrollBarAppearance(VScrollBar scrollBar, MessageEventArgs mse)
+        private void SetScrollBarAppearance(VScrollBar scrollBar, MessageEventArgs<object> mse)
         {
             int channelId = mse.ChannelID;
 
@@ -546,7 +548,7 @@ namespace VirtualPanel
         }
 
 
-        private void SendUnixTime(MessageEventArgs mse)
+        private void SendUnixTime(MessageEventArgs<object> mse)
         {
             int channelId = mse.ChannelID;
             int timestamp = (int)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VirtualPanel
 {
@@ -25,21 +22,6 @@ namespace VirtualPanel
             }
             else
                 return s.Substring(pos, length);
-        }
-
-        public static int Zerox(this int i)
-        {
-            return 0;
-        }
-
-        public static void ThreadAwareRaise<TEventArgs>(this EventHandler<TEventArgs> customEvent, object sender, TEventArgs e) where TEventArgs : EventArgs
-        {
-            foreach (var handler in customEvent.GetInvocationList().OfType<EventHandler<TEventArgs>>())
-            {
-                var target = handler.Target as ISynchronizeInvoke;
-                if (target != null) target.BeginInvoke(handler, new[] { sender, e });
-                else handler.Invoke(sender, e);
-            }
         }
 
         public static string ToLiteral(this String input)

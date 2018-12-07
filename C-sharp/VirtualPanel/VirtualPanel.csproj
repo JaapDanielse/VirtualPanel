@@ -73,9 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArduinoPort.cs" />
     <Compile Include="ExtentionMethods.cs" />
-    <Compile Include="CustomEventArgs.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="GraphForm.cs">
       <SubType>Form</SubType>
@@ -99,7 +97,6 @@
     <Compile Include="PersistentPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Type.cs" />
     <Compile Include="VirtualPanelForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,7 +127,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -165,6 +161,12 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArduinoPort\ArduinoPort.csproj">
+      <Project>{39e7749c-94b2-41e1-b2db-ce683a8f8ec7}</Project>
+      <Name>ArduinoPort</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
