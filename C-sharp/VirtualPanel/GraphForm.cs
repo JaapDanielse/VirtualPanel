@@ -21,11 +21,11 @@ namespace VirtualPanel
         bool Hold = false;
         private List<Tuple<ChannelId, Control>> pannelControlList;
 
-        Graph GraphPlot_1 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
-        Graph GraphPlot_2 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
-        Graph GraphPlot_3 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
-        Graph GraphPlot_4 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
-        Graph GraphPlot_5 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
+        Graph GraphPlot_1 = new Graph(50, GraphType.Rolling, new Range(0, 255));
+        Graph GraphPlot_2 = new Graph(50, GraphType.Rolling, new Range(0, 255));
+        Graph GraphPlot_3 = new Graph(50, GraphType.Rolling, new Range(0, 255));
+        Graph GraphPlot_4 = new Graph(50, GraphType.Rolling, new Range(0, 255));
+        Graph GraphPlot_5 = new Graph(50, GraphType.Rolling, new Range(0, 255));
 
         Rectangle GridRectangle = new Rectangle(0, 0, 263, 220);
 
@@ -118,11 +118,11 @@ namespace VirtualPanel
             PenColor5.Visible = false;
             Grid = false;
             GridCount = 10;
-            GraphPlot_1 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
-            GraphPlot_2 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
-            GraphPlot_3 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
-            GraphPlot_4 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
-            GraphPlot_5 = new Graph(50, GraphType.Rolling, RangingType.Manual, new Range(0, 255));
+            GraphPlot_1 = new Graph(50, GraphType.Rolling, new Range(0, 255));
+            GraphPlot_2 = new Graph(50, GraphType.Rolling, new Range(0, 255));
+            GraphPlot_3 = new Graph(50, GraphType.Rolling, new Range(0, 255));
+            GraphPlot_4 = new Graph(50, GraphType.Rolling, new Range(0, 255));
+            GraphPlot_5 = new Graph(50, GraphType.Rolling, new Range(0, 255));
             PersistentDrawing.Clear();
             Hold = false;
 
