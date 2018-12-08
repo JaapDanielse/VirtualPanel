@@ -11,22 +11,9 @@ namespace VirtualPanel
     {
         public static float Map(this float val, Range from, Range to)
         {
-            var fromAbs = val - from.Start;
-            var fromMaxAbs = from.End - from.Start;
-
-            var normal = fromAbs / fromMaxAbs;
-
-            var toMaxAbs = to.End - to.Start;
-            var toAbs = toMaxAbs * normal;
-
-            return toAbs + to.Start;
+            var normal = (val - from.Start) / from.Abs;
+            return to.Start + (normal * to.Abs);
         }
-    }
-
-    public enum RangingType
-    {
-        Auto,
-        Manual
     }
 
     public enum GraphType
@@ -42,10 +29,7 @@ namespace VirtualPanel
 
         public float Abs
         {
-            get
-            {
-                return Math.Abs(End - Start);
-            }
+            get { return End - Start; }
         }
 
         public Range(float start, float end)
@@ -53,29 +37,77 @@ namespace VirtualPanel
             Start = start;
             End = end;
         }
+
+        #region Equality
+        public override bool Equals(Object obj)
+        {
+            return obj is Range && this == (Range)obj;
+        }
+        public override int GetHashCode()
+        {
+            return Start.GetHashCode() ^ End.GetHashCode();
+        }
+        public static bool operator ==(Range lhs, Range rhs)
+        {
+            return lhs.Start == rhs.Start && lhs.End == rhs.End;
+        }
+        public static bool operator !=(Range lhs, Range rhs)
+        {
+            return !(lhs == rhs);
+        }
+        #endregion
     }
 
     public class Graph
     {
         private List<float> values = new List<float>();
         private List<float> valueBuffer = new List<float>();
+        private Boolean autoRange = true;
+        private Range valueRange;
+
+        public Boolean AutoRange
+        {
+            get { return autoRange; }
+            set 
+            {
+                autoRange = value;
+                // Updates the range it is switched to auto ranging. 
+                if (autoRange && values.Count >= 2)
+                    ValueRange = new Range(values.Min(), values.Max());
+            }
+        }
+
+        public Range ValueRange
+        {
+            get { return valueRange; } 
+            set
+            {
+                if (value.Abs <= 0)
+                    throw new ArgumentException("Value range Start larger or equal than End", "valuerange");
+
+                valueRange = value;
+                autoRange = false;
+            }
+        }
 
         public int SampleCount { get; set; }
-        public GraphType Type { get; set; }
-        public RangingType RangingType { get; set; }
-        public Range ValueRange { get; set; }
+        public GraphType Type { get; set; }   
 
         public Graph()
         {
             
         }
 
-        public Graph(int samplecount, GraphType type, RangingType rangingtype, Range valuerange = default(Range))
+        public Graph(int samplecount, GraphType type, Range valuerange = default(Range))
         {
+            if (valuerange != default(Range) )
+            {
+                ValueRange = valuerange;
+                autoRange = false;
+            }
+
             SampleCount = samplecount;
             Type = type;
-            RangingType = rangingtype;
-            ValueRange = valuerange;
         }
 
         public void ClearData()
@@ -106,8 +138,8 @@ namespace VirtualPanel
                 }
             }
 
-            if (RangingType == RangingType.Auto && values.Count >= 2)
-                ValueRange = new Range(values.Min(), values.Max());
+            if (autoRange && values.Count >= 2)
+                valueRange = new Range(values.Min(), values.Max());
         }
 
         public void Draw(Graphics g, Color color, float plotWidth, Rectangle bounds)
@@ -124,7 +156,7 @@ namespace VirtualPanel
                 points.Add(new PointF(x, y));
             }
 
-            if (points.Count >= 2)
+            if (points.Count >= 2 && valueRange.Abs > 0)
                 g.DrawLines(new Pen(color, plotWidth), points.ToArray());
         }
     }
