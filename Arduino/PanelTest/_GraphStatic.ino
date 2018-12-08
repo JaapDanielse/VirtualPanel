@@ -30,7 +30,7 @@ void StaticCallback(int event, int type)
       Panel.Send(GraphLabel_1, "$ORANGE");
       Panel.Send(GraphLabel_1, "GraphLabel_1");
       Panel.Send(GraphValue_2,"$STATIC");
-      Panel.Send(GraphValue_2,"$RED");
+      Panel.Send(GraphValue_2,"$ORANGE");
       Panel.Send(ScrollBar_1, "trig");
       Panel.Send(ScrollBar_1, trig);
       Panel.Send(MaxScrollBar_1, 220);

@@ -58,12 +58,16 @@ namespace VirtualPanel
         #endregion
     }
 
-    public class Graph
+    public class Graph : IDrawable
     {
         private List<float> values = new List<float>();
         private List<float> valueBuffer = new List<float>();
         private Boolean autoRange = true;
         private Range valueRange;
+
+        public Color Color { get; set; } = Color.White;
+        public float PlotWidth { get; set; } = 1.0f;
+        public Rectangle DrawingBounds { get; set; }
 
         public Boolean AutoRange
         {
@@ -98,14 +102,18 @@ namespace VirtualPanel
             
         }
 
-        public Graph(int samplecount, GraphType type, Range valuerange = default(Range))
+        public Graph(int samplecount, GraphType type, Rectangle drawingBounds, Range valuerange = default(Range))
         {
-            if (valuerange != default(Range) )
+            if (valuerange != default(Range))
             {
                 ValueRange = valuerange;
                 autoRange = false;
             }
 
+            if (drawingBounds.Height < 0 && drawingBounds.Width < 0)
+                throw new ArgumentException("Drawing bounds have no size.", "drawingBounds");
+
+            DrawingBounds = drawingBounds;
             SampleCount = samplecount;
             Type = type;
         }
@@ -142,22 +150,22 @@ namespace VirtualPanel
                 valueRange = new Range(values.Min(), values.Max());
         }
 
-        public void Draw(Graphics g, Color color, float plotWidth, Rectangle bounds)
+        public void Draw(Graphics g)
         {
             var points = new List<PointF>();
 
-            float xdiff = ((float)bounds.Width - bounds.X) / (SampleCount-1);
-            Range yrange = new Range(bounds.Y, bounds.Y + bounds.Height);
+            float xdiff = ((float)DrawingBounds.Width - DrawingBounds.X) / (SampleCount-1);
+            Range yrange = new Range(DrawingBounds.Y, DrawingBounds.Y + DrawingBounds.Height);
 
             for (int i=0; i < values.Count; i++)
             {
-                float x = bounds.X + (i * xdiff);
+                float x = DrawingBounds.X + (i * xdiff);
                 float y = values[i].Map(ValueRange, yrange);
                 points.Add(new PointF(x, y));
             }
 
             if (points.Count >= 2 && valueRange.Abs > 0)
-                g.DrawLines(new Pen(color, plotWidth), points.ToArray());
+                g.DrawLines(new Pen(Color, PlotWidth), points.ToArray());
         }
     }
 }

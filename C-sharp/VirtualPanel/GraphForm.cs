@@ -15,17 +15,15 @@ namespace VirtualPanel
         int GraphWidth = 0;
         int GraphHeight = 0;
         bool Grid = false;
-
-        int VMarginSpace = 0;
-        int HMarginSpace = 0;
         bool Hold = false;
+
         private List<Tuple<ChannelId, Control>> pannelControlList;
 
-        Graph GraphPlot_1 = new Graph(50, GraphType.Rolling, new Range(0, 255));
-        Graph GraphPlot_2 = new Graph(50, GraphType.Rolling, new Range(0, 255));
-        Graph GraphPlot_3 = new Graph(50, GraphType.Rolling, new Range(0, 255));
-        Graph GraphPlot_4 = new Graph(50, GraphType.Rolling, new Range(0, 255));
-        Graph GraphPlot_5 = new Graph(50, GraphType.Rolling, new Range(0, 255));
+        Graph GraphPlot_1;
+        Graph GraphPlot_2;
+        Graph GraphPlot_3;
+        Graph GraphPlot_4;
+        Graph GraphPlot_5;
 
         Rectangle GridRectangle = new Rectangle(0, 0, 263, 220);
 
@@ -37,12 +35,7 @@ namespace VirtualPanel
         string GraphCaption2Text = "";
 
         Color DrawTextColor = Color.White;
-        Color DrawColor = Color.White;
-        Color PlotColor_1 = Color.Yellow;
-        Color PlotColor_2 = Color.Orange;
-        Color PlotColor_3 = Color.Red;
-        Color PlotColor_4 = Color.DodgerBlue;
-        Color PlotColor_5 = Color.Lime;
+        Color DrawColor    = Color.White;
 
         Point DrawtextPoint = new Point(0, 0);
         Point LinePoint = new Point(0, 0);
@@ -54,6 +47,19 @@ namespace VirtualPanel
         {
             arduinoport = port;
             InitializeComponent();
+
+            GraphPlot_1 = new Graph(50, GraphType.Rolling, GraphPictureBox1.ClientRectangle, new Range(0, 255));
+            GraphPlot_2 = new Graph(50, GraphType.Rolling, GraphPictureBox1.ClientRectangle, new Range(0, 255));
+            GraphPlot_3 = new Graph(50, GraphType.Rolling, GraphPictureBox1.ClientRectangle, new Range(0, 255));
+            GraphPlot_4 = new Graph(50, GraphType.Rolling, GraphPictureBox1.ClientRectangle, new Range(0, 255));
+            GraphPlot_5 = new Graph(50, GraphType.Rolling, GraphPictureBox1.ClientRectangle, new Range(0, 255));
+
+
+            GraphPlot_1.Color = Color.White;
+            GraphPlot_2.Color =  Color.Yellow;
+            GraphPlot_3.Color =  Color.Orange;
+            GraphPlot_4.Color =  Color.Red;
+            GraphPlot_5.Color = Color.DodgerBlue;
 
             pannelControlList = new List<Tuple<ChannelId, Control>>();
             pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.GraphButton_1, graphButton1));
@@ -106,11 +112,7 @@ namespace VirtualPanel
             DrawPenSize = 1;
             DrawTextColor = Color.White;
             DrawColor = Color.White;
-            PlotColor_1 = Color.Yellow;
-            PlotColor_2 = Color.Orange;
-            PlotColor_3 = Color.Red;
-            PlotColor_4 = Color.DodgerBlue;
-            PlotColor_5 = Color.Lime;
+
             PenColor1.Visible = false;
             PenColor2.Visible = false;
             PenColor3.Visible = false;
@@ -118,11 +120,16 @@ namespace VirtualPanel
             PenColor5.Visible = false;
             Grid = false;
             GridCount = 10;
-            GraphPlot_1 = new Graph(50, GraphType.Rolling, new Range(0, 255));
-            GraphPlot_2 = new Graph(50, GraphType.Rolling, new Range(0, 255));
-            GraphPlot_3 = new Graph(50, GraphType.Rolling, new Range(0, 255));
-            GraphPlot_4 = new Graph(50, GraphType.Rolling, new Range(0, 255));
-            GraphPlot_5 = new Graph(50, GraphType.Rolling, new Range(0, 255));
+            GraphPlot_1 = new Graph(50, GraphType.Rolling, GraphPictureBox1.ClientRectangle, new Range(0, 255));
+            GraphPlot_2 = new Graph(50, GraphType.Rolling, GraphPictureBox1.ClientRectangle, new Range(0, 255));
+            GraphPlot_3 = new Graph(50, GraphType.Rolling, GraphPictureBox1.ClientRectangle, new Range(0, 255));
+            GraphPlot_4 = new Graph(50, GraphType.Rolling, GraphPictureBox1.ClientRectangle, new Range(0, 255));
+            GraphPlot_5 = new Graph(50, GraphType.Rolling, GraphPictureBox1.ClientRectangle, new Range(0, 255));
+            GraphPlot_1.Color = Color.Yellow;
+            GraphPlot_2.Color = Color.Orange;
+            GraphPlot_3.Color = Color.Red;
+            GraphPlot_4.Color = Color.DodgerBlue;
+            GraphPlot_5.Color = Color.Lime;
             PersistentDrawing.Clear();
             Hold = false;
 
@@ -169,11 +176,11 @@ namespace VirtualPanel
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphGrid && mse.Type == vp_type.vp_boolean) Grid = (bool)mse.Data;
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphGrid && mse.Type == vp_type.vp_int) { Grid = true; GridCount = (int)mse.Data; }
 
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_1 && mse.Type == vp_type.vp_string) SetGraphAttr(PlotColor_1, (string)mse.Data, GraphPlot_1);
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_2 && mse.Type == vp_type.vp_string) SetGraphAttr(PlotColor_2, (string)mse.Data, GraphPlot_2);
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_string) SetGraphAttr(PlotColor_3, (string)mse.Data, GraphPlot_3);
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_4 && mse.Type == vp_type.vp_string) SetGraphAttr(PlotColor_4, (string)mse.Data, GraphPlot_4);
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_5 && mse.Type == vp_type.vp_string) SetGraphAttr(PlotColor_5, (string)mse.Data, GraphPlot_5);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_1 && mse.Type == vp_type.vp_string) SetGraphAttr((string)mse.Data, GraphPlot_1);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_2 && mse.Type == vp_type.vp_string) SetGraphAttr((string)mse.Data, GraphPlot_2);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_string) SetGraphAttr((string)mse.Data, GraphPlot_3);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_4 && mse.Type == vp_type.vp_string) SetGraphAttr((string)mse.Data, GraphPlot_4);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_5 && mse.Type == vp_type.vp_string) SetGraphAttr((string)mse.Data, GraphPlot_5);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_1 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_1); Grid = true; }
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_2 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_2); Grid = true; }
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_3); Grid = true; }
@@ -187,11 +194,11 @@ namespace VirtualPanel
         }
         }
 
-        private void SetGraphAttr(Color PlotColor, string data, Graph GraphPlot)
+        private void SetGraphAttr(string data, Graph GraphPlot)
         {
             Color col = VirtualPanelForm.String2Color(data);
             if (!col.IsEmpty)
-                PlotColor = col; //
+                GraphPlot.Color = col; //
             else
             {
                 if (data == "$ROLLING") GraphPlot.Type = GraphType.Rolling;
@@ -381,11 +388,11 @@ namespace VirtualPanel
             g.DrawString(GraphCaption1Text, new Font("Verdana", 8), new SolidBrush(DrawTextColor), new Point(10, 5));
             g.DrawString(GraphCaption2Text, new Font("Verdana", 8), new SolidBrush(DrawTextColor), new Point(10, 205));
 
-            GraphPlot_1.Draw(g, PlotColor_1, 1, GraphPictureBox1.ClientRectangle);
-            GraphPlot_2.Draw(g, PlotColor_2, 1, GraphPictureBox1.ClientRectangle);
-            GraphPlot_3.Draw(g, PlotColor_3, 1, GraphPictureBox1.ClientRectangle);
-            GraphPlot_4.Draw(g, PlotColor_4, 1, GraphPictureBox1.ClientRectangle);
-            GraphPlot_5.Draw(g, PlotColor_5, 1, GraphPictureBox1.ClientRectangle);
+            GraphPlot_1.Draw(g);
+            GraphPlot_2.Draw(g);
+            GraphPlot_3.Draw(g);
+            GraphPlot_4.Draw(g);
+            GraphPlot_5.Draw(g);
 
             PersistentDrawing.Draw(g);
         }
