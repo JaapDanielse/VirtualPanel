@@ -21,7 +21,7 @@ void StaticCallback(int event, int type)
       Panel.Send(Button_6, "mon");
       Panel.Send(Button_7, "frq\ndrft");
       Panel.Send(GraphGrid, 6);
-      Panel.Send(GraphSampleCount, SampleCount);
+//      Panel.Send(GraphSampleCount, SampleCount);
       Panel.Send(GraphButton_1, "GrBttn 1");
       Panel.Send(GraphButton_2, "GrBttn 2");
       Panel.Send(GraphButton_3, "GrBttn 3");
@@ -29,8 +29,9 @@ void StaticCallback(int event, int type)
       Panel.Send(GraphCaption_1, "Simulated Oscilloscope");
       Panel.Send(GraphLabel_1, "$ORANGE");
       Panel.Send(GraphLabel_1, "GraphLabel_1");
-      Panel.Send(GraphValue_2,"$STATIC");
-      Panel.Send(GraphValue_2,"$ORANGE");
+      Panel.Send(GraphValueCount_1,SampleCount);
+      Panel.Send(GraphValue_1,"$STATIC");
+      Panel.Send(GraphValue_1,"$ORANGE");
       Panel.Send(ScrollBar_1, "trig");
       Panel.Send(ScrollBar_1, trig);
       Panel.Send(MaxScrollBar_1, 220);
@@ -142,7 +143,7 @@ void Sinus()
      angle += 360.0/((float)SampleCount/tsincount);
      float RadAngle = (float)(PI/180.0) * angle;
      graphvalue = (byte) constrain((vdiv * sin(RadAngle) + vpos),0,255);
-     Panel.Send(GraphValue_2,graphvalue);  
+     Panel.Send(GraphValue_1,graphvalue);  
    }
 
 }

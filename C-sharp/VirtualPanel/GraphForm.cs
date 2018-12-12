@@ -144,34 +144,32 @@ namespace VirtualPanel
 
             if (!Hold)
             {
-            if (control != null)
-            {
-                if (control.Item2 is Button) VirtualPanelForm.SetButtonAppearance((Button)control.Item2, mse);
-                if (control.Item2 is Label) SetLabelAppearance((Label)control.Item2, mse);
-            }
+                if (control != null)
+                {
+                    if (control.Item2 is Button) VirtualPanelForm.SetButtonAppearance((Button)control.Item2, mse);
+                    if (control.Item2 is Label) SetLabelAppearance((Label)control.Item2, mse);
+                }
 
                 if ((ChannelId)mse.ChannelID == ChannelId.Graph && mse.Type == vp_type.vp_string)
                 {
-                    if((string)mse.Data == "$CLEAR") { PersistentDrawing.Clear(); }
+                    if ((string)mse.Data == "$CLEAR") { PersistentDrawing.Clear(); }
                 }
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphPen && mse.Type == vp_type.vp_string) SetDrawPen((string)mse.Data);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_ulong) DrawPersitentLine((Int64)mse.Data);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_uint) DrawLinePoint((Int32)mse.Data);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_void) LinePointValid = false;
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawPixel && mse.Type == vp_type.vp_uint) DrawPixel((Int32)mse.Data);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_uint) DrawTextPos((Int32)mse.Data);
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_string) Drawtext((string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphPen && mse.Type == vp_type.vp_string) SetDrawPen((string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_ulong) DrawPersitentLine((Int64)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_uint) DrawLinePoint((Int32)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_void) LinePointValid = false;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawPixel && mse.Type == vp_type.vp_uint) DrawPixel((Int32)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_uint) DrawTextPos((Int32)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_string) Drawtext((string)mse.Data);
 
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphSampleCount && mse.Type == vp_type.vp_int)
-                {
-                    GraphPlot_1.SampleCount = (Int32)mse.Data;
-                    GraphPlot_2.SampleCount = (Int32)mse.Data;
-                    GraphPlot_3.SampleCount = (Int32)mse.Data;
-                    GraphPlot_4.SampleCount = (Int32)mse.Data;
-                    GraphPlot_5.SampleCount = (Int32)mse.Data;
-                }
-
-
+                //if ((ChannelId)mse.ChannelID == ChannelId.GraphSampleCount && mse.Type == vp_type.vp_int)
+                //{
+                //    GraphPlot_1.SampleCount = (Int32)mse.Data;
+                //    GraphPlot_2.SampleCount = (Int32)mse.Data;
+                //    GraphPlot_3.SampleCount = (Int32)mse.Data;
+                //    GraphPlot_4.SampleCount = (Int32)mse.Data;
+                //    GraphPlot_5.SampleCount = (Int32)mse.Data;
+                //}
 
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphGrid && mse.Type == vp_type.vp_boolean) Grid = (bool)mse.Data;
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphGrid && mse.Type == vp_type.vp_int) { Grid = true; GridCount = (int)mse.Data; }
@@ -181,17 +179,24 @@ namespace VirtualPanel
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_string) SetGraphAttr((string)mse.Data, GraphPlot_3);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_4 && mse.Type == vp_type.vp_string) SetGraphAttr((string)mse.Data, GraphPlot_4);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_5 && mse.Type == vp_type.vp_string) SetGraphAttr((string)mse.Data, GraphPlot_5);
+
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValueCount_1 && mse.Type == vp_type.vp_int) GraphPlot_1.SampleCount = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValueCount_2 && mse.Type == vp_type.vp_int) GraphPlot_2.SampleCount = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValueCount_3 && mse.Type == vp_type.vp_int) GraphPlot_3.SampleCount = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValueCount_4 && mse.Type == vp_type.vp_int) GraphPlot_4.SampleCount = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValueCount_5 && mse.Type == vp_type.vp_int) GraphPlot_5.SampleCount = (int)mse.Data;
+
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_1 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_1); Grid = true; }
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_2 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_2); Grid = true; }
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_3); Grid = true; }
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_4 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_4); Grid = true; }
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_5 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_5); Grid = true; }
 
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_1 && mse.Type == vp_type.vp_string) GraphCaption1Text = (string)mse.Data;
-            if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_2 && mse.Type == vp_type.vp_string) GraphCaption2Text = (string)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_1 && mse.Type == vp_type.vp_string) GraphCaption1Text = (string)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_2 && mse.Type == vp_type.vp_string) GraphCaption2Text = (string)mse.Data;
 
                 GraphPictureBox1.Invalidate();
-        }
+            }
         }
 
         private void SetGraphAttr(string data, Graph GraphPlot)
@@ -224,7 +229,7 @@ namespace VirtualPanel
             int x = 0;
             int y = 0;
             hexdata = Convert.ToUInt16(data).ToString("X4");
-            x = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(0, 2), 16)));
+            x = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(0, 2), 16)))+4;
             y = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(2, 2), 16)));
             y = GraphPictureBox1.Height - y;
 
@@ -243,9 +248,9 @@ namespace VirtualPanel
             int ye = 0;
 
             hexdata = Convert.ToUInt32(MyLine).ToString("X8");
-            xs = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(0, 2), 16)));
+            xs = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(0, 2), 16)))+4;
             ys = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(2, 2), 16)));
-            xe = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(4, 2), 16)));
+            xe = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(4, 2), 16)))+4;
             ye = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(6, 2), 16)));
             ys = GraphPictureBox1.Height - ys;
             ye = GraphPictureBox1.Height - ye;
@@ -266,7 +271,7 @@ namespace VirtualPanel
             int y = 0;
 
             hexdata = Convert.ToUInt16(data).ToString("X4");
-            x = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(0, 2), 16)));
+            x = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(0, 2), 16)))+4;
             y = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(hexdata.Substring(2, 2), 16)));
             y = GraphPictureBox1.Height - y;
 

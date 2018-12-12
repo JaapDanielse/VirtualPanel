@@ -100,9 +100,10 @@ namespace VirtualPanel
 
                 logmonitor.AppendText(builder.ToString());
                 log.Clear();
+                builder.Clear();
 
-                if (this.Visible)                  
-                    logmonitor.ScrollToCaret();
+                //if (this.Visible)                 
+                //    logmonitor.ScrollToCaret();
             }
         }
     }

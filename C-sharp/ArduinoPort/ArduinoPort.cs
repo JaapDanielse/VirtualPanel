@@ -371,6 +371,11 @@ namespace ArduinoCom
                     Debug.WriteLine(fe);
                     continue;
                 }
+                catch (ArgumentOutOfRangeException ae)
+                {
+                    Debug.WriteLine(ae);
+                    continue;
+                }
 
                 MessageReceived?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, messagedata));
             }

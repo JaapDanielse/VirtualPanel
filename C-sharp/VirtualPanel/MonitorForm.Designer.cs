@@ -40,6 +40,11 @@
             this.MonFileDialogButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -51,6 +56,7 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "S1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.DoubleClick += new System.EventHandler(this.label1_DoubleClick);
             // 
             // label2
             // 
@@ -148,11 +154,48 @@
             this.saveFileDialog1.Filter = "\"Txt files (*.txt)|*.txt|All files (*.*)|*.*\"";
             this.saveFileDialog1.Title = "Save Monitor File";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Location = new System.Drawing.Point(50, 60);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(229, 27);
+            this.panel1.TabIndex = 11;
+            this.panel1.Visible = false;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(3, 4);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(173, 20);
+            this.textBox2.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(176, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(26, 22);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "x";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(202, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(24, 22);
+            this.button2.TabIndex = 2;
+            this.button2.Text = ">";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // MonitorForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(503, 241);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.MonFileDialogButton);
             this.Controls.Add(this.MonitorHoldButton);
@@ -169,6 +212,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Monitor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StatisticsForm_FormClosing);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,5 +231,9 @@
         private System.Windows.Forms.Button MonFileDialogButton;
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

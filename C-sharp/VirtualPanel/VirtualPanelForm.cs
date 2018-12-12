@@ -79,7 +79,6 @@ namespace VirtualPanel
         //
         Graph, // false/true, byte (1(draw), 2(stat), 3(run)
         GraphGrid, // byte number of segments
-        GraphSampleCount, // byte 
         GraphPen, // $FINE, $THICK, $RED, $GREEN, $YELLOW, $ORANGE, $WHITE, $BLUE 
         GraphDrawLine, // ULong 4x byte (Fx,Fy,Tx,Ty) UInt 2 x byte (X,Y)
         GraphDrawPixel, // UInt 2 x byte (X,Y)
@@ -89,7 +88,13 @@ namespace VirtualPanel
         GraphValue_2, // byte 
         GraphValue_3, // byte 
         GraphValue_4, // byte 
-        GraphValue_5, // byte 
+        GraphValue_5, // byte
+        //
+        GraphValueCount_1, // int
+        GraphValueCount_2, // int
+        GraphValueCount_3, // int 
+        GraphValueCount_4, // int  
+        GraphValueCount_5, // int 
         //
         GraphCaption_1, //
         GraphCaption_2, //

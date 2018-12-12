@@ -91,5 +91,11 @@ namespace VirtualPanel
                 File.WriteAllText(saveFileDialog1.FileName, textBox1.Text);
             }
         }
+
+        private void label1_DoubleClick(object sender, EventArgs e)
+        {
+            if(label1 == sender) panel1.Location=label1.Location;
+            panel1.Visible = true;
+        }
     }
 }

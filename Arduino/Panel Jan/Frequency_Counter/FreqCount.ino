@@ -4,6 +4,11 @@
  // SparkFun Electronics
  // License: Beerware
 
+ // Max frequency ~ 4,5MHz
+//  1 sec / gateTime = 10^6 / 999854 = 1,000146021
+//  Xtal Freq / 1,000146021 = 15,997664 MHz  (-2336Hz)
+//  scope f = 15,95 ... 15,96
+
 unsigned int tovf1 = 0; // Overflow counter
 
 // Timer 1 is our counter

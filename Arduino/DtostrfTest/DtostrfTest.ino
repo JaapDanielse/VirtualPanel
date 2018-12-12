@@ -3,11 +3,11 @@ void setup()
   // put your setup code here, to run once:
 
   float test = 123.456;
-  char outstr[20];
+  char outstr[10];
 
-  dtostrf(test,0,2,outstr);
+  dtostrf(test,0,1,outstr);
   int i=0;
-  while (outstr[i]==' ') outstr[i++]='0';
+ // while (outstr[i]==' ') outstr[i++]='0';
 
 
   Serial.begin(115200);

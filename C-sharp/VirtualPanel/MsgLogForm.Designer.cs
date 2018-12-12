@@ -94,6 +94,7 @@
             // 
             this.logmonitor.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.logmonitor.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.logmonitor.HideSelection = false;
             this.logmonitor.Location = new System.Drawing.Point(12, 12);
             this.logmonitor.Name = "logmonitor";
             this.logmonitor.ReadOnly = true;
