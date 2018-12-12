@@ -39,7 +39,7 @@ namespace VirtualPanel
         }
 
         #region Equality
-        public override bool Equals(Object obj)
+        public override bool Equals(Object obj) 
         {
             return obj is Range && this == (Range)obj;
         }
