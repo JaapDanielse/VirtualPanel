@@ -1,6 +1,6 @@
 // Clock (using PanelOne) 
 
-#include "PanelOne.h"
+#include "VirtualPanel.h"
 #include <TimeLib.h>  
 
 boolean Graphmode = false;

@@ -235,6 +235,8 @@
             this.GraphPictureBox1.TabIndex = 27;
             this.GraphPictureBox1.TabStop = false;
             this.GraphPictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.GraphPictureBox1_Paint);
+            this.GraphPictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GraphPictureBox1_Click);
+            this.GraphPictureBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.GraphPictureBox1_DoubleClick);
             // 
             // GraphForm
             // 

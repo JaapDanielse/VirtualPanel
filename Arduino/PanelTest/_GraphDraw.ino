@@ -65,7 +65,7 @@ void DrawCircles()
    int Dist = 110;
 
    Panel.Send(GraphPen,"$ORANGE");
-   Panel.Send(GraphPen,"$1PX");
+   Panel.Send(GraphPen,"$2PX");
    Panel.Send(GraphDrawLine); // new line
    for(int Angle=0 ; Angle <= 180 ; Angle+=2)
    {

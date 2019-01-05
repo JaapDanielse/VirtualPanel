@@ -41,7 +41,7 @@ namespace ArduinoCom
             port.DataBits = 8;
             port.StopBits = StopBits.One;
             port.Handshake = Handshake.None;
-            port.RtsEnable = true;
+            port.RtsEnable = false;
             port.NewLine = "\r\n";
 
             // Setup port checker timer.

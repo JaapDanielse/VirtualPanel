@@ -23,6 +23,9 @@ boolean blue = true;
       Panel.Send(GraphButton_3, "GrBttn 3");
       Panel.Send(GraphButton_4, "GrBttn 4");
       
+      Panel.Send(GraphValue_3,"$YELLOW");
+      Panel.Send(GraphValue_3,"$2PX");
+      
       Panel.Send(GraphLabel_1, "$YELLOW");
       Panel.Send(GraphLabel_1, "GraphLabel_1");
       Panel.Send(GraphLabel_2, "$ORANGE");
