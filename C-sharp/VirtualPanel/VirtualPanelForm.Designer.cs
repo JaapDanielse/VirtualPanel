@@ -41,24 +41,24 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.PanelInputPanel_1 = new System.Windows.Forms.Panel();
+            this.PanelInputLabel_1 = new System.Windows.Forms.Label();
+            this.PanelDiscardInput_1 = new System.Windows.Forms.Button();
+            this.PanelSendInput_1 = new System.Windows.Forms.Button();
+            this.PanelInputTextBox_1 = new System.Windows.Forms.TextBox();
+            this.display3 = new System.Windows.Forms.Label();
             this.PanelInputPanel_2 = new System.Windows.Forms.Panel();
             this.PanelInputLabel_2 = new System.Windows.Forms.Label();
             this.PanelDiscardInput_2 = new System.Windows.Forms.Button();
             this.PanelSendInput_2 = new System.Windows.Forms.Button();
             this.PanelInputTextBox_2 = new System.Windows.Forms.TextBox();
             this.display4 = new System.Windows.Forms.Label();
-            this.display3 = new System.Windows.Forms.Label();
             this.Led13 = new System.Windows.Forms.PictureBox();
             this.Led12 = new System.Windows.Forms.PictureBox();
             this.Led11 = new System.Windows.Forms.PictureBox();
             this.Led10 = new System.Windows.Forms.PictureBox();
             this.display1 = new System.Windows.Forms.Label();
             this.display2 = new System.Windows.Forms.Label();
-            this.PanelInputPanel_1 = new System.Windows.Forms.Panel();
-            this.PanelInputLabel_1 = new System.Windows.Forms.Label();
-            this.PanelDiscardInput_1 = new System.Windows.Forms.Button();
-            this.PanelSendInput_1 = new System.Windows.Forms.Button();
-            this.PanelInputTextBox_1 = new System.Windows.Forms.TextBox();
             this.button8 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
@@ -94,16 +94,19 @@
             this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.messageLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetArduinoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.ScrollBar5 = new System.Windows.Forms.HScrollBar();
+            this.scrolllabel5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.connected_box)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.PanelInputPanel_1.SuspendLayout();
             this.PanelInputPanel_2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Led13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led10)).BeginInit();
-            this.PanelInputPanel_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Led7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led9)).BeginInit();
@@ -222,10 +225,10 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gray;
-            this.panel1.Controls.Add(this.PanelInputPanel_2);
             this.panel1.Controls.Add(this.PanelInputPanel_1);
-            this.panel1.Controls.Add(this.display4);
             this.panel1.Controls.Add(this.display3);
+            this.panel1.Controls.Add(this.PanelInputPanel_2);
+            this.panel1.Controls.Add(this.display4);
             this.panel1.Controls.Add(this.Led13);
             this.panel1.Controls.Add(this.Led12);
             this.panel1.Controls.Add(this.Led11);
@@ -237,23 +240,99 @@
             this.panel1.Size = new System.Drawing.Size(263, 98);
             this.panel1.TabIndex = 34;
             // 
+            // PanelInputPanel_1
+            // 
+            this.PanelInputPanel_1.BackColor = System.Drawing.Color.DarkGray;
+            this.PanelInputPanel_1.Controls.Add(this.PanelInputLabel_1);
+            this.PanelInputPanel_1.Controls.Add(this.PanelDiscardInput_1);
+            this.PanelInputPanel_1.Controls.Add(this.PanelSendInput_1);
+            this.PanelInputPanel_1.Controls.Add(this.PanelInputTextBox_1);
+            this.PanelInputPanel_1.Location = new System.Drawing.Point(16, 7);
+            this.PanelInputPanel_1.Name = "PanelInputPanel_1";
+            this.PanelInputPanel_1.Size = new System.Drawing.Size(231, 35);
+            this.PanelInputPanel_1.TabIndex = 63;
+            this.PanelInputPanel_1.Visible = false;
+            // 
+            // PanelInputLabel_1
+            // 
+            this.PanelInputLabel_1.AutoSize = true;
+            this.PanelInputLabel_1.BackColor = System.Drawing.Color.Transparent;
+            this.PanelInputLabel_1.Location = new System.Drawing.Point(2, 11);
+            this.PanelInputLabel_1.Name = "PanelInputLabel_1";
+            this.PanelInputLabel_1.Size = new System.Drawing.Size(56, 13);
+            this.PanelInputLabel_1.TabIndex = 3;
+            this.PanelInputLabel_1.Text = "Input label";
+            // 
+            // PanelDiscardInput_1
+            // 
+            this.PanelDiscardInput_1.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.PanelDiscardInput_1.ForeColor = System.Drawing.Color.DarkRed;
+            this.PanelDiscardInput_1.Location = new System.Drawing.Point(190, 4);
+            this.PanelDiscardInput_1.Name = "PanelDiscardInput_1";
+            this.PanelDiscardInput_1.Size = new System.Drawing.Size(20, 27);
+            this.PanelDiscardInput_1.TabIndex = 2;
+            this.PanelDiscardInput_1.Text = "";
+            this.PanelDiscardInput_1.UseVisualStyleBackColor = true;
+            this.PanelDiscardInput_1.Click += new System.EventHandler(this.PanelDiscardInput_Click);
+            // 
+            // PanelSendInput_1
+            // 
+            this.PanelSendInput_1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PanelSendInput_1.Location = new System.Drawing.Point(209, 4);
+            this.PanelSendInput_1.Name = "PanelSendInput_1";
+            this.PanelSendInput_1.Size = new System.Drawing.Size(20, 27);
+            this.PanelSendInput_1.TabIndex = 1;
+            this.PanelSendInput_1.Text = "►";
+            this.PanelSendInput_1.UseVisualStyleBackColor = true;
+            this.PanelSendInput_1.Click += new System.EventHandler(this.PanelSendInput_Click);
+            // 
+            // PanelInputTextBox_1
+            // 
+            this.PanelInputTextBox_1.BackColor = System.Drawing.Color.DarkGray;
+            this.PanelInputTextBox_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PanelInputTextBox_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PanelInputTextBox_1.ForeColor = System.Drawing.Color.White;
+            this.PanelInputTextBox_1.Location = new System.Drawing.Point(4, 5);
+            this.PanelInputTextBox_1.Name = "PanelInputTextBox_1";
+            this.PanelInputTextBox_1.Size = new System.Drawing.Size(178, 22);
+            this.PanelInputTextBox_1.TabIndex = 0;
+            this.PanelInputTextBox_1.Text = "input 1";
+            this.PanelInputTextBox_1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.PanelInputTextBox_1.TextChanged += new System.EventHandler(this.PanelInputTextBox_TextChange);
+            // 
+            // display3
+            // 
+            this.display3.BackColor = System.Drawing.Color.Transparent;
+            this.display3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.display3.ForeColor = System.Drawing.Color.White;
+            this.display3.Location = new System.Drawing.Point(28, 7);
+            this.display3.Name = "display3";
+            this.display3.Size = new System.Drawing.Size(92, 38);
+            this.display3.TabIndex = 42;
+            this.display3.Text = "display3";
+            this.display3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.display3.DoubleClick += new System.EventHandler(this.display_Click);
+            // 
             // PanelInputPanel_2
             // 
+            this.PanelInputPanel_2.BackColor = System.Drawing.Color.DarkGray;
             this.PanelInputPanel_2.Controls.Add(this.PanelInputLabel_2);
             this.PanelInputPanel_2.Controls.Add(this.PanelDiscardInput_2);
             this.PanelInputPanel_2.Controls.Add(this.PanelSendInput_2);
             this.PanelInputPanel_2.Controls.Add(this.PanelInputTextBox_2);
-            this.PanelInputPanel_2.Location = new System.Drawing.Point(17, 50);
+            this.PanelInputPanel_2.Location = new System.Drawing.Point(16, 52);
             this.PanelInputPanel_2.Name = "PanelInputPanel_2";
-            this.PanelInputPanel_2.Size = new System.Drawing.Size(231, 46);
+            this.PanelInputPanel_2.Size = new System.Drawing.Size(231, 34);
             this.PanelInputPanel_2.TabIndex = 64;
             this.PanelInputPanel_2.Visible = false;
             // 
             // PanelInputLabel_2
             // 
-            this.PanelInputLabel_2.Location = new System.Drawing.Point(2, 3);
+            this.PanelInputLabel_2.AutoSize = true;
+            this.PanelInputLabel_2.BackColor = System.Drawing.Color.Transparent;
+            this.PanelInputLabel_2.Location = new System.Drawing.Point(2, 10);
             this.PanelInputLabel_2.Name = "PanelInputLabel_2";
-            this.PanelInputLabel_2.Size = new System.Drawing.Size(166, 14);
+            this.PanelInputLabel_2.Size = new System.Drawing.Size(56, 13);
             this.PanelInputLabel_2.TabIndex = 3;
             this.PanelInputLabel_2.Text = "Input label";
             // 
@@ -261,9 +340,9 @@
             // 
             this.PanelDiscardInput_2.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.PanelDiscardInput_2.ForeColor = System.Drawing.Color.DarkRed;
-            this.PanelDiscardInput_2.Location = new System.Drawing.Point(173, 17);
+            this.PanelDiscardInput_2.Location = new System.Drawing.Point(190, 3);
             this.PanelDiscardInput_2.Name = "PanelDiscardInput_2";
-            this.PanelDiscardInput_2.Size = new System.Drawing.Size(28, 27);
+            this.PanelDiscardInput_2.Size = new System.Drawing.Size(20, 27);
             this.PanelDiscardInput_2.TabIndex = 2;
             this.PanelDiscardInput_2.Text = "";
             this.PanelDiscardInput_2.UseVisualStyleBackColor = true;
@@ -272,9 +351,9 @@
             // PanelSendInput_2
             // 
             this.PanelSendInput_2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PanelSendInput_2.Location = new System.Drawing.Point(199, 17);
+            this.PanelSendInput_2.Location = new System.Drawing.Point(209, 3);
             this.PanelSendInput_2.Name = "PanelSendInput_2";
-            this.PanelSendInput_2.Size = new System.Drawing.Size(28, 27);
+            this.PanelSendInput_2.Size = new System.Drawing.Size(20, 27);
             this.PanelSendInput_2.TabIndex = 1;
             this.PanelSendInput_2.Text = "►";
             this.PanelSendInput_2.UseVisualStyleBackColor = true;
@@ -282,11 +361,15 @@
             // 
             // PanelInputTextBox_2
             // 
-            this.PanelInputTextBox_2.Location = new System.Drawing.Point(3, 18);
-            this.PanelInputTextBox_2.Multiline = true;
+            this.PanelInputTextBox_2.BackColor = System.Drawing.Color.DarkGray;
+            this.PanelInputTextBox_2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PanelInputTextBox_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PanelInputTextBox_2.ForeColor = System.Drawing.Color.White;
+            this.PanelInputTextBox_2.Location = new System.Drawing.Point(4, 4);
             this.PanelInputTextBox_2.Name = "PanelInputTextBox_2";
-            this.PanelInputTextBox_2.Size = new System.Drawing.Size(170, 25);
+            this.PanelInputTextBox_2.Size = new System.Drawing.Size(178, 22);
             this.PanelInputTextBox_2.TabIndex = 0;
+            this.PanelInputTextBox_2.Text = "input 2";
             this.PanelInputTextBox_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.PanelInputTextBox_2.TextChanged += new System.EventHandler(this.PanelInputTextBox_TextChange);
             // 
@@ -302,19 +385,6 @@
             this.display4.Text = "display4";
             this.display4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.display4.DoubleClick += new System.EventHandler(this.display_Click);
-            // 
-            // display3
-            // 
-            this.display3.BackColor = System.Drawing.Color.Transparent;
-            this.display3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.display3.ForeColor = System.Drawing.Color.White;
-            this.display3.Location = new System.Drawing.Point(28, 7);
-            this.display3.Name = "display3";
-            this.display3.Size = new System.Drawing.Size(92, 38);
-            this.display3.TabIndex = 42;
-            this.display3.Text = "display3";
-            this.display3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.display3.DoubleClick += new System.EventHandler(this.display_Click);
             // 
             // Led13
             // 
@@ -357,7 +427,7 @@
             this.display1.BackColor = System.Drawing.Color.Transparent;
             this.display1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.display1.ForeColor = System.Drawing.Color.White;
-            this.display1.Location = new System.Drawing.Point(28, 7);
+            this.display1.Location = new System.Drawing.Point(27, 7);
             this.display1.Name = "display1";
             this.display1.Size = new System.Drawing.Size(220, 38);
             this.display1.TabIndex = 41;
@@ -377,59 +447,6 @@
             this.display2.Text = "display2";
             this.display2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.display2.DoubleClick += new System.EventHandler(this.display_Click);
-            // 
-            // PanelInputPanel_1
-            // 
-            this.PanelInputPanel_1.Controls.Add(this.PanelInputLabel_1);
-            this.PanelInputPanel_1.Controls.Add(this.PanelDiscardInput_1);
-            this.PanelInputPanel_1.Controls.Add(this.PanelSendInput_1);
-            this.PanelInputPanel_1.Controls.Add(this.PanelInputTextBox_1);
-            this.PanelInputPanel_1.Location = new System.Drawing.Point(17, 4);
-            this.PanelInputPanel_1.Name = "PanelInputPanel_1";
-            this.PanelInputPanel_1.Size = new System.Drawing.Size(232, 46);
-            this.PanelInputPanel_1.TabIndex = 63;
-            this.PanelInputPanel_1.Visible = false;
-            // 
-            // PanelInputLabel_1
-            // 
-            this.PanelInputLabel_1.Location = new System.Drawing.Point(2, 3);
-            this.PanelInputLabel_1.Name = "PanelInputLabel_1";
-            this.PanelInputLabel_1.Size = new System.Drawing.Size(166, 14);
-            this.PanelInputLabel_1.TabIndex = 3;
-            this.PanelInputLabel_1.Text = "Input label";
-            // 
-            // PanelDiscardInput_1
-            // 
-            this.PanelDiscardInput_1.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.PanelDiscardInput_1.ForeColor = System.Drawing.Color.DarkRed;
-            this.PanelDiscardInput_1.Location = new System.Drawing.Point(172, 17);
-            this.PanelDiscardInput_1.Name = "PanelDiscardInput_1";
-            this.PanelDiscardInput_1.Size = new System.Drawing.Size(28, 27);
-            this.PanelDiscardInput_1.TabIndex = 2;
-            this.PanelDiscardInput_1.Text = "";
-            this.PanelDiscardInput_1.UseVisualStyleBackColor = true;
-            this.PanelDiscardInput_1.Click += new System.EventHandler(this.PanelDiscardInput_Click);
-            // 
-            // PanelSendInput_1
-            // 
-            this.PanelSendInput_1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PanelSendInput_1.Location = new System.Drawing.Point(199, 17);
-            this.PanelSendInput_1.Name = "PanelSendInput_1";
-            this.PanelSendInput_1.Size = new System.Drawing.Size(28, 27);
-            this.PanelSendInput_1.TabIndex = 1;
-            this.PanelSendInput_1.Text = "►";
-            this.PanelSendInput_1.UseVisualStyleBackColor = true;
-            this.PanelSendInput_1.Click += new System.EventHandler(this.PanelSendInput_Click);
-            // 
-            // PanelInputTextBox_1
-            // 
-            this.PanelInputTextBox_1.Location = new System.Drawing.Point(3, 18);
-            this.PanelInputTextBox_1.Multiline = true;
-            this.PanelInputTextBox_1.Name = "PanelInputTextBox_1";
-            this.PanelInputTextBox_1.Size = new System.Drawing.Size(169, 25);
-            this.PanelInputTextBox_1.TabIndex = 0;
-            this.PanelInputTextBox_1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.PanelInputTextBox_1.TextChanged += new System.EventHandler(this.PanelInputTextBox_TextChange);
             // 
             // button8
             // 
@@ -734,7 +751,8 @@
             this.monitorToolStripMenuItem,
             this.graphToolStripMenuItem,
             this.messageLogToolStripMenuItem,
-            this.resetArduinoToolStripMenuItem});
+            this.resetArduinoToolStripMenuItem,
+            this.infoToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(29, 32);
             this.toolStripMenuItem1.Text = "▼";
@@ -767,6 +785,13 @@
             this.resetArduinoToolStripMenuItem.Text = "Reset Arduino";
             this.resetArduinoToolStripMenuItem.Click += new System.EventHandler(this.resetArduinoToolStripMenuItem_Click);
             // 
+            // infoToolStripMenuItem
+            // 
+            this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.infoToolStripMenuItem.Text = "Info";
+            this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
+            // 
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -779,12 +804,34 @@
             this.pictureBox2.MouseLeave += new System.EventHandler(this.mouseLeave);
             this.pictureBox2.MouseHover += new System.EventHandler(this.mouseHover);
             // 
+            // ScrollBar5
+            // 
+            this.ScrollBar5.Location = new System.Drawing.Point(120, 159);
+            this.ScrollBar5.Maximum = 109;
+            this.ScrollBar5.Name = "ScrollBar5";
+            this.ScrollBar5.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ScrollBar5.Size = new System.Drawing.Size(156, 23);
+            this.ScrollBar5.TabIndex = 63;
+            this.ScrollBar5.Visible = false;
+            this.ScrollBar5.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ScrollBar5_Scroll);
+            // 
+            // scrolllabel5
+            // 
+            this.scrolllabel5.Location = new System.Drawing.Point(117, 185);
+            this.scrolllabel5.Name = "scrolllabel5";
+            this.scrolllabel5.Size = new System.Drawing.Size(155, 15);
+            this.scrolllabel5.TabIndex = 64;
+            this.scrolllabel5.Text = "label1";
+            this.scrolllabel5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.scrolllabel5.Visible = false;
+            // 
             // VirtualPanelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(503, 215);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.connected_box);
             this.Controls.Add(this.connection_label);
             this.Controls.Add(this.Led6);
@@ -798,7 +845,6 @@
             this.Controls.Add(this.Led7);
             this.Controls.Add(this.Led1);
             this.Controls.Add(this.button8);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -823,9 +869,11 @@
             this.Controls.Add(this.scrolllabel2);
             this.Controls.Add(this.scrolllabel4);
             this.Controls.Add(this.scrolllabel3);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.scrolllabel5);
+            this.Controls.Add(this.ScrollBar5);
+            this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -835,14 +883,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.connected_box)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led1)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.PanelInputPanel_1.ResumeLayout(false);
+            this.PanelInputPanel_1.PerformLayout();
             this.PanelInputPanel_2.ResumeLayout(false);
             this.PanelInputPanel_2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Led13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led10)).EndInit();
-            this.PanelInputPanel_1.ResumeLayout(false);
-            this.PanelInputPanel_1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Led7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led9)).EndInit();
@@ -926,6 +974,9 @@
         private System.Windows.Forms.Button PanelDiscardInput_2;
         private System.Windows.Forms.Button PanelSendInput_2;
         private System.Windows.Forms.TextBox PanelInputTextBox_2;
+        private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
+        private System.Windows.Forms.HScrollBar ScrollBar5;
+        private System.Windows.Forms.Label scrolllabel5;
     }
 }
 

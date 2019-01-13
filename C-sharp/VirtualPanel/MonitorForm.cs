@@ -179,10 +179,38 @@ namespace VirtualPanel
             label4.Text = "";
             label5.Text = "";
             label6.Text = "";
-        }
+
+            MonInput_1 = false;
+            MonInput_2 = false;
+            MonInput_3 = false;
+            MonInput_4 = false;
+            MonInput_5 = false;
+            MonInput_6 = false;
+
+            MonitorInputPanel_1.Visible = false;
+            MonitorInputPanel_2.Visible = false;
+            MonitorInputPanel_3.Visible = false;
+            MonitorInputPanel_4.Visible = false;
+            MonitorInputPanel_5.Visible = false;
+            MonitorInputPanel_6.Visible = false;
+
+            MinMonInput_1 = -2147483648;
+            MinMonInput_2 = -2147483648;
+            MinMonInput_3 = -2147483648;
+            MinMonInput_4 = -2147483648;
+            MinMonInput_5 = -2147483648;
+            MinMonInput_6 = -2147483648;
+
+            MaxMonInput_1 = 2147483647;
+            MaxMonInput_2 = 2147483647;
+            MaxMonInput_3 = 2147483647;
+            MaxMonInput_4 = 2147483647;
+            MaxMonInput_5 = 2147483647;
+            MaxMonInput_6 = 2147483647;
+    }
 
 
-        private void StatisticsForm_FormClosing(object sender, FormClosingEventArgs e)
+    private void StatisticsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Visible = false;
             e.Cancel = true;
@@ -218,12 +246,12 @@ namespace VirtualPanel
 
         private void LabelInputRequest(object sender, EventArgs e)
         {
-            if (sender == label1) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_1);
-            if (sender == label2) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_2);
-            if (sender == label3) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_3);
-            if (sender == label4) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_4);
-            if (sender == label5) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_5);
-            if (sender == label6) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_6);
+            if (sender == label1) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorField_1);
+            if (sender == label2) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorField_2);
+            if (sender == label3) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorField_3);
+            if (sender == label4) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorField_4);
+            if (sender == label5) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorField_5);
+            if (sender == label6) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorField_6);
         }
 
         private void MonitorDiscardInput_Click(object sender, EventArgs e)
@@ -262,6 +290,9 @@ namespace VirtualPanel
 
         private void MonitorSendInput_Click(object sender, EventArgs e)
         {
+            long MinInput = 0;
+            long MaxInput = 0;
+
             byte InputValueByte = 0;
             short InputValueShort = 0;
             ushort InputValueUShort = 0;
@@ -280,6 +311,8 @@ namespace VirtualPanel
                 MonitorInput = ChannelId.MonitorInput_1;
                 MonitorInputType = MonitorInputType_1;
                 MonInput = MonInput_1;
+                MinInput = MinMonInput_1;
+                MaxInput = MaxMonInput_1;
             }
             if (sender == MonitorSendInput_2)
             {
@@ -288,6 +321,8 @@ namespace VirtualPanel
                 MonitorInput = ChannelId.MonitorInput_2;
                 MonitorInputType = MonitorInputType_2;
                 MonInput = MonInput_2;
+                MinInput = MinMonInput_2;
+                MaxInput = MaxMonInput_2;
             }
             if (sender == MonitorSendInput_3)
             {
@@ -296,6 +331,8 @@ namespace VirtualPanel
                 MonitorInput = ChannelId.MonitorInput_3;
                 MonitorInputType = MonitorInputType_3;
                 MonInput = MonInput_3;
+                MinInput = MinMonInput_3;
+                MaxInput = MaxMonInput_3;
             }
             if (sender == MonitorSendInput_4)
             {
@@ -304,6 +341,8 @@ namespace VirtualPanel
                 MonitorInput = ChannelId.MonitorInput_4;
                 MonitorInputType = MonitorInputType_4;
                 MonInput = MonInput_4;
+                MinInput = MinMonInput_4;
+                MaxInput = MaxMonInput_4;
             }
             if (sender == MonitorSendInput_5)
             {
@@ -312,6 +351,8 @@ namespace VirtualPanel
                 MonitorInput = ChannelId.MonitorInput_5;
                 MonitorInputType = MonitorInputType_5;
                 MonInput = MonInput_5;
+                MinInput = MinMonInput_5;
+                MaxInput = MaxMonInput_5;
             }
             if (sender == MonitorSendInput_6)
             {
@@ -320,27 +361,34 @@ namespace VirtualPanel
                 MonitorInput = ChannelId.MonitorInput_6;
                 MonitorInputType = MonitorInputType_6;
                 MonInput = MonInput_6;
+                MinInput = MinMonInput_6;
+                MaxInput = MaxMonInput_6;
             }
 
             if (!MonInput) Panel.Visible = false;
 
-            if (MonitorInputType == vp_type.vp_byte && byte.TryParse(TextBox.Text, out InputValueByte))
+            if ( MonitorInputType == vp_type.vp_byte && byte.TryParse(TextBox.Text, out InputValueByte)
+                 && (InputValueByte >= MinInput && InputValueByte <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_byte, InputValueByte);
             }
-            else if (MonitorInputType == vp_type.vp_int && Int16.TryParse(TextBox.Text, out InputValueShort))
+            else if ( MonitorInputType == vp_type.vp_int && Int16.TryParse(TextBox.Text, out InputValueShort) 
+                      && (InputValueShort >= MinInput && InputValueShort <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_int, InputValueShort);
             }
-            else if (MonitorInputType == vp_type.vp_uint && UInt16.TryParse(TextBox.Text, out InputValueUShort))
+            else if ( MonitorInputType == vp_type.vp_uint && UInt16.TryParse(TextBox.Text, out InputValueUShort) 
+                      && (InputValueUShort >= MinInput && InputValueUShort <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_uint, InputValueUShort);
             }
-            else if (MonitorInputType == vp_type.vp_long && Int32.TryParse(TextBox.Text, out InputValueLong))
+            else if ( MonitorInputType == vp_type.vp_long && Int32.TryParse(TextBox.Text, out InputValueLong) 
+                      && (InputValueLong >= MinInput && InputValueLong <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_long, InputValueLong);
             }
-            else if (MonitorInputType == vp_type.vp_ulong && UInt32.TryParse(TextBox.Text, out InputValueULong))
+            else if ( MonitorInputType == vp_type.vp_ulong && UInt32.TryParse(TextBox.Text, out InputValueULong) 
+                      && (InputValueULong >= MinInput && InputValueULong <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_ulong, InputValueULong);
             }
@@ -369,11 +417,11 @@ namespace VirtualPanel
             vp_type MonitorInputType = vp_type.vp_int;
 
             if (sender == MonitorInputTextBox_1) { MonitorInputType = MonitorInputType_1; MinInput = MinMonInput_1; MaxInput = MaxMonInput_1; }
-            if (sender == MonitorInputTextBox_2) { MonitorInputType = MonitorInputType_2; MinInput = MinMonInput_1; MaxInput = MaxMonInput_1; }
-            if (sender == MonitorInputTextBox_3) { MonitorInputType = MonitorInputType_3; MinInput = MinMonInput_1; MaxInput = MaxMonInput_1; }
-            if (sender == MonitorInputTextBox_4) { MonitorInputType = MonitorInputType_4; MinInput = MinMonInput_1; MaxInput = MaxMonInput_1; }
-            if (sender == MonitorInputTextBox_5) { MonitorInputType = MonitorInputType_5; MinInput = MinMonInput_1; MaxInput = MaxMonInput_1; }
-            if (sender == MonitorInputTextBox_6) { MonitorInputType = MonitorInputType_6; MinInput = MinMonInput_1; MaxInput = MaxMonInput_1; }
+            if (sender == MonitorInputTextBox_2) { MonitorInputType = MonitorInputType_2; MinInput = MinMonInput_2; MaxInput = MaxMonInput_2; }
+            if (sender == MonitorInputTextBox_3) { MonitorInputType = MonitorInputType_3; MinInput = MinMonInput_3; MaxInput = MaxMonInput_3; }
+            if (sender == MonitorInputTextBox_4) { MonitorInputType = MonitorInputType_4; MinInput = MinMonInput_4; MaxInput = MaxMonInput_4; }
+            if (sender == MonitorInputTextBox_5) { MonitorInputType = MonitorInputType_5; MinInput = MinMonInput_5; MaxInput = MaxMonInput_5; }
+            if (sender == MonitorInputTextBox_6) { MonitorInputType = MonitorInputType_6; MinInput = MinMonInput_6; MaxInput = MaxMonInput_6; }
 
 
             TextBox.ForeColor = Color.Black;

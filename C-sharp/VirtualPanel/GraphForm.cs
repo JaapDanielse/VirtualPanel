@@ -141,7 +141,7 @@ namespace VirtualPanel
             GraphPlot_5.Color = Color.Lime;
             PersistentDrawing.Clear();
             Hold = false;
-
+            LinePointValid = false;
         }
 
 
