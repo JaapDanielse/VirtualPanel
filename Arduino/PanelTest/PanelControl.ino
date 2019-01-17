@@ -6,7 +6,8 @@ enum ModeList
   ScrollBar,
   Draw,
   Roling,
-  Static
+  Static,
+  Click
 };
 
 ModeList PanelMode = Clock;
@@ -36,6 +37,9 @@ void PanelCallback(int event, int type)
        
      case Static: 
        StaticCallback( event, type); break;
+       
+     case Click: 
+       ClickCallback( event, type); break;
        
      default: 
        break;

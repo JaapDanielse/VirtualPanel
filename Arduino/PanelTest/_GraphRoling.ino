@@ -10,32 +10,28 @@ boolean blue = true;
     case PanelConnected: // receive panel connected message
     { 
      // initialize panel layout
-      Panel.Send(ApplicationName,"PanelTest - RolingGraph"); // set the application name
+      Panel.Send(ApplicationName,F("PanelTest - RolingGraph")); // set the application name
       Panel.Send(DynamicDisplay,100);     // enable dynamic display request
-      Panel.Send(Button_4,  "next");
-      Panel.Send(Button_5,  "graph");
-      Panel.Send(Button_6,  "mon");
+      Panel.Send(Button_4,  F("next"));
+      Panel.Send(Button_5,  F("graph"));
+      Panel.Send(Button_6,  F("mon"));
       Panel.Send(GraphGrid, 15);
-      Panel.Send(GraphCaption_1, "100");
-      Panel.Send(GraphCaption_2, "0");
-      Panel.Send(GraphButton_1, "GrBttn 1");
-      Panel.Send(GraphButton_2, "GrBttn 2");
-      Panel.Send(GraphButton_3, "GrBttn 3");
-      Panel.Send(GraphButton_4, "GrBttn 4");
-      
-      Panel.Send(GraphValue_3,"$YELLOW");
-      Panel.Send(GraphValue_3,"$2PX");
-      
-      Panel.Send(GraphLabel_1, "$YELLOW");
-      Panel.Send(GraphLabel_1, "GraphLabel_1");
-      Panel.Send(GraphLabel_2, "$ORANGE");
-      Panel.Send(GraphLabel_2, "GraphLabel_2");
-      Panel.Send(GraphLabel_3, "$RED");
-      Panel.Send(GraphLabel_3, "GraphLabel_3");
-      Panel.Send(GraphLabel_4, "$BLUE");
-      Panel.Send(GraphLabel_4, "GraphLabel_4");
-      Panel.Send(GraphLabel_5, "$GREEN");
-      Panel.Send(GraphLabel_5, "GraphLabel_5");
+      Panel.Send(GraphCaption_1, F("100"));
+      Panel.Send(GraphCaption_2, F("0"));
+      Panel.Send(GraphButton_1, F("GrBttn 1"));
+      Panel.Send(GraphButton_2, F("GrBttn 2"));
+      Panel.Send(GraphButton_3, F("GrBttn 3"));
+      Panel.Send(GraphButton_4, F("GrBttn 4"));
+      Panel.Send(GraphLabel_1, F("$YELLOW"));
+      Panel.Send(GraphLabel_1, F("GraphLabel_1"));
+      Panel.Send(GraphLabel_2, F("$ORANGE"));
+      Panel.Send(GraphLabel_2, F("GraphLabel_2"));
+      Panel.Send(GraphLabel_3, F("$RED"));
+      Panel.Send(GraphLabel_3, F("GraphLabel_3"));
+      Panel.Send(GraphLabel_4, F("$BLUE"));
+      Panel.Send(GraphLabel_4, F("GraphLabel_4"));
+      Panel.Send(GraphLabel_5, F("$GREEN"));
+      Panel.Send(GraphLabel_5, F("GraphLabel_5"));
       Panel.Send(Graph,true); 
 
       break; 

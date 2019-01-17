@@ -6,6 +6,7 @@ using System.IO.Ports;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Text;
 
 namespace ArduinoCom
 {
@@ -43,6 +44,7 @@ namespace ArduinoCom
             port.Handshake = Handshake.None;
             port.RtsEnable = false;
             port.NewLine = "\r\n";
+            port.Encoding = Encoding.UTF8;
 
             // Setup port checker timer.
             checkPort.Elapsed += CheckPort_Elapsed;

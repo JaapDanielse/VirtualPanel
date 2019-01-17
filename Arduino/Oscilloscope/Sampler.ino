@@ -14,21 +14,27 @@ void SamplerInit()
 //-----------------------------------------------------------------------------------------------
 void Sampler()
 {
+  
   if ( !SampleReady && !Sampling)
   {
      SampleIndex = 0;   
      SampleCount = 0;
      Sampling = true;
-     ADCSRA |= (1 << ADEN);
-     ADCSRA |= (1 << ADSC); 
+     bitSet( ADCSRA,ADSC);  // start next ADC measurement  
+//     ADCSRA |= (1 << ADEN);
+//     ADCSRA |= (1 << ADSC); 
      sampletime = micros();
   }
 
   if (SampleReady)
   {
+    char outstr[10];
     sampletime = micros()-sampletime;
     Panel.Sendf(MonitorField_2,"Sampletime: %10d us", sampletime); // output to graph label
-    Panel.Sendf(MonitorField_3,"Time/sample: %6d us", sampletime/((MaxSampleValues+1)*StepSize)); // output to graph label
+
+    float SampleTime = (float)sampletime/(float)((MaxSampleValues+1)*StepSize);
+     dtostrf(SampleTime,0,1,outstr);
+    Panel.Sendf(MonitorField_3,"Time/sample: %s us", outstr ); // output to graph label
     
     int   SampleMax  = 0;
     int   SampleMin  = 0;
@@ -91,20 +97,21 @@ void Sampler()
 //-----------------------------------------------------------------------------------------------
 void InitADConversion()
 { 
-//  ADCSRA = 0; //clear ADCSRA register
-//  //ADCSRA = (1 << ADPS0) | (1 << ADPS2) | (1 << ADIE) | (1 << ADEN); // prescaler/32, interr.ena., AD ena, Start conv.
-//  ADCSRA = (1 << ADPS2) | (1 << ADIE) | (1 << ADEN); // prescaler/16, interr.ena., AD dis, Start conv.
-//  ADCSRB = 0; //clear ADCSRB register
-//  ADMUX = 0; //clear ADMUX register
-//  ADMUX = (1 << ADLAR) | (1 << REFS0); 
-//  ADATE
+  ADCSRA  = 0; //clear ADCSRA register
+  ADCSRA |= (0 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // prescaler/16(011) 8(010), interr.ena., AD dis, Start conv.
+  ADCSRA |= (1 << ADIE) | (1 << ADEN); // prescaler/16, interr.ena., AD dis, Start conv.
 
-  ADCSRA = 0;                                           //clear ADCSRA register
-  ADCSRA |= (1 << ADIE) | (0 << ADEN) | (1 << ADATE);    // Int En, AD En, Auto Trig En
-  ADCSRA |= (0 << ADPS2) | (1 << ADPS1) | (0 << ADPS0); // AD Prescaler /16 (0-1-1)
-  ADCSRB = 0;                                           //clear ADCSRB register
-  ADMUX  = 0; //clear ADMUX register
-  ADMUX  = (1 << ADLAR) | (1 << REFS0);                 // ADC Left Adjust result, 5V Voltage Ref Select
+  ADCSRB = 0; //clear ADCSRB register
+
+  ADMUX = 0; //clear ADMUX register
+  ADMUX = (1 << ADLAR) | (1 << REFS0); 
+
+//  ADCSRA = 0;                                           //clear ADCSRA register
+//  ADCSRA |= (1 << ADIE) | (0 << ADEN) | (1 << ADATE);    // Int En, AD En, Auto Trig En
+//  ADCSRA |= (0 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // AD Prescaler /16 (0-1-1)
+//  ADCSRB = 0;                                           //clear ADCSRB register
+//  ADMUX  = 0; //clear ADMUX register
+//  ADMUX  = (1 << ADLAR) | (1 << REFS0);                 // ADC Left Adjust result, 5V Voltage Ref Select
  
 }
 
@@ -112,14 +119,24 @@ void InitADConversion()
 //-----------------------------------------------------------------------------------------------
 ISR(ADC_vect) //runs when new ADC value is available
 {
-  if(!(SampleCount++ % StepSize)) SampleValues[SampleIndex++] = ADCH;
+  static float DelayCount = 0.0;
   
-  if(SampleIndex >= MaxSampleValues)
+  if(!(SampleCount++ % StepSize)) SampleValues[SampleIndex++] = ADCH;
+
+  if(SampleIndex < MaxSampleValues)
   {
-    bitClear(ADCSRA,ADEN);
-    bitClear(ADCSRA,ADSC);
-    //ADCSRA |= (0 << ADEN) | (0 << ADSC);    // AD Ena
-    SampleReady = true;
+    DelayCount = 64000.0; DelayCount = DelayCount / 3.0; DelayCount = DelayCount / 3.0; // delay 0,8 u sec
+    bitSet( ADCSRA,ADSC);  // start next ADC measurement  
   }
+  else
+    SampleReady = true;
+  
+//  if(SampleIndex >= MaxSampleValues)
+//  {
+//    bitClear(ADCSRA,ADEN);
+//    bitClear(ADCSRA,ADSC);
+//    //ADCSRA |= (0 << ADEN) | (0 << ADSC);    // AD Ena
+//    SampleReady = true;
+//  }
 }
 

@@ -66,13 +66,13 @@ void PanelCallback(int event, int type)
       break;
 
     case Button_4: // Catch button pressed  
-      Panel.Send(Display_2,"Button Two pressed!"); // send text to Display_2
+      Panel.Send(Display_2,"µ ɸ ʩ ֍ א ◀"); // send text to Display_2
       Panel.Send(Beep, 700); // send text to Display_2
       
       break;
 
     case Button_5: // Catch button pressed  
-      Panel.Send(Display_2,"Button Two pressed!"); // send text to Display_2
+      Panel.Send(Display_2,"Button Two pressed! µ"); // send text to Display_2
       Panel.Send(Beep); // send text to Display_2
       
       break;

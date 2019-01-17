@@ -16,36 +16,35 @@ void StaticCallback(int event, int type)
      // initialize panel layout
       Panel.Send(ApplicationName,"PanelTest - StaticGraph"); // set the application name
       Panel.Send(DynamicDisplay,500);     // enable dynamic display request
-      Panel.Send(Button_4, "next");
-      Panel.Send(Button_5, "graph");
-      Panel.Send(Button_6, "mon");
-      Panel.Send(Button_7, "frq\ndrft");
+      Panel.Send(Button_4, F("next"));
+      Panel.Send(Button_5, F("graph"));
+      Panel.Send(Button_6, F("mon"));
+      Panel.Send(Button_7, F("frq\ndrft"));
       Panel.Send(GraphGrid, 6);
-//      Panel.Send(GraphSampleCount, SampleCount);
-      Panel.Send(GraphButton_1, "GrBttn 1");
-      Panel.Send(GraphButton_2, "GrBttn 2");
-      Panel.Send(GraphButton_3, "GrBttn 3");
-      Panel.Send(GraphButton_4, "GrBttn 4");
-      Panel.Send(GraphCaption_1, "Simulated Oscilloscope");
-      Panel.Send(GraphLabel_1, "$ORANGE");
+      Panel.Send(GraphButton_1, F("GrBttn 1"));
+      Panel.Send(GraphButton_2, F("GrBttn 2"));
+      Panel.Send(GraphButton_3, F("GrBttn 3"));
+      Panel.Send(GraphButton_4, F("GrBttn 4"));
+      Panel.Send(GraphCaption_1, F("Simulated Oscilloscope"));
+      Panel.Send(GraphLabel_1, F("$ORANGE"));
       Panel.Send(GraphLabel_1, "GraphLabel_1");
       Panel.Send(GraphValueCount_1,SampleCount);
-      Panel.Send(GraphValue_1,"$STATIC");
-      Panel.Send(GraphValue_1,"$ORANGE");
+      Panel.Send(GraphValue_1,F("$STATIC"));
+      Panel.Send(GraphValue_1,F("$ORANGE"));
       Panel.Send(ScrollBar_1, "trig");
       Panel.Send(ScrollBar_1, trig);
       Panel.Send(MaxScrollBar_1, 220);
-      Panel.Send(ScrollBar_2, "v-pos");
+      Panel.Send(ScrollBar_2, F("v-pos"));
       Panel.Send(ScrollBar_2, vpos);
       Panel.Send(MaxScrollBar_2, 255);
-      Panel.Send(ScrollBar_3, "v/div");
+      Panel.Send(ScrollBar_3, F("v/div"));
       Panel.Send(ScrollBar_3, (int)vdiv);
       Panel.Send(MaxScrollBar_3, 150);
-      Panel.Send(ScrollBar_4, "s/div");
+      Panel.Send(ScrollBar_4, F("s/div"));
       Panel.Send(ScrollBar_4, (int)tsincount*10);
       Panel.Send(MaxScrollBar_4, 150);
-      Panel.Send(GraphPen,"$RED");
-      Panel.Send(GraphDrawLine,Line(0,trig,255,trig));
+      Panel.Send(GraphPen,F("$RED"));
+      Panel.Send(GraphDrawLine,_Line(0,trig,255,trig));
       Panel.Send(Graph,true); 
 
       break; 
@@ -53,7 +52,7 @@ void StaticCallback(int event, int type)
 
     case Button_4:
     {
-      PanelMode = Clock;
+      PanelMode = Click;
       Panel.Send(Reset);
       break;
     }
@@ -82,11 +81,11 @@ void StaticCallback(int event, int type)
 
     case ScrollBar_1:
     {
-      Panel.Send(GraphPen,"$DEL");
-      Panel.Send(GraphDrawLine,Line(0,trig,255,trig));
+      Panel.Send(GraphPen,F("$DEL"));
+      Panel.Send(GraphDrawLine,_Line(0,trig,255,trig));
       trig = Panel.vpr_int;
-      Panel.Send(GraphPen,"$RED");
-      Panel.Send(GraphDrawLine,Line(0,trig,255,trig));
+      Panel.Send(GraphPen,F("$RED"));
+      Panel.Send(GraphDrawLine,_Line(0,trig,255,trig));
 
       break;
     }
@@ -112,10 +111,10 @@ void StaticCallback(int event, int type)
 
     case DynamicDisplay: // dynamic display request (requested every 500ms)
     {
-      Panel.Sendf(Display_1,"%d V/div",(int)vdiv);  
-      Panel.Sendf(Display_2,"%6d mS/div",sincount);  
-      Panel.Sendf(Display_3,"vp: %d",vpos);  
-      Panel.Sendf(GraphLabel_1,"%d Hz",(int)(tsincount*10.0));  
+      Panel.Sendf(Display_1,F("%d V/div"),(int)vdiv);  
+      Panel.Sendf(Display_2,F("%6d mS/div"),sincount);  
+      Panel.Sendf(Display_3,F("vp: %d"),vpos);  
+      Panel.Sendf(GraphLabel_1,F("%d Hz"),(int)(tsincount*10.0));  
       Sinus();
       break;
     }
@@ -148,28 +147,4 @@ void Sinus()
 
 }
 
-
-
-
-
-void Sawtooth()
-{
-
-  static bool big = false;
-  int l =0;
-
-  int k = 10 + ((big)*1);
-  
-  for(byte j=0; j<=4; j++)
-  {
-    for( byte i=0; i<=9; i++)
-    {
-       Panel.Send(GraphValue_1,(byte)((i*k)+80));  
-       l++;
-    }
-  }
-  Panel.Send(GraphLabel_1,l);
-  big =!big;
-}
- 
 
