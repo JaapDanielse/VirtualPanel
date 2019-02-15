@@ -34,12 +34,12 @@ void AllButtonCallback(int event, int type)
 
 void AllButtonInit()
 {
-  Panel.Send(ApplicationName,F("PanelTest - Buttons")); // set the application name
+  Panel.Send(ApplicationName,F("ApplicationName")); // set the application name
 
-  Panel.Send(Display_1, F("display 1"));
-  Panel.Send(Display_2, F("display 2"));
-  Panel.Send(Display_3, F("display 3"));
-  Panel.Send(Display_4, F("display 4"));
+  Panel.Send(Display_1, F("Display_1"));
+  Panel.Send(Display_2, F("Display_2"));
+  Panel.Send(Display_3, F("Display_3"));
+  Panel.Send(Display_4, F("Display_4"));
   
   Panel.Send(Button_1,  F("button 1"));
   Panel.Send(Button_2,  F("button 2"));

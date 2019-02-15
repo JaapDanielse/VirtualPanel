@@ -34,9 +34,9 @@ void ScrollBarCallback(int event, int type)
 
 void ScrollBarInit()
 {
-  Panel.Send(ApplicationName,"PanelTest - ScrollBar"); // set the application name
+  Panel.Send(ApplicationName,F("ApplicationName")); // set the application name
 
-  Panel.Send(MonitorScrollBox, "MonitorScrollBox");
+  Panel.Send(MonitorScrollBox, F("MonitorScrollBox"));
   Panel.Send(MonitorField_1, F("MonitorField_1"));
   Panel.Send(MonitorField_2, F("MonitorField_2"));
   Panel.Send(MonitorField_3, F("MonitorField_3"));
@@ -44,10 +44,10 @@ void ScrollBarInit()
   Panel.Send(MonitorField_5, F("MonitorField_5"));
   Panel.Send(MonitorField_6, F("MonitorField_6"));
 
-  Panel.Send(Display_1, F("display 1"));
-  Panel.Send(Display_2, F("display 2"));
-  Panel.Send(Display_3, F("display 3"));
-  Panel.Send(Display_4, F("display 4"));
+  Panel.Send(Display_1, F("Display_1"));
+  Panel.Send(Display_2, F("Display_2"));
+  Panel.Send(Display_3, F("Display_3"));
+  Panel.Send(Display_4, F("Display_4"));
 
   Panel.Send(ScrollBar_1, true);
   Panel.Send(ScrollBar_2, true);
@@ -55,11 +55,13 @@ void ScrollBarInit()
   Panel.Send(ScrollBar_4, true);
   Panel.Send(ScrollBar_5, true);
 
-  Panel.Send(ScrollBar_1, F("scrlab1"));
-  Panel.Send(ScrollBar_2, F("scrlab2"));
-  Panel.Send(ScrollBar_3, F("scrlab3"));
-  Panel.Send(ScrollBar_4, F("scrlab4"));
-  Panel.Send(ScrollBar_4, F("scrlab5"));
+  Panel.Send(ScrollBar_1, F("scrlbar1"));
+  Panel.Send(ScrollBar_2, F("scrlbar2"));
+  Panel.Send(ScrollBar_3, F("scrlbar3"));
+  Panel.Send(ScrollBar_4, F("scrlbar4"));
+  Panel.Send(ScrollBar_5, F("scrlbar5"));
+
+  Panel.Send(ScrollBar_2, 0);
 
   Panel.Send(Button_4,  F("button 4"));
   Panel.Send(Button_8,  F("button 8"));

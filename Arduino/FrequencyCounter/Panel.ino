@@ -8,19 +8,19 @@ void PanelCallback(int chanel, int type)
   {
     case PanelConnected: // Pannel connected: Init Controls
     { // initialize panel layout
-      MyPanelInit();
+      PanelInit();
       break; 
     }
 
     case DynamicDisplay: // DynamicDisplay requested: Send Dynamic Data
-    {   MyPanelDynamicDisplay(); 
+    {   PanelDynamicDisplay(); 
       break; 
     }
     
     case Button_3:// (on/off) pressed
     { Power=!Power; 
       if(!Power) frequency = 0.0;
-      if(Power) MyPanel.Send(Led_1,"$RED"); else MyPanel.Send(Led_1,"$OFF");
+      if(Power) Panel.Send(Led_1,"$RED"); else Panel.Send(Led_1,"$OFF");
       break; 
     }
 
@@ -29,27 +29,30 @@ void PanelCallback(int chanel, int type)
 }
 
 //------------------------------------------------------------------------
-void MyPanelInit()
+void PanelInit()
 { // initialize panel layout
-  MyPanel.Send(ApplicationName, "Arduino Frequency Counter" ); 
-  MyPanel.Send(DynamicDisplay, true);
-  MyPanel.Send(Button_3,"$ONOFF" );
-  MyPanel.Send(Led_1,"$OFF");
-  MyPanel.Send(Display_1,"$BOLD");
+  Panel.Send(ApplicationName, "Frequency Counter" ); 
+  Panel.Send(DynamicDisplay, true);
+  Panel.Send(Button_3,"$ONOFF" );
+  Panel.Send(Led_1,"$OFF");
+  Panel.Send(Display_1,"$BOLD");
 }
 
 //------------------------------------------------------------------------
-void MyPanelDynamicDisplay()
+void PanelDynamicDisplay()
 { // output dynamic display data
   char temp[10];
 
-  dtostrf(frequency, 4, 1, temp); // %f not supported in Sendf
-  MyPanel.Sendf(Display_1,"Freq. %s Hz", temp);
-  dtostrf((1000.0/frequency), 4, 1, temp); // %f not supported in Sendf
-  if(frequency != 0.0) 
-    MyPanel.Sendf(Display_2,"period %s ms", temp);
+  dtostrf(frequency, 6, 2, temp); // %f not supported in Sendf
+  Panel.Sendf(Display_1,"Freq. %s Hz", temp);
+  
+  if (frequency > 0.0)
+  {
+    dtostrf((1000000.0/frequency), 4, 2, temp); // %f not supported in Sendf
+    Panel.Sendf(Display_2,"period %s µs", temp);
+  }
   else
-    MyPanel.Send(Display_2,"");
+    Panel.Send(Display_2,"period 0.00 µs");
 }
 
      

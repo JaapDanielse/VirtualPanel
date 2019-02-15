@@ -11,9 +11,26 @@ void ClickCallback(int event, int type)
   {
     case PanelConnected: // receive panel connected message
       Panel.Send(Graph, true);
-      Panel.Send(Button_4, F("Next"));
-      Panel.Send(Button_5, F("Extended"));
-      Panel.Send(GraphButton_1, F("$DOT"));
+      Panel.Send(Button_1, F("⚫⚪")); //off on
+      Panel.Send(Button_2, F("▲"));
+      Panel.Send(Button_3, F("▼"));
+      Panel.Send(Button_4, F("◀"));
+      Panel.Send(Button_5, F("▶"));
+      Panel.Send(Button_6, F("$BIG"));
+      Panel.Send(Button_6, F("$GRAY"));
+      Panel.Send(Button_6, F("Test"));
+      Panel.Send(Button_7, F("Test\n⚫")); 
+      Panel.Send(Button_8, F("⭯"));
+      Panel.Send(Button_9, F("⭮"));
+      Panel.Send(Button_10, F(""));
+      Panel.Send(Button_11, F(""));
+      Panel.Send(Button_12, F("$RTURN"));
+      Panel.Send(Button_13, F("$LTURN"));
+      Panel.Send(Button_14, F("$ONOFF"));
+      Panel.Send(Button_15, F("$UP"));
+      Panel.Send(Button_16, F("$DOT"));
+      Panel.Send(Button_17, F("$DOWN"));
+      Panel.Send(GraphButton_1, F("■"));
       Panel.Send(GraphButton_1, F("$WHITE"));
       Panel.Send(GraphButton_2, F("1PX"));
       Panel.Send(GraphButton_3, F("clear"));
@@ -25,7 +42,7 @@ void ClickCallback(int event, int type)
       break;
 
     case Button_5:
-      Panel.Send(Display_1, "µ");
+      Panel.Send(Display_1, "◀ ▶ ▲ ▼ 🔨");
       break;
 
     case GraphButton_1:

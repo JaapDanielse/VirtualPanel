@@ -121,6 +121,22 @@ void ArduinoPort::Send(int chanel, uint32_t value)
 	_comport->println(buf);
 }
 
+bool ArduinoPort::delay(uint16_t delaytime, bool receive)
+{
+	uint32_t ResumeTime = millis() + delaytime;
+	bool DataReceived = false;
+	
+	while (ResumeTime > millis())
+	{
+		if (_comport->available())
+		{
+      DataReceived = true;
+    	if(receive) Receive();
+  	}
+	}
+  return DataReceived;
+}
+
 void ArduinoPort::Receive(void)
 {
 	char buf[9];

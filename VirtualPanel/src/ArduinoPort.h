@@ -60,6 +60,7 @@ class ArduinoPort
 		void Send(int chanel, uint32_t value);
 		void Sendf(int chanel, const char* message, ...);
 		void Sendf(int chanel, const __FlashStringHelper* message, ...);
+		bool delay(uint16_t delaytime, bool receive = true);
 		void Receive(void);
 		void Init(void);
 

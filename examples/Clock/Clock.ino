@@ -1,6 +1,6 @@
-// Clock (using PanelOne) 
+// VirtualPanel Clock example 
 
-#include <PanelOne.h>
+#include <VirtualPanel.h>
 #include <TimeLib.h>
 
 void setup()

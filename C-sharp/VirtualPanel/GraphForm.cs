@@ -97,8 +97,16 @@ namespace VirtualPanel
 
         public void GraphPanelClear()
         {
-            graphButton1.Text = "";
 
+            graphButton1.Font = new Font("Microsoft Sans Serif", 8);
+            graphButton2.Font = new Font("Microsoft Sans Serif", 8);
+            graphButton3.Font = new Font("Microsoft Sans Serif", 8);
+            graphButton4.Font = new Font("Microsoft Sans Serif", 8);
+            graphButton1.Font = new Font(graphButton1.Font, FontStyle.Regular);
+            graphButton2.Font = new Font(graphButton2.Font, FontStyle.Regular);
+            graphButton3.Font = new Font(graphButton3.Font, FontStyle.Regular);
+            graphButton4.Font = new Font(graphButton4.Font, FontStyle.Regular);
+            graphButton1.Text = "";
             graphButton2.Text = "";
             graphButton3.Text = "";
             graphButton4.Text = "";
@@ -207,6 +215,8 @@ namespace VirtualPanel
                 GraphPlot.Color = col; //
             else
             {
+
+                if (data == "$CLEAR") GraphPlot.ClearData();
                 if (data == "$ROLLING") GraphPlot.Type = GraphType.Rolling;
                 if (data == "$STATIC") GraphPlot.Type = GraphType.Static;
                 if (data == "$1PX") GraphPlot.PlotWidth = 1;

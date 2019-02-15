@@ -177,7 +177,7 @@
             // PenColor2
             // 
             this.PenColor2.BackColor = System.Drawing.Color.Black;
-            this.PenColor2.Location = new System.Drawing.Point(340, 50);
+            this.PenColor2.Location = new System.Drawing.Point(340, 48);
             this.PenColor2.Name = "PenColor2";
             this.PenColor2.Size = new System.Drawing.Size(3, 24);
             this.PenColor2.TabIndex = 20;
@@ -186,7 +186,7 @@
             // PenColor3
             // 
             this.PenColor3.BackColor = System.Drawing.Color.Black;
-            this.PenColor3.Location = new System.Drawing.Point(340, 85);
+            this.PenColor3.Location = new System.Drawing.Point(340, 84);
             this.PenColor3.Name = "PenColor3";
             this.PenColor3.Size = new System.Drawing.Size(3, 24);
             this.PenColor3.TabIndex = 21;

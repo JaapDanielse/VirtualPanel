@@ -61,13 +61,17 @@ float FrequencyCount()
     f = (f2<<8) | f1; // calculate total count
     f += (65536 * tovf1); // including accounted by overflow
     t = measureStop - measureStart; // calculate measurement duration
-    freq = (1.0 / (float (t)/1000000.0)) * float (f); // calculate frequency
+    
+    if( f > 0) 
+      freq = (1.0 / ((float)t / 1000000.0)) * (float)f; 
+    else 
+      freq = 0.0;  // calculate frequency
 
         // debug/statistic data to panel
-        MyPanel.Sendf(StatField_1,"TCNT1H: %03d",f2);
-        MyPanel.Sendf(StatField_2,"TCNT1L: %03d",f1);
-        MyPanel.Sendf(StatField_3,"Overflow: %03d ", tovf1);
-        MyPanel.Sendf(StatField_4,"Micros: %6ld ", t);
+        Panel.Sendf(MonitorField_1,"TCNT1H: %03d",f2);
+        Panel.Sendf(MonitorField_2,"TCNT1L: %03d",f1);
+        Panel.Sendf(MonitorField_3,"Overflow: %03d ", tovf1);
+        Panel.Sendf(MonitorField_4,"Micros: %6ld ", t);
 
     return freq; // return frequency
 }

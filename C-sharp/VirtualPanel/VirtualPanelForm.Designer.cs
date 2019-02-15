@@ -307,8 +307,8 @@
             this.display3.ForeColor = System.Drawing.Color.White;
             this.display3.Location = new System.Drawing.Point(28, 7);
             this.display3.Name = "display3";
-            this.display3.Size = new System.Drawing.Size(92, 38);
-            this.display3.TabIndex = 42;
+            this.display3.Size = new System.Drawing.Size(109, 38);
+            this.display3.TabIndex = 65;
             this.display3.Text = "display3";
             this.display3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.display3.DoubleClick += new System.EventHandler(this.display_Click);
@@ -320,7 +320,7 @@
             this.PanelInputPanel_2.Controls.Add(this.PanelDiscardInput_2);
             this.PanelInputPanel_2.Controls.Add(this.PanelSendInput_2);
             this.PanelInputPanel_2.Controls.Add(this.PanelInputTextBox_2);
-            this.PanelInputPanel_2.Location = new System.Drawing.Point(16, 52);
+            this.PanelInputPanel_2.Location = new System.Drawing.Point(16, 53);
             this.PanelInputPanel_2.Name = "PanelInputPanel_2";
             this.PanelInputPanel_2.Size = new System.Drawing.Size(231, 34);
             this.PanelInputPanel_2.TabIndex = 64;
@@ -380,7 +380,7 @@
             this.display4.ForeColor = System.Drawing.Color.White;
             this.display4.Location = new System.Drawing.Point(28, 49);
             this.display4.Name = "display4";
-            this.display4.Size = new System.Drawing.Size(92, 38);
+            this.display4.Size = new System.Drawing.Size(109, 38);
             this.display4.TabIndex = 43;
             this.display4.Text = "display4";
             this.display4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -389,7 +389,7 @@
             // Led13
             // 
             this.Led13.BackColor = System.Drawing.Color.Gold;
-            this.Led13.Location = new System.Drawing.Point(248, 65);
+            this.Led13.Location = new System.Drawing.Point(247, 65);
             this.Led13.Name = "Led13";
             this.Led13.Size = new System.Drawing.Size(13, 6);
             this.Led13.TabIndex = 38;
@@ -398,7 +398,7 @@
             // Led12
             // 
             this.Led12.BackColor = System.Drawing.Color.Gold;
-            this.Led12.Location = new System.Drawing.Point(248, 22);
+            this.Led12.Location = new System.Drawing.Point(247, 22);
             this.Led12.Name = "Led12";
             this.Led12.Size = new System.Drawing.Size(13, 6);
             this.Led12.TabIndex = 37;
@@ -508,7 +508,6 @@
             this.ScrollBar2.Name = "ScrollBar2";
             this.ScrollBar2.Size = new System.Drawing.Size(44, 137);
             this.ScrollBar2.TabIndex = 44;
-            this.ScrollBar2.Value = 109;
             this.ScrollBar2.Visible = false;
             this.ScrollBar2.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ScrollBar_Scroll);
             // 
@@ -526,10 +525,11 @@
             // ScrollBar4
             // 
             this.ScrollBar4.Location = new System.Drawing.Point(447, 43);
+            this.ScrollBar4.Maximum = 109;
             this.ScrollBar4.Name = "ScrollBar4";
             this.ScrollBar4.Size = new System.Drawing.Size(44, 137);
             this.ScrollBar4.TabIndex = 46;
-            this.ScrollBar4.Value = 100;
+            this.ScrollBar4.Value = 109;
             this.ScrollBar4.Visible = false;
             this.ScrollBar4.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ScrollBar_Scroll);
             // 
@@ -951,7 +951,6 @@
         private System.Windows.Forms.Label scrolllabel1;
         private System.Windows.Forms.Label display1;
         private System.Windows.Forms.Label display4;
-        private System.Windows.Forms.Label display3;
         private System.Windows.Forms.PictureBox Led2;
         private System.Windows.Forms.PictureBox Led3;
         private System.Windows.Forms.PictureBox Led4;
@@ -977,6 +976,7 @@
         private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
         private System.Windows.Forms.HScrollBar ScrollBar5;
         private System.Windows.Forms.Label scrolllabel5;
+        private System.Windows.Forms.Label display3;
     }
 }
 

@@ -17,7 +17,7 @@
 
 #include "ArduinoPort.h" 
 
-const char PanelID[] = "[PANEL01V01]"; // Panel ID used to connect to the right panel application
+const char PanelID[] = "[VirtualPanel]"; // Panel ID used to connect to the right panel application
 
 void PanelCallback(int event, int type); // Callback Function declaration. Calback routine itself must be created in the sketch
 
@@ -27,94 +27,139 @@ uint16_t _Point( uint8_t x, uint8_t y); // Declaration of graph point helper fun
 
 uint32_t _Line( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye); // Declaration of graph line helper function (packs four bytes in a uint32_t).
 
+uint32_t _VLine( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye);
+
+uint32_t _Sound( uint16_t frequency, uint16_t duration); // Declaration of Beep helper funtion
+
 
 enum vp_event // event/channel list 
 {
   //
-  ApplicationName, // ApplicationName
-  PanelConnected,  // PannelConnected
-  Reset,           // Reset
-  StaticDisplay,   // StaticDisplay
-  DynamicDisplay,  // DynamicDisplay
-  UnixTime,        // UnixTime
-  PanelColor,      // Panel
-  Pling,           // Pling
+  ApplicationName, // >string, >color string
+  PanelConnected,  // <void (triggers Static Display)
+  Reset,           // >void
+  StaticDisplay,   // >bool (true/false) <void
+  DynamicDisplay,  // >bool (true/false), >int delay  <void
+  UnixTime,        // >void <unixtime (local)
+  Beep,            // >void (500,400) >int (F,400) >long (F,D) 
   //
-  Button_1,  // Button_1
-  Button_2,  // Button_2
-  Button_3,  // Button_3
-  Button_4,  // Button_4
-  Button_5,  // Button_5
-  Button_6,  // Button_6
-  Button_7,  // Button_7
-  Button_8,  // Button_8
-  Button_9,  // Button_9
-  Button_10, // Button_10
-  Button_11, // Button_11
-  Button_12, // Button_12
-  Button_13, // Button_13
-  Button_14, // Button_14
-  Button_15, // Button_15
-  Button_16, // Button_16
-  Button_17, // Button_17
+  Button_1,  // >any >colorstring >symbolstring <void
+  Button_2,  // 
+  Button_3,  // 
+  Button_4,  // 
+  Button_5,  // 
+  Button_6,  // 
+  Button_7,  // 
+  Button_8,  // 
+  Button_9,  // 
+  Button_10, // 
+  Button_11, // 
+  Button_12, // 
+  Button_13, // 
+  Button_14, // 
+  Button_15, // 
+  Button_16, // 
+  Button_17, // 
   //
-  ScrollBar_1, // ScrollBar_1
-  ScrollBar_2, // ScrollBar_2
-  ScrollBar_3, // ScrollBar_3
-  ScrollBar_4, // ScrollBar_4
+  ScrollBar_1, // >bool >int (value) <int (value) (no static display)
+  ScrollBar_2, // 
+  ScrollBar_3, // 
+  ScrollBar_4, // 
+  ScrollBar_5, // 
   //
-  MaxScrollBar_1, // MaxScrollBar_1
-  MaxScrollBar_2, // MaxScrollBar_2 
-  MaxScrollBar_3, // MaxScrollBar_3
-  MaxScrollBar_4, // MaxScrollBar_4
+  MaxScrollBar_1, // >int (max value)
+  MaxScrollBar_2, // 
+  MaxScrollBar_3, // 
+  MaxScrollBar_4, // 
+  MaxScrollBar_5, // 
   //
-  Led_1,   // Led_1
-  Led_2,   // Led_2
-  Led_3,   // Led_3
-  Led_4,   // Led_4
-  Led_5,   // Led_5
-  Led_6,   // Led_6
-  Led_7,   // Led_7
-  Led_8,   // Led_8
-  Led_9,   // Led_9
-  Led_10,  // Led_10
-  Led_11,  // Led_11
-  Led_12,  // Led_12
-  Led_13,  // Led_13
+  Led_1,   // >bool >colorstring >off string 
+  Led_2,   // 
+  Led_3,   // 
+  Led_4,   // 
+  Led_5,   // 
+  Led_6,   // 
+  Led_7,   // 
+  Led_8,   // 
+  Led_9,   // 
+  Led_10,  // 
+  Led_11,  // 
+  Led_12,  // 
+  Led_13,  // 
   //
-  Display_1, // Display 1
-  Display_2, // Display 2
-  Display_3, // Display 3
-  Display_4, // Display 4
+  Display_1, // >any >colorstring ($YELLOW, $ORANGE, $RED, $BLUE, $BLACK, $WHITE, $BLACK, $OFF, $DEL >sizestring <void (dubblec lick)
+  Display_2, // 
+  Display_3, // 
+  Display_4, // 
   //
-  Monitor,        // Monitor
-  MonitorField_1, // MonitorField_1
-  MonitorField_2, // MonitorField_2
-  MonitorField_3, // MonitorField_3
-  MonitorField_4, // MonitorField_4
-  MonitorField_5, // MonitorField_5
-  MonitorField_6, // MonitorField_6
+	PanelInput_1, // >bool (static, volatile) >any num
+	PanelInput_2, //
+	//
+	MinPanelInput_1, // >int >long >ulong 
+	MinPanelInput_2, //
+	//
+	MaxPanelInput_1, // >int >long >ulong 
+	MaxPanelInput_2, //
+	//
+	PanelInputLabel_1, // >any
+	PanelInputLabel_2, //
   //
-  MonitorScrollBox,  // MonitorScrollBox
+  Monitor,        // >bool (window visible)
+  MonitorField_1, // >any
+  MonitorField_2, // 
+  MonitorField_3, // 
+  MonitorField_4, // 
+  MonitorField_5, // 
+  MonitorField_6, // 
   //
-  Graph, // false/true, byte (1(draw), 2(stat), 3(run)
-  GraphGrid, // byte number of segments
-  GraphPen, // $FINE, $THICK, $RED, $GREEN, $YELLOW, $ORANGE, $WHITE, $BLUE 
+  MonitorScrollBox,  // >any
+  //
+  MonitorInput_1, // >any num <any num
+	MonitorInput_2, //
+	MonitorInput_3, //
+	MonitorInput_4, //
+	MonitorInput_5, //
+	MonitorInput_6, //
+	//
+	MinMonitorInput_1, // >int >long >ulong 
+	MinMonitorInput_2, //
+	MinMonitorInput_3, //
+	MinMonitorInput_4, //
+	MinMonitorInput_5, //
+	MinMonitorInput_6, //
+	//
+	MaxMonitorInput_1, // >int >long >ulong 
+	MaxMonitorInput_2, //
+	MaxMonitorInput_3, //
+	MaxMonitorInput_4, //
+	MaxMonitorInput_5, //
+	MaxMonitorInput_6, //
+	//
+	MonitorInputLabel_1, // >any
+	MonitorInputLabel_2, //
+	MonitorInputLabel_3, //
+	MonitorInputLabel_4, //
+	MonitorInputLabel_5, //
+	MonitorInputLabel_6, //
+	//
+  Graph, // >bool false/true
+  GraphGrid, // >int vert.gridcount
+  GraphPen, // >color string  >thickness string
   GraphDrawLine, // ULong 4x byte (Fx,Fy,Tx,Ty) UInt 2 x byte (X,Y)
   GraphDrawPixel, // UInt 2 x byte (X,Y)
-  GraphText, //
+  GraphText, // >string >int (point)
   //
-	GraphValue_1, // byte 
-	GraphValue_2, // byte 
-	GraphValue_3, // byte 
-	GraphValue_4, // byte 
-	GraphValue_5, // byte 
+	GraphValue_1, // >byte >color string >tickness string ($1PX, $2PX, $3PX, $4PX)
+	GraphValue_2, // 
+	GraphValue_3, //  
+	GraphValue_4, //  
+	GraphValue_5, //  
   //
-  GraphValueCount_1, // int
-  GraphValueCount_2, // int
-  GraphValueCount_3, // int 
-  GraphValueCount_4, // int  
-  GraphValueCount_5, // int 
+  GraphValueCount_1, // >int
+  GraphValueCount_2, // 
+  GraphValueCount_3, // 
+  GraphValueCount_4, //   
+  GraphValueCount_5, // 
   // 
 	GraphCaption_1, //
 	GraphCaption_2, //
@@ -128,8 +173,16 @@ enum vp_event // event/channel list
 	GraphButton_1, //
 	GraphButton_2, //
 	GraphButton_3, //
-	GraphButton_4  //
+	GraphButton_4,  //
 	//
+  GraphClick, //
+  GraphDoubleClick, //
+  GraphRightClick, //
+	//
+  Info,
+  InfoLabel,
+  InfoText
+  //
 };
 
 #endif

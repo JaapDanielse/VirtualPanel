@@ -305,7 +305,42 @@ namespace VirtualPanel
             display3.BringToFront();
             display4.BringToFront();
 
-            button3.Select();
+            button1.Font = new Font("Microsoft Sans Serif", 8);
+            button2.Font = new Font("Microsoft Sans Serif", 8);
+            button3.Font = new Font("Microsoft Sans Serif", 8);
+            button4.Font = new Font("Microsoft Sans Serif", 8);
+            button5.Font = new Font("Microsoft Sans Serif", 8);
+            button6.Font = new Font("Microsoft Sans Serif", 8);
+            button7.Font = new Font("Microsoft Sans Serif", 8);
+            button8.Font = new Font("Microsoft Sans Serif", 8);
+            button9.Font = new Font("Microsoft Sans Serif", 8);
+            button10.Font = new Font("Microsoft Sans Serif", 8);
+            button11.Font = new Font("Microsoft Sans Serif", 8);
+            button12.Font = new Font("Microsoft Sans Serif", 8);
+            button13.Font = new Font("Microsoft Sans Serif", 8);
+            button14.Font = new Font("Microsoft Sans Serif", 8);
+            button15.Font = new Font("Microsoft Sans Serif", 8);
+            button16.Font = new Font("Microsoft Sans Serif", 8);
+            button17.Font = new Font("Microsoft Sans Serif", 8);
+            button1.Font = new Font(button1.Font, FontStyle.Regular);
+            button2.Font = new Font(button2.Font, FontStyle.Regular);
+            button3.Font = new Font(button3.Font, FontStyle.Regular);
+            button4.Font = new Font(button4.Font, FontStyle.Regular);
+            button5.Font = new Font(button5.Font, FontStyle.Regular);
+            button6.Font = new Font(button6.Font, FontStyle.Regular);
+            button7.Font = new Font(button7.Font, FontStyle.Regular);
+            button8.Font = new Font(button8.Font, FontStyle.Regular);
+            button9.Font = new Font(button9.Font, FontStyle.Regular);
+            button10.Font = new Font(button10.Font, FontStyle.Regular);
+            button11.Font = new Font(button11.Font, FontStyle.Regular);
+            button12.Font = new Font(button12.Font, FontStyle.Regular);
+            button13.Font = new Font(button13.Font, FontStyle.Regular);
+            button14.Font = new Font(button14.Font, FontStyle.Regular);
+            button15.Font = new Font(button15.Font, FontStyle.Regular);
+            button16.Font = new Font(button16.Font, FontStyle.Regular);
+            button17.Font = new Font(button17.Font, FontStyle.Regular);
+
+            //button3.Select();
             StaticDisplay = false;
             timer1.Enabled = false;
             timer1.Interval = 500;
@@ -319,7 +354,7 @@ namespace VirtualPanel
             MaxPanelInput_2 = 2147483647;
 
             if (port.IsConnected) port.Send((byte)ChannelId.PanelConnected);
-            if (port.IsConnected) port.Send((byte)ChannelId.StaticDisplay);
+//            if (port.IsConnected) port.Send((byte)ChannelId.StaticDisplay);
         }
 
         private void Port_Disconnected(object sender, ConnectedEventArgs e)
@@ -349,7 +384,11 @@ namespace VirtualPanel
             else
             {
                 if (id == ChannelId.UnixTime) SendUnixTime(mse);
-                if (id == ChannelId.StaticDisplay  && mse.Type == vp_type.vp_boolean) StaticDisplay  = (bool)mse.Data;
+                if (id == ChannelId.StaticDisplay && mse.Type == vp_type.vp_boolean)
+                {
+                    StaticDisplay = (bool)mse.Data;
+                    if (port.IsConnected && StaticDisplay) port.Send((byte)ChannelId.StaticDisplay);
+                }
                 if (id == ChannelId.DynamicDisplay && mse.Type == vp_type.vp_boolean) timer1.Enabled = (bool)mse.Data;
 
                 if (id == ChannelId.DynamicDisplay && mse.Type == vp_type.vp_int)
@@ -474,7 +513,7 @@ namespace VirtualPanel
             if (ColorString == "$RED")   convertedColor = Color.Red;
             if (ColorString == "$BLUE")  convertedColor = Color.DodgerBlue;
             if (ColorString == "$GREEN") convertedColor = Color.Lime;
-            if (ColorString == "$BLACK") convertedColor = Color.Black;
+            if (ColorString == "$GRAY") convertedColor = Color.DarkGray;
             if (ColorString == "$WHITE") convertedColor = Color.White;
             if (ColorString == "$BLACK") convertedColor = Color.Black;
             if (ColorString == "$OFF") convertedColor = Color.Black;
@@ -506,73 +545,85 @@ namespace VirtualPanel
                 }
                 else if ((string)mse.Data == "$LEFT")
                 {
-                    button.Font = new Font("Wingdings 3", 10);
-                    button.Text = "";
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Text = "◀";
                 }
                 else if ((string)mse.Data == "$UP")
                 {
-                    button.Font = new Font("Wingdings 3", 10);
-                    button.Text = "";
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Text = "▲";
                 }
                 else if ((string)mse.Data == "$DOT")
                 {
-                    button.Font = new Font("Wingdings", 11);
-                    button.Text = "";
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Text = "⚫";
                 }
                 else if ((string)mse.Data == "$DOWN")
                 {
-                    button.Font = new Font("Wingdings 3", 10);
-                    button.Text = "";
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Text = "▼";
                 }
                 else if ((string)mse.Data == "$RIGHT")
                 {
-                    button.Font = new Font("Wingdings 3", 10);
-                    button.Text = "";
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Text = "▶";
                 }
                 else if ((string)mse.Data == "$SET")
                 {
-                    button.Font = new Font("Wingdings 2", 10);
-                    button.Text = "";
-                }
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Text = "✱";
+                 }
                 else if ((string)mse.Data == "$ONOFF")
                 {
-                    button.Font = new Font("Wingdings 2", 8);
-                    button.Text = "";
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Text = "⚫⚪";
                 }
                 else if ((string)mse.Data == "$LTURN")
                 {
-                    button.Font = new Font("Wingdings 3", 11);
-                    button.Text = "";
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Text = "⭯";
                 }
                 else if ((string)mse.Data == "$RTURN")
                 {
-                    button.Font = new Font("Wingdings 3", 11);
-                    button.Text = "";
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Text = "⭮";
                 }
                 else if ((string)mse.Data == "$RUN")
                 {
-                    button.Font = new Font("Wingdings 3", 10);
-                    button.Text = "";
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Text = "▶";
                 }
                 else if ((string)mse.Data == "$PAUSE")
                 {
-                    button.Font = new Font("Arial", 8);
+                    button.Font = new Font("Microsoft Sans Serif", 8);
+                    //button.Font = new Font("Arial", 8);
                     button.Text = " ▌▌";
                 }
                 else if ((string)mse.Data == "$STOP")
                 {
-                    button.Font = new Font("Wingdings 2", 11);
-                    button.Text = "";
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Text = "■";
+                }
+                else if ((string)mse.Data == "$BIG")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                }
+                else if ((string)mse.Data == "$NORMAL")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 8);
+                    button.Font = new Font(button.Font, FontStyle.Regular);
+                }
+                else if ((string)mse.Data == "$BOLD")
+                {
+                    button.Font = new Font(button.Font, FontStyle.Bold);
                 }
                 else
                 {
-                    button.Font = new Font("Microsoft Sans Serif", 8);
                     button.Text = (string)mse.Data;
                 }
             }
             else
             {
-                button.Font = new Font("Microsoft Sans Serif", 8);
                 button.Text = mse.Data.ToString();
             }
         }
@@ -603,7 +654,8 @@ namespace VirtualPanel
 
             if (mse.Type == vp_type.vp_boolean)
             {
-                if (!(bool)mse.Data) display.Visible = false;
+                if (!(bool)mse.Data)
+                    display.Visible = false;
             }
             else if (mse.Type == vp_type.vp_string)
             {
@@ -627,10 +679,12 @@ namespace VirtualPanel
                     display.Font = new Font("Microsoft Sans Serif", 18);
                 }
                 else
-                    display.Text = (string)mse.Data;
+                     display.Text = (string)mse.Data;
             }
             else
+            {
                 display.Text = mse.Data.ToString();
+            }
         }
 
         private void SetScrollBarAppearance(VScrollBar scrollBar, MessageEventArgs<object> mse)
@@ -689,7 +743,7 @@ namespace VirtualPanel
                         if ((int)mse.Data <= (ScrollBar1.Maximum - 9) && (int)mse.Data >= 0)
                             ScrollBar1.Value = ((ScrollBar1.Maximum - 9) - (int)mse.Data);
                     if (scrollBar.Name == "ScrollBar2")
-                        if ((int)mse.Data <= (ScrollBar2.Maximum - 9) && (int)mse.Data > 0)
+                        if ((int)mse.Data <= (ScrollBar2.Maximum - 9) && (int)mse.Data >= 0)
                             ScrollBar2.Value = ((ScrollBar2.Maximum - 9) - (int)mse.Data);
                     if (scrollBar.Name == "ScrollBar3")
                         if ((int)mse.Data <= (ScrollBar3.Maximum - 9) && (int)mse.Data >= 0)

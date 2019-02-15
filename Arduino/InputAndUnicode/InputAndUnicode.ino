@@ -37,7 +37,7 @@ void PanelCallback(int event, int type)
       Panel.Send(ScrollBar_3,"Six"); // Set Button_4 visible showing "Two"
       Panel.Send(ScrollBar_5,"Seven"); // Set Button_4 visible showing "Two"
       Panel.Send(MonitorInputLabel_1,"Een:"); // send text to Display_2
-      Panel.Send(MonitorInputLabel_2,"Twee:"); // send text to Display_2
+      Panel.Send(MonitorInputLabel_2,"MonInpLabel_2:"); // send text to Display_2
       Panel.Send(MonitorInputLabel_3,"Drie:"); // send text to Display_2
       Panel.Send(MonitorInputLabel_4,"Vier:"); // send text to Display_2
       Panel.Send(MonitorInputLabel_5,"Vijf:"); // send text to Display_2
@@ -45,7 +45,7 @@ void PanelCallback(int event, int type)
       Panel.Send(MonitorInput_1,true); // 
       Panel.Send(MinMonitorInput_1,0); // 
       Panel.Send(MaxMonitorInput_1,10); // 
-      Panel.Send(MonitorInput_1,1); // 
+      Panel.Send(MonitorInput_2,1); // 
       Panel.Send(InfoLabel, "Test");
       Panel.Send(InfoText, "Test Test Test");
       
@@ -66,7 +66,7 @@ void PanelCallback(int event, int type)
       break;
 
     case Button_4: // Catch button pressed  
-      Panel.Send(Display_2,"µ ɸ ʩ ֍ א ◀"); // send text to Display_2
+      Panel.Send(Display_2,"µ ɸ ʩ ֍ א ◀ ⇄"); // send text to Display_2
       Panel.Send(Beep, 700); // send text to Display_2
       
       break;
