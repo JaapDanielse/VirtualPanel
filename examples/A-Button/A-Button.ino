@@ -28,9 +28,6 @@ void PanelCallback(int event, int type)
       Panel.Send(Button_3,"on/off"); // Button_3 visible and set text "on/off"
     break;
 
-
-
-
     case Button_3: // Catch button pressed
       Power = !Power;
       if (Power)

@@ -371,26 +371,31 @@ namespace VirtualPanel
                  && (InputValueByte >= MinInput && InputValueByte <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_byte, InputValueByte);
+                if (arduinoport.IsConnected && VirtualPanelForm.StaticDisplay) arduinoport.Send((byte)ChannelId.StaticDisplay);
             }
             else if ( MonitorInputType == vp_type.vp_int && Int16.TryParse(TextBox.Text, out InputValueShort) 
                       && (InputValueShort >= MinInput && InputValueShort <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_int, InputValueShort);
+                if (arduinoport.IsConnected && VirtualPanelForm.StaticDisplay) arduinoport.Send((byte)ChannelId.StaticDisplay);
             }
             else if ( MonitorInputType == vp_type.vp_uint && UInt16.TryParse(TextBox.Text, out InputValueUShort) 
                       && (InputValueUShort >= MinInput && InputValueUShort <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_uint, InputValueUShort);
+                if (arduinoport.IsConnected && VirtualPanelForm.StaticDisplay) arduinoport.Send((byte)ChannelId.StaticDisplay);
             }
             else if ( MonitorInputType == vp_type.vp_long && Int32.TryParse(TextBox.Text, out InputValueLong) 
                       && (InputValueLong >= MinInput && InputValueLong <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_long, InputValueLong);
+                if (arduinoport.IsConnected && VirtualPanelForm.StaticDisplay) arduinoport.Send((byte)ChannelId.StaticDisplay);
             }
             else if ( MonitorInputType == vp_type.vp_ulong && UInt32.TryParse(TextBox.Text, out InputValueULong) 
                       && (InputValueULong >= MinInput && InputValueULong <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_ulong, InputValueULong);
+                if (arduinoport.IsConnected && VirtualPanelForm.StaticDisplay) arduinoport.Send((byte)ChannelId.StaticDisplay);
             }
             else
             {

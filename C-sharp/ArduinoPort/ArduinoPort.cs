@@ -43,6 +43,8 @@ namespace ArduinoCom
             port.StopBits = StopBits.One;
             port.Handshake = Handshake.None;
             port.RtsEnable = false;
+            port.DtrEnable = false;
+
             port.NewLine = "\r\n";
             port.Encoding = Encoding.UTF8;
 
@@ -71,7 +73,7 @@ namespace ArduinoCom
             port.DataBits = 8;
             port.StopBits = StopBits.One;
             port.Handshake = Handshake.None;
-            port.RtsEnable = true;
+            port.DtrEnable = true;
             port.NewLine = "\r\n";
 
             // Setup port checker timer.
@@ -98,15 +100,15 @@ namespace ArduinoCom
             Disconnect(false);
         }
 
-
         public void Reset()
         {
-            port.DtrEnable = false;
-            port.DtrEnable = true;
+            port.DtrEnable = !port.DtrEnable;
+            Thread.Sleep(50);
+            port.DtrEnable = !port.DtrEnable;
+            Thread.Sleep(50);
 
             Disconnect(true);
         }
-
 
         #region Port Finding Worker
 
@@ -175,7 +177,14 @@ namespace ArduinoCom
 
                         if (send_id < DateTime.Now)
                         {
-                            port.WriteLine("ID");
+                            try
+                            {
+                                port.WriteLine("ID");
+                            }
+                            catch (InvalidOperationException)
+                            {
+                                continue;
+                            }
                             send_id = DateTime.Now + SearchPollFrequency;
                         }
 

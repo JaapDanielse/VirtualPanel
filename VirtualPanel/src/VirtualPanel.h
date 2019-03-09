@@ -27,7 +27,9 @@ uint16_t _Point( uint8_t x, uint8_t y); // Declaration of graph point helper fun
 
 uint32_t _Line( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye); // Declaration of graph line helper function (packs four bytes in a uint32_t).
 
-uint32_t _VLine( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye);
+uint32_t _VLine( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye); // Declaration of graph line helper function (packs four bytes in a uint32_t). (converting y coordinates to values)
+
+uint16_t _VPoint( uint8_t x, uint8_t y); // Declaration of graph point helper function (packs two bytes in a iunt16_t). (converting y coordinate to value)
 
 uint32_t _Sound( uint16_t frequency, uint16_t duration); // Declaration of Beep helper funtion
 

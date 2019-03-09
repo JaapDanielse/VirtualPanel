@@ -51,6 +51,7 @@
             this.InfoTextBox.Location = new System.Drawing.Point(15, 46);
             this.InfoTextBox.Multiline = true;
             this.InfoTextBox.Name = "InfoTextBox";
+            this.InfoTextBox.ReadOnly = true;
             this.InfoTextBox.Size = new System.Drawing.Size(307, 145);
             this.InfoTextBox.TabIndex = 1;
             // 

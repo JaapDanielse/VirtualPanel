@@ -253,8 +253,8 @@ namespace VirtualPanel
             port.Connected += Port_Connected;
             port.Disconnected += Port_Disconnected;
             port.MessageReceived += Port_MessageReceived;
-            //port.SearchPortTimeout = TimeSpan.FromSeconds(2);
-            //port.SearchPollFrequency = TimeSpan.FromMilliseconds(100);
+            port.SearchPortTimeout = TimeSpan.FromSeconds(2);
+            port.SearchPollFrequency = TimeSpan.FromMilliseconds(200);
             port.Open();
             connected_box.BackColor = Color.DarkGreen;
         }
@@ -282,7 +282,10 @@ namespace VirtualPanel
             scrolllabel3.Visible = false;
             scrolllabel4.Visible = false;
             scrolllabel5.Visible = false;
-
+            ScrollBar1.Value = ScrollBar1.Maximum;
+            ScrollBar2.Value = ScrollBar2.Maximum;
+            ScrollBar3.Value = ScrollBar3.Maximum;
+            ScrollBar4.Value = ScrollBar4.Maximum;
 
             ApplicationTitle.ForeColor = Color.White;
 
@@ -405,7 +408,8 @@ namespace VirtualPanel
 
                    int Frequency = (int)(Data >> 16);
                    int Duration = (int)(Data & 0x0000FFFF);
-                   System.Console.Beep(Frequency, Duration);
+                   if (Frequency >= 37 && Frequency <= 32767)
+                     System.Console.Beep(Frequency, Duration);
                 }
 
                 if (id == ChannelId.Monitor && mse.Type == vp_type.vp_boolean)
@@ -790,6 +794,7 @@ namespace VirtualPanel
                 VScrollBar temp = (VScrollBar)channel.Item2;
                 int Value = (temp.Maximum - 9) - temp.Value ;
                 if (port.IsConnected) port.Send((byte)channel.Item1, vp_type.vp_int, Value);
+                if (port.IsConnected && StaticDisplay) port.Send((byte)ChannelId.StaticDisplay);
             }
         }
 
@@ -893,7 +898,7 @@ namespace VirtualPanel
             vp_type InputType = vp_type.vp_int;
 
             if (sender == PanelInputTextBox_1) { InputType = PanelInputType_1; MinInput = MinPanelInput_1; MaxInput = MaxPanelInput_1; }
-            if (sender == PanelInputTextBox_2) { InputType = PanelInputType_1; MinInput = MinPanelInput_1; MaxInput = MaxPanelInput_1; }
+            if (sender == PanelInputTextBox_2) { InputType = PanelInputType_2; MinInput = MinPanelInput_2; MaxInput = MaxPanelInput_2; }
 
 
             if (InputType == vp_type.vp_byte && byte.TryParse(TextBox.Text, out InputValueByte))
@@ -984,26 +989,31 @@ namespace VirtualPanel
                  && (InputValueByte >= MinInput && InputValueByte <= MaxInput))
             {
                 if (port.IsConnected) port.Send((byte)PanelInput, vp_type.vp_byte, InputValueByte);
+                if (port.IsConnected && StaticDisplay) port.Send((byte)ChannelId.StaticDisplay);
             }
             else if ( PanelInputType == vp_type.vp_int && Int16.TryParse(TextBox.Text, out InputValueShort)
                       && (InputValueShort >= MinInput && InputValueShort <= MaxInput))
             {
-                    if (port.IsConnected) port.Send((byte)PanelInput, vp_type.vp_int, InputValueShort);
+                if (port.IsConnected) port.Send((byte)PanelInput, vp_type.vp_int, InputValueShort);
+                if (port.IsConnected && StaticDisplay) port.Send((byte)ChannelId.StaticDisplay);
             }
             else if ( PanelInputType == vp_type.vp_uint && UInt16.TryParse(TextBox.Text, out InputValueUShort)
                       && (InputValueUShort >= MinInput && InputValueUShort <= MaxInput))
             {
                 if (port.IsConnected) port.Send((byte)PanelInput, vp_type.vp_uint, InputValueUShort);
+                if (port.IsConnected && StaticDisplay) port.Send((byte)ChannelId.StaticDisplay);
             }
             else if ( PanelInputType == vp_type.vp_long && Int32.TryParse(TextBox.Text, out InputValueLong)
                       && (InputValueLong >= MinInput && InputValueLong <= MaxInput))
             {
                 if (port.IsConnected) port.Send((byte)PanelInput, vp_type.vp_long, InputValueLong);
+                if (port.IsConnected && StaticDisplay) port.Send((byte)ChannelId.StaticDisplay);
             }
             else if ( PanelInputType == vp_type.vp_ulong && UInt32.TryParse(TextBox.Text, out InputValueULong)
                       && (InputValueULong >= MinInput && InputValueULong <= MaxInput))
             {
                 if (port.IsConnected) port.Send((byte)PanelInput, vp_type.vp_ulong, InputValueULong);
+                if (port.IsConnected && StaticDisplay) port.Send((byte)ChannelId.StaticDisplay);
             }
             else
             {
@@ -1047,6 +1057,7 @@ namespace VirtualPanel
                 HScrollBar temp = (HScrollBar)channel.Item2;
                 int Value = temp.Value;
                 if (port.IsConnected) port.Send((byte)channel.Item1, vp_type.vp_int, Value);
+                if (port.IsConnected && StaticDisplay) port.Send((byte)ChannelId.StaticDisplay);
             }
         }
     }
