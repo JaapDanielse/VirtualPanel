@@ -31,11 +31,9 @@ namespace VirtualPanel
 
         int DrawPenSize = 1;
 
-        string GraphCaption1Text = "";
-        string GraphCaption2Text = "";
-
         Color DrawTextColor = Color.White;
-        Color DrawColor    = Color.White;
+        Color DrawColor = Color.White;
+        Color DrawPointColor = Color.White;
 
         Point DrawtextPoint = new Point(0, 0);
         Point LinePoint = new Point(0, 0);
@@ -45,9 +43,6 @@ namespace VirtualPanel
 
         Range DrawInput = new Range(0, 255);
         Range DrawX, DrawY;
-
-        int CursorPos;
-
 
         public GraphForm(ArduinoPort port)
         {
@@ -124,8 +119,6 @@ namespace VirtualPanel
             graphLabel3.Visible = false;
             graphLabel4.Visible = false;
             graphLabel5.Visible = false;
-            GraphCaption1Text = "";
-            GraphCaption2Text = "";
             DrawPenSize = 1;
             DrawTextColor = Color.White;
             DrawColor = Color.White;
@@ -171,11 +164,13 @@ namespace VirtualPanel
                 {
                     if ((string)mse.Data == "$CLEAR") { PersistentDrawing.Clear(); LinePointValid = false; }
                 }
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphPen && mse.Type == vp_type.vp_string) SetDrawPen((string)mse.Data);
+ //               if ((ChannelId)mse.ChannelID == ChannelId.GraphPen && mse.Type == vp_type.vp_string) SetDrawPointPen((string)mse.Data);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_ulong) DrawPersitentLine((Int64)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_string) SetDrawPen((string)mse.Data);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_uint) DrawLinePoint((ushort)(int)mse.Data);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_void) LinePointValid = false;
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawPixel && mse.Type == vp_type.vp_uint) DrawPixel((ushort)(int)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawPixel && mse.Type == vp_type.vp_string) SetDrawPointPen((string)mse.Data); ;
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_uint)
                     DrawTextPos((Int32)mse.Data);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_string) Drawtext((string)mse.Data);
@@ -195,14 +190,14 @@ namespace VirtualPanel
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValueCount_4 && mse.Type == vp_type.vp_int) GraphPlot_4.SampleCount = (int)mse.Data;
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphValueCount_5 && mse.Type == vp_type.vp_int) GraphPlot_5.SampleCount = (int)mse.Data;
 
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_1 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_1); Grid = true; }
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_2 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_2); Grid = true; }
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_3); Grid = true; }
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_4 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_4); Grid = true; }
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_5 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_5); Grid = true; }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_1 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_1); } //Grid = true; removed
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_2 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_2); }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_3 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_3); }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_4 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_4); }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphValue_5 && mse.Type == vp_type.vp_byte) { GraphValueAdd((int)mse.Data, GraphPlot_5); }
 
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_1 && mse.Type == vp_type.vp_string) GraphCaption1Text = (string)mse.Data;
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_2 && mse.Type == vp_type.vp_string) GraphCaption2Text = (string)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_1 && mse.Type == vp_type.vp_string) DrawCaption((string)mse.Data, 1);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_2 && mse.Type == vp_type.vp_string) DrawCaption((string)mse.Data, 2);
 
                 GraphPictureBox1.Invalidate();
             }
@@ -233,10 +228,31 @@ namespace VirtualPanel
                 DrawTextColor = col; //
             else
             {
-                PersistentDrawing.Add(new Text(DrawtextPoint, data, DrawTextColor, 8));
+                if(DrawTextColor == Color.Black)
+                  PersistentDrawing.Delete(new Text(DrawtextPoint, data, DrawTextColor, 8));
+                else
+                  PersistentDrawing.Add(new Text(DrawtextPoint, data, DrawTextColor, 8));
                 GraphPictureBox1.Invalidate();
             }
         }
+
+        private void DrawCaption(string data, int CaptionId)
+        {
+            if (DrawTextColor == Color.Black)
+            {
+                if (CaptionId == 1) PersistentDrawing.Delete(new Text(new Point(10, 5), data, DrawTextColor, 8));
+                if (CaptionId == 2) PersistentDrawing.Delete(new Text(new Point(10, 202), data, DrawTextColor, 8));
+            }
+            else
+            {
+                if (CaptionId == 1) PersistentDrawing.Add(new Text(new Point(10, 5), data, DrawTextColor, 8));
+                if (CaptionId == 2) PersistentDrawing.Add(new Text(new Point(10, 202), data, DrawTextColor, 8));
+            }
+            GraphPictureBox1.Invalidate();
+
+        }
+
+
 
         private void DrawTextPos(int data)
         {
@@ -309,11 +325,17 @@ namespace VirtualPanel
             DrawPoint.Y = GraphPictureBox1.Height - DrawPoint.Y;
 
             if (DrawColor == Color.Black)
-                PersistentDrawing.Delete(new Pixel(DrawPoint.X, DrawPoint.Y, DrawColor));
+                PersistentDrawing.Delete(new Pixel(DrawPoint.X, DrawPoint.Y, DrawPointColor));
             else
-                PersistentDrawing.Add(new Pixel(DrawPoint.X, DrawPoint.Y, DrawColor));
+                PersistentDrawing.Add(new Pixel(DrawPoint.X, DrawPoint.Y, DrawPointColor));
 
             GraphPictureBox1.Invalidate();
+        }
+
+        private void SetDrawPointPen(string PenColor)
+        {
+            Color col = VirtualPanelForm.String2Color(PenColor);
+            if (!col.IsEmpty) DrawPointColor = col; //
         }
 
         private void SetDrawPen(string PenColor)
@@ -365,6 +387,7 @@ namespace VirtualPanel
             e.Cancel = true;
         }
 
+
         private void GraphPictureBox1_Paint(object sender, PaintEventArgs e)
         {
             GraphWidth = GraphPictureBox1.Size.Width;
@@ -375,6 +398,7 @@ namespace VirtualPanel
 
             if (Grid)
             {
+                if (GridCount <= 0) GridCount = 0;
                 for (int i = 0; i <= GridCount + 1; i++)
                 {
                     float lineY = i * (GraphHeight / (float)GridCount);
@@ -388,10 +412,7 @@ namespace VirtualPanel
                     float lineX = i * (GraphWidth / (float)HGridCount);
                     g.DrawLine(mypen, lineX, 0.0f, lineX, GraphHeight);
                }
-                }
-
-            g.DrawString(GraphCaption1Text, new Font("Verdana", 8), new SolidBrush(DrawTextColor), new Point(10, 5));
-            g.DrawString(GraphCaption2Text, new Font("Verdana", 8), new SolidBrush(DrawTextColor), new Point(10, 202));
+            }
 
             GraphPlot_1.Draw(g);
             GraphPlot_2.Draw(g);
@@ -431,8 +452,6 @@ namespace VirtualPanel
             if (channel != null)
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)channel.Item1);
-
-                if (VirtualPanelForm.StaticDisplay && arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.StaticDisplay);
             }
         }
 

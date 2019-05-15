@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 using ArduinoCom;
 using System.Drawing;
+using System.Text;
 
 namespace VirtualPanel
 {
@@ -14,6 +15,7 @@ namespace VirtualPanel
         private bool monitor = true;
         private int lines = 0;
         private List<Tuple<ChannelId, Control>> pannelControlList;
+        private List<String> log = new List<string>();
 
         private vp_type MonitorInputType_1 = vp_type.vp_int;
         private vp_type MonitorInputType_2 = vp_type.vp_int;
@@ -29,19 +31,34 @@ namespace VirtualPanel
         private bool MonInput_5 = false;
         private bool MonInput_6 = false;
 
-        private long MinMonInput_1 = -2147483648;
-        private long MinMonInput_2 = -2147483648;
-        private long MinMonInput_3 = -2147483648;
-        private long MinMonInput_4 = -2147483648;
-        private long MinMonInput_5 = -2147483648;
-        private long MinMonInput_6 = -2147483648;
+        private long MinMonInput_1 = long.MinValue;
+        private long MinMonInput_2 = long.MinValue;
+        private long MinMonInput_3 = long.MinValue;
+        private long MinMonInput_4 = long.MinValue;
+        private long MinMonInput_5 = long.MinValue;
+        private long MinMonInput_6 = long.MinValue;
 
-        private long MaxMonInput_1 = 2147483647;
-        private long MaxMonInput_2 = 2147483647;
-        private long MaxMonInput_3 = 2147483647;
-        private long MaxMonInput_4 = 2147483647;
-        private long MaxMonInput_5 = 2147483647;
-        private long MaxMonInput_6 = 2147483647;
+        private long MaxMonInput_1 = long.MaxValue;
+        private long MaxMonInput_2 = long.MaxValue;
+        private long MaxMonInput_3 = long.MaxValue;
+        private long MaxMonInput_4 = long.MaxValue;
+        private long MaxMonInput_5 = long.MaxValue;
+        private long MaxMonInput_6 = long.MaxValue;
+
+        private float MinMonInputF_1 = float.MinValue;
+        private float MinMonInputF_2 = float.MinValue;
+        private float MinMonInputF_3 = float.MinValue;
+        private float MinMonInputF_4 = float.MinValue;
+        private float MinMonInputF_5 = float.MinValue;
+        private float MinMonInputF_6 = float.MinValue;
+
+        private float MaxMonInputF_1 = float.MaxValue;
+        private float MaxMonInputF_2 = float.MaxValue;
+        private float MaxMonInputF_3 = float.MaxValue;
+        private float MaxMonInputF_4 = float.MaxValue;
+        private float MaxMonInputF_5 = float.MaxValue;
+        private float MaxMonInputF_6 = float.MaxValue;
+
 
         public MonitorForm(ArduinoPort port)
         {
@@ -68,10 +85,7 @@ namespace VirtualPanel
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_4) label4.Text = mse.Data.ToString();
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_5) label5.Text = mse.Data.ToString();
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_6) label6.Text = mse.Data.ToString();
-            if ((ChannelId)mse.ChannelID == ChannelId.MonitorScrollBox)
-            {
-                if (monitor) WriteMonitor(mse.Data.ToString());
-            }
+            if ((ChannelId)mse.ChannelID == ChannelId.MonitorLogPanel) WriteMonitor(mse.Data.ToString());
 
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_1 && mse.Type == vp_type.vp_boolean) MonInput_1 = (bool)mse.Data;
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_2 && mse.Type == vp_type.vp_boolean) MonInput_2 = (bool)mse.Data;
@@ -100,6 +114,21 @@ namespace VirtualPanel
             if ((ChannelId)mse.ChannelID == ChannelId.MaxMonitorInput_4 && mse.Type == vp_type.vp_int) MaxMonInput_4 = (int)mse.Data;
             if ((ChannelId)mse.ChannelID == ChannelId.MaxMonitorInput_5 && mse.Type == vp_type.vp_int) MaxMonInput_5 = (int)mse.Data;
             if ((ChannelId)mse.ChannelID == ChannelId.MaxMonitorInput_6 && mse.Type == vp_type.vp_int) MaxMonInput_6 = (int)mse.Data;
+
+            if ((ChannelId)mse.ChannelID == ChannelId.MinMonitorInput_1 && mse.Type == vp_type.vp_float) MinMonInputF_1 = (float)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.MinMonitorInput_2 && mse.Type == vp_type.vp_float) MinMonInputF_2 = (float)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.MinMonitorInput_3 && mse.Type == vp_type.vp_float) MinMonInputF_3 = (float)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.MinMonitorInput_4 && mse.Type == vp_type.vp_float) MinMonInputF_4 = (float)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.MinMonitorInput_5 && mse.Type == vp_type.vp_float) MinMonInputF_5 = (float)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.MinMonitorInput_6 && mse.Type == vp_type.vp_float) MinMonInputF_6 = (float)mse.Data;
+
+            if ((ChannelId)mse.ChannelID == ChannelId.MaxMonitorInput_1 && mse.Type == vp_type.vp_float) MaxMonInputF_1 = (float)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.MaxMonitorInput_2 && mse.Type == vp_type.vp_float) MaxMonInputF_2 = (float)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.MaxMonitorInput_3 && mse.Type == vp_type.vp_float) MaxMonInputF_3 = (float)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.MaxMonitorInput_4 && mse.Type == vp_type.vp_float) MaxMonInputF_4 = (float)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.MaxMonitorInput_5 && mse.Type == vp_type.vp_float) MaxMonInputF_5 = (float)mse.Data;
+            if ((ChannelId)mse.ChannelID == ChannelId.MaxMonitorInput_6 && mse.Type == vp_type.vp_float) MaxMonInputF_6 = (float)mse.Data;
+
 
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_1)
             {
@@ -159,14 +188,7 @@ namespace VirtualPanel
 
         public void WriteMonitor(String inputline)
         {
-            if (lines >= 1000)
-            {
-                textBox1.Text = "";
-                lines = 0;
-            }
-
-            textBox1.AppendText(inputline + "\n");
-            lines++;
+            log.Add(inputline + "\n");
         }
 
         public void MonitorClear()
@@ -194,19 +216,34 @@ namespace VirtualPanel
             MonitorInputPanel_5.Visible = false;
             MonitorInputPanel_6.Visible = false;
 
-            MinMonInput_1 = -2147483648;
-            MinMonInput_2 = -2147483648;
-            MinMonInput_3 = -2147483648;
-            MinMonInput_4 = -2147483648;
-            MinMonInput_5 = -2147483648;
-            MinMonInput_6 = -2147483648;
+            MinMonInput_1 = long.MinValue;
+            MinMonInput_2 = long.MinValue;
+            MinMonInput_3 = long.MinValue;
+            MinMonInput_4 = long.MinValue;
+            MinMonInput_5 = long.MinValue;
+            MinMonInput_6 = long.MinValue;
 
-            MaxMonInput_1 = 2147483647;
-            MaxMonInput_2 = 2147483647;
-            MaxMonInput_3 = 2147483647;
-            MaxMonInput_4 = 2147483647;
-            MaxMonInput_5 = 2147483647;
-            MaxMonInput_6 = 2147483647;
+            MaxMonInput_1 = long.MaxValue;
+            MaxMonInput_2 = long.MaxValue;
+            MaxMonInput_3 = long.MaxValue;
+            MaxMonInput_4 = long.MaxValue;
+            MaxMonInput_5 = long.MaxValue;
+            MaxMonInput_6 = long.MaxValue;
+
+            MinMonInputF_1 = float.MinValue;
+            MinMonInputF_2 = float.MinValue;
+            MinMonInputF_3 = float.MinValue;
+            MinMonInputF_4 = float.MinValue;
+            MinMonInputF_5 = float.MinValue;
+            MinMonInputF_6 = float.MinValue;
+
+            MaxMonInputF_1 = float.MaxValue;
+            MaxMonInputF_2 = float.MaxValue;
+            MaxMonInputF_3 = float.MaxValue;
+            MaxMonInputF_4 = float.MaxValue;
+            MaxMonInputF_5 = float.MaxValue;
+            MaxMonInputF_6 = float.MaxValue;
+
     }
 
 
@@ -292,12 +329,15 @@ namespace VirtualPanel
         {
             long MinInput = 0;
             long MaxInput = 0;
+            float MinInputF = 0;
+            float MaxInputF = 0;
 
             byte InputValueByte = 0;
             short InputValueShort = 0;
             ushort InputValueUShort = 0;
             int InputValueLong = 0;
             uint InputValueULong = 0;
+            float InputValueFloat = 0;
             Panel Panel = new Panel();
             TextBox TextBox = new TextBox();
             ChannelId MonitorInput = ChannelId.MonitorInput_1;
@@ -313,6 +353,8 @@ namespace VirtualPanel
                 MonInput = MonInput_1;
                 MinInput = MinMonInput_1;
                 MaxInput = MaxMonInput_1;
+                MinInputF = MinMonInputF_1;
+                MaxInputF = MaxMonInputF_1;
             }
             if (sender == MonitorSendInput_2)
             {
@@ -323,6 +365,8 @@ namespace VirtualPanel
                 MonInput = MonInput_2;
                 MinInput = MinMonInput_2;
                 MaxInput = MaxMonInput_2;
+                MinInputF = MinMonInputF_2;
+                MaxInputF = MaxMonInputF_2;
             }
             if (sender == MonitorSendInput_3)
             {
@@ -333,6 +377,8 @@ namespace VirtualPanel
                 MonInput = MonInput_3;
                 MinInput = MinMonInput_3;
                 MaxInput = MaxMonInput_3;
+                MinInputF = MinMonInputF_3;
+                MaxInputF = MaxMonInputF_3;
             }
             if (sender == MonitorSendInput_4)
             {
@@ -343,6 +389,8 @@ namespace VirtualPanel
                 MonInput = MonInput_4;
                 MinInput = MinMonInput_4;
                 MaxInput = MaxMonInput_4;
+                MinInputF = MinMonInputF_4;
+                MaxInputF = MaxMonInputF_4;
             }
             if (sender == MonitorSendInput_5)
             {
@@ -353,6 +401,8 @@ namespace VirtualPanel
                 MonInput = MonInput_5;
                 MinInput = MinMonInput_5;
                 MaxInput = MaxMonInput_5;
+                MinInputF = MinMonInputF_5;
+                MaxInputF = MaxMonInputF_5;
             }
             if (sender == MonitorSendInput_6)
             {
@@ -363,6 +413,8 @@ namespace VirtualPanel
                 MonInput = MonInput_6;
                 MinInput = MinMonInput_6;
                 MaxInput = MaxMonInput_6;
+                MinInputF = MinMonInputF_6;
+                MaxInputF = MaxMonInputF_6;
             }
 
             if (!MonInput) Panel.Visible = false;
@@ -371,31 +423,35 @@ namespace VirtualPanel
                  && (InputValueByte >= MinInput && InputValueByte <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_byte, InputValueByte);
-                if (arduinoport.IsConnected && VirtualPanelForm.StaticDisplay) arduinoport.Send((byte)ChannelId.StaticDisplay);
             }
             else if ( MonitorInputType == vp_type.vp_int && Int16.TryParse(TextBox.Text, out InputValueShort) 
                       && (InputValueShort >= MinInput && InputValueShort <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_int, InputValueShort);
-                if (arduinoport.IsConnected && VirtualPanelForm.StaticDisplay) arduinoport.Send((byte)ChannelId.StaticDisplay);
             }
             else if ( MonitorInputType == vp_type.vp_uint && UInt16.TryParse(TextBox.Text, out InputValueUShort) 
                       && (InputValueUShort >= MinInput && InputValueUShort <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_uint, InputValueUShort);
-                if (arduinoport.IsConnected && VirtualPanelForm.StaticDisplay) arduinoport.Send((byte)ChannelId.StaticDisplay);
             }
             else if ( MonitorInputType == vp_type.vp_long && Int32.TryParse(TextBox.Text, out InputValueLong) 
                       && (InputValueLong >= MinInput && InputValueLong <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_long, InputValueLong);
-                if (arduinoport.IsConnected && VirtualPanelForm.StaticDisplay) arduinoport.Send((byte)ChannelId.StaticDisplay);
             }
-            else if ( MonitorInputType == vp_type.vp_ulong && UInt32.TryParse(TextBox.Text, out InputValueULong) 
+            else if (MonitorInputType == vp_type.vp_ulong && UInt32.TryParse(TextBox.Text, out InputValueULong)
                       && (InputValueULong >= MinInput && InputValueULong <= MaxInput))
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, vp_type.vp_ulong, InputValueULong);
-                if (arduinoport.IsConnected && VirtualPanelForm.StaticDisplay) arduinoport.Send((byte)ChannelId.StaticDisplay);
+            }
+            else if (MonitorInputType == vp_type.vp_float && float.TryParse(TextBox.Text, out InputValueFloat)
+                      && (InputValueFloat >= MinInputF && InputValueFloat <= MaxInputF))
+            {
+                if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, InputValueFloat);
+            }
+            else if (MonitorInputType == vp_type.vp_string && TextBox.Text.Length <= 35)
+            {
+                if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, TextBox.Text);
             }
             else
             {
@@ -409,24 +465,33 @@ namespace VirtualPanel
 
             long MinInput=0;
             long MaxInput=0;
+            float MinInputF = 0;
+            float MaxInputF = 0;
 
             byte InputValueByte = 0;
             short InputValueShort = 0;
             ushort InputValueUShort = 0;
             int InputValueLong = 0;
             uint InputValueULong = 0;
+            float InputValueFloat = 0;
 
             bool ValueValid = false;
 
             TextBox TextBox = (TextBox)sender;
             vp_type MonitorInputType = vp_type.vp_int;
 
-            if (sender == MonitorInputTextBox_1) { MonitorInputType = MonitorInputType_1; MinInput = MinMonInput_1; MaxInput = MaxMonInput_1; }
-            if (sender == MonitorInputTextBox_2) { MonitorInputType = MonitorInputType_2; MinInput = MinMonInput_2; MaxInput = MaxMonInput_2; }
-            if (sender == MonitorInputTextBox_3) { MonitorInputType = MonitorInputType_3; MinInput = MinMonInput_3; MaxInput = MaxMonInput_3; }
-            if (sender == MonitorInputTextBox_4) { MonitorInputType = MonitorInputType_4; MinInput = MinMonInput_4; MaxInput = MaxMonInput_4; }
-            if (sender == MonitorInputTextBox_5) { MonitorInputType = MonitorInputType_5; MinInput = MinMonInput_5; MaxInput = MaxMonInput_5; }
-            if (sender == MonitorInputTextBox_6) { MonitorInputType = MonitorInputType_6; MinInput = MinMonInput_6; MaxInput = MaxMonInput_6; }
+            if (sender == MonitorInputTextBox_1)
+            { MonitorInputType = MonitorInputType_1; MinInput = MinMonInput_1; MaxInput = MaxMonInput_1; MinInputF = MinMonInputF_1; MaxInputF = MaxMonInputF_1; }
+            if (sender == MonitorInputTextBox_2)
+            { MonitorInputType = MonitorInputType_2; MinInput = MinMonInput_2; MaxInput = MaxMonInput_2; MinInputF = MinMonInputF_2; MaxInputF = MaxMonInputF_2; }
+            if (sender == MonitorInputTextBox_3)
+            { MonitorInputType = MonitorInputType_3; MinInput = MinMonInput_3; MaxInput = MaxMonInput_3; MinInputF = MinMonInputF_3; MaxInputF = MaxMonInputF_3; }
+            if (sender == MonitorInputTextBox_4)
+            { MonitorInputType = MonitorInputType_4; MinInput = MinMonInput_4; MaxInput = MaxMonInput_4; MinInputF = MinMonInputF_4; MaxInputF = MaxMonInputF_4; }
+            if (sender == MonitorInputTextBox_5)
+            { MonitorInputType = MonitorInputType_5; MinInput = MinMonInput_5; MaxInput = MaxMonInput_5; MinInputF = MinMonInputF_5; MaxInputF = MaxMonInputF_5; }
+            if (sender == MonitorInputTextBox_6)
+            { MonitorInputType = MonitorInputType_6; MinInput = MinMonInput_6; MaxInput = MaxMonInput_6; MinInputF = MinMonInputF_6; MaxInputF = MaxMonInputF_6; }
 
 
             TextBox.ForeColor = Color.Black;
@@ -471,9 +536,51 @@ namespace VirtualPanel
                     ValueValid = true;
                 }
             }
+            else if (MonitorInputType == vp_type.vp_float && float.TryParse(TextBox.Text, out InputValueFloat))
+            {
+                if (InputValueFloat >= MinInputF && InputValueFloat <= MaxInputF)
+                {
+                    TextBox.ForeColor = Color.Black;
+                    ValueValid = true;
+                }
+            }
+            else if (MonitorInputType == vp_type.vp_string )
+            {
+                if (TextBox.Text.Length <= 35)
+                {
+                    TextBox.ForeColor = Color.Black;
+                    ValueValid = true;
+                }
+            }
 
             if (!ValueValid) TextBox.ForeColor = Color.Red;
         }
 
+        private void WriteLog_Tick(object sender, EventArgs e)
+        {
+
+            if (monitor)
+            {
+                StringBuilder builder = new StringBuilder();
+
+                foreach (var line in log)
+                {
+                    builder.AppendLine(line);
+                    lines++;
+
+                    if (lines >= 2500)
+                    {
+                        builder.Clear();
+                        textBox1.Clear();
+                        lines = 0;
+                    }
+                }
+
+                textBox1.AppendText(builder.ToString());
+                log.Clear();
+                builder.Clear();
+            }
+
+        }
     }
 }

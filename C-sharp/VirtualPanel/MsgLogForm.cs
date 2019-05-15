@@ -90,7 +90,7 @@ namespace VirtualPanel
                     builder.AppendLine(line);
                     lines++;
 
-                    if (lines >= 2000)
+                    if (lines >= 2500)
                     {
                         builder.Clear();
                         logmonitor.Clear();

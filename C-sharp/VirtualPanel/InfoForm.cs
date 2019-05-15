@@ -31,25 +31,28 @@ namespace VirtualPanel
             {
                 if ((string)mse.Data == "$CLEAR")
                 {
-                    InfoTextBox.Text = "";
+                    InfoRichTextBox.Text = "";
                     InfoLabel.Text = "";
                 }
             }
 
-           if ((ChannelId)mse.ChannelID == ChannelId.InfoLabel && mse.Type == vp_type.vp_string)
+           if ((ChannelId)mse.ChannelID == ChannelId.InfoTitle && mse.Type == vp_type.vp_string)
             {
                 InfoLabel.Text = ((string)mse.Data);
-                InfoTextBox.Text="";
+                InfoRichTextBox.Text="";
             }
-            if ((ChannelId)mse.ChannelID == ChannelId.InfoText && mse.Type == vp_type.vp_string) InfoTextBox.AppendText(((string)mse.Data) + "\n");
+            if ((ChannelId)mse.ChannelID == ChannelId.InfoText && mse.Type == vp_type.vp_string) InfoRichTextBox.AppendText(((string)mse.Data) + "\n");
         }
 
         private void InfoForm_Load(object sender, EventArgs e)
         {
-            InfoTextBox.AppendText("Arduino Experiment controlpanel\n\n");
-            InfoTextBox.AppendText("Functional design: Jaap Daniëlse\n");
-            InfoTextBox.AppendText("Application design and development:\n Jaap, Tim, and Paul Daniëlse\n\n");
-            InfoTextBox.AppendText("\u00A9 J.C. Daniëlse 2018\r\n");
+            InfoRichTextBox.AppendText("Arduino Experiment controlpanel V1.0\n\n");
+            InfoRichTextBox.AppendText("Functional design: Jaap Daniëlse\n");
+            InfoRichTextBox.AppendText("Application design and development:\n");
+            InfoRichTextBox.AppendText("Jaap, Tim, and Paul Daniëlse\n\n");
+            InfoRichTextBox.AppendText("Copyright 2019, J.C. Daniëlse, Published under MIT Licence\n\n");
+            InfoRichTextBox.AppendText("Documentation:\n https://github.com/JaapDanielse/VirtualPanel/wiki \n");
+
         }
 
         private void InfoForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -57,5 +60,11 @@ namespace VirtualPanel
             this.Visible = false;
             e.Cancel = true;
         }
-    }
+
+        // Event raised from RichTextBox when user clicks on a link:
+        private void richTextBox_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.LinkText);
+        }
+     }
 }

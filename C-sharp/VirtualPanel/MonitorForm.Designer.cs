@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MonitorForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -112,6 +113,7 @@
             this.MonitorDiscardInput_6 = new System.Windows.Forms.Button();
             this.MonitorSendInput_6 = new System.Windows.Forms.Button();
             this.InputBackdrop_6 = new System.Windows.Forms.Label();
+            this.WriteLog = new System.Windows.Forms.Timer(this.components);
             this.MonitorInputPanel_1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.MonitorInputPanel_2.SuspendLayout();
@@ -467,7 +469,7 @@
             this.MonitorInputTextBox_2.Size = new System.Drawing.Size(163, 13);
             this.MonitorInputTextBox_2.TabIndex = 0;
             this.MonitorInputTextBox_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.MonitorInputTextBox_2.TextAlignChanged += new System.EventHandler(this.MonitorInputTextBox_TextChange);
+            this.MonitorInputTextBox_2.TextChanged += new System.EventHandler(this.MonitorInputTextBox_TextChange);
             // 
             // MonitorDiscardInput_2
             // 
@@ -1025,6 +1027,11 @@
             this.InputBackdrop_6.TabIndex = 4;
             this.InputBackdrop_6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // WriteLog
+            // 
+            this.WriteLog.Enabled = true;
+            this.WriteLog.Tick += new System.EventHandler(this.WriteLog_Tick);
+            // 
             // MonitorForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1165,5 +1172,6 @@
         private System.Windows.Forms.Button MonitorDiscardInput_6;
         private System.Windows.Forms.Button MonitorSendInput_6;
         private System.Windows.Forms.Label InputBackdrop_6;
+        private System.Windows.Forms.Timer WriteLog;
     }
 }

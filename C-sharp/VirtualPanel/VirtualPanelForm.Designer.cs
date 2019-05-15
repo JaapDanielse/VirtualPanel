@@ -690,7 +690,7 @@
             // 
             // Led2
             // 
-            this.Led2.BackColor = System.Drawing.Color.Red;
+            this.Led2.BackColor = System.Drawing.Color.Fuchsia;
             this.Led2.Location = new System.Drawing.Point(83, 148);
             this.Led2.Name = "Led2";
             this.Led2.Size = new System.Drawing.Size(13, 6);
@@ -699,7 +699,7 @@
             // 
             // Led3
             // 
-            this.Led3.BackColor = System.Drawing.Color.Red;
+            this.Led3.BackColor = System.Drawing.Color.Sienna;
             this.Led3.Location = new System.Drawing.Point(137, 148);
             this.Led3.Name = "Led3";
             this.Led3.Size = new System.Drawing.Size(13, 6);
@@ -708,7 +708,7 @@
             // 
             // Led4
             // 
-            this.Led4.BackColor = System.Drawing.Color.Red;
+            this.Led4.BackColor = System.Drawing.Color.SlateBlue;
             this.Led4.Location = new System.Drawing.Point(191, 148);
             this.Led4.Name = "Led4";
             this.Led4.Size = new System.Drawing.Size(13, 6);
@@ -726,7 +726,7 @@
             // 
             // Led6
             // 
-            this.Led6.BackColor = System.Drawing.Color.Red;
+            this.Led6.BackColor = System.Drawing.Color.DodgerBlue;
             this.Led6.Location = new System.Drawing.Point(298, 148);
             this.Led6.Name = "Led6";
             this.Led6.Size = new System.Drawing.Size(13, 6);
@@ -880,6 +880,8 @@
             this.MaximizeBox = false;
             this.Name = "VirtualPanelForm";
             this.Text = "ArduinoVirtualPanel";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VirtualPanelForm_FormClosing);
+            this.Shown += new System.EventHandler(this.VirtualPanelForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.connected_box)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led1)).EndInit();
             this.panel1.ResumeLayout(false);

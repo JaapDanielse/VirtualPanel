@@ -103,9 +103,9 @@ namespace ArduinoCom
         public void Reset()
         {
             port.DtrEnable = !port.DtrEnable;
-            Thread.Sleep(50);
+            Thread.Sleep(1000);
             port.DtrEnable = !port.DtrEnable;
-            Thread.Sleep(50);
+            //Thread.Sleep(50);
 
             Disconnect(true);
         }
@@ -168,6 +168,10 @@ namespace ArduinoCom
                     {
                         continue; // Happens when a port is already in use by some other program.
                     }
+                    // reset arduino before connection
+                    port.DtrEnable = !port.DtrEnable;
+                    Thread.Sleep(1000);
+                    port.DtrEnable = !port.DtrEnable;
 
                     DateTime then = DateTime.Now + SearchPortTimeout;
                     DateTime send_id = DateTime.Now + SearchPollFrequency;
@@ -181,7 +185,7 @@ namespace ArduinoCom
                             {
                                 port.WriteLine("ID");
                             }
-                            catch (InvalidOperationException)
+                            catch (Exception)
                             {
                                 continue;
                             }
@@ -242,6 +246,11 @@ namespace ArduinoCom
         public void Send(byte channel, bool data)
         {
             SendMessage(channel, vp_type.vp_boolean, Convert.ToInt16(Convert.ToBoolean(data)).ToString("X"));
+        }
+
+        public void Send(byte channel, float data)
+        {
+            SendMessage(channel, vp_type.vp_float, data.ToString("0.0000", CultureInfo.InvariantCulture));
         }
 
         public void Send(byte channel, string data)
@@ -374,6 +383,9 @@ namespace ArduinoCom
                             break;
                         case vp_type.vp_ulong:
                             messagedata = Convert.ToInt64(Convert.ToUInt32(value_string, 16));
+                            break;
+                        case vp_type.vp_float:
+                            messagedata = float.Parse(value_string, CultureInfo.InvariantCulture);
                             break;
                     }
                 }

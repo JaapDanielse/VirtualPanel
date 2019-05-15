@@ -11,6 +11,7 @@ namespace ArduinoCom
         vp_uint,
         vp_long,
         vp_ulong,
+        vp_float,
 
         vp_error
     };

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.InfoLabel = new System.Windows.Forms.Label();
-            this.InfoTextBox = new System.Windows.Forms.TextBox();
+            this.InfoRichTextBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // InfoLabel
@@ -44,23 +44,23 @@
             this.InfoLabel.Text = "Virtual Panel ";
             this.InfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // InfoTextBox
+            // InfoRichTextBox
             // 
-            this.InfoTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.InfoTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.InfoTextBox.Location = new System.Drawing.Point(15, 46);
-            this.InfoTextBox.Multiline = true;
-            this.InfoTextBox.Name = "InfoTextBox";
-            this.InfoTextBox.ReadOnly = true;
-            this.InfoTextBox.Size = new System.Drawing.Size(307, 145);
-            this.InfoTextBox.TabIndex = 1;
+            this.InfoRichTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.InfoRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.InfoRichTextBox.Location = new System.Drawing.Point(12, 43);
+            this.InfoRichTextBox.Name = "InfoRichTextBox";
+            this.InfoRichTextBox.Size = new System.Drawing.Size(386, 160);
+            this.InfoRichTextBox.TabIndex = 2;
+            this.InfoRichTextBox.Text = "";
+            this.InfoRichTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox_LinkClicked);
             // 
             // InfoForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(337, 215);
-            this.Controls.Add(this.InfoTextBox);
+            this.ClientSize = new System.Drawing.Size(410, 215);
+            this.Controls.Add(this.InfoRichTextBox);
             this.Controls.Add(this.InfoLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "InfoForm";
@@ -68,13 +68,12 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InfoForm_FormClosing);
             this.Load += new System.EventHandler(this.InfoForm_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Label InfoLabel;
-        private System.Windows.Forms.TextBox InfoTextBox;
+        private System.Windows.Forms.RichTextBox InfoRichTextBox;
     }
 }
