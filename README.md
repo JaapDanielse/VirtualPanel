@@ -1,4 +1,4 @@
-![VirtualPanelBanner](https://user-images.githubusercontent.com/21175753/57802904-5b5a1080-7757-11e9-9ed4-daf747dd266c.png)
+![VirtualPanelBanner](https://user-images.githubusercontent.com/21175753/57804353-c527e980-775a-11e9-9e01-e6901e22e3f7.png)
 
 # VirtualPanel - Arduino Experiment Control Panel
 Virtual Panel is a combination of a small windows application and a Arduino library.
