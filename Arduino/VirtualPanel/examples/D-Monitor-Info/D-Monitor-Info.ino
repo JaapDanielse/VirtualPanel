@@ -1,4 +1,5 @@
-// VirtualPanel Monitor-Info example 
+// VirtualPanel D-Monitor-Info example - Documentation https://github.com/JaapDanielse/VirtualPanel/wiki/Basic-Examples
+// MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
 
 // VirtualPanel has an extra panel called monitor providing extra 
 // display space. It comes particularly handy when debugging.
@@ -84,7 +85,7 @@ void PanelCallback(int event, int type)
     break;
   }
   
-  StaticChange(); // handle changes because of button click
+  if ( event != DynamicDisplay) StaticChange(); // handle changes because of button click
 }
 
 void StaticChange()

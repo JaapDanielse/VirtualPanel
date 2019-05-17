@@ -1,4 +1,6 @@
 // VirtualPanel Logic Analizer example/showcase
+// Documentation https://github.com/JaapDanielse/VirtualPanel/wiki/Logic-Analyzer-Example
+// MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
 
 #include "VirtualPanel.h"
 

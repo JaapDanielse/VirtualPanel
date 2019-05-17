@@ -1,12 +1,6 @@
-/*
- VirtualPanel.ino
- Application for the PC VirtualPanel application
- Using the Arduino VirtualPanel library
-
- V0.1    16-06-2018 JpD
- Original version
-
-*/
+// VirtualPanel SignalGenerator example/showcase
+// Documentation https://github.com/JaapDanielse/VirtualPanel/wiki/Logic-Analyzer-Example
+// MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
 
 #include "VirtualPanel.h"
 

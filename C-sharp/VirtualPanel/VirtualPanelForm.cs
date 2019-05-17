@@ -79,7 +79,7 @@ namespace VirtualPanel
         //
         PanelInputLabel_1, //
         PanelInputLabel_2, //
-        //
+        // 
         Monitor,        // Monitor
         MonitorField_1, // MonitorField_1
         MonitorField_2, // MonitorField_2

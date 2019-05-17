@@ -1,15 +1,14 @@
 /*
-  VirtualPanel.cpp (c) J.C. Daniëlse - December 2018
+  VirtualPanel.cpp 
+  MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
 
   VirtualPanel is a small libray implementing the comunication
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-  BSD license, all text above must be included in any redistribution.
-	
-	V1.0    28-12-2018 JpD
+	V1.0    17-05-2019 JpD
   Original version
-	
+ 
 	*/
 	
 #include "VirtualPanel.h"

@@ -1,3 +1,8 @@
+// VirtualPanel Frequency Counter example/showcase
+// Documentation https://github.com/JaapDanielse/VirtualPanel/wiki/Frequency-Counter-Example
+// MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
+
+
 
 #include "VirtualPanel.h"
 

@@ -1,13 +1,12 @@
 /*
-  ArduinoPort.cpp (c) J.C. Daniëlse - December 2018
+  ArduinoPort.cpp 
+  MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
 
   ArduinoPort is a libray to provide a simple, controlled, 
 	event communication between an Arduino and a PC based application
 	under C# using the ArduinoPort.dll.
   	
-  BSD license, all text above must be included in any redistribution.
-	
-	V1.0    28-12-2018 JpD
+	V1.0    17-05-2019 JpD
   Original version
 	
 	*/

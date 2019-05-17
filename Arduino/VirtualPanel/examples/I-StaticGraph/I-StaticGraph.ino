@@ -1,4 +1,5 @@
-// VirtualPanel Minimal example 
+// VirtualPanel I-StaticGraph example - Documentation https://github.com/JaapDanielse/VirtualPanel/wiki/Basic-Examples
+// MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
 
 #include "VirtualPanel.h"
 
