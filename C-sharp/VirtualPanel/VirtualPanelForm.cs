@@ -1,4 +1,10 @@
-﻿using System;
+﻿
+// VirtualPanel Windows application - Documentation https://github.com/JaapDanielse/VirtualPanel/wiki/Basic-Examples
+// MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Media;

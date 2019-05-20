@@ -33,19 +33,19 @@ void PanelCallback(int event, int type)
       Panel.Send(Button_17,"beep\nfrq+dur"); // Button_3 visible and set text "on/off"
       
       Panel.Send(Slider_2,"Freq."); // Set Slider label
-      Panel.Send(MaxSlider_2, 10000-37); // Set maximum value (10000 Hz - minimum freq.
+      Panel.Send(MaxSlider_2, (int16_t)(10000-37)); // Set maximum value (10000 Hz - minimum freq.
       Panel.Send(Slider_2, Frequency); // Set initial value
       
       Panel.Send(Slider_3,"Dur."); // Set Slider label
-      Panel.Send(MaxSlider_3,1000-1); // Set maximum value (1000 mS - minimum (1 mS)
+      Panel.Send(MaxSlider_3,(int16_t)(1000-1)); // Set maximum value (1000 mS - minimum (1 mS)
       Panel.Send(Slider_3, Duration); // Set initial value
 
-      Panel.Send(InfoTitle, F("Beep")); // Info Title the F() macro can be used to force strings in program memory
-      Panel.Send(InfoText, F("Beep requests a standard console beep function on the pc"));
-      Panel.Send(InfoText, F("Sent void it will beep 400Hz for 500mS"));
-      Panel.Send(InfoText, F("With just one parameter (int16_t) you set the frequency"));
-      Panel.Send(InfoText, F("Using the _Sound helper function"));
-      Panel.Send(InfoText, F("you can set both frequency and duration"));
+      Panel.Send(InfoTitle, "Beep"); // Info Title the F() macro can be used to force strings in program memory
+      Panel.Send(InfoText, "Beep requests a standard console beep function on the pc");
+      Panel.Send(InfoText, "Sent void it will beep 400Hz for 500mS");
+      Panel.Send(InfoText, "With just one parameter (int16_t) you set the frequency");
+      Panel.Send(InfoText, "Using the _Sound helper function");
+      Panel.Send(InfoText, "you can set both frequency and duration");
     break;
 
     case Button_8: // Catch button pressed
@@ -82,9 +82,5 @@ void StaticChange()
   Panel.Sendf(Display_1, "Freq. %d Hz", Frequency); // write display_1
   Panel.Sendf(Display_2, "Duration. %d mS", Duration); // write display_2
 
-  if (InfoVisible)
-    Panel.Send(Info, true); // set info panel visible
-  else
-    Panel.Send(Info, false); // set info panel invisible
+  Panel.Send(Info,InfoVisible); // set info panel visible
 }
-

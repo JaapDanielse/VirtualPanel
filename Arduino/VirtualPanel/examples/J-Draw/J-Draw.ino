@@ -4,7 +4,7 @@
 #include "VirtualPanel.h"
 
 
-boolean Direction = true;
+bool Direction = true;
 int16_t Angle = 0;
 int16_t Distance = 120;
 
@@ -27,8 +27,8 @@ void PanelCallback(int event, int type)
       Panel.Send(ApplicationName,"Draw"); // set the application name
       Panel.Send(GraphText, _Point(5,210));
       Panel.Send(GraphText, "Simulated distance sensor sweep");
-      Panel.Send(DynamicDisplay,100); 
-      Panel.Send(Graph,true); 
+      Panel.Send(DynamicDisplay, (int16_t)100); 
+      Panel.Send(Graph, (bool)true); 
       
       DrawCircles();    
       break;
@@ -50,8 +50,8 @@ void DrawCircles()
 
    int16_t Dist = 110;
 
-   Panel.Send(GraphPen,F("$ORANGE"));
-   Panel.Send(GraphPen,F("$2PX"));
+   Panel.Send(GraphDrawLine, "$ORANGE");
+   Panel.Send(GraphDrawLine, "$2PX");
    Panel.Send(GraphDrawLine); // new line
    for(int Angle=0 ; Angle <= 180 ; Angle+=2)
    {
@@ -63,7 +63,7 @@ void DrawCircles()
 
    Dist = 55;
    
-   Panel.Send(GraphPen,F("$1PX"));
+   Panel.Send(GraphDrawLine, "$1PX");
    Panel.Send(GraphDrawLine); // new line
    for(int Angle=0 ; Angle <= 180 ; Angle+=2)
    {
@@ -73,7 +73,7 @@ void DrawCircles()
      Panel.Send(GraphDrawLine,_Point(x,y));
    }
 
-   Panel.Send(GraphPen,"$1PX");
+   Panel.Send(GraphDrawLine,"$1PX");
    Panel.Send(GraphCaption_2,"0 deg                                          180 deg");
    Panel.Send(GraphDrawPixel,_Point(200,200));
 
@@ -101,13 +101,13 @@ void Swipe(int Angle, int Distance)
    int TmpIdx2 = OldIdx-4;
    if (TmpIdx2 < 0) TmpIdx2 = OldSize + TmpIdx2;
    
-   Panel.Send(GraphPen,F("$DEL"));
+   Panel.Send(GraphDrawLine, "$DEL");
    Panel.Send(GraphDrawLine,_Line(xsOld[OldIdx],ysOld[OldIdx],xeOld[OldIdx],yeOld[OldIdx]));
    
-   Panel.Send(GraphPen,F("$BLUE"));
+   Panel.Send(GraphDrawLine, "$BLUE");
    Panel.Send(GraphDrawLine,_Line(xsOld[TmpIdx2],ysOld[TmpIdx2],xeOld[TmpIdx2],yeOld[TmpIdx2]));
 
-   Panel.Send(GraphPen,F("$GREEN"));
+   Panel.Send(GraphDrawLine, "$GREEN");
    Panel.Send(GraphDrawLine,_Line(xsOld[TmpIdx],ysOld[TmpIdx],xeOld[TmpIdx],yeOld[TmpIdx]));
 
    float RadAngle = (float)(PI/180.0) * Angle;
@@ -119,14 +119,13 @@ void Swipe(int Angle, int Distance)
 
    OldAngle = Angle;
    
-   Panel.Send(GraphPen,F("$YELLOW"));
+   Panel.Send(GraphDrawLine, "$YELLOW");
    Panel.Send(GraphDrawLine,_Line(xs,ys,xe,ye));
    xsOld[OldIdx] = xs;
    ysOld[OldIdx] = ys;
    xeOld[OldIdx] = xe;
    yeOld[OldIdx] = ye;
 
-   Panel.Sendf(GraphLabel_1, F("Angle %d"), 180-Angle);
+   Panel.Sendf(GraphLabel_1, "Angle %d", 180-Angle);
   
 }
-

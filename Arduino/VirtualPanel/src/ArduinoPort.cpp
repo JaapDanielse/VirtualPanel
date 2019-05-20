@@ -42,6 +42,7 @@ void ArduinoPort::Send(int chanel, bool value)
 	_comport->println(buf);
 }
 
+#ifndef ARDUINO_ARCH_SAM
 void ArduinoPort::Sendf(int chanel, const __FlashStringHelper* message, ...)
 {
 	char buf[SENDFBUFFERSIZE];
@@ -56,6 +57,7 @@ void ArduinoPort::Sendf(int chanel, const __FlashStringHelper* message, ...)
 	va_end(args);
 	_comport->println(buf);
 }
+#endif
 
 void ArduinoPort::Sendf(int chanel, const char* message, ...)
 {

@@ -32,12 +32,12 @@ void PanelCallback(int event, int type)
       Panel.Send(Button_16,"beep\nfreq"); // Button_3 visible and set text "on/off"
       Panel.Send(Button_17,"beep\nfrq+dur"); // Button_3 visible and set text "on/off"
       
-      Panel.Send(InfoTitle,F("Input")); // Info Title the F() macro can be used to force strings in program memory
-      Panel.Send(InfoText, F("Same example as Beep"));
-      Panel.Send(InfoText, F("But now the scrollbars have been changed to input"));
-      Panel.Send(InfoText, F("You can access them by double clicking the display"));
-      Panel.Send(InfoText, F("Frequency is limited between 37 and 1000Hz"));
-      Panel.Send(InfoText, F("Duration can be set between 10 and 1000mS"));
+      Panel.Send(InfoTitle, "Input"); // Info Title the F() macro can be used to force strings in program memory
+      Panel.Send(InfoText, "Same example as Beep");
+      Panel.Send(InfoText, "But now the scrollbars have been changed to input");
+      Panel.Send(InfoText, "You can access them by double clicking the display");
+      Panel.Send(InfoText, "Frequency is limited between 37 and 1000Hz");
+      Panel.Send(InfoText, "Duration can be set between 10 and 1000mS");
     break;
 
     case Button_8: // Catch button pressed
@@ -49,7 +49,7 @@ void PanelCallback(int event, int type)
     break;
 
     case Button_16: // Catch button pressed
-      Panel.Send(Beep, (int)Frequency); //
+      Panel.Send(Beep, (int16_t)Frequency); //
     break;
 
     case Button_17: // Catch button pressed
@@ -64,8 +64,8 @@ void PanelCallback(int event, int type)
     break;
 
     case Display_2: // display has been double clicked 
-      Panel.Send(MinPanelInput_2, 10); // 
-      Panel.Send(MaxPanelInput_2, 1000); // 
+      Panel.Send(MinPanelInput_2, (int16_t)10); // 
+      Panel.Send(MaxPanelInput_2, (int16_t)1000); // 
       Panel.Send(PanelInputLabel_2, "Duration:"); // 
       Panel.Send(PanelInput_2, Duration); // 
     break;
@@ -101,9 +101,5 @@ void StaticChange()
   Panel.Sendf(Display_2, "Duration. %d mS", Duration); // write display_2
   Panel.Send(MonitorField_1, Frequency); // write display_1
 
-  if (InfoVisible)
-    Panel.Send(Info, true); // set info panel visible
-  else
-    Panel.Send(Info, false); // set info panel invisible
+  Panel.Send(Info, InfoVisible); // set info panel visible
 }
-

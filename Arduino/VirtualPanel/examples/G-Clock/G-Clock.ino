@@ -28,8 +28,8 @@ void PanelCallback(int channel, int type)
       Panel.Send(Display_1, "$BIG");       // set display 1 (time) to big font
       Panel.Send(Display_1, "$BOLD");      // set display 1 (time) to bold 
       Panel.Send(Display_2, "$BLACK");     // set display 2 (date) to black
-      Panel.Send(DynamicDisplay,1000);     // enable dynamic display request
-      Panel.Send(UnixTime, true);          // request time
+      Panel.Send(DynamicDisplay,(int16_t)1000);     // enable dynamic display request
+      Panel.Send(UnixTime, (bool)true);          // request time
       break; 
     }
 
@@ -46,5 +46,3 @@ void PanelCallback(int channel, int type)
     }
   }
 }
-
-

@@ -75,6 +75,7 @@ uint32_t _Sound( uint16_t frequency, uint16_t duration)
 	return(BeepParam);
 }
 
+#ifndef ARDUINO_ARCH_SAM
 // _FString - dtostrf wrapper for use in sendf.
 char * _FString(float FloatValue, int16_t StringSize, int16_t Decimals)
 {
@@ -84,6 +85,6 @@ char * _FString(float FloatValue, int16_t StringSize, int16_t Decimals)
   while (FloatString[i]==' ') FloatString[i++]='0';
   return(FloatString);
 }
-
+#endif
 
 

@@ -33,30 +33,30 @@ void PanelCallback(int event, int type)
     case PanelConnected: // receive panel connected event
       Panel.Send(ApplicationName,"RollingGraph"); // set the application name
       Panel.Send(Button_8,"info"); // Button_3 visible and set text "on/off"
-      Panel.Send(GraphLabel_1, F("$YELLOW")); // set label bar color
-      Panel.Send(GraphLabel_1, F("Yellow \"sensor\"")); // set label text
-      Panel.Send(GraphLabel_2, F("$ORANGE")); // set label bar color
-      Panel.Send(GraphLabel_2, F("Orange \"sensor\""));
-      Panel.Send(GraphLabel_3, F("$RED")); // set label bar color
-      Panel.Send(GraphLabel_3, F("Red \"sensor\""));
-      Panel.Send(GraphLabel_4, F("$BLUE")); // set label bar color
-      Panel.Send(GraphLabel_4, F("Blue \"sensor\""));
-      Panel.Send(GraphLabel_5, F("$GREEN")); // set label bar color
-      Panel.Send(GraphLabel_5, F("Green \"sensor\""));
-      Panel.Send(GraphCaption_1, F("five \"sensor\" graphs")); 
-      Panel.Send(GraphCaption_2, F("yellow, orange, red, blue, green"));
-      Panel.Send(GraphGrid, 15); // set graph grid to 15 vertical sections
-      Panel.Send(Graph,true); 
+      Panel.Send(GraphLabel_1, "$YELLOW"); // set label bar color
+      Panel.Send(GraphLabel_1, "Yellow \"sensor\""); // set label text
+      Panel.Send(GraphLabel_2, "$ORANGE"); // set label bar color
+      Panel.Send(GraphLabel_2, "Orange \"sensor\"");
+      Panel.Send(GraphLabel_3, "$RED"); // set label bar color
+      Panel.Send(GraphLabel_3, "Red \"sensor\"");
+      Panel.Send(GraphLabel_4, "$BLUE"); // set label bar color
+      Panel.Send(GraphLabel_4, "Blue \"sensor\"");
+      Panel.Send(GraphLabel_5, "$GREEN"); // set label bar color
+      Panel.Send(GraphLabel_5, "Green \"sensor\"");
+      Panel.Send(GraphCaption_1, "five \"sensor\" graphs"); 
+      Panel.Send(GraphCaption_2, "yellow, orange, red, blue, green");
+      Panel.Send(GraphGrid, (int16_t)15); // set graph grid to 15 vertical sections
+      Panel.Send(Graph, (bool)true); 
 
-      Panel.Send(InfoTitle, F("Roling Graph")); // Info Title the F() macro can be used to force strings in program memory
-      Panel.Send(InfoText, F("The graph panel is set visible"));
-      Panel.Send(InfoText, F("By simply pushing value (between 0 and 255) to the different"));
-      Panel.Send(InfoText, F("GraphValue_x events you \"feed\" the graphs"));
-      Panel.Send(InfoText, F("In this case values are mapped to a specific section."));
-      Panel.Send(InfoText, F("In this rolling graph values scroll from right to left"));
-      Panel.Send(InfoText, F("The number of values can be set. Default (used here) is 50."));
+      Panel.Send(InfoTitle, "Roling Graph"); // Info Title 
+      Panel.Send(InfoText, "The graph panel is set visible");
+      Panel.Send(InfoText, "By simply pushing value (between 0 and 255) to the different");
+      Panel.Send(InfoText, "GraphValue_x events you \"feed\" the graphs");
+      Panel.Send(InfoText, "In this case values are mapped to a specific section.");
+      Panel.Send(InfoText, "In this rolling graph values scroll from right to left");
+      Panel.Send(InfoText, "The number of values can be set. Default (used here) is 50.");
 
-      Panel.Send(DynamicDisplay,100);     // enable dynamic display request
+      Panel.Send(DynamicDisplay, (int16_t)100);     // enable dynamic display request
     break;
 
     case Button_8: // Catch button pressed
@@ -78,10 +78,5 @@ void PanelCallback(int event, int type)
 
 void StaticChange()
 {
-  if (InfoVisible)
-    Panel.Send(Info, true); // set info panel visible
-  else
-    Panel.Send(Info, false); // set info panel invisible
+  Panel.Send(Info,InfoVisible); // set info panel visible
 }
-
-

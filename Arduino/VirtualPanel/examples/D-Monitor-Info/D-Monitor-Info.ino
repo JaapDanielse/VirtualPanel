@@ -38,17 +38,17 @@ void PanelCallback(int event, int type)
       Panel.Send(Button_7,"moni\ntor"); // Button_3 visible and set text "on/off"
       Panel.Send(Button_8,"info"); // Button_3 visible and set text "on/off"
       Panel.Send(Slider_2, "factor"); // Set Slider label
-      Panel.Send(MaxSlider_2, 100); // Set Slider maximum value
+      Panel.Send(MaxSlider_2, (int16_t)100); // Set Slider maximum value
       Panel.Send(Slider_2, Factor); // Set Slider initial Value
 
-      Panel.Send(InfoTitle,F("Monitor and Info")); // Info Title the F() macro can be used to force strings in program memory
-      Panel.Send(InfoText, F("The Monitor can be used for extra displays"));
-      Panel.Send(InfoText, F("particularly handy for debugging."));
-      Panel.Send(InfoText, F("The monitor scrollbox can be used for logging-like purposes"));
-      Panel.Send(InfoText, F("Info is for informational texts like this."));
-      Panel.Send(InfoText, F("Both can also be activated from the menu (▼)"));
+      Panel.Send(InfoTitle,"Monitor and Info"); // Info Title 
+      Panel.Send(InfoText, "The Monitor can be used for extra displays");
+      Panel.Send(InfoText, "particularly handy for debugging.");
+      Panel.Send(InfoText, "The monitor scrollbox can be used for logging-like purposes");
+      Panel.Send(InfoText, "Info is for informational texts like this.");
+      Panel.Send(InfoText, "Both can also be activated from the menu (▼)");
       
-      Panel.Send(DynamicDisplay, 500); // Switch on DynamicDisplay at 250 mS interval
+      Panel.Send(DynamicDisplay, (int16_t)500); // Switch on DynamicDisplay at 250 mS interval
     break;
 
     case Button_3: // Catch button pressed
@@ -95,14 +95,6 @@ void StaticChange()
   else
     Panel.Send(Led_1,"$OFF"); // Turn Led_1 off (black)
     
-  if (MonitorVisible)
-    Panel.Send(Monitor,true); // set monitor panel visible
-  else
-    Panel.Send(Monitor,false); // set monitor panel invisible
-
-  if (InfoVisible)
-    Panel.Send(Info, true); // set info panel visible
-  else
-    Panel.Send(Info, false); // set info panel invisible
+    Panel.Send(Monitor, MonitorVisible); // set monitor panel visible
+    Panel.Send(Info, InfoVisible); // set info panel visible
 }
-

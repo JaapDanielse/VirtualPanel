@@ -28,15 +28,15 @@ void PanelCallback(int event, int type)
     case PanelConnected: // receive panel connected event
      // initialize panel layout
       Panel.Send(ApplicationName,"StaticGraph"); // set the application name
-      Panel.Send(DynamicDisplay,500);     // enable dynamic display request
-      Panel.Send(GraphGrid, 6);
-      Panel.Send(GraphCaption_1, F("Simulated Oscilloscope"));
-      Panel.Send(GraphLabel_1, F("$ORANGE"));
+      Panel.Send(DynamicDisplay, (int16_t)500);     // enable dynamic display request
+      Panel.Send(GraphGrid, (int16_t)6);
+      Panel.Send(GraphCaption_1, "Simulated Oscilloscope");
+      Panel.Send(GraphLabel_1, "$ORANGE");
       Panel.Send(GraphLabel_1, "GraphLabel_1");
       Panel.Send(GraphValueCount_1,SampleCount);
-      Panel.Send(GraphValue_1,F("$STATIC"));
-      Panel.Send(GraphValue_1,F("$ORANGE"));
-      Panel.Send(Graph,true); 
+      Panel.Send(GraphValue_1, "$STATIC");
+      Panel.Send(GraphValue_1, "$ORANGE");
+      Panel.Send(Graph, (bool)true); 
     break; 
 
     case DynamicDisplay: // dynamic display request (requested every 500ms)
@@ -61,5 +61,3 @@ void Sinus()
    }
 
 }
-
-

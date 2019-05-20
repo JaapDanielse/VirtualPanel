@@ -28,10 +28,10 @@ void PanelCallback(int event, int type)
       Panel.Send(Led_1,"$OFF"); // Turn Led_1 off (black)
       Panel.Send(Button_3,"on/off"); // Button_3 visible and set text "on/off"
       Panel.Send(Slider_2, "factor"); // Set Slider label
-      Panel.Send(MaxSlider_2, 100); // Set Slider maximum value
+      Panel.Send(MaxSlider_2, (int16_t)100); // Set Slider maximum value
       Panel.Send(Slider_2, Factor); // Set Slider initial Value
 
-      Panel.Send(DynamicDisplay, 500); // Switch on DynamicDisplay at 250 mS interval
+      Panel.Send(DynamicDisplay, (int16_t)500); // Switch on DynamicDisplay at 250 mS interval
     break;
 
     case Button_3: // Catch button pressed
@@ -61,4 +61,3 @@ void StaticChange()
   else
     Panel.Send(Led_1,"$OFF"); // Turn Led_1 off (black)
 }
-

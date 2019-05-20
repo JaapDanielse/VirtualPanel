@@ -45,9 +45,8 @@ void PanelCallback(int event, int type)
 
     case Slider_2: // Catch Slider change
       Factor = Panel.vpr_int;
-      Panel.Sendf(Display_3, F("Factor %d"), Factor); // Show Factor on display_3
+      Panel.Sendf(Display_3, "Factor %d", Factor); // Show Factor on display_3
     break;
 
   }
 }
-

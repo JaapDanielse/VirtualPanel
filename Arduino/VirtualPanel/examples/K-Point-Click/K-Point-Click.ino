@@ -32,7 +32,7 @@ void PanelCallback(int event, int type)
       Panel.Send(GraphButton_1, Color[ColorNum]);
       Panel.Send(GraphButton_2, PenSize[PenSizeNum]);
       Panel.Send(GraphButton_3, "clear");
-      Panel.Send(Graph, true);
+      Panel.Send(Graph, (bool)true);
       break; 
 
     case GraphButton_1:
@@ -68,5 +68,3 @@ void PanelCallback(int event, int type)
 
   }
 }
-
-
