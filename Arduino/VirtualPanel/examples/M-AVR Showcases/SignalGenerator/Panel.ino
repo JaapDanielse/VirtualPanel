@@ -39,12 +39,13 @@ void PanelInit()
 
   Panel.Send(InfoTitle,F("Signal Generator")); // Info title
   Panel.Send(InfoText, F("Virtual Panel showcase application")); // Info text
-  Panel.Send(InfoText, F("Jan & Jaap Daniëlse (2IΔ) 2019")); //
-  Panel.Send(InfoText, F("")); //
+  Panel.Send(InfoText, F("Jan & Jaap Daniëlse (2IΔ) 2019\n")); //
   Panel.Send(InfoText, F("Signal output on D9")); //
   Panel.Send(InfoText, F("Generates blockwave from 1Hz to 50KHz")); //
   Panel.Send(InfoText, F("Duty cycle can be set fro 0 to 100%")); //
-  Panel.Send(InfoText, F("In higher frequencies stepsize increases (indicated)")); //
+  Panel.Send(InfoText, F("In higher frequencies stepsize increases (indicated)\n")); //
+  Panel.Send(InfoText, F("Documentation:")); //
+  Panel.Send(InfoText, F("https://github.com/JaapDanielse/VirtualPanel/wiki/Signal-Generator-Example")); //
 
   SetKiloHertz();
   SetHertz();
@@ -105,7 +106,7 @@ void StaticChange()
   if(Power) Panel.Send(Led_1,"$RED"); else Panel.Send(Led_1,"$OFF");
   if(InfoPanel) Panel.Send(Info, true); else Panel.Send(Info, false);
 
-  Panel.Sendf(Display_1,"Freq. %05ld Hz", Frequency ); // Return Static value for scrollbar only
+  Panel.Sendf(Display_1,"%05ld Hz", Frequency ); // Return Static value for scrollbar only
   Panel.Sendf(Display_2,"duty %03d %%", Duty ); // Return Static value for scrollbar only
   Panel.Sendf(Display_4,"%dHz step", NextHertzStep ); // Return Static value for scrollbar only
 

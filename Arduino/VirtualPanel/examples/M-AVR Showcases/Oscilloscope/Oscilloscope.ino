@@ -67,5 +67,3 @@ void loop()
 	Panel.Receive(); // handle pannel data coming in
   Sampler(); // do sampling
 }
-
-

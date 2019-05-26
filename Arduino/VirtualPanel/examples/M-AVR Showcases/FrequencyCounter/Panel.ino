@@ -33,7 +33,9 @@ void PanelInit()
   Panel.Send(InfoText, F("Jan & Jaap Daniëlse (2IΔ) 2019")); //
   Panel.Send(InfoText, F("")); //
   Panel.Send(InfoText, F("Signal input on D5")); //
-  Panel.Send(InfoText, F("Counts frequencies up to 8MHz")); //
+  Panel.Send(InfoText, F("Counts frequencies up to 4 MHz\n")); //
+  Panel.Send(InfoText, F("Documentation:")); //
+  Panel.Send(InfoText, F("https://github.com/JaapDanielse/VirtualPanel/wiki/Frequency-Counter-Example")); //
 
 }
 

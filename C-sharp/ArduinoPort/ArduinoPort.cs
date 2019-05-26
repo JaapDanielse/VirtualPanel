@@ -388,6 +388,8 @@ namespace ArduinoCom
                             messagedata = float.Parse(value_string, CultureInfo.InvariantCulture);
                             break;
                     }
+
+                    MessageReceived?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, messagedata));
                 }
                 catch (FormatException fe)
                 {
@@ -399,8 +401,6 @@ namespace ArduinoCom
                     Debug.WriteLine(ae);
                     continue;
                 }
-
-                MessageReceived?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, messagedata));
             }
         }
 
