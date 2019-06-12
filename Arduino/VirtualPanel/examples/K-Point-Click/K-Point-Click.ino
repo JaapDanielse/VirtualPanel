@@ -13,57 +13,57 @@ const int MaxPenSizeNum = 3;
 
 void setup() 
 {
-  Panel.Init(); // init port and protocol
+  Panel.begin(); // init port and protocol
 }
 
 void loop() 
 {
-  Panel.Receive(); // handle panel events form the panel (must be in the loop)
+  Panel.receive(); // handle panel events form the panel (must be in the loop)
 }
 
 
-void PanelCallback(int event, int type) 
+void PanelCallback(vp_channel event) 
 {  
   switch (event) 
   {
     case PanelConnected: // receive panel connected message
-      Panel.Send(ApplicationName,"Point-Click"); // set the application name
-      Panel.Send(GraphButton_1, "■");
-      Panel.Send(GraphButton_1, Color[ColorNum]);
-      Panel.Send(GraphButton_2, PenSize[PenSizeNum]);
-      Panel.Send(GraphButton_3, "clear");
-      Panel.Send(Graph, (bool)true);
+      Panel.send(ApplicationName,"Point-Click"); // set the application name
+      Panel.send(GraphButton_1, "■");
+      Panel.send(GraphButton_1, Color[ColorNum]);
+      Panel.send(GraphButton_2, PenSize[PenSizeNum]);
+      Panel.send(GraphButton_3, "clear");
+      Panel.send(Graph, (bool)true);
       break; 
 
     case GraphButton_1:
       if (++ColorNum > MaxColorNum) ColorNum=0;
-      Panel.Send(GraphButton_1,  Color[ColorNum]);
-      Panel.Send(GraphDrawPixel, Color[ColorNum]);
-      Panel.Send(GraphDrawLine,  Color[ColorNum]);
+      Panel.send(GraphButton_1,  Color[ColorNum]);
+      Panel.send(GraphDrawPixel, Color[ColorNum]);
+      Panel.send(GraphDrawLine,  Color[ColorNum]);
     break;
     case GraphButton_2:
       if (++PenSizeNum > MaxPenSizeNum) PenSizeNum=0;
-      Panel.Send(GraphButton_2, PenSize[PenSizeNum]);
-      Panel.Send(GraphDrawLine, PenSize[PenSizeNum]);
+      Panel.send(GraphButton_2, PenSize[PenSizeNum]);
+      Panel.send(GraphDrawLine, PenSize[PenSizeNum]);
     break;
 
     case GraphButton_3:
-      Panel.Send(Graph,"$CLEAR"); //
+      Panel.send(Graph,"$CLEAR"); //
     break;
 
     case GraphClick:
-      Panel.Send(GraphDrawPixel, Panel.vpr_uint); // 
-      Panel.Send(GraphDrawLine, Panel.vpr_uint); // 
+      Panel.send(GraphDrawPixel, Panel.vpr_uint); // 
+      Panel.send(GraphDrawLine, Panel.vpr_uint); // 
     break;
 
     case GraphDoubleClick:
-      Panel.Send(Display_2, "Double");
-      Panel.Send(Graph,"$CLEAR"); //
+      Panel.send(Display_2, "Double");
+      Panel.send(Graph,"$CLEAR"); //
     break;
 
     case GraphRightClick:
-      Panel.Send(Display_2, "Right");
-      Panel.Send(GraphDrawLine); // Start a new line
+      Panel.send(Display_2, "Right");
+      Panel.send(GraphDrawLine); // Start a new line
     break;
 
   }

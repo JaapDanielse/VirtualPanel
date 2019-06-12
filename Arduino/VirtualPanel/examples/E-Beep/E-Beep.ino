@@ -11,41 +11,41 @@ int16_t Duration  = 400;  // Integer variabel
 
 void setup() 
 {
-  Panel.Init(); // init port and protocol
+  Panel.begin(); // init port and protocol
 }
 
 void loop() 
 {
-  Panel.Receive(); // handle panel events form the panel (must be in the loop)
+  Panel.receive(); // handle panel events form the panel (must be in the loop)
   delay(250); // delay 
 }
 
-void PanelCallback(int event, int type) 
+void PanelCallback(vp_channel event) 
 { 
   switch (event) 
   {
     case PanelConnected: // receive panel connected event
-      Panel.Send(ApplicationName,"Beep"); // set the application name
+      Panel.send(ApplicationName,"Beep"); // set the application name
       
-      Panel.Send(Button_8,"info"); // Button_3 visible and set text "on/off"
-      Panel.Send(Button_15,"beep\ndefault"); // Button_3 visible and set text "on/off"
-      Panel.Send(Button_16,"beep\nfreq"); // Button_3 visible and set text "on/off"
-      Panel.Send(Button_17,"beep\nfrq+dur"); // Button_3 visible and set text "on/off"
+      Panel.send(Button_8,"info"); // Button_3 visible and set text "on/off"
+      Panel.send(Button_15,"beep\ndefault"); // Button_3 visible and set text "on/off"
+      Panel.send(Button_16,"beep\nfreq"); // Button_3 visible and set text "on/off"
+      Panel.send(Button_17,"beep\nfrq+dur"); // Button_3 visible and set text "on/off"
       
-      Panel.Send(Slider_2,"Freq."); // Set Slider label
-      Panel.Send(MaxSlider_2, (int16_t)(10000-37)); // Set maximum value (10000 Hz - minimum freq.
-      Panel.Send(Slider_2, Frequency); // Set initial value
+      Panel.send(Slider_2,"Freq."); // Set Slider label
+      Panel.send(MaxSlider_2, (int16_t)(10000-37)); // Set maximum value (10000 Hz - minimum freq.
+      Panel.send(Slider_2, Frequency); // Set initial value
       
-      Panel.Send(Slider_3,"Dur."); // Set Slider label
-      Panel.Send(MaxSlider_3,(int16_t)(1000-1)); // Set maximum value (1000 mS - minimum (1 mS)
-      Panel.Send(Slider_3, Duration); // Set initial value
+      Panel.send(Slider_3,"Dur."); // Set Slider label
+      Panel.send(MaxSlider_3,(int16_t)(1000-1)); // Set maximum value (1000 mS - minimum (1 mS)
+      Panel.send(Slider_3, Duration); // Set initial value
 
-      Panel.Send(InfoTitle, "Beep"); // Info Title the F() macro can be used to force strings in program memory
-      Panel.Send(InfoText, "Beep requests a standard console beep function on the pc");
-      Panel.Send(InfoText, "Sent void it will beep 400Hz for 500mS");
-      Panel.Send(InfoText, "With just one parameter (int16_t) you set the frequency");
-      Panel.Send(InfoText, "Using the _Sound helper function");
-      Panel.Send(InfoText, "you can set both frequency and duration");
+      Panel.send(InfoTitle, "Beep"); // Info Title the F() macro can be used to force strings in program memory
+      Panel.send(InfoText, "Beep requests a standard console beep function on the pc");
+      Panel.send(InfoText, "Sent void it will beep 400Hz for 500mS");
+      Panel.send(InfoText, "With just one parameter (int16_t) you set the frequency");
+      Panel.send(InfoText, "Using the _Sound helper function");
+      Panel.send(InfoText, "you can set both frequency and duration");
     break;
 
     case Button_8: // Catch button pressed
@@ -53,15 +53,15 @@ void PanelCallback(int event, int type)
     break;
 
     case Button_15: // Catch button pressed
-     Panel.Send(Beep); // Beep default 300 Hz, 
+     Panel.send(Beep); // Beep default 300 Hz, 
     break;
 
     case Button_16: // Catch button pressed
-      Panel.Send(Beep, Frequency); //
+      Panel.send(Beep, Frequency); //
     break;
 
     case Button_17: // Catch button pressed
-      Panel.Send(Beep,_Sound(Frequency, Duration));
+      Panel.send(Beep,_Sound(Frequency, Duration));
     break;
 
     case Slider_2: // Catch Slider change
@@ -79,8 +79,8 @@ void PanelCallback(int event, int type)
 
 void StaticChange()
 {
-  Panel.Sendf(Display_1, "Freq. %d Hz", Frequency); // write display_1
-  Panel.Sendf(Display_2, "Duration. %d mS", Duration); // write display_2
+  Panel.sendf(Display_1, "Freq. %d Hz", Frequency); // write display_1
+  Panel.sendf(Display_2, "Duration. %d mS", Duration); // write display_2
 
-  Panel.Send(Info,InfoVisible); // set info panel visible
+  Panel.send(Info,InfoVisible); // set info panel visible
 }

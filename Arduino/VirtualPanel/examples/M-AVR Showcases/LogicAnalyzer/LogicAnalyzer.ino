@@ -46,7 +46,7 @@ bool InfoPanel = false;
 //---------------------------------------------------------------------------------
 void setup() 
 {
-  Panel.Init(); // init port and protocol
+  Panel.begin(); // init port and protocol
   SampleInit();
 }
 
@@ -54,8 +54,5 @@ void setup()
 //---------------------------------------------------------------------------------
 void loop() 
 {
-  Panel.Receive(); // handle panel events form the panel (must be in the loop)
+  Panel.receive(); // handle panel events form the panel (must be in the loop)
 }
-
-
-

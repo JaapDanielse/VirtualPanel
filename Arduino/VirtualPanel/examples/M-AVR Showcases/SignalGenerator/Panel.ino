@@ -2,11 +2,11 @@
 
 // Callback
 //-----------------------------------------------------------------------------------------------
-void PanelCallback(int event, int type)
+void PanelCallback(vp_channel event)
 {
   switch (event) 
   {
-    case PanelConnected: PanelInit(); break; 
+    case PanelConnected: InitPanel(); break; 
 
     case Button_3: Power=!Power; break; 
     case Button_4: InfoPanel=!InfoPanel; break; 
@@ -17,35 +17,35 @@ void PanelCallback(int event, int type)
   StaticChange(); 
 }
 
-void PanelInit()
+void InitPanel()
 { // initialize panel layout
-  Panel.Send(ApplicationName, "Signal Generator" ); 
-  Panel.Send(Display_1,"$BIG");
-  Panel.Send(Display_4,"$BLACK");
+  Panel.send(ApplicationName, "Signal Generator" ); 
+  Panel.send(Display_1,"$BIG");
+  Panel.send(Display_4,"$BLACK");
 
-  Panel.Send(Button_3,"⚫⚪" );
-  Panel.Send(Button_4,"info" );
-  Panel.Send(Led_1,"$OFF");
+  Panel.send(Button_3,"⚫⚪" );
+  Panel.send(Button_4,"info" );
+  Panel.send(Led_1,"$OFF");
 
-  Panel.Send(Slider_2, "KHz" );
-  Panel.Send(MaxSlider_2, KiloHertzSteps);
-  Panel.Send(Slider_2, KiloHertz);
-  Panel.Send(Slider_3, "Hz" ); 
-  Panel.Send(MaxSlider_3, HertzStepCount);
-  Panel.Send(Slider_3, HertzStep);
-  Panel.Send(Slider_4, "duty%"  );
-  Panel.Send(MaxSlider_4, 100);
-  Panel.Send(Slider_4, Duty );
+  Panel.send(Slider_2, "KHz" );
+  Panel.send(MaxSlider_2, KiloHertzSteps);
+  Panel.send(Slider_2, KiloHertz);
+  Panel.send(Slider_3, "Hz" ); 
+  Panel.send(MaxSlider_3, HertzStepCount);
+  Panel.send(Slider_3, HertzStep);
+  Panel.send(Slider_4, "duty%"  );
+  Panel.send(MaxSlider_4, 100);
+  Panel.send(Slider_4, Duty );
 
-  Panel.Send(InfoTitle,F("Signal Generator")); // Info title
-  Panel.Send(InfoText, F("Virtual Panel showcase application")); // Info text
-  Panel.Send(InfoText, F("Jan & Jaap Daniëlse (2IΔ) 2019\n")); //
-  Panel.Send(InfoText, F("Signal output on D9")); //
-  Panel.Send(InfoText, F("Generates blockwave from 1Hz to 50KHz")); //
-  Panel.Send(InfoText, F("Duty cycle can be set fro 0 to 100%")); //
-  Panel.Send(InfoText, F("In higher frequencies stepsize increases (indicated)\n")); //
-  Panel.Send(InfoText, F("Documentation:")); //
-  Panel.Send(InfoText, F("https://github.com/JaapDanielse/VirtualPanel/wiki/Signal-Generator-Example")); //
+  Panel.send(InfoTitle,F("Signal Generator")); // Info title
+  Panel.send(InfoText, F("Virtual Panel showcase application")); // Info text
+  Panel.send(InfoText, F("Jan & Jaap Daniëlse (2IΔ) 2019\n")); //
+  Panel.send(InfoText, F("Signal output on D9")); //
+  Panel.send(InfoText, F("Generates blockwave from 1Hz to 50KHz")); //
+  Panel.send(InfoText, F("Duty cycle can be set fro 0 to 100%")); //
+  Panel.send(InfoText, F("In higher frequencies stepsize increases (indicated)\n")); //
+  Panel.send(InfoText, F("Documentation:")); //
+  Panel.send(InfoText, F("https://github.com/JaapDanielse/VirtualPanel/wiki/Signal-Generator-Example")); //
 
   SetKiloHertz();
   SetHertz();
@@ -69,9 +69,9 @@ void SetKiloHertz()
   }
 
   if( HertzStepCount < 1000)
-     Panel.Send(MaxSlider_3, HertzStepCount);
+     Panel.send(MaxSlider_3, HertzStepCount);
   else
-     Panel.Send(MaxSlider_3, 999);
+     Panel.send(MaxSlider_3, 999);
 
   HertzStep = 0;
   SetHertz();
@@ -103,12 +103,12 @@ void StaticChange()
 {
   char  outstr1[10]; // float conversion buffer 1
 
-  if(Power) Panel.Send(Led_1,"$RED"); else Panel.Send(Led_1,"$OFF");
-  if(InfoPanel) Panel.Send(Info, true); else Panel.Send(Info, false);
+  if(Power) Panel.send(Led_1,"$RED"); else Panel.send(Led_1,"$OFF");
+  if(InfoPanel) Panel.send(Info, true); else Panel.send(Info, false);
 
-  Panel.Sendf(Display_1,"%05ld Hz", Frequency ); // Return Static value for scrollbar only
-  Panel.Sendf(Display_2,"duty %03d %%", Duty ); // Return Static value for scrollbar only
-  Panel.Sendf(Display_4,"%dHz step", NextHertzStep ); // Return Static value for scrollbar only
+  Panel.sendf(Display_1,"%05ld Hz", Frequency ); // Return Static value for scrollbar only
+  Panel.sendf(Display_2,"duty %03d %%", Duty ); // Return Static value for scrollbar only
+  Panel.sendf(Display_4,"%dHz step", NextHertzStep ); // Return Static value for scrollbar only
 
   if (Frequency >= 245) Prescaler = 1;
   if (Frequency < 245 && Frequency >= 31) Prescaler = 8;
@@ -132,16 +132,16 @@ void StaticChange()
   int HertzSliderSteps = HertzStepCount;
   if(HertzStepCount>999) HertzSliderSteps = 999;
 
-  if ( NextHertzStep == 1 ) Panel.Send(Led_11,"$GREEN");
-  if ( NextHertzStep > 1 ) Panel.Send(Led_11,"$BLUE");
-  if ( NextHertzStep > 25 ) Panel.Send(Led_11,"$ORANGE");
-  if ( NextHertzStep > 100 ) Panel.Send(Led_11,"$RED");
+  if ( NextHertzStep == 1 ) Panel.send(Led_11,"$GREEN");
+  if ( NextHertzStep > 1 ) Panel.send(Led_11,"$BLUE");
+  if ( NextHertzStep > 25 ) Panel.send(Led_11,"$ORANGE");
+  if ( NextHertzStep > 100 ) Panel.send(Led_11,"$RED");
   
-  Panel.Sendf(MonitorField_1,"Hertz Steps: %d/%d", HertzStepCount, HertzSliderSteps ); 
-  Panel.Sendf(MonitorField_2,"Hertz Offset: %ld", HertzStepOffset ); //
-  Panel.Sendf(MonitorField_3,"Step: %d Hz", NextHertzStep ); //
-  Panel.Sendf(MonitorField_4,"Top Value: %u - Duty: %d ", Top, DutyValue ); // 
+  Panel.sendf(MonitorField_1,"Hertz Steps: %d/%d", HertzStepCount, HertzSliderSteps ); 
+  Panel.sendf(MonitorField_2,"Hertz Offset: %ld", HertzStepOffset ); //
+  Panel.sendf(MonitorField_3,"Step: %d Hz", NextHertzStep ); //
+  Panel.sendf(MonitorField_4,"Top Value: %u - Duty: %d ", Top, DutyValue ); // 
   dtostrf(TimeUnit * 1000000.0,0,4,outstr1); // convert float to string 
-  Panel.Sendf(MonitorField_5,"Prescaler: %d / TimeUnit: %s µS", Prescaler, outstr1 ); // Return Static value for scrollbar only
+  Panel.sendf(MonitorField_5,"Prescaler: %d / TimeUnit: %s µS", Prescaler, outstr1 ); // Return Static value for scrollbar only
 
 } 

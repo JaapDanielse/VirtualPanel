@@ -6,35 +6,13 @@
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V1.0    17-05-2019 JpD
-  Original version
- 	
-	*/
+	V1.0.1    7-06-2019 JpD
+*/
 
-#ifndef _VIRTUALPANEL_h
-#define _VIRTUALPANEL_h
-
+#pragma once
 #include "ArduinoPort.h" 
 
-const char PanelID[] = "[VirtualPanel]"; // Panel ID used to connect to the right panel application
-
-void PanelCallback(int event, int type); // Callback Function declaration. Calback routine itself must be created in the sketch
-
-extern ArduinoPort Panel; // Callback Function instantiation -> see PanelOne.cpp
-
-uint16_t _Point( uint8_t x, uint8_t y); // Declaration of graph point helper function (packs two bytes in a iunt16_t).
-
-uint32_t _Line( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye); // Declaration of graph line helper function (packs four bytes in a uint32_t).
-
-uint32_t _VLine( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye); // Declaration of graph line helper function (packs four bytes in a uint32_t). (converting y coordinates to values)
-
-uint16_t _VPoint( uint8_t x, uint8_t y); // Declaration of graph point helper function (packs two bytes in a iunt16_t). (converting y coordinate to value)
-
-uint32_t _Sound( uint16_t frequency, uint16_t duration); // Declaration of Beep helper funtion
-
-char * _FString(float FloatValue, int16_t StringSize, int16_t Decimals); // Declaration of F(loat)String helper function
-
-enum vp_channel // event/channel list 
+enum vp_channel : int // event/channel list 
 {
   //
   ApplicationName, // >string, >color string
@@ -185,4 +163,34 @@ enum vp_channel // event/channel list
   //
 };
 
-#endif
+class VirtualPanel : public ArduinoPort
+{
+	public:
+	 using VP_CallbackFunction = void (*)(vp_channel);
+	 
+	 VirtualPanel(VP_CallbackFunction cb) : ArduinoPort("[VirtualPanel]", (PanelCallbackFunction) cb, Serial){}
+	 void begin()
+	 {
+	    Serial.begin(115200);
+	 }
+};
+
+void PanelCallback(vp_channel event); // Callback Function declaration. Calback routine itself must be created in the sketch
+
+extern VirtualPanel Panel; // Panel object declaration
+
+uint16_t _Point( uint8_t x, uint8_t y); // Declaration of graph point helper function (packs two bytes in a iunt16_t).
+
+uint32_t _Line( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye); // Declaration of graph line helper function (packs four bytes in a uint32_t).
+
+uint32_t _VLine( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye); // Declaration of graph line helper function (packs four bytes in a uint32_t). (converting y coordinates to values)
+
+uint16_t _VPoint( uint8_t x, uint8_t y); // Declaration of graph point helper function (packs two bytes in a iunt16_t). (converting y coordinate to value)
+
+uint32_t _Sound( uint16_t frequency, uint16_t duration); // Declaration of Beep helper funtion
+
+char * _FString(float FloatValue, int16_t StringSize, int16_t Decimals); // Declaration of F(loat)String helper function
+
+
+
+

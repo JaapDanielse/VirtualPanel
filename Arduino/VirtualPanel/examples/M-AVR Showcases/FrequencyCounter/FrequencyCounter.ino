@@ -14,14 +14,14 @@ float frequency = 0.0;
 void setup()
 {
   pinMode(FRQPIN, INPUT);  // This is the frequency input
-  Panel.Init();
+  Panel.begin();
   InitFreqCount();
  }
 
 //------------------------------------------------------------------------
 void loop() 
 {
-  Panel.Receive();
+  Panel.receive();
     
   if (Power)
   { 

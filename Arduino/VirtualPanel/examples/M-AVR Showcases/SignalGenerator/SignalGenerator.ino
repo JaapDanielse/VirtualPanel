@@ -34,7 +34,7 @@
 void setup()
 {
   InitSignalGenerator();
-	Panel.Init();
+	Panel.begin();
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ void setup()
 
 void loop()
 {
-	Panel.Receive();
+	Panel.receive();
 }
 
 /* end module */

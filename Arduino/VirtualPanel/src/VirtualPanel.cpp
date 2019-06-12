@@ -6,14 +6,13 @@
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V1.0    17-05-2019 JpD
-  Original version
- 
-	*/
-	
+	V1.0.1    7-06-2019 JpD
+*/
+
 #include "VirtualPanel.h"
 
-ArduinoPort Panel = ArduinoPort(PanelID, PanelCallback); // Create VirtualPanel Object
+VirtualPanel Panel(PanelCallback); // instantiation of the Panel object
+
 
 // _Line Graph draw helper function. Packs four bytes into a uint32_t.
 uint32_t _Line( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye)

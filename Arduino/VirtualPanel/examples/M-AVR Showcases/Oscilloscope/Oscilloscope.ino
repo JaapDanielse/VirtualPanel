@@ -57,13 +57,13 @@ bool  ACSelect = false;
 //-----------------------------------------------------------------------------------------------
 void setup()
 {
-	Panel.Init();  // init pannel protocol and serial port
+	Panel.begin();  // init pannel protocol and serial port
   SamplerInit(); // Setup AD conversion
 }
 
 //-----------------------------------------------------------------------------------------------
 void loop()
 {
-	Panel.Receive(); // handle pannel data coming in
+	Panel.receive(); // handle pannel data coming in
   Sampler(); // do sampling
 }

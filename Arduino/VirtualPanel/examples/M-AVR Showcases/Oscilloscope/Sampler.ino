@@ -58,15 +58,15 @@ void Sampler()
 
     TriggerValue = TriggerLevel * (255.0 / (float)GridSize); // calculate trigger value from level
 
-    Panel.Send(Led_12, F("$ORANGE")); // frame indicator on
+    Panel.send(Led_12, F("$ORANGE")); // frame indicator on
     SetVertPos(0, false); // remove position line (if there)
     float TimePerSample = (float)SampleTime/(float)(long)(MaxSampleValues+1); // calculate time per sample
 
     // Output timing to monitor 
-    Panel.Sendf(MonitorField_1,"Samples %ld", ((long)(MaxSampleValues+1)*msDiv)); // output to monitor 
-    Panel.Sendf(MonitorField_2,"Sampletime: %u µs", SampleTime); // output to graph label
+    Panel.sendf(MonitorField_1,"Samples %ld", ((long)(MaxSampleValues+1)*msDiv)); // output to monitor 
+    Panel.sendf(MonitorField_2,"Sampletime: %u µs", SampleTime); // output to graph label
     dtostrf(TimePerSample,0,1,outstr1); // convert float to string 
-    Panel.Sendf(MonitorField_3,"Time/sample: %s µs", outstr1 ); // output to graph label
+    Panel.sendf(MonitorField_3,"Time/sample: %s µs", outstr1 ); // output to graph label
     
     // search trigger point
     for (int i=0; i < MaxSampleValues-1; i++) // loop over the sample buffer
@@ -86,11 +86,11 @@ void Sampler()
     // check trigger found
     if (TriggerPos == 0)
     { // no trigger found
-      Panel.Send(Led_13,"$OFF"); // show no trigger
+      Panel.send(Led_13,"$OFF"); // show no trigger
       if (TriggerMode==Auto) TriggerPos = GraphValues/2; //in auto mode keep on running
     }
     else
-      Panel.Send(Led_13,"$RED"); // show trigger found
+      Panel.send(Led_13,"$RED"); // show trigger found
       
     if(TriggerMode == Single) TriggerPos = FirstTriggerPos;
     
@@ -111,10 +111,10 @@ void Sampler()
           // the ACSelect keeps the verical position centered around the set positon when in AC mode.
           // in DC mode 0 is in the bottom.
           //byte SampleValue = (byte) constrain(((float)(SampleValues[i])/VDiv) + vpos,0,255); // Calculate value
-          Panel.Send(GraphValue_1, SampleValue); // Send value to static graph
+          Panel.send(GraphValue_1, SampleValue); // send value to static graph
         }
         else
-          Panel.Send(GraphValue_1, (byte)0); // outside the buffer send 0
+          Panel.send(GraphValue_1, (byte)0); // outside the buffer send 0
       }
     }
 
@@ -127,26 +127,26 @@ void Sampler()
     dtostrf(tmpfloat * AttenuatorValue,0,VDecimalCount,outstr2); // convert float to string
     tmpfloat = (float)(SampleMax-SampleMin)/51.0;
     dtostrf(tmpfloat * AttenuatorValue,0,VDecimalCount,outstr3); // convert float to string
-    Panel.Send(GraphText,F("$WHITE"));
-    Panel.Sendf(GraphCaption_1,"Vmin %sV - Vmax %sV - Vpp %sV", outstr1, outstr2, outstr3); // Output to graph caption 
+    Panel.send(GraphText,F("$WHITE"));
+    Panel.sendf(GraphCaption_1,"Vmin %sV - Vmax %sV - Vpp %sV", outstr1, outstr2, outstr3); // Output to graph caption 
 
     // output graph labels
-    Panel.Sendf(GraphLabel_1,"Vmin %s V - Vmax %s V", outstr1, outstr2); // Output to graph label
-    Panel.Sendf(GraphLabel_2,"Vpp %s V", outstr3); // Output to graph label
+    Panel.sendf(GraphLabel_1,"Vmin %s V - Vmax %s V", outstr1, outstr2); // Output to graph label
+    Panel.sendf(GraphLabel_2,"Vpp %s V", outstr3); // Output to graph label
     Period = ((float)(LastTriggerPos - FirstTriggerPos) / ((float) TriggerCount - 1)) * ((float) TimePerSample);
     dtostrf(Period/1000.0,0,2,outstr1);
-    Panel.Sendf(GraphLabel_3,"Period: %s ms",outstr1);
+    Panel.sendf(GraphLabel_3,"Period: %s ms",outstr1);
     Frequency = 1000000.0/Period;
     dtostrf(Frequency,0,1,outstr2);
-    Panel.Sendf(GraphLabel_4,"Freq %s Hz",outstr2);
+    Panel.sendf(GraphLabel_4,"Freq %s Hz",outstr2);
     
     // output sub caption
-    Panel.Send(GraphText,F("$YELLOW"));
-    Panel.Send(GraphText,_Point(5,200));
-    Panel.Sendf(GraphText, "T=%s ms f=%s Hz", outstr1, outstr2);
+    Panel.send(GraphText,F("$YELLOW"));
+    Panel.send(GraphText,_Point(5,200));
+    Panel.sendf(GraphText, "T=%s ms f=%s Hz", outstr1, outstr2);
 
     // frame indicator off
-    Panel.Send(Led_12, F("$OFF"));
+    Panel.send(Led_12, F("$OFF"));
 
     SampleReady = false; // Set for next samplre run
     Sampling = false; // 
@@ -192,4 +192,3 @@ ISR(ADC_vect) //runs when new ADC value is available
   else
     SampleReady = true; // yes: flag ready
 }
-

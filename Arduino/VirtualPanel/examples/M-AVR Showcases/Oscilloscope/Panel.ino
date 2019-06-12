@@ -12,11 +12,11 @@ static int TriggerMode =  Auto; // will be set to Auto by PanelInit
 static bool InfoPanel = false;
 
 //-----------------------------------------------------------------------------------------------
-void PanelCallback(int event, int type) 
+void PanelCallback(vp_channel event) 
 { 
    switch (event) 
   {
-    case PanelConnected: PanelInit(); break;
+    case PanelConnected: InitPanel(); break;
 
     case Button_4:  AFButtonToggle(); break; // 1X / 10X
     case Button_8:  RunState = !RunState; break; // run / pause
@@ -31,7 +31,7 @@ void PanelCallback(int event, int type)
     case Slider_5: SetXPos(Panel.vpr_int); break; //horizontal position
     case GraphButton_1: VMeasure = !VMeasure; break; // toggle Volts measurement
     case GraphButton_2: TMeasure = !TMeasure; break; // toggle Time measurement 
-    case GraphButton_4: InfoPanel = !InfoPanel; Panel.Send(Info,InfoPanel); break; // toggle Time measurement 
+    case GraphButton_4: InfoPanel = !InfoPanel; Panel.send(Info,InfoPanel); break; // toggle Time measurement 
     case GraphClick: LeftClickPos = Panel.vpr_uint; break; // catch left click for measurement
     case GraphRightClick: RightClickPos = Panel.vpr_uint; break; // catch right click for measurement
   }
@@ -75,15 +75,15 @@ void DrawVMeasure(bool erase)
    
    if (erase)
    { 
-     Panel.Send(GraphDrawLine,F("$DEL")); // set to delete line 
-     Panel.Send(GraphText, "$DEL"); // set to delete text
+     Panel.send(GraphDrawLine,F("$DEL")); // set to delete line 
+     Panel.send(GraphText, "$DEL"); // set to delete text
      MVolts = (float)VDiv/(255.0/5.0)*abs(LeftY-RightY); // calc. pre. text
      dtostrf(MVolts,0,2,outstr1); // convert float to string 
    }
    else
    {
-     Panel.Send(GraphDrawLine,F("$BLUE")); // set to draw in blue
-     Panel.Send(GraphText, F("$BLUE")); // set to write in blue
+     Panel.send(GraphDrawLine,F("$BLUE")); // set to draw in blue
+     Panel.send(GraphText, F("$BLUE")); // set to write in blue
      LeftX  = highByte(LeftClickPos); // save positions
      LeftY  = lowByte(LeftClickPos);
      RightX = highByte(RightClickPos);
@@ -91,11 +91,11 @@ void DrawVMeasure(bool erase)
      MVolts = (float)VDiv/(220.0/5.0)*abs(LeftY-RightY); // calculate Volts
      dtostrf(MVolts,0,2,outstr1); // convert float to string 
    }
-   Panel.Send(GraphDrawLine,_Line(LeftX,LeftY,LeftX,RightY)); // draw line from top left- to botom rightclick
-   Panel.Send(GraphDrawLine,_Line(LeftX-3,LeftY,LeftX+3,LeftY)); // end line top
-   Panel.Send(GraphDrawLine,_Line(LeftX-3,RightY,LeftX+3,RightY)); // end line botom
-   Panel.Send(GraphText,_Point(LeftX+5,(LeftY+RightY)/2)); // set text pos.
-   Panel.Sendf(GraphText, "%s V", outstr1); // output measurement text
+   Panel.send(GraphDrawLine,_Line(LeftX,LeftY,LeftX,RightY)); // draw line from top left- to botom rightclick
+   Panel.send(GraphDrawLine,_Line(LeftX-3,LeftY,LeftX+3,LeftY)); // end line top
+   Panel.send(GraphDrawLine,_Line(LeftX-3,RightY,LeftX+3,RightY)); // end line botom
+   Panel.send(GraphText,_Point(LeftX+5,(LeftY+RightY)/2)); // set text pos.
+   Panel.sendf(GraphText, "%s V", outstr1); // output measurement text
 }
 
 // Draw Time Measurement
@@ -113,8 +113,8 @@ void DrawTMeasure(bool erase)
    
    if (erase)
    { 
-     Panel.Send(GraphDrawLine,F("$DEL")); // set delete lines
-     Panel.Send(GraphText, F("$DEL")); // set delete text
+     Panel.send(GraphDrawLine,F("$DEL")); // set delete lines
+     Panel.send(GraphText, F("$DEL")); // set delete text
      MTime = (float)msDiv/(263.0/6.0)*(RightX-LeftX); // calc prev. time
      MFreq = (1.0/MTime)*1000.0; // calc prev. freq.
      dtostrf(MTime,0,1,outstr1); // convert float to string 
@@ -122,8 +122,8 @@ void DrawTMeasure(bool erase)
    }
    else
    {
-     Panel.Send(GraphDrawLine,F("$BLUE")); // write in blue
-     Panel.Send(GraphText, F("$BLUE")); // draw in blue
+     Panel.send(GraphDrawLine,F("$BLUE")); // write in blue
+     Panel.send(GraphText, F("$BLUE")); // draw in blue
      LeftX  = highByte(LeftClickPos); // save position 
      LeftY  = lowByte(LeftClickPos);
      RightX = highByte(RightClickPos);
@@ -133,11 +133,11 @@ void DrawTMeasure(bool erase)
      dtostrf(MTime,0,2,outstr1); // convert Time float to string 
      dtostrf(MFreq,0,1,outstr2); // convert Frequency float to string 
    }
-   Panel.Send(GraphDrawLine,_Line(LeftX,RightY,RightX,RightY)); // draw line from left to right on right click level
-   Panel.Send(GraphDrawLine,_Line(LeftX,RightY-3,LeftX,RightY+3)); // end line left
-   Panel.Send(GraphDrawLine,_Line(RightX,RightY-3,RightX,RightY+3)); // end line right
-   Panel.Send(GraphText,_Point(LeftX+10,RightY-5)); // set text position
-   Panel.Sendf(GraphText, "T=%s ms f=%s Hz", outstr1, outstr2); // output measurement text
+   Panel.send(GraphDrawLine,_Line(LeftX,RightY,RightX,RightY)); // draw line from left to right on right click level
+   Panel.send(GraphDrawLine,_Line(LeftX,RightY-3,LeftX,RightY+3)); // end line left
+   Panel.send(GraphDrawLine,_Line(RightX,RightY-3,RightX,RightY+3)); // end line right
+   Panel.send(GraphText,_Point(LeftX+10,RightY-5)); // set text position
+   Panel.sendf(GraphText, "T=%s ms f=%s Hz", outstr1, outstr2); // output measurement text
 }
 
 // Atenuator toggle button (1x or 10x)
@@ -157,16 +157,16 @@ void AFButtonToggle()
       AttenuatorValue = 1.0; // set multiplier to 1x
       VDecimalCount = 2; // set to display 2 decimals
       ACSelect = false;
-      Panel.Send(Button_4, false); // remove button
-      Panel.Send(Led_2, false); // no led
+      Panel.send(Button_4, false); // remove button
+      Panel.send(Led_2, false); // no led
       break; 
 
     case 1: // DC X1
       AttenuatorValue = 1.0; // set multiplier to 1x
       VDecimalCount = 2; // set to display 2 decimals
       ACSelect = false; // set DC selected
-      Panel.Sendf(Button_4, "DC\n1X", AttenuatorMultiplier); // set buttont text to show choice
-      Panel.Send(Led_2, "$ORANGE"); // indicate on led
+      Panel.sendf(Button_4, "DC\n1X", AttenuatorMultiplier); // set buttont text to show choice
+      Panel.send(Led_2, "$ORANGE"); // indicate on led
       break; 
 
     case 2: // DC Xs  
@@ -176,16 +176,16 @@ void AFButtonToggle()
       else
         VDecimalCount = 1; // set to display 1 decimal 
       ACSelect = false; // set DC selected
-      Panel.Sendf(Button_4, "DC\n%dX", AttenuatorMultiplier); // set buttont text to show choice
-      Panel.Send(Led_2, "$ORANGE"); // indicate on led
+      Panel.sendf(Button_4, "DC\n%dX", AttenuatorMultiplier); // set buttont text to show choice
+      Panel.send(Led_2, "$ORANGE"); // indicate on led
       break; 
 
     case 3:   
       AttenuatorValue = 1.0; // set multiplier to 1x
       VDecimalCount = 2; // set to display 2 decimals 
       ACSelect = true; // set AC selected
-      Panel.Sendf(Button_4, "AC\n1X", AttenuatorMultiplier); // set buttont text to show choice
-      Panel.Send(Led_2, "$YELLOW"); // indicate on led
+      Panel.sendf(Button_4, "AC\n1X", AttenuatorMultiplier); // set buttont text to show choice
+      Panel.send(Led_2, "$YELLOW"); // indicate on led
       break; // AC X1
 
     case 4:   
@@ -195,8 +195,8 @@ void AFButtonToggle()
       else
         VDecimalCount = 1; // set to display 1 decimal 
       ACSelect = true; // set AC selected
-      Panel.Sendf(Button_4, "AC\n%dX", AttenuatorMultiplier); // set buttont text to show choice
-      Panel.Send(Led_2, "$YELLOW"); // indicate on led
+      Panel.sendf(Button_4, "AC\n%dX", AttenuatorMultiplier); // set buttont text to show choice
+      Panel.send(Led_2, "$YELLOW"); // indicate on led
       break; // AC Xs
   }
 }
@@ -212,9 +212,9 @@ void SetmsDiv(int msDivChange)
   msDiv = msDivSelect[msDivSelIdx]; //set selected msDiv value
 
   MaxSampleValues = SampleValuesSize - (msDivSelIdx * 35); // max buf (idx=0) 500  min buf (idx=10) 150 (const 35)
-  Panel.Send(MaxSlider_5, MaxSampleValues); // X-Position (buffer size)
-  Panel.Send(Slider_5, "x-pos"); // text
-  Panel.Send(Slider_5, MaxSampleValues/2); // half way
+  Panel.send(MaxSlider_5, MaxSampleValues); // X-Position (buffer size)
+  Panel.send(Slider_5, "x-pos"); // text
+  Panel.send(Slider_5, MaxSampleValues/2); // half way
   SetXPos(triggershift + (MaxSampleValues/2)); // display change in x-position value
 }
 
@@ -228,7 +228,7 @@ void SetVDiv(int VDivChange)
   if(VDivSelIdx < 0 ) VDivSelIdx = 0; // bottom limit
   VDiv = VDivSelect[VDivSelIdx]; // set the selected VDiv value
   DrawTrigger();
-  Panel.Send(Slider_4, TriggerLine); // set the trigger Slider to the corresponding position
+  Panel.send(Slider_4, TriggerLine); // set the trigger Slider to the corresponding position
   // trigger line is drawn by StaticDisplay
 }
 
@@ -246,12 +246,12 @@ void SetTrigger(int NewTriggerLevel)
 //-----------------------------------------------------------------------------------------------
 void DrawTrigger()
 {
-  Panel.Send(GraphDrawLine,"$DEL"); 
-  Panel.Send(GraphDrawLine,_VLine(0,TriggerLine,255,TriggerLine));  
+  Panel.send(GraphDrawLine,"$DEL"); 
+  Panel.send(GraphDrawLine,_VLine(0,TriggerLine,255,TriggerLine));  
   TriggerLine = ((TriggerLevel-(ACSelect*2.5)) * (255.0 / (VDiv * (float)GridSize))) + vpos+(ACSelect*128);
   TriggerLine = constrain(TriggerLine, 0 ,255);
-  Panel.Send(GraphDrawLine,"$RED");
-  Panel.Send(GraphDrawLine,_VLine(0,TriggerLine,255,TriggerLine));
+  Panel.send(GraphDrawLine,"$RED");
+  Panel.send(GraphDrawLine,_VLine(0,TriggerLine,255,TriggerLine));
 }
 
 
@@ -264,8 +264,8 @@ void SetVertPos(int NewVertPos, bool Set)
 
   if( Set || (!Set && PosLineDeleteTimer <= millis())) // when set or timeout, remove
   {
-    Panel.Send(GraphDrawLine,"$DEL"); // set to delete
-    Panel.Send(GraphDrawLine,_VLine(0,OldYPos,255,OldYPos)); // delete line
+    Panel.send(GraphDrawLine,"$DEL"); // set to delete
+    Panel.send(GraphDrawLine,_VLine(0,OldYPos,255,OldYPos)); // delete line
     PosLineDeleteTimer = 4294967295; // max value
     DrawTrigger();
   }
@@ -274,9 +274,9 @@ void SetVertPos(int NewVertPos, bool Set)
   {
     vpos = NewVertPos-255; // calculate position
     OldYPos = constrain(vpos + (ACSelect*128), 0, 255); // store for removal
-    Panel.Send(GraphDrawLine,"$ORANGE"); // same color as the wave 
-    Panel.Send(GraphDrawLine,_VLine(0,OldYPos,255,OldYPos)); // draw line
-    Panel.Send(Slider_4, TriggerLine); // and the trigger Slider 
+    Panel.send(GraphDrawLine,"$ORANGE"); // same color as the wave 
+    Panel.send(GraphDrawLine,_VLine(0,OldYPos,255,OldYPos)); // draw line
+    Panel.send(Slider_4, TriggerLine); // and the trigger Slider 
     PosLineDeleteTimer = millis() + 500; // half a second from now
     // trigger line is drawn by StaticDisplay
   }
@@ -290,9 +290,9 @@ void SwitchTriggerMode()
   TriggerMode = (TriggerModeList)(TriggerMode+1); // Next mode
   if (TriggerMode == end) TriggerMode = Auto; 
 
-  if (TriggerMode == Auto) { Panel.Send(Button_11, "auto\ntrig"); Panel.Send(Led_7, "$BLUE");}
-  if (TriggerMode == Normal) { Panel.Send(Button_11, "normal\ntrig"); Panel.Send(Led_7, "$ORANGE");}
-  if (TriggerMode == Single) { Panel.Send(Button_11, "single\nevent"); Panel.Send(Led_7, "$YELLOW");}
+  if (TriggerMode == Auto) { Panel.send(Button_11, "auto\ntrig"); Panel.send(Led_7, "$BLUE");}
+  if (TriggerMode == Normal) { Panel.send(Button_11, "normal\ntrig"); Panel.send(Led_7, "$ORANGE");}
+  if (TriggerMode == Single) { Panel.send(Button_11, "single\nevent"); Panel.send(Led_7, "$YELLOW");}
 }
 
 
@@ -317,11 +317,11 @@ void SetXPos(int newXpos)
 
   if (mSXPos < 0.001) strcpy(Sign,"");
   dtostrf(mSXPos,0,1,outstr1);
-  Panel.Sendf(Display_4,"%s%s %s", Sign, outstr1, Unit);
+  Panel.sendf(Display_4,"%s%s %s", Sign, outstr1, Unit);
 
   // calculate trigger value to float
   dtostrf((TriggerLevel-(ACSelect*VCCValue/2.0))* AttenuatorValue,0,1,outstr2); 
-  Panel.Sendf(GraphLabel_5,"Trig %s V Pos %s%s %s", outstr2, Sign, outstr1, Unit);
+  Panel.sendf(GraphLabel_5,"Trig %s V Pos %s%s %s", outstr2, Sign, outstr1, Unit);
 }
 
 
@@ -334,13 +334,13 @@ void DisplayStatic()
   // handle run state ( can be change from two sources)   
   if (RunState)
   { // when running
-    Panel.Send(Button_8, "run"); 
-    Panel.Send(Led_6, "$GREEN");
+    Panel.send(Button_8, "run"); 
+    Panel.send(Led_6, "$GREEN");
   }
   else
   { //when pauzing
-    Panel.Send(Button_8, "pause"); 
-    Panel.Send(Led_6, "$OFF");
+    Panel.send(Button_8, "pause"); 
+    Panel.send(Led_6, "$OFF");
   }
   
   // calculate trigger value to float
@@ -348,102 +348,102 @@ void DisplayStatic()
  
   if (TriggerEdgeRizing)
   { // when rizing
-    Panel.Send(Button_14, "△\ntrig"); 
-    Panel.Sendf(Display_2,"trig △ %sV", outstr); 
-    Panel.Send(Led_8, "$BLUE"); 
+    Panel.send(Button_14, "△\ntrig"); 
+    Panel.sendf(Display_2,"trig △ %sV", outstr); 
+    Panel.send(Led_8, "$BLUE"); 
   }
   else
   { // when falling
-    Panel.Send(Button_14, "trig\n▽");
-    Panel.Sendf(Display_2,"trig ▽ %sV", outstr); 
-    Panel.Send(Led_8, "$ORANGE"); 
+    Panel.send(Button_14, "trig\n▽");
+    Panel.sendf(Display_2,"trig ▽ %sV", outstr); 
+    Panel.send(Led_8, "$ORANGE"); 
   }
   
   // Output to displays an caption
   if(msDiv>=1000)
-    Panel.Sendf(Display_1,"%d s/div", msDiv/1000); // output Time / div
+    Panel.sendf(Display_1,"%d s/div", msDiv/1000); // output Time / div
   else
-    Panel.Sendf(Display_1,"%d ms/div", msDiv); // output Time / div
+    Panel.sendf(Display_1,"%d ms/div", msDiv); // output Time / div
 
   dtostrf(VDiv * AttenuatorValue,0,VDecimalCount-1,outstr);  // calculate VDiv to float
-  Panel.Sendf(Display_3,"%s V/div", outstr); // output VDiv
+  Panel.sendf(Display_3,"%s V/div", outstr); // output VDiv
 
-  Panel.Send(GraphText,F("$WHITE"));
-  Panel.Sendf(GraphCaption_2,"%d ms/div - %s V/div", (int)(msDiv), outstr); // to Caption too.
+  Panel.send(GraphText,F("$WHITE"));
+  Panel.sendf(GraphCaption_2,"%d ms/div - %s V/div", (int)(msDiv), outstr); // to Caption too.
   SetXPos(triggershift + (MaxSampleValues/2)); // recalculate horizontal pos and display 
   DrawTrigger(); // draw trigger line
 
   if (VMeasure) 
-    Panel.Send(GraphButton_1,"$BLACK"); 
+    Panel.send(GraphButton_1,"$BLACK"); 
   else 
-    Panel.Send(GraphButton_1,"$GRAY");
+    Panel.send(GraphButton_1,"$GRAY");
 
   if (TMeasure) 
-    Panel.Send(GraphButton_2,"$BLACK"); 
+    Panel.send(GraphButton_2,"$BLACK"); 
   else 
-    Panel.Send(GraphButton_2,"$GRAY");
+    Panel.send(GraphButton_2,"$GRAY");
   
   DrawMeasure();
 }
 
 // Initialize panel
 //-----------------------------------------------------------------------------------------------
-void PanelInit()
+void InitPanel()
 {
-    Panel.Send(ApplicationName,"Oscilloscope"); // set the application name
+    Panel.send(ApplicationName,"Oscilloscope"); // set the application name
     
-    Panel.Send(Display_1,"$WHITE"); // time division in white
-    Panel.Send(Display_2,"$BLACK"); // Trigger in black
-    Panel.Send(Display_3,"$WHITE"); // volts div. in white
-    Panel.Send(Display_4,"$BLACK"); // x-pos in balck
+    Panel.send(Display_1,"$WHITE"); // time division in white
+    Panel.send(Display_2,"$BLACK"); // Trigger in black
+    Panel.send(Display_3,"$WHITE"); // volts div. in white
+    Panel.send(Display_4,"$BLACK"); // x-pos in balck
     
-    Panel.Send(GraphGrid,GridSize); // set gridsize
-    Panel.Send(GraphValueCount_1, GraphValues); // set value count
-    Panel.Send(GraphValue_1,"$STATIC"); // define static graph
-    Panel.Send(GraphValue_1,"$ORANGE"); // orange line
+    Panel.send(GraphGrid,GridSize); // set gridsize
+    Panel.send(GraphValueCount_1, GraphValues); // set value count
+    Panel.send(GraphValue_1,"$STATIC"); // define static graph
+    Panel.send(GraphValue_1,"$ORANGE"); // orange line
     
-    Panel.Send(GraphLabel_1,"$ORANGE"); // measured value in orange (Vmin - Vmax)
-    Panel.Send(GraphLabel_2,"$ORANGE"); // Measured Value in orange (Vpp)
-    Panel.Send(GraphLabel_3,"$YELLOW"); // calculated value in yellow (Period)
-    Panel.Send(GraphLabel_4,"$YELLOW"); // calculated value in yellow (Frequency)
-    Panel.Send(GraphLabel_5,"$RED");
+    Panel.send(GraphLabel_1,"$ORANGE"); // measured value in orange (Vmin - Vmax)
+    Panel.send(GraphLabel_2,"$ORANGE"); // Measured Value in orange (Vpp)
+    Panel.send(GraphLabel_3,"$YELLOW"); // calculated value in yellow (Period)
+    Panel.send(GraphLabel_4,"$YELLOW"); // calculated value in yellow (Frequency)
+    Panel.send(GraphLabel_5,"$RED");
     
-    Panel.Send(GraphButton_1,"meas.\nvolts"); // button text Voltage measurement
-    Panel.Send(GraphButton_1,"$GRAY"); // use color to show inactive
-    Panel.Send(GraphButton_2,"meas.\ntime"); // button text Time Measurement
-    Panel.Send(GraphButton_2,"$GRAY"); // use color to show inactive
+    Panel.send(GraphButton_1,"meas.\nvolts"); // button text Voltage measurement
+    Panel.send(GraphButton_1,"$GRAY"); // use color to show inactive
+    Panel.send(GraphButton_2,"meas.\ntime"); // button text Time Measurement
+    Panel.send(GraphButton_2,"$GRAY"); // use color to show inactive
  
-    Panel.Send(GraphButton_4,"info"); // use color to show inactive
+    Panel.send(GraphButton_4,"info"); // use color to show inactive
 
-    Panel.Send(Graph,true); // open graph window 
+    Panel.send(Graph,true); // open graph window 
     AFButtonToggle(); // init Attenuator AC Filter button (4)
-    Panel.Send(Button_9, "▲\nV/div"); // V/Div up button
-    Panel.Send(Button_10, "V/div\n▼"); // V/Div down button
-    Panel.Send(Button_12, "▲\nt/div"); // Time/Div up button
-    Panel.Send(Button_13, "t/div\n▼"); // Time/Div down button
+    Panel.send(Button_9, "▲\nV/div"); // V/Div up button
+    Panel.send(Button_10, "V/div\n▼"); // V/Div down button
+    Panel.send(Button_12, "▲\nt/div"); // Time/Div up button
+    Panel.send(Button_13, "t/div\n▼"); // Time/Div down button
    
-    Panel.Send(MaxSlider_1, 512); // Y-Pos Slider (max 512)
-    Panel.Send(Slider_1, "y-pos"); // text
-    Panel.Send(Slider_1, vpos+255); // initial value
+    Panel.send(MaxSlider_1, 512); // Y-Pos Slider (max 512)
+    Panel.send(Slider_1, "y-pos"); // text
+    Panel.send(Slider_1, vpos+255); // initial value
     
-    Panel.Send(MaxSlider_4, 255); // Trigger level
-    Panel.Send(Slider_4, "trig lev"); //text
-    Panel.Send(Slider_4, TriggerLine); // initial value
+    Panel.send(MaxSlider_4, 255); // Trigger level
+    Panel.send(Slider_4, "trig lev"); //text
+    Panel.send(Slider_4, TriggerLine); // initial value
 
     SetmsDiv(0);
     
     if( --TriggerMode < 0) TriggerMode = end-1; // prevent togle on reset
     SwitchTriggerMode();
  
-    Panel.Send(InfoTitle,F("Oscilloscope")); // Info title
-    Panel.Send(InfoText, F("Virtual Panel showcase application - Jan & Jaap Daniëlse (2IΔ) 2019\n")); // Info text
-    Panel.Send(InfoText, F("Signal input on A0")); //
-    Panel.Send(InfoText, F("Maximum direct input level 5V")); //
-    Panel.Send(InfoText, F("Sample speed 20.000 Samples/S")); //
-    Panel.Send(InfoText, F("Maximum frequency (appox.) 8KHz")); //
-    Panel.Send(InfoText, F("For measurements use left and right mouse click in graph panel.\n")); //
-    Panel.Send(InfoText, F("Documentation:")); //
-    Panel.Send(InfoText, F("https://github.com/JaapDanielse/VirtualPanel/wiki/Oscilloscope-Example")); //
+    Panel.send(InfoTitle,F("Oscilloscope")); // Info title
+    Panel.send(InfoText, F("Virtual Panel showcase application - Jan & Jaap Daniëlse (2IΔ) 2019\n")); // Info text
+    Panel.send(InfoText, F("Signal input on A0")); //
+    Panel.send(InfoText, F("Maximum direct input level 5V")); //
+    Panel.send(InfoText, F("Sample speed 20.000 Samples/S")); //
+    Panel.send(InfoText, F("Maximum frequency (appox.) 8KHz")); //
+    Panel.send(InfoText, F("For measurements use left and right mouse click in graph panel.\n")); //
+    Panel.send(InfoText, F("Documentation:")); //
+    Panel.send(InfoText, F("https://github.com/JaapDanielse/VirtualPanel/wiki/Oscilloscope-Example")); //
 
 }
 

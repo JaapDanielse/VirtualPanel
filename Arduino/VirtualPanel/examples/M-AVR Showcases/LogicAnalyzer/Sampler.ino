@@ -50,7 +50,7 @@ void Sample()
   SampleTime = micros() - SampleTime;
   float OneSampleTime = (float)SampleTime/(float)(SampleBufSize*2);
   dtostrf(OneSampleTime,0,1,outstr);
-  Panel.Sendf(MonitorField_1,F("Time/sample: %s µs"),outstr); // output to graph label
+  Panel.sendf(MonitorField_1,F("Time/sample: %s µs"),outstr); // output to graph label
 
   if (SwitchNibles)
   {
@@ -61,4 +61,3 @@ void Sample()
   
 
 }
-

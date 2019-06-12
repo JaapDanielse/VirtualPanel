@@ -13,30 +13,30 @@ float tsincount;
 
 void setup() 
 {
-  Panel.Init(); // init port and protocol
+  Panel.begin(); // init port and protocol
 }
 
 void loop() 
 {
-  Panel.Receive(); // handle panel events form the panel (must be in the loop)
+  Panel.receive(); // handle panel events form the panel (must be in the loop)
 }
 
-void PanelCallback(int event, int type) 
+void PanelCallback(vp_channel event) 
 { 
   switch (event) 
   {
     case PanelConnected: // receive panel connected event
      // initialize panel layout
-      Panel.Send(ApplicationName,"StaticGraph"); // set the application name
-      Panel.Send(DynamicDisplay, (int16_t)500);     // enable dynamic display request
-      Panel.Send(GraphGrid, (int16_t)6);
-      Panel.Send(GraphCaption_1, "Simulated Oscilloscope");
-      Panel.Send(GraphLabel_1, "$ORANGE");
-      Panel.Send(GraphLabel_1, "GraphLabel_1");
-      Panel.Send(GraphValueCount_1,SampleCount);
-      Panel.Send(GraphValue_1, "$STATIC");
-      Panel.Send(GraphValue_1, "$ORANGE");
-      Panel.Send(Graph, (bool)true); 
+      Panel.send(ApplicationName,"StaticGraph"); // set the application name
+      Panel.send(DynamicDisplay, (int16_t)500);     // enable dynamic display request
+      Panel.send(GraphGrid, (int16_t)6);
+      Panel.send(GraphCaption_1, "Simulated Oscilloscope");
+      Panel.send(GraphLabel_1, "$ORANGE");
+      Panel.send(GraphLabel_1, "GraphLabel_1");
+      Panel.send(GraphValueCount_1,SampleCount);
+      Panel.send(GraphValue_1, "$STATIC");
+      Panel.send(GraphValue_1, "$ORANGE");
+      Panel.send(Graph, (bool)true); 
     break; 
 
     case DynamicDisplay: // dynamic display request (requested every 500ms)
@@ -57,7 +57,7 @@ void Sinus()
      angle += 360.0/((float)SampleCount/tsincount);
      float RadAngle = (float)(PI/180.0) * angle;
      graphvalue = (byte) constrain((vdiv * sin(RadAngle) + vpos),0,255);
-     Panel.Send(GraphValue_1,graphvalue);  
+     Panel.send(GraphValue_1,graphvalue);  
    }
 
 }
