@@ -1,0 +1,26 @@
+ArduinoPort Example
+
+VirtualPanel uses an uderlying library called ArduinoPort.
+This library takes care of the message protocol.
+It can also be used as a means to communicate between Arduino's
+In this examples you need two Arduino's (e.g. Uno's),
+load one with Panel1Remote, the other with Remote and connect the pins as follows:
+
+Panel1Remote  ------ Remote
+    D10 (RX)  ------ D11 (TX)
+    D11 (TX)  ------ D10 (RX)
+
+If you start the VirtualPanel exe this lets you control the remote Arduino via the panel.
+
+The Panel2Remote does the same thing but with two Remotes:
+
+Panel2Remote  ------ Remote (1)
+    D08 (RX)  ------ D11 (TX)
+    D09 (TX)  ------ D10 (RX)
+                     Remote (2)
+    D10 (RX)  ------ D11 (TX)
+    D11 (TX)  ------ D10 (RX)
+
+Via the panel you can now control both remote Arduino's
+
+
