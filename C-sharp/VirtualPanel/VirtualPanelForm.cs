@@ -290,6 +290,7 @@ namespace VirtualPanel
             stats.Visible = false;
             settings.Visible = false;
             graph.Visible = false;
+            info.Visible = false;
 
             foreach (var t in pannelControlList)
             {
@@ -376,6 +377,9 @@ namespace VirtualPanel
             timer1.Enabled = false;
             timer1.Interval = 500;
             panel1.Visible = true;
+
+            PanelInputPanel_1.Visible = false;
+            PanelInputPanel_2.Visible = false;
 
             PanelInput_1 = false;
             PanelInput_2 = false;
@@ -1113,12 +1117,12 @@ namespace VirtualPanel
             if (sender == PanelDiscardInput_1)
             {
                 if (!PanelInput_1) PanelInputPanel_1.Visible = false;
-                else if (port.IsConnected) port.Send((byte)ChannelId.PanelInput_1);
+                if (port.IsConnected) port.Send((byte)ChannelId.PanelInput_1);
             }
             if (sender == PanelDiscardInput_2)
             {
                 if (!PanelInput_2) PanelInputPanel_2.Visible = false;
-                else if (port.IsConnected) port.Send((byte)ChannelId.PanelInput_2);
+                if (port.IsConnected) port.Send((byte)ChannelId.PanelInput_2);
             }
         }
 

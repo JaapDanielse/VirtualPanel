@@ -32,7 +32,7 @@ void InitPanel()
   Panel.send(InfoText, F("Virtual Panel showcase application")); // Info text
   Panel.send(InfoText, F("Jan & Jaap Daniëlse (2IΔ) 2019")); //
   Panel.send(InfoText, F("")); //
-  Panel.send(InfoText, F("Signal input on D5")); //
+  Panel.send(InfoText, F("Signal input on D5 (not connected on Mega)")); //
   Panel.send(InfoText, F("Counts frequencies up to 4 MHz\n")); //
   Panel.send(InfoText, F("Documentation:")); //
   Panel.send(InfoText, F("https://github.com/JaapDanielse/VirtualPanel/wiki/Frequency-Counter-Example")); //

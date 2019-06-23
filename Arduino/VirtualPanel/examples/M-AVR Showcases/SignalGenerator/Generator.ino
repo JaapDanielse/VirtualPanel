@@ -3,7 +3,8 @@
 
 void InitSignalGenerator() // setup PWM 12 bit.
 { 
-  pinMode( 9, OUTPUT);
+  pinMode( 9, OUTPUT); // Output pin ATMega328 
+  pinMode( 11, OUTPUT); // OutputPin Mega2560 / Mega1280
   
   TCCR1A = 0;                                              // Reset Control Register A        (Page 132)
   TCCR1A = (1 << COM1A1) | (1 << WGM11) | (0 << WGM10) ;   // Enable Fast PWM on OC1A (Pin 9) OC1B (pin 10)
@@ -47,4 +48,3 @@ void SetFrequency(int Prescaler, int TopValue, int Duty)
   OCR1AL = Duty;  // Low byte 
 
 }
-

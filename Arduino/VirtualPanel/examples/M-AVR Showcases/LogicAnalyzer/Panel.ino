@@ -374,7 +374,7 @@ void InitPanel()
   Panel.send(InfoText, F("Virtual Panel showcase application")); // Info text
   Panel.send(InfoText, F("Jaap Daniëlse (2IΔ) 2019")); //
   Panel.send(InfoText, F("")); //
-  Panel.send(InfoText, F("Signal input on D8, D9, D10, D11")); //
+  Panel.send(InfoText, F("Signal input on D8, D9, D10, D11 (Mega 50-53)")); //
   Panel.send(InfoText, F("Logic switch (0-1 or 1-0) on approx 2.5V")); //
   Panel.send(InfoText, F("Sample speed 2µs - 10ms/Sample")); //
   Panel.send(InfoText, F("Buffer adjustable from 100 to 2000 (def.) samples.")); //

@@ -162,7 +162,7 @@ void InitPanel()
 
   Panel.send(InfoTitle, F("FourBit-SampleGenerator"));
   Panel.send(InfoText,  F("Geneterates a 4-bit sample pattern "));
-  Panel.send(InfoText,  F("Output on D8, D9, D10, D11\n"));
+  Panel.send(InfoText,  F("Output on D8, D9, D10, D11 (Mega 50-53)\n"));
   Panel.send(InfoText,  F("Different patterns can be selected\n"));
   Panel.send(InfoText,  F("Documentation:"));
   Panel.send(InfoText,  F("https://github.com/JaapDanielse/VirtualPanel/wiki/Logic-Analyzer-Example"));

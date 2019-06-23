@@ -2,6 +2,8 @@
 // Documentation https://github.com/JaapDanielse/VirtualPanel/wiki/Frequency-Counter-Example
 // MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
 
+// Does not work on Mega2560 (T1 not connected)
+
 #include "VirtualPanel.h"
 
 #define FRQPIN 5 // Frequency Measure Pin

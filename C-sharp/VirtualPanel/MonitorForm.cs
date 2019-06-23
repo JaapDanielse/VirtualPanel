@@ -202,6 +202,13 @@ namespace VirtualPanel
             label5.Text = "";
             label6.Text = "";
 
+            MonitorInputPanel_1.Visible = false;
+            MonitorInputPanel_2.Visible = false;
+            MonitorInputPanel_3.Visible = false;
+            MonitorInputPanel_4.Visible = false;
+            MonitorInputPanel_5.Visible = false;
+            MonitorInputPanel_6.Visible = false;
+
             MonInput_1 = false;
             MonInput_2 = false;
             MonInput_3 = false;
@@ -296,34 +303,35 @@ namespace VirtualPanel
             if (sender == MonitorDiscardInput_1)
             {
                 if (!MonInput_1) MonitorInputPanel_1.Visible = false;
-                else if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_1);
+                if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_1);
             }
             if (sender == MonitorDiscardInput_2)
             {
                 if (!MonInput_2) MonitorInputPanel_2.Visible = false;
-                else if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_2);
+                if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_2);
             }
             if (sender == MonitorDiscardInput_3)
             {
                 if (!MonInput_3) MonitorInputPanel_3.Visible = false;
-                else if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_3);
+                if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_3);
             }
             if (sender == MonitorDiscardInput_4)
             {
                 if (!MonInput_4) MonitorInputPanel_4.Visible = false;
-                else if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_4);
+                if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_4);
             }
             if (sender == MonitorDiscardInput_5)
             {
                 if (!MonInput_5) MonitorInputPanel_5.Visible = false;
-                else if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_5);
+                if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_5);
             }
             if (sender == MonitorDiscardInput_6)
             {
                 if (!MonInput_6) MonitorInputPanel_6.Visible = false;
-                else if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_6);
+                if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_6);
             }
         }
+
 
         private void MonitorSendInput_Click(object sender, EventArgs e)
         {

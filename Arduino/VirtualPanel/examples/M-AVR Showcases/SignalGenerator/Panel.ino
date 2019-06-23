@@ -40,7 +40,7 @@ void InitPanel()
   Panel.send(InfoTitle,F("Signal Generator")); // Info title
   Panel.send(InfoText, F("Virtual Panel showcase application")); // Info text
   Panel.send(InfoText, F("Jan & Jaap Daniëlse (2IΔ) 2019\n")); //
-  Panel.send(InfoText, F("Signal output on D9")); //
+  Panel.send(InfoText, F("Signal output on D9 (D11 on Mega2560)")); //
   Panel.send(InfoText, F("Generates blockwave from 1Hz to 50KHz")); //
   Panel.send(InfoText, F("Duty cycle can be set fro 0 to 100%")); //
   Panel.send(InfoText, F("In higher frequencies stepsize increases (indicated)\n")); //

@@ -31,8 +31,7 @@ void PanelCallback(vp_channel event)
     break;
 
     case Button_3: // Catch button pressed
-      if (Panel.vpr_type == vp_type::vp_void) Power = !Power;
-
+      Power = !Power;
       if (Power)
         Panel.send(Led_1,"$RED"); // Turn Led_1 on (red)
       else

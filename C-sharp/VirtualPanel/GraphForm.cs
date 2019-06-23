@@ -105,6 +105,10 @@ namespace VirtualPanel
             graphButton2.Text = "";
             graphButton3.Text = "";
             graphButton4.Text = "";
+            graphButton1.ForeColor = Color.Black;
+            graphButton2.ForeColor = Color.Black;
+            graphButton3.ForeColor = Color.Black;
+            graphButton4.ForeColor = Color.Black;
             graphButton1.Visible = false;
             graphButton2.Visible = false;
             graphButton3.Visible = false;
