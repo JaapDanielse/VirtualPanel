@@ -57,7 +57,7 @@ float FrequencyCount()
 
     // setup for measurement
     TCNT1H = 255;    // Write TCNT1High First
-    TCNT1L = 254;    // 65530 - Interrupt after 6 counts
+    TCNT1L = 254;    // 65530 - Interrupt after 1 count
     TC1_Ovf  = 0;
 
     measureStart = micros(); // register mesurement start time

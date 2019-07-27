@@ -54,9 +54,9 @@ void PanelCallback(vp_channel event)
     case Button_3: // Catch button pressed
       Power = !Power;
       if (Power) 
-        Panel.send(MonitorLogPanel, "Power On"); // log action
+        Panel.send(MonitorLog, "Power On"); // log action
       else
-        Panel.send(MonitorLogPanel, "Power Off"); // log action
+        Panel.send(MonitorLog, "Power Off"); // log action
      
     break;
 
@@ -70,7 +70,7 @@ void PanelCallback(vp_channel event)
 
     case Slider_2: // catch slider change
       Factor = Panel.vpr_int; 
-      Panel.sendf(MonitorLogPanel, "Factor change (%d)", Factor); // log action
+      Panel.sendf(MonitorLog, "Factor change (%d)", Factor); // log action
     break;
 
     case DynamicDisplay: // Catch Dynamic display event

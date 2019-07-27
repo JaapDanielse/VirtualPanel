@@ -8,7 +8,7 @@ VirtualPanel and ArduinoPort library
 VirtualPanel Windows executable
 * The VirtualPanel.exe is a portable application. You can place it anywhere.
 * Keep together with ArduinoPort.dll
-* For convenience create a schortcut (drag and drop holding Alt) for VirtualPanel.exe on a suitable location (e.g. desktop)
+* To add to the Start menu right click VirtualPanel.exe and select Pin to Start.
 
 See examples at: myDocuments\Arduino\libraries\VirtualPanel\examples
 If you activate the VirtualPanel.exe after loading an example sketch, it will connect automatically.

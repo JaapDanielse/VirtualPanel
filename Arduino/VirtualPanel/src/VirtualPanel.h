@@ -6,7 +6,7 @@
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V1.0.1    7-06-2019 JpD
+	V1.0.3    26-07-2019 JpD
 */
 
 #pragma once
@@ -91,7 +91,7 @@ enum vp_channel : int // event/channel list
   MonitorField_5, // 
   MonitorField_6, // 
   //
-  MonitorLogPanel,  // >any
+  MonitorLog,  // >any
   //
   MonitorInput_1, // >any num <any num
 	MonitorInput_2, //

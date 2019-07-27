@@ -4,7 +4,7 @@ int Angle = 0;
 int Distance = 120;
 static int i = 0;
 
-static bool Squares=false;
+static bool Squares=true;
 
 void DrawCallback(vp_channel event) 
 { 
@@ -18,7 +18,8 @@ void DrawCallback(vp_channel event)
       Panel.send(Button_5,  F("info"));
       Panel.send(Button_6,  F("moni\ntor"));
       Panel.send(Button_7,  F("graph"));
-      Panel.send(Button_11, F("square\nradar"));
+      Panel.send(Button_11, F("square"));
+      Panel.send(Button_14, F("radar"));
 
       Panel.send(DynamicDisplay,100); 
       Panel.send(Graph,true); 
@@ -53,7 +54,14 @@ void DrawCallback(vp_channel event)
 
     case Button_11:
     {
-      Squares = ! Squares;
+      Squares = true;
+      Panel.send(Graph, "$CLEAR");
+      break;
+    }
+
+    case Button_14:
+    {
+      Squares = false;
       Panel.send(Graph, "$CLEAR");
       break;
     }
@@ -64,6 +72,8 @@ void DrawCallback(vp_channel event)
     {
       if ( Squares )
       {
+        Panel.send(Led_7, "$ORANGE");
+        Panel.send(Led_8, "$OFF");
         i+=5;
         DrawSquares(i);
         if(i>=105)
@@ -76,6 +86,8 @@ void DrawCallback(vp_channel event)
       }
       else
       {
+        Panel.send(Led_8, "$ORANGE");
+        Panel.send(Led_7, "$OFF");
         if (Direction) Angle+=2; else Angle-=2;
         if (Angle <= 0 || Angle >= 180) Direction = !Direction; 
         Angle = constrain( Angle, 0, 180);
@@ -184,6 +196,7 @@ void Swipe(int Angle, int Distance)
    xeOld[OldIdx] = xe;
    yeOld[OldIdx] = ye;
 
-   Panel.sendf(GraphLabel_1, F("Angle %d"), 180-Angle);
+   Panel.send(GraphText, _Point(100,180));
+   Panel.sendf(GraphText, F("Angle %d"), 180-Angle);
   
 }

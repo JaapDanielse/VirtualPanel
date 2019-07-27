@@ -20,7 +20,7 @@ receive	KEYWORD2
 send	KEYWORD2
 sendf	KEYWORD2
 _Line	KEYWORD2
-_Point KEYWORD2
+_Point	KEYWORD2
 _VLine	KEYWORD2
 _VPoint	KEYWORD2
 _FString	KEYWORD2
@@ -130,7 +130,7 @@ MonitorField_4	LITERAL1
 MonitorField_5	LITERAL1
 MonitorField_6	LITERAL1
 #
-MonitorLogPanel	LITERAL1
+MonitorLog	LITERAL1
 #
 MonitorInput_1	LITERAL1
 MonitorInput_2	LITERAL1

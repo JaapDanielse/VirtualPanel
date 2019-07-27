@@ -85,7 +85,7 @@ namespace VirtualPanel
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_4) label4.Text = mse.Data.ToString();
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_5) label5.Text = mse.Data.ToString();
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorField_6) label6.Text = mse.Data.ToString();
-            if ((ChannelId)mse.ChannelID == ChannelId.MonitorLogPanel) WriteMonitor(mse.Data.ToString());
+            if ((ChannelId)mse.ChannelID == ChannelId.MonitorLog) WriteMonitor(mse.Data.ToString());
 
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_1 && mse.Type == vp_type.vp_boolean) MonInput_1 = (bool)mse.Data;
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_2 && mse.Type == vp_type.vp_boolean) MonInput_2 = (bool)mse.Data;
@@ -188,7 +188,10 @@ namespace VirtualPanel
 
         public void WriteMonitor(String inputline)
         {
-            log.Add(inputline + "\n");
+            if(inputline == "$CLEAR")
+                textBox1.Text = "";
+            else
+              log.Add(inputline + "\n");
         }
 
         public void MonitorClear()

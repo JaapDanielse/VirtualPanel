@@ -93,7 +93,7 @@ namespace VirtualPanel
         MonitorField_4, // MonitorField_4
         MonitorField_5, // MonitorField_5
         MonitorField_6, // MonitorField_6
-        MonitorLogPanel, // StatMonitor
+        MonitorLog, // StatMonitor
         //
         MonitorInput_1, //
         MonitorInput_2, //
@@ -430,7 +430,7 @@ namespace VirtualPanel
 
                 if (id == ChannelId.DynamicDisplay && mse.Type == vp_type.vp_int)
                 {
-                    if ((int)mse.Data >= 100 && (int)mse.Data <= 1000) timer1.Interval = (int)mse.Data;
+                    if ((int)mse.Data >= 100 && (int)mse.Data <= 2500) timer1.Interval = (int)mse.Data;
                     timer1.Enabled = true;
                 }
 

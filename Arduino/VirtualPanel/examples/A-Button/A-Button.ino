@@ -16,7 +16,7 @@ void loop()
 {
   Panel.receive(); // handle panel events form the panel (must be in the loop)
   if (Power) Value = random(1,100); else Value = 0; // my own proces
-  Panel.send(Display_1,Value); // Show Value on display_1
+  Panel.sendf(Display_1,"%d",Value); // Show Value on display_1
   delay(250); // delay 
 }
 
