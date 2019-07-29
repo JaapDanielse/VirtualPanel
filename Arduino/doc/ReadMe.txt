@@ -1,4 +1,4 @@
-VirtualPanel Release 1.0.2
+VirtualPanel Release 1.0.3
 
 VirtualPanel and ArduinoPort library
 * Copy the VirtualPanel\ directory to the myDocuments\Arduino\libraries\ directory

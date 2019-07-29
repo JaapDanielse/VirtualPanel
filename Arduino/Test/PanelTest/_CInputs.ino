@@ -95,31 +95,31 @@ void InputsCallback(vp_channel event)
 
     case PanelInput_1:
       if (Panel.vpr_type == vp_type::vp_void)
-          Panel.send(MonitorLogPanel, "Panel Input 1/3: discarded");
+          Panel.send(MonitorLog, "Panel Input 1/3: discarded");
       if (Panel.vpr_type == vp_type::vp_int)
       {
         MyInt = Panel.vpr_int;
-        Panel.sendf(MonitorLogPanel, "Panel Input 1: %d", MyInt);
+        Panel.sendf(MonitorLog, "Panel Input 1: %d", MyInt);
       }
       if (Panel.vpr_type == vp_type::vp_long)
       {
         MyLong = Panel.vpr_long;
-        Panel.sendf(MonitorLogPanel, "Panel Input 3: %d", MyLong);
+        Panel.sendf(MonitorLog, "Panel Input 3: %d", MyLong);
       }
     break;
 
     case PanelInput_2:
       if (Panel.vpr_type == vp_type::vp_void)
-          Panel.send(MonitorLogPanel, "Panel Input 2/4: discarded");
+          Panel.send(MonitorLog, "Panel Input 2/4: discarded");
       if (Panel.vpr_type == vp_type::vp_uint)
       {
         MyUInt = Panel.vpr_uint;
-        Panel.sendf(MonitorLogPanel, "Panel Input 2: %u", MyUInt);
+        Panel.sendf(MonitorLog, "Panel Input 2: %u", MyUInt);
       }
       if (Panel.vpr_type == vp_type::vp_ulong)
       {
         MyULong = Panel.vpr_ulong;
-        Panel.sendf(MonitorLogPanel, "Panel Input 4: %u",MyULong);
+        Panel.sendf(MonitorLog, "Panel Input 4: %u",MyULong);
       }
       break;
 
@@ -127,70 +127,70 @@ void InputsCallback(vp_channel event)
     case MonitorInput_1:
       if (Panel.vpr_type == vp_type::vp_void)
       {
-        Panel.send(MonitorLogPanel, "Input 1: discarded");
+        Panel.send(MonitorLog, "Input 1: discarded");
         Panel.send(MonitorInput_1, MonValue_1);
       }
       else
       {
         MonValue_1 = Panel.vpr_int;
-        Panel.sendf(MonitorLogPanel, "Input 1: %d", MonValue_1);
+        Panel.sendf(MonitorLog, "Input 1: %d", MonValue_1);
       }
       break;
 
     case MonitorInput_2:
       if (Panel.vpr_type == vp_type::vp_void)
       {
-        Panel.send(MonitorLogPanel, "Input 2: discarded");
+        Panel.send(MonitorLog, "Input 2: discarded");
         Panel.send(MonitorInput_2, MonValue_2);
       }
       else
       {
         MonValue_2 = Panel.vpr_int;
-        Panel.sendf(MonitorLogPanel, "Input 2: %d", MonValue_2);
+        Panel.sendf(MonitorLog, "Input 2: %d", MonValue_2);
       }
       break;
 
 
     case MonitorInput_3:
       if (Panel.vpr_type == vp_type::vp_void)
-        Panel.send(MonitorLogPanel, "Input 3: discarded");
+        Panel.send(MonitorLog, "Input 3: discarded");
       else
       {
         MonValue_3 = Panel.vpr_int;
         Panel.send(MonitorField_3, MonValue_3);
-        Panel.sendf(MonitorLogPanel, "Input 3: %d", MonValue_3);
+        Panel.sendf(MonitorLog, "Input 3: %d", MonValue_3);
       }
       break;
 
     case MonitorInput_4:
       if (Panel.vpr_type == vp_type::vp_void) 
-        Panel.send(MonitorLogPanel, "Input 4: discarded");
+        Panel.send(MonitorLog, "Input 4: discarded");
       else
       {
         MonValue_4 = Panel.vpr_int;
         Panel.send(MonitorField_4, MonValue_4);
-        Panel.sendf(MonitorLogPanel, "Input 4: %d", MonValue_4);
+        Panel.sendf(MonitorLog, "Input 4: %d", MonValue_4);
       }
       break;
 
     case MonitorInput_5:
       if (Panel.vpr_type == vp_type::vp_void) 
-        Panel.send(MonitorLogPanel, "Input 5: discarded");
+        Panel.send(MonitorLog, "Input 5: discarded");
       else
       {
         MonValue_5 = Panel.vpr_int;
         Panel.send(MonitorField_5, MonValue_5);
-        Panel.sendf(MonitorLogPanel, "Input 5: %d", MonValue_5);
+        Panel.sendf(MonitorLog, "Input 5: %d", MonValue_5);
       }
       break;
 
     case MonitorInput_6:
       if (Panel.vpr_type == vp_type::vp_void) 
-        Panel.send(MonitorLogPanel, "Input 6: discarded");
+        Panel.send(MonitorLog, "Input 6: discarded");
       else
       {
         Panel.send(MonitorField_6, Panel.vpr_string );
-        Panel.sendf(MonitorLogPanel, "Input 6: %s", Panel.vpr_string );
+        Panel.sendf(MonitorLog, "Input 6: %s", Panel.vpr_string );
       }
       break;
 

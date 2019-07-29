@@ -14,9 +14,9 @@ void SlidersCallback(vp_channel event)
 
     default:
       if (event >= Button_1 && event <= Button_17) 
-        Panel.sendf(MonitorLogPanel,F("ChannelId %d Button_%d Pressed"), event, (event - Button_1) + 1 );
+        Panel.sendf(MonitorLog,F("ChannelId %d Button_%d Pressed"), event, (event - Button_1) + 1 );
       if (event >= Slider_1 && event <= Slider_5)
-        Panel.sendf(MonitorLogPanel,F("ChannelId %d Slider_%d Value %d"), event, (event - Slider_1) + 1, Panel.vpr_int );
+        Panel.sendf(MonitorLog,F("ChannelId %d Slider_%d Value %d"), event, (event - Slider_1) + 1, Panel.vpr_int );
       break;
   }
 }
