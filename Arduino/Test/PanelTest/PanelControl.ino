@@ -8,6 +8,7 @@ enum ModeList
   Static,
   Draw,
   Click,
+  Beeps,
   Clock,
   Endmode
 };
@@ -43,6 +44,9 @@ void PanelCallback(vp_channel event)
      case Click: 
        ClickCallback( event); break;
 
+     case Beeps: 
+       BeepCallback( event); break;
+     
      case Clock: 
        ClockCallback( event); break;
      
@@ -50,4 +54,19 @@ void PanelCallback(vp_channel event)
      default: 
        break;
    }
+}
+
+void WriteInfo()
+{
+
+  
+  Panel.send(InfoTitle, F("PannelTest"));
+  Panel.send(InfoText,  F("Application specific help text"));
+  Panel.send(InfoText,  F("Can be changed run-time"));
+  Panel.send(InfoText,  F("Hyperlink to documenation pages\n"));
+  Panel.send(InfoText,  F("https://github.com/JaapDanielse/VirtualPanel"));
+
+  Infomode = false;
+  Monmode = false;
+  Graphmode = false;
 }

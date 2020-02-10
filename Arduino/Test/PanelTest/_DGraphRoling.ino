@@ -35,11 +35,9 @@ byte green = 0;
       Panel.send(GraphLabel_5, F("$GREEN"));
       Panel.send(GraphLabel_5, F("GraphLabel_5"));
       Panel.send(GraphValue_2,"$2PX");
-      Infomode = false;
-      Monmode = false;
+      WriteInfo();
       Graphmode = true;
-      Panel.send(Graph,true); 
-
+      Panel.send(Graph,Graphmode); 
       break; 
     }
 
@@ -59,21 +57,9 @@ byte green = 0;
       break;
 
     case Button_7:
-    {
       Graphmode = !Graphmode;
       Panel.send(Graph,Graphmode);
       break;
-    }
-
-//    case GraphButton_1:
-//      yellow = !yellow; break;
-//    case GraphButton_2: 
-//      orange = !orange; break;
-//    case GraphButton_3: 
-//      red = !red; break;
-//    case GraphButton_4: 
-//      blue = !blue; break;
-
 
     case DynamicDisplay: // dynamic display request (requested every 500ms)
     {

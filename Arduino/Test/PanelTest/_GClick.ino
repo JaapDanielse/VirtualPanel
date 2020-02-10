@@ -21,12 +21,9 @@ void ClickCallback(vp_channel event)
       Panel.send(GraphButton_3, "clear");
       Panel.send(GraphDrawPixel, Color[ColNum]);
       Panel.send(GraphDrawLine,  Color[ColNum]);
-
-      Panel.send(Graph, (bool)true);
-      Infomode = false;
-      Monmode = false;
+      WriteInfo();
       Graphmode = true;
-
+      Panel.send(Graph,Graphmode); 
       break; 
 
     case Button_4:
@@ -45,11 +42,9 @@ void ClickCallback(vp_channel event)
       break;
 
     case Button_7:
-    {
       Graphmode = !Graphmode;
       Panel.send(Graph,Graphmode);
       break;
-    }
 
     case GraphButton_1:
       if (++ColNum > MaxColNum) ColNum=0;
@@ -65,22 +60,22 @@ void ClickCallback(vp_channel event)
     break;
 
     case GraphButton_3:
-      Panel.send(Graph,"$CLEAR"); //
+      Panel.send(Graph,F("$CLEAR")); //
     break;
     
     case GraphClick:
-      Panel.send(Display_2, "Left Click");
+      Panel.send(Display_2, F("Left Click"));
       Panel.send(GraphDrawPixel, Panel.vpr_uint); // send text to Display_2
       Panel.send(GraphDrawLine, Panel.vpr_uint); // send text to Display_2
       break;
 
     case GraphDoubleClick:
-      Panel.send(Display_2, "Double Click");
-      Panel.send(Graph,"$CLEAR"); //
+      Panel.send(Display_2, F("Double Click"));
+      Panel.send(Graph,F("$CLEAR")); //
       break;
 
     case GraphRightClick:
-      Panel.send(Display_2, "Right Click");
+      Panel.send(Display_2, F("Right Click"));
       Panel.send(GraphDrawLine); // Start a new line
     break;
   }

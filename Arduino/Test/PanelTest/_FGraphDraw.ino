@@ -4,7 +4,13 @@ int Angle = 0;
 int Distance = 120;
 static int i = 0;
 
-static bool Squares=true;
+#define NON 0 //
+#define SQR 1 //
+#define RAD 2 //
+#define MAZ 3 //
+
+
+static byte DrawStat = SQR;
 
 void DrawCallback(vp_channel event) 
 { 
@@ -19,14 +25,12 @@ void DrawCallback(vp_channel event)
       Panel.send(Button_6,  F("moni\ntor"));
       Panel.send(Button_7,  F("graph"));
       Panel.send(Button_11, F("square"));
-      Panel.send(Button_14, F("radar"));
-
+      Panel.send(Button_14, F("maze"));
+      Panel.send(Button_17, F("radar"));
       Panel.send(DynamicDisplay,100); 
-      Panel.send(Graph,true); 
-      Infomode = false;
-      Monmode = false;
+      WriteInfo();
       Graphmode = true;
-      //DrawCircles();    
+      Panel.send(Graph,Graphmode); 
       break;
     }
 
@@ -54,15 +58,28 @@ void DrawCallback(vp_channel event)
 
     case Button_11:
     {
-      Squares = true;
+      DrawStat = SQR;
       Panel.send(Graph, "$CLEAR");
       break;
     }
 
     case Button_14:
     {
-      Squares = false;
-      Panel.send(Graph, "$CLEAR");
+      DrawStat = MAZ;
+      i=0;
+//      Squares = false;
+//      Radar = false;
+//      Panel.send(Graph, F("$CLEAR"));
+//      if (++ColNum > MaxColNum) ColNum=0;
+//      Panel.send(GraphDrawLine,  Color[ColNum]);
+//      for(i=0; i<110; i++) { DisplayMaze(i);}
+      break;
+    }
+
+    case Button_17:
+    {
+      DrawStat = RAD;
+      Panel.send(Graph, F("$CLEAR"));
       break;
     }
 
@@ -70,34 +87,51 @@ void DrawCallback(vp_channel event)
 
     case DynamicDisplay: // dynamic display request (requested every 500ms)
     {
-      if ( Squares )
+      if ( DrawStat == SQR )
       {
-        Panel.send(Led_7, "$ORANGE");
-        Panel.send(Led_8, "$OFF");
+        Panel.send(Led_7, F("$ORANGE"));
+        Panel.send(Led_8, F("$OFF"));
+        Panel.send(Led_9, F("$OFF"));
         i+=5;
         DrawSquares(i);
         if(i>=105)
         {
-          Panel.send(Graph, "$CLEAR");
+          Panel.send(Graph, F("$CLEAR"));
           if (++ColNum > MaxColNum) ColNum=0;
           Panel.send(GraphDrawLine,  Color[ColNum]);
           i=0;
         }
       }
-      else
+      
+      if ( DrawStat == RAD )
       {
-        Panel.send(Led_8, "$ORANGE");
-        Panel.send(Led_7, "$OFF");
+        Panel.send(Led_7, F("$OFF"));
+        Panel.send(Led_8, F("$OFF"));
+        Panel.send(Led_9, F("$ORANGE"));
         if (Direction) Angle+=2; else Angle-=2;
         if (Angle <= 0 || Angle >= 180) Direction = !Direction; 
         Angle = constrain( Angle, 0, 180);
         Swipe(Angle, Distance);
       }
+      
+      if ( DrawStat == MAZ )
+      {
+        Panel.send(Led_7, F("$OFF"));
+        Panel.send(Led_8, F("$ORANGE"));
+        Panel.send(Led_9, F("$OFF"));
+        if(i<=0)
+        {
+          Panel.send(Graph, F("$CLEAR"));
+          if (++ColNum > MaxColNum) ColNum=0;
+          Panel.send(GraphDrawLine,  Color[ColNum]);
+          for(int j=0; j<110; j++) { DisplayMaze(j);}
+          i=25;
+        }
+        i--;
+      }
       break;
     }
-
   }
-
 }
 
 
@@ -143,7 +177,7 @@ void DrawCircles()
      Panel.send(GraphDrawLine,_Point(x,y));
    }
 
-   Panel.send(GraphDrawLine,"$1PX");
+   Panel.send(GraphDrawLine,F("$1PX"));
    Panel.send(GraphCaption_2,"0 deg                                          180 deg");
    Panel.send(GraphDrawPixel,_Point(200,200));
 
@@ -199,4 +233,105 @@ void Swipe(int Angle, int Distance)
    Panel.send(GraphText, _Point(100,180));
    Panel.sendf(GraphText, F("Angle %d"), 180-Angle);
   
+}
+
+
+
+void DisplayMaze(int square)
+{
+  int xp, yp;
+
+  xp = ((square/10)*20)+17;
+  yp = ((square%10)*20)+10;
+     
+  int i = random(0,4);
+  
+  switch (i)
+  {
+    case 0: DrawSquareCross(xp,yp); break;
+    case 1: DrawSquareRight(xp,yp); break;
+    case 2: DrawSquareLeft(xp,yp); break;
+    case 3: DrawSquareVert(xp,yp); break;
+    default: break;
+  }
+}
+
+
+
+void DrawSquareCross(int x, int y)
+{
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x+6,y));
+     Panel.send(GraphDrawLine,_Point(x+6, y+6));
+     Panel.send(GraphDrawLine,_Point(x,y+6));
+
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x+13,y));
+     Panel.send(GraphDrawLine,_Point(x+13, y+6));
+     Panel.send(GraphDrawLine,_Point(x+20,y+6));
+
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x,y+13));
+     Panel.send(GraphDrawLine,_Point(x+6, y+13));
+     Panel.send(GraphDrawLine,_Point(x+6,y+20));
+
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x+13,y+20));
+     Panel.send(GraphDrawLine,_Point(x+13,y+13));
+     Panel.send(GraphDrawLine,_Point(x+20,y+13));
+
+}
+
+void DrawSquareVert(int x, int y)
+{
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x+6,y));
+     Panel.send(GraphDrawLine,_Point(x+6, y+20));
+
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x+13,y));
+     Panel.send(GraphDrawLine,_Point(x+13,y+20));
+
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x,y+6));
+     Panel.send(GraphDrawLine,_Point(x,y+13));
+
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x+20,y+6));
+     Panel.send(GraphDrawLine,_Point(x+20,y+13));
+}
+
+
+void DrawSquareLeft(int x, int y)
+{
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x,y+6));
+     Panel.send(GraphDrawLine,_Point(x+6, y));
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x+13, y));
+     Panel.send(GraphDrawLine,_Point(x, y+13));
+
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x+6,y+20));
+     Panel.send(GraphDrawLine,_Point(x+20, y+6));
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x+13, y+20));
+     Panel.send(GraphDrawLine,_Point(x+20, y+13));
+}
+
+void DrawSquareRight(int x, int y)
+{
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x,y+6));
+     Panel.send(GraphDrawLine,_Point(x+13,y+19));
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x,y+14));
+     Panel.send(GraphDrawLine,_Point(x+6, y+20));
+
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x+6,y));
+     Panel.send(GraphDrawLine,_Point(x+19, y+13));
+     Panel.send(GraphDrawLine); // new line
+     Panel.send(GraphDrawLine,_Point(x+14, y));
+     Panel.send(GraphDrawLine,_Point(x+20, y+6));
 }

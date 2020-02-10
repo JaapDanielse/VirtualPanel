@@ -103,6 +103,7 @@
     <Compile Include="PersistentPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ToolstripRenderer.cs" />
     <Compile Include="VirtualPanelForm.cs">
       <SubType>Form</SubType>
     </Compile>

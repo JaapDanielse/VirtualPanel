@@ -212,6 +212,12 @@ namespace VirtualPanel
             MonitorInputPanel_5.Visible = false;
             MonitorInputPanel_6.Visible = false;
 
+            MonitorInputLabel_1.Text = "";
+            MonitorInputLabel_2.Text = "";
+            MonitorInputLabel_3.Text = "";
+            MonitorInputLabel_4.Text = "";
+            MonitorInputLabel_5.Text = "";
+
             MonInput_1 = false;
             MonInput_2 = false;
             MonInput_3 = false;

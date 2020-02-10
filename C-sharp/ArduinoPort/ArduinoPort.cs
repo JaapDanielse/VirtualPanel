@@ -387,6 +387,8 @@ namespace ArduinoCom
                         case vp_type.vp_float:
                             messagedata = float.Parse(value_string, CultureInfo.InvariantCulture);
                             break;
+                        default:
+                            continue;
                     }
 
                     MessageReceived?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, messagedata));

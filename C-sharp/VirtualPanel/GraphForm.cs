@@ -19,6 +19,42 @@ namespace VirtualPanel
 
         private List<Tuple<ChannelId, Control>> pannelControlList;
 
+        private vp_type GraphInputType_1 = vp_type.vp_int;
+        private vp_type GraphInputType_2 = vp_type.vp_int;
+        private vp_type GraphInputType_3 = vp_type.vp_int;
+        private vp_type GraphInputType_4 = vp_type.vp_int;
+        private vp_type GraphInputType_5 = vp_type.vp_int;
+
+        private bool GraphInputFlag_1 = false;
+        private bool GraphInputFlag_2 = false;
+        private bool GraphInputFlag_3 = false;
+        private bool GraphInputFlag_4 = false;
+        private bool GraphInputFlag_5 = false;
+
+        private long MinGraphInput_1 = long.MinValue;
+        private long MinGraphInput_2 = long.MinValue;
+        private long MinGraphInput_3 = long.MinValue;
+        private long MinGraphInput_4 = long.MinValue;
+        private long MinGraphInput_5 = long.MinValue;
+
+        private long MaxGraphInput_1 = long.MaxValue;
+        private long MaxGraphInput_2 = long.MaxValue;
+        private long MaxGraphInput_3 = long.MaxValue;
+        private long MaxGraphInput_4 = long.MaxValue;
+        private long MaxGraphInput_5 = long.MaxValue;
+
+        private float MinGraphInputF_1 = float.MinValue;
+        private float MinGraphInputF_2 = float.MinValue;
+        private float MinGraphInputF_3 = float.MinValue;
+        private float MinGraphInputF_4 = float.MinValue;
+        private float MinGraphInputF_5 = float.MinValue;
+
+        private float MaxGraphInputF_1 = float.MaxValue;
+        private float MaxGraphInputF_2 = float.MaxValue;
+        private float MaxGraphInputF_3 = float.MaxValue;
+        private float MaxGraphInputF_4 = float.MaxValue;
+        private float MaxGraphInputF_5 = float.MaxValue;
+
         Graph GraphPlot_1;
         Graph GraphPlot_2;
         Graph GraphPlot_3;
@@ -147,7 +183,56 @@ namespace VirtualPanel
             PersistentDrawing.Clear();
             Hold = false;
             LinePointValid = false;
-        }
+
+            GraphInputPanel_1.Visible = false;
+            GraphInputPanel_2.Visible = false;
+            GraphInputPanel_3.Visible = false;
+            GraphInputPanel_4.Visible = false;
+            GraphInputPanel_5.Visible = false;
+
+            GraphInputLabel_1.Text = "";
+            GraphInputLabel_2.Text = "";
+            GraphInputLabel_3.Text = "";
+            GraphInputLabel_4.Text = "";
+            GraphInputLabel_5.Text = "";
+
+            GraphInputType_1 = vp_type.vp_int;
+            GraphInputType_2 = vp_type.vp_int;
+            GraphInputType_3 = vp_type.vp_int;
+            GraphInputType_4 = vp_type.vp_int;
+            GraphInputType_5 = vp_type.vp_int;
+
+            GraphInputFlag_1 = false;
+            GraphInputFlag_2 = false;
+            GraphInputFlag_3 = false;
+            GraphInputFlag_4 = false;
+            GraphInputFlag_5 = false;
+
+            MinGraphInput_1 = long.MinValue;
+            MinGraphInput_2 = long.MinValue;
+            MinGraphInput_3 = long.MinValue;
+            MinGraphInput_4 = long.MinValue;
+            MinGraphInput_5 = long.MinValue;
+
+            MaxGraphInput_1 = long.MaxValue;
+            MaxGraphInput_2 = long.MaxValue;
+            MaxGraphInput_3 = long.MaxValue;
+            MaxGraphInput_4 = long.MaxValue;
+            MaxGraphInput_5 = long.MaxValue;
+
+            MinGraphInputF_1 = float.MinValue;
+            MinGraphInputF_2 = float.MinValue;
+            MinGraphInputF_3 = float.MinValue;
+            MinGraphInputF_4 = float.MinValue;
+            MinGraphInputF_5 = float.MinValue;
+
+            MaxGraphInputF_1 = float.MaxValue;
+            MaxGraphInputF_2 = float.MaxValue;
+            MaxGraphInputF_3 = float.MaxValue;
+            MaxGraphInputF_4 = float.MaxValue;
+            MaxGraphInputF_5 = float.MaxValue;
+
+    }
 
 
         private void Arduinoport_MessageReceived(object sender, MessageEventArgs<object> mse)
@@ -204,6 +289,88 @@ namespace VirtualPanel
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphCaption_2 && mse.Type == vp_type.vp_string) DrawCaption((string)mse.Data, 2);
 
                 GraphPictureBox1.Invalidate();
+
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_1 && mse.Type == vp_type.vp_boolean) GraphInputFlag_1 = (bool)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_2 && mse.Type == vp_type.vp_boolean) GraphInputFlag_2 = (bool)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_3 && mse.Type == vp_type.vp_boolean) GraphInputFlag_3 = (bool)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_4 && mse.Type == vp_type.vp_boolean) GraphInputFlag_4 = (bool)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_5 && mse.Type == vp_type.vp_boolean) GraphInputFlag_5 = (bool)mse.Data;
+
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInputLabel_1 && mse.Type == vp_type.vp_string) GraphInputLabel_1.Text = mse.Data.ToString();
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInputLabel_2 && mse.Type == vp_type.vp_string) GraphInputLabel_2.Text = mse.Data.ToString();
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInputLabel_3 && mse.Type == vp_type.vp_string) GraphInputLabel_3.Text = mse.Data.ToString();
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInputLabel_4 && mse.Type == vp_type.vp_string) GraphInputLabel_4.Text = mse.Data.ToString();
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInputLabel_5 && mse.Type == vp_type.vp_string) GraphInputLabel_5.Text = mse.Data.ToString();
+
+                if ((ChannelId)mse.ChannelID == ChannelId.MinGraphInput_1 && mse.Type == vp_type.vp_int) MinGraphInput_1 = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MinGraphInput_2 && mse.Type == vp_type.vp_int) MinGraphInput_2 = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MinGraphInput_3 && mse.Type == vp_type.vp_int) MinGraphInput_3 = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MinGraphInput_4 && mse.Type == vp_type.vp_int) MinGraphInput_4 = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MinGraphInput_5 && mse.Type == vp_type.vp_int) MinGraphInput_5 = (int)mse.Data;
+
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxGraphInput_1 && mse.Type == vp_type.vp_int) MaxGraphInput_1 = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxGraphInput_2 && mse.Type == vp_type.vp_int) MaxGraphInput_2 = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxGraphInput_3 && mse.Type == vp_type.vp_int) MaxGraphInput_3 = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxGraphInput_4 && mse.Type == vp_type.vp_int) MaxGraphInput_4 = (int)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxGraphInput_5 && mse.Type == vp_type.vp_int) MaxGraphInput_5 = (int)mse.Data;
+
+                if ((ChannelId)mse.ChannelID == ChannelId.MinGraphInput_1 && mse.Type == vp_type.vp_float) MinGraphInputF_1 = (float)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MinGraphInput_2 && mse.Type == vp_type.vp_float) MinGraphInputF_2 = (float)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MinGraphInput_3 && mse.Type == vp_type.vp_float) MinGraphInputF_3 = (float)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MinGraphInput_4 && mse.Type == vp_type.vp_float) MinGraphInputF_4 = (float)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MinGraphInput_5 && mse.Type == vp_type.vp_float) MinGraphInputF_5 = (float)mse.Data;
+
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxGraphInput_1 && mse.Type == vp_type.vp_float) MaxGraphInputF_1 = (float)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxGraphInput_2 && mse.Type == vp_type.vp_float) MaxGraphInputF_2 = (float)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxGraphInput_3 && mse.Type == vp_type.vp_float) MaxGraphInputF_3 = (float)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxGraphInput_4 && mse.Type == vp_type.vp_float) MaxGraphInputF_4 = (float)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxGraphInput_5 && mse.Type == vp_type.vp_float) MaxGraphInputF_5 = (float)mse.Data;
+
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_1)
+                {
+                    GraphInputType_1 = mse.Type;
+                    if (GraphInputType_1 != vp_type.vp_void && GraphInputType_1 != vp_type.vp_boolean)
+                    {
+                        GraphInputPanel_1.Visible = true;
+                        GraphInputTextBox_1.Text = mse.Data.ToString();
+                    }
+                }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_2)
+                {
+                    GraphInputType_2 = mse.Type;
+                    if (GraphInputType_2 != vp_type.vp_void && GraphInputType_2 != vp_type.vp_boolean)
+                    {
+                        GraphInputPanel_2.Visible = true;
+                        GraphInputTextBox_2.Text = mse.Data.ToString();
+                    }
+                }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_3)
+                {
+                    GraphInputType_3 = mse.Type;
+                    if (GraphInputType_3 != vp_type.vp_void && GraphInputType_3 != vp_type.vp_boolean)
+                    {
+                        GraphInputTextBox_3.Text = mse.Data.ToString();
+                        GraphInputPanel_3.Visible = true;
+                    }
+                }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_4)
+                {
+                    GraphInputType_4 = mse.Type;
+                    if (GraphInputType_4 != vp_type.vp_void && GraphInputType_4 != vp_type.vp_boolean)
+                    {
+                        GraphInputPanel_4.Visible = true;
+                        GraphInputTextBox_4.Text = mse.Data.ToString();
+                    }
+                }
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_5)
+                {
+                    GraphInputType_5 = mse.Type;
+                    if (GraphInputType_5 != vp_type.vp_void && GraphInputType_5 != vp_type.vp_boolean)
+                    {
+                        GraphInputPanel_5.Visible = true;
+                        GraphInputTextBox_5.Text = mse.Data.ToString();
+                    }
+                }
             }
         }
 
@@ -477,6 +644,7 @@ namespace VirtualPanel
 
         }
 
+
         private void GraphPictureBox1_DoubleClick(object sender, MouseEventArgs e)
         {
             if ((e.Location.X - 4) >= 0 && (e.Location.X - 4) <= 255)
@@ -486,5 +654,267 @@ namespace VirtualPanel
             }
         }
 
-     }
+        private void GraphLabelInputRequest(object sender, EventArgs e)
+        {
+            if (sender == graphLabel1) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphLabel_1);
+            if (sender == graphLabel2) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphLabel_2);
+            if (sender == graphLabel3) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphLabel_3);
+            if (sender == graphLabel4) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphLabel_4);
+            if (sender == graphLabel5) if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphLabel_5);
+        }
+
+
+        private void GraphDiscardInput_Click(object sender, EventArgs e)
+        {
+            if (sender == GraphDiscardInput_1)
+            {
+                if (!GraphInputFlag_1) GraphInputPanel_1.Visible = false;
+                if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphInput_1);
+            }
+            if (sender == GraphDiscardInput_2)
+            {
+                if (!GraphInputFlag_2) GraphInputPanel_2.Visible = false;
+                if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphInput_2);
+            }
+            if (sender == GraphDiscardInput_3)
+            {
+                if (!GraphInputFlag_3) GraphInputPanel_3.Visible = false;
+                if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphInput_3);
+            }
+            if (sender == GraphDiscardInput_4)
+            {
+                if (!GraphInputFlag_4) GraphInputPanel_4.Visible = false;
+                if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphInput_4);
+            }
+            if (sender == GraphDiscardInput_5)
+            {
+                if (!GraphInputFlag_5) GraphInputPanel_5.Visible = false;
+                if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphInput_5);
+            }
+        }
+
+
+        private void GraphSendInput_Click(object sender, EventArgs e)
+        {
+            long MinInput = 0;
+            long MaxInput = 0;
+            float MinInputF = 0;
+            float MaxInputF = 0;
+
+            byte InputValueByte = 0;
+            short InputValueShort = 0;
+            ushort InputValueUShort = 0;
+            int InputValueLong = 0;
+            uint InputValueULong = 0;
+            float InputValueFloat = 0;
+            Panel Panel = new Panel();
+            TextBox TextBox = new TextBox();
+            ChannelId GraphInput = ChannelId.GraphInput_1;
+            vp_type GraphInputType = vp_type.vp_int;
+            bool GraphInputFlag = false;
+
+            if (sender == GraphSendInput_1)
+            {
+                Panel = GraphInputPanel_1;
+                TextBox = GraphInputTextBox_1;
+                GraphInput = ChannelId.GraphInput_1;
+                GraphInputType = GraphInputType_1;
+                GraphInputFlag = GraphInputFlag_1;
+                MinInput = MinGraphInput_1;
+                MaxInput = MaxGraphInput_1;
+                MinInputF = MinGraphInputF_1;
+                MaxInputF = MaxGraphInputF_1;
+            }
+            if (sender == GraphSendInput_2)
+            {
+                Panel = GraphInputPanel_2;
+                TextBox = GraphInputTextBox_2;
+                GraphInput = ChannelId.GraphInput_2;
+                GraphInputType = GraphInputType_2;
+                GraphInputFlag = GraphInputFlag_2;
+                MinInput = MinGraphInput_2;
+                MaxInput = MaxGraphInput_2;
+                MinInputF = MinGraphInputF_2;
+                MaxInputF = MaxGraphInputF_2;
+            }
+            if (sender == GraphSendInput_3)
+            {
+                Panel = GraphInputPanel_3;
+                TextBox = GraphInputTextBox_3;
+                GraphInput = ChannelId.GraphInput_3;
+                GraphInputType = GraphInputType_3;
+                GraphInputFlag = GraphInputFlag_3;
+                MinInput = MinGraphInput_3;
+                MaxInput = MaxGraphInput_3;
+                MinInputF = MinGraphInputF_3;
+                MaxInputF = MaxGraphInputF_3;
+            }
+            if (sender == GraphSendInput_4)
+            {
+                Panel = GraphInputPanel_4;
+                TextBox = GraphInputTextBox_4;
+                GraphInput = ChannelId.GraphInput_4;
+                GraphInputType = GraphInputType_4;
+                GraphInputFlag = GraphInputFlag_4;
+                MinInput = MinGraphInput_4;
+                MaxInput = MaxGraphInput_4;
+                MinInputF = MinGraphInputF_4;
+                MaxInputF = MaxGraphInputF_4;
+            }
+            if (sender == GraphSendInput_5)
+            {
+                Panel = GraphInputPanel_5;
+                TextBox = GraphInputTextBox_5;
+                GraphInput = ChannelId.GraphInput_5;
+                GraphInputType = GraphInputType_5;
+                GraphInputFlag = GraphInputFlag_5;
+                MinInput = MinGraphInput_5;
+                MaxInput = MaxGraphInput_5;
+                MinInputF = MinGraphInputF_5;
+                MaxInputF = MaxGraphInputF_5;
+            }
+
+
+            if (!GraphInputFlag) Panel.Visible = false;
+
+            if (GraphInputType == vp_type.vp_byte && byte.TryParse(TextBox.Text, out InputValueByte)
+                 && (InputValueByte >= MinInput && InputValueByte <= MaxInput))
+            {
+                if (arduinoport.IsConnected) arduinoport.Send((byte)GraphInput, vp_type.vp_byte, InputValueByte);
+            }
+            else if (GraphInputType == vp_type.vp_int && Int16.TryParse(TextBox.Text, out InputValueShort)
+                      && (InputValueShort >= MinInput && InputValueShort <= MaxInput))
+            {
+                if (arduinoport.IsConnected) arduinoport.Send((byte)GraphInput, vp_type.vp_int, InputValueShort);
+            }
+            else if (GraphInputType == vp_type.vp_uint && UInt16.TryParse(TextBox.Text, out InputValueUShort)
+                      && (InputValueUShort >= MinInput && InputValueUShort <= MaxInput))
+            {
+                if (arduinoport.IsConnected) arduinoport.Send((byte)GraphInput, vp_type.vp_uint, InputValueUShort);
+            }
+            else if (GraphInputType == vp_type.vp_long && Int32.TryParse(TextBox.Text, out InputValueLong)
+                      && (InputValueLong >= MinInput && InputValueLong <= MaxInput))
+            {
+                if (arduinoport.IsConnected) arduinoport.Send((byte)GraphInput, vp_type.vp_long, InputValueLong);
+            }
+            else if (GraphInputType == vp_type.vp_ulong && UInt32.TryParse(TextBox.Text, out InputValueULong)
+                      && (InputValueULong >= MinInput && InputValueULong <= MaxInput))
+            {
+                if (arduinoport.IsConnected) arduinoport.Send((byte)GraphInput, vp_type.vp_ulong, InputValueULong);
+            }
+            else if (GraphInputType == vp_type.vp_float && float.TryParse(TextBox.Text, out InputValueFloat)
+                      && (InputValueFloat >= MinInputF && InputValueFloat <= MaxInputF))
+            {
+                if (arduinoport.IsConnected) arduinoport.Send((byte)GraphInput, InputValueFloat);
+            }
+            else if (GraphInputType == vp_type.vp_string && TextBox.Text.Length <= 35)
+            {
+                if (arduinoport.IsConnected) arduinoport.Send((byte)GraphInput, TextBox.Text);
+            }
+            else
+            {
+                TextBox.ForeColor = Color.Red;
+                Panel.Visible = true;
+            }
+        }
+
+        private void GraphInputTextBox_TextChange(object sender, EventArgs e)
+        {
+
+            long MinInput = 0;
+            long MaxInput = 0;
+            float MinInputF = 0;
+            float MaxInputF = 0;
+
+            byte InputValueByte = 0;
+            short InputValueShort = 0;
+            ushort InputValueUShort = 0;
+            int InputValueLong = 0;
+            uint InputValueULong = 0;
+            float InputValueFloat = 0;
+
+            bool ValueValid = false;
+
+            TextBox TextBox = (TextBox)sender;
+            vp_type GraphInputType = vp_type.vp_int;
+
+            if (sender == GraphInputTextBox_1)
+            { GraphInputType = GraphInputType_1; MinInput = MinGraphInput_1; MaxInput = MaxGraphInput_1; MinInputF = MinGraphInputF_1; MaxInputF = MaxGraphInputF_1; }
+            if (sender == GraphInputTextBox_2)
+            { GraphInputType = GraphInputType_2; MinInput = MinGraphInput_2; MaxInput = MaxGraphInput_2; MinInputF = MinGraphInputF_2; MaxInputF = MaxGraphInputF_2; }
+            if (sender == GraphInputTextBox_3)
+            { GraphInputType = GraphInputType_3; MinInput = MinGraphInput_3; MaxInput = MaxGraphInput_3; MinInputF = MinGraphInputF_3; MaxInputF = MaxGraphInputF_3; }
+            if (sender == GraphInputTextBox_4)
+            { GraphInputType = GraphInputType_4; MinInput = MinGraphInput_4; MaxInput = MaxGraphInput_4; MinInputF = MinGraphInputF_4; MaxInputF = MaxGraphInputF_4; }
+            if (sender == GraphInputTextBox_5)
+            { GraphInputType = GraphInputType_5; MinInput = MinGraphInput_5; MaxInput = MaxGraphInput_5; MinInputF = MinGraphInputF_5; MaxInputF = MaxGraphInputF_5; }
+
+            TextBox.ForeColor = Color.Black;
+
+            if (GraphInputType == vp_type.vp_byte && byte.TryParse(TextBox.Text, out InputValueByte))
+            {
+                if (InputValueByte >= MinInput && InputValueByte <= MaxInput)
+                {
+                    TextBox.ForeColor = Color.Black;
+                    ValueValid = true;
+                }
+            }
+            else if (GraphInputType == vp_type.vp_int && Int16.TryParse(TextBox.Text, out InputValueShort))
+            {
+                if (InputValueShort >= MinInput && InputValueShort <= MaxInput)
+                {
+                    TextBox.ForeColor = Color.Black;
+                    ValueValid = true;
+                }
+            }
+            else if (GraphInputType == vp_type.vp_uint && UInt16.TryParse(TextBox.Text, out InputValueUShort))
+            {
+                if (InputValueUShort >= MinInput && InputValueUShort <= MaxInput)
+                {
+                    TextBox.ForeColor = Color.Black;
+                    ValueValid = true;
+                }
+            }
+            else if (GraphInputType == vp_type.vp_long && Int32.TryParse(TextBox.Text, out InputValueLong))
+            {
+                if (InputValueLong >= MinInput && InputValueLong <= MaxInput)
+                {
+                    TextBox.ForeColor = Color.Black;
+                    ValueValid = true;
+                }
+            }
+            else if (GraphInputType == vp_type.vp_ulong && UInt32.TryParse(TextBox.Text, out InputValueULong))
+            {
+                if (InputValueULong >= MinInput && InputValueULong <= MaxInput)
+                {
+                    TextBox.ForeColor = Color.Black;
+                    ValueValid = true;
+                }
+            }
+            else if (GraphInputType == vp_type.vp_float && float.TryParse(TextBox.Text, out InputValueFloat))
+            {
+                if (InputValueFloat >= MinInputF && InputValueFloat <= MaxInputF)
+                {
+                    TextBox.ForeColor = Color.Black;
+                    ValueValid = true;
+                }
+            }
+            else if (GraphInputType == vp_type.vp_string)
+            {
+                if (TextBox.Text.Length <= 35)
+                {
+                    TextBox.ForeColor = Color.Black;
+                    ValueValid = true;
+                }
+            }
+
+            if (!ValueValid) TextBox.ForeColor = Color.Red;
+        }
+
+    }
 }
+
+
+
+
+

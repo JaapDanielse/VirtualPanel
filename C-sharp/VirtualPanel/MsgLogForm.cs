@@ -27,7 +27,7 @@ namespace VirtualPanel
 
         private void Arduinoport_MessageReceived(object sender, MessageEventArgs<object> e)
         {
-            log.Add(MsgNum++ + "  R  " + ((ChannelId)e.ChannelID).ToString() + "\t" + e.Type.ToString() + "\t" + e.Data.ToString());
+              log.Add(MsgNum++ + "  R  " + ((ChannelId)e.ChannelID).ToString() + "\t" + e.Type.ToString() + "\t" + e.Data.ToString());
         }
 
         private void Arduinoport_MessageSent(object sender, MessageEventArgs<object> e)

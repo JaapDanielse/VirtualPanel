@@ -56,21 +56,12 @@ void SlidersInit()
   Panel.send(Led_12,  F("$YELLOW"));
   Panel.send(Led_13,  F("$ORANGE"));
 
-  Panel.send(MonitorField_1, "MonitorField_1");
-  Panel.send(MonitorField_2, "MonitorField_2");
-  Panel.send(MonitorField_3, "MonitorField_3");
-  Panel.send(MonitorField_4, "MonitorField_4");
-  Panel.send(MonitorField_5, "MonitorField_5");
-  Panel.send(MonitorField_6, "MonitorField_6");
-
-  Panel.send(InfoTitle, "PannelTest");
-  Panel.send(InfoText, "Application specific help text");
-  Panel.send(InfoText, "Can be changed run-time");
-  Panel.send(InfoText, "Hyperlink to documenation pages\n");
-  Panel.send(InfoText, "https://github.com/JaapDanielse/VirtualPanel/wiki");
-  Infomode = false;
-  Monmode = false;
-  Graphmode = false;
-
-
+  Panel.send(MonitorField_1, F("MonitorField_1"));
+  Panel.send(MonitorField_2, F("MonitorField_2"));
+  Panel.send(MonitorField_3, F("MonitorField_3"));
+  Panel.send(MonitorField_4, F("MonitorField_4"));
+  Panel.send(MonitorField_5, F("MonitorField_5"));
+  Panel.send(MonitorField_6, F("MonitorField_6"));
+  
+  WriteInfo();
 }

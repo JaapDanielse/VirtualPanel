@@ -21,8 +21,6 @@ void StaticCallback(vp_channel event)
       Panel.send(Button_5,  F("info"));
       Panel.send(Button_6,  F("moni\ntor"));
       Panel.send(Button_7,  F("graph"));
-
-      
       Panel.send(Button_4,  F("next\npanel"));
       Panel.send(Button_5,  F("info"));
       Panel.send(Button_6,  F("moni\ntor"));
@@ -39,11 +37,9 @@ void StaticCallback(vp_channel event)
       Panel.send(MaxSlider_4, 150);
       Panel.send(Slider_4, F("freq."));
       Panel.send(Slider_4, (int)sincount*10);
-      Panel.send(Graph,true); 
-      Infomode = false;
-      Monmode = false;
+      WriteInfo();
       Graphmode = true;
-
+      Panel.send(Graph,Graphmode); 
       break; 
     }
 

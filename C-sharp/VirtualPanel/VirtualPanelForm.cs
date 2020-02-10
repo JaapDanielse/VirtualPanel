@@ -161,8 +161,35 @@ namespace VirtualPanel
         //
         Info,
         InfoTitle,
-        InfoText
+        InfoText,
         //
+        PanelColor, //
+        //
+        GraphInput_1, //
+        GraphInput_2, //
+        GraphInput_3, //
+        GraphInput_4, //
+        GraphInput_5, //
+        //
+        MinGraphInput_1, //
+        MinGraphInput_2, //
+        MinGraphInput_3, //
+        MinGraphInput_4, //
+        MinGraphInput_5, //
+        //
+        MaxGraphInput_1, //
+        MaxGraphInput_2, //
+        MaxGraphInput_3, //
+        MaxGraphInput_4, //
+        MaxGraphInput_5, //
+        //
+        GraphInputLabel_1, //
+        GraphInputLabel_2, //
+        GraphInputLabel_3, //
+        GraphInputLabel_4, //
+        GraphInputLabel_5, //
+        //
+        EndChannel
     }
 
     public partial class VirtualPanelForm : Form
@@ -193,6 +220,9 @@ namespace VirtualPanel
         private float MinPanelInputF_2 = float.MinValue;
         private float MaxPanelInputF_1 = float.MaxValue;
         private float MaxPanelInputF_2 = float.MaxValue;
+
+        public Color PanelColor = Color.CornflowerBlue;
+        private Color PanelColorHoverColor = Color.LightGray;
 
 
 
@@ -244,6 +274,9 @@ namespace VirtualPanel
             pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_5, ScrollBar5));
 
             port = new ArduinoPort("[VirtualPanel]");
+            menuStrip1.Renderer = new MenuRenderer();
+
+            
 
             stats = new MonitorForm(port);
             stats.Show();
@@ -269,6 +302,7 @@ namespace VirtualPanel
             port.MessageReceived += Port_MessageReceived;
             port.SearchPortTimeout = TimeSpan.FromSeconds(2);
             port.SearchPollFrequency = TimeSpan.FromMilliseconds(200);
+
         }
 
         private void VirtualPanelForm_Shown(object sender, EventArgs e)
@@ -300,9 +334,21 @@ namespace VirtualPanel
 
             panel1.Visible = false;
 
+            PanelColor = Color.CornflowerBlue;
+            PanelColorHoverColor = Color.LightGray;
+
+            menuStrip1.BackColor = PanelColor;
+            ApplicationTitle.BackColor = PanelColor;
+            toolStripMenuItem1.BackColor = PanelColor;
+            connection_label.BackColor = PanelColor;
+            pictureBox1.BackColor = PanelColor;
+            pictureBox2.BackColor = PanelColor;
+            graph.panel1.BackColor = PanelColor;
+       
             settings.LogFormClear();
             stats.MonitorClear();
             graph.GraphPanelClear();
+            //info.InfoPanelClear(); // we leave the panel intact on a reset. 
 
             scrolllabel1.Visible = false;
             scrolllabel2.Visible = false;
@@ -380,6 +426,9 @@ namespace VirtualPanel
 
             PanelInputPanel_1.Visible = false;
             PanelInputPanel_2.Visible = false;
+
+            PanelInputLabel_1.Text = "";
+            PanelInputLabel_2.Text = "";
 
             PanelInput_1 = false;
             PanelInput_2 = false;
@@ -512,6 +561,8 @@ namespace VirtualPanel
                     }
                 }
             }
+
+            if ((ChannelId)mse.ChannelID == ChannelId.PanelColor && mse.Type == vp_type.vp_string) SetPanelColor((string)mse.Data);
         }
 
         private void SetAppearance(Control control, MessageEventArgs<object> mse)
@@ -556,7 +607,7 @@ namespace VirtualPanel
 
             if (ColorString == "$YELLOW") convertedColor = Color.Yellow;
             if (ColorString == "$ORANGE") convertedColor = Color.Orange;
-            if (ColorString == "$RED")   convertedColor = Color.Red;
+            if (ColorString == "$RED") convertedColor = Color.Red;
             if (ColorString == "$BLUE") convertedColor = Color.DodgerBlue;
             if (ColorString == "$PINK") convertedColor = Color.Fuchsia;
             if (ColorString == "$PURPLE") convertedColor = Color.SlateBlue;
@@ -572,7 +623,29 @@ namespace VirtualPanel
         }
 
 
-  
+        private void SetPanelColor(string ColorString)
+        {
+            if (ColorString == "$YELLOW") PanelColor = Color.Goldenrod;
+            if (ColorString == "$ORANGE") PanelColor = Color.Tomato;
+            if (ColorString == "$RED") PanelColor = Color.IndianRed;
+            if (ColorString == "$BLUE") PanelColor = Color.CornflowerBlue;
+            if (ColorString == "$PINK") PanelColor = Color.PaleVioletRed;
+            if (ColorString == "$PURPLE") PanelColor = Color.MediumPurple;
+            if (ColorString == "$BROWN") PanelColor = Color.Peru;
+            if (ColorString == "$GREEN") PanelColor = Color.LightSeaGreen;
+            if (ColorString == "$GRAY") PanelColor = Color.DimGray;
+            if (ColorString == "$WHITE") PanelColor = Color.White;
+            if (ColorString == "$BLACK") PanelColor = Color.Black;
+
+            menuStrip1.BackColor = PanelColor;
+            ApplicationTitle.BackColor = PanelColor;
+            toolStripMenuItem1.BackColor = PanelColor;
+            connection_label.BackColor = PanelColor;
+            pictureBox1.BackColor = PanelColor;
+            pictureBox2.BackColor = PanelColor;
+            graph.panel1.BackColor = PanelColor;
+        }
+
         public static void SetButtonAppearance(Button button, MessageEventArgs<object> mse)
         {
             int channelId = mse.ChannelID;
@@ -655,11 +728,16 @@ namespace VirtualPanel
                 }
                 else if ((string)mse.Data == "$BIG")
                 {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
+                    button.Font = new Font("Microsoft Sans Serif", 11);
                 }
                 else if ((string)mse.Data == "$NORMAL")
                 {
                     button.Font = new Font("Microsoft Sans Serif", 8);
+                    button.Font = new Font(button.Font, FontStyle.Regular);
+                }
+                else if ((string)mse.Data == "$SMALL")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 7);
                     button.Font = new Font(button.Font, FontStyle.Regular);
                 }
                 else if ((string)mse.Data == "$BOLD")
@@ -914,14 +992,15 @@ namespace VirtualPanel
 
         private void mouseHover(object sender, EventArgs e)
         {
-            pictureBox2.BackColor = Color.LightBlue;
+            pictureBox2.BackColor = PanelColorHoverColor;
         }
 
 
         private void mouseLeave(object sender, EventArgs e)
         {
-            pictureBox2.BackColor = Color.CornflowerBlue;
+            pictureBox2.BackColor = PanelColor;
         }
+
 
         private void resetArduinoToolStripMenuItem_Click(object sender, EventArgs e)
         {

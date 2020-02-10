@@ -7,8 +7,61 @@ void ButtonsCallback(vp_channel event)
       AllButtonInit();
       break; 
 
+    case Button_1:
+    
+      Panel.send(Button_5, F("$SMALL"));
+      Panel.send(Button_5, F("small"));
+      Panel.send(Button_6, F("$NORMAL"));
+      Panel.send(Button_6, F("normal"));
+      Panel.send(Button_7, F("$BIG"));
+      Panel.send(Button_7, F("big"));
+      Panel.send(Button_8, F("$BIG"));
+      Panel.send(Button_8, F("$BOLD"));
+      Panel.send(Button_8, F("big\nbold"));
+      Panel.send(Button_9, F("$BIG"));
+      Panel.send(Button_9, F("$BOLD"));
+      Panel.send(Button_9, F("⭯"));
+      Panel.send(Button_10, F("$YELLOW"));
+      Panel.send(Button_10, F("$LEFT"));
+      Panel.send(Button_11, F("$PURPLE"));
+      Panel.send(Button_11, F("$STOP"));
+      Panel.send(Button_12, F("$ORANGE"));
+      Panel.send(Button_12, F("$UP"));
+      Panel.send(Button_13, F("$RED"));
+      Panel.send(Button_13, F("$DOT"));
+      Panel.send(Button_14, F("$GREEN"));
+      Panel.send(Button_14, F("$DOWN"));
+      Panel.send(Button_15, F("$BIG"));
+      Panel.send(Button_15, F("$BOLD"));
+      Panel.send(Button_15, F("⭮"));
+      Panel.send(Button_16, F("$BLUE"));
+      Panel.send(Button_16, F("$RIGHT"));
+      Panel.send(Button_17, F("$BIG"));
+      Panel.send(Button_17, F("👍"));
+    break;
+
+    
+    case Button_2:
+      Panel.send(Display_1, F("$BIG"));
+      Panel.send(Display_1, F("$BLACK"));
+      Panel.send(Display_1, F("Big"));
+      Panel.send(Display_2, F("$BIG"));
+      Panel.send(Display_2, F("$BOLD"));
+      Panel.send(Display_2, F("$RED"));
+      Panel.send(Display_2, F("Big Bold"));
+      Panel.send(Display_3, F("$GRAY"));
+      Panel.send(Display_3, F("Normal"));
+      Panel.send(Display_4, F("$SMALL"));   
+      Panel.send(Display_4, F("Small"));   
+    break;
+
+    case Button_3:
+      Panel.send(Reset);
+      break;
+    
+
+    
     case Button_4:
-      
       if( ++PanelMode == Endmode ) PanelMode = 0;
       Panel.send(Reset);
       break;
@@ -72,11 +125,8 @@ void AllButtonInit()
   Panel.send(MonitorField_5, F("MonitorField_5"));
   Panel.send(MonitorField_6, F("MonitorField_6"));
 
-  Panel.send(InfoTitle, "PannelTest");
-  Panel.send(InfoText, "Application specific help text");
-  Panel.send(InfoText, "Can be changed run-time");
-  Panel.send(InfoText, "Hyperlink to documenation pages\n");
-  Panel.send(InfoText, "https://github.com/JaapDanielse/VirtualPanel");
+ //WriteInfo();
+  
   Infomode = false;
   Monmode = false;
   Graphmode = false;
