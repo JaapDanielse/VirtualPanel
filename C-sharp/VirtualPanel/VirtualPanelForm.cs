@@ -690,7 +690,6 @@ namespace VirtualPanel
         {
             if (!file.isOpen)
             {
-                if (port.IsConnected) port.Send((byte)replyChannel, false);
                 return;
             }
 
@@ -786,7 +785,7 @@ namespace VirtualPanel
             }
             else
             {
-                if (port.IsConnected) port.Send((byte)replyChannel, false);
+                if (port.IsConnected) port.Send((byte)replyChannel);
             }
         }
 
@@ -794,7 +793,6 @@ namespace VirtualPanel
         {
             if (!file.isOpen)
             {
-                if (port.IsConnected) port.Send((byte)replyChannel, false);
                 return;
             }
 
@@ -806,7 +804,7 @@ namespace VirtualPanel
             }
             else
             {
-                if (port.IsConnected) { port.Send((byte)replyChannel, false); }
+                if (port.IsConnected) { port.Send((byte)replyChannel); } // end of file: send void.
             }
         }
 
