@@ -648,6 +648,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Graph";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GraphForm_FormClosing);
+            this.Move += new System.EventHandler(this.GraphForm_Move);
             ((System.ComponentModel.ISupportInitialize)(this.PenColor1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PenColor2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PenColor3)).EndInit();

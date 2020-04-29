@@ -21,8 +21,10 @@ send	KEYWORD2
 sendf	KEYWORD2
 _Line	KEYWORD2
 _Point	KEYWORD2
+_Circle	KEYWORD2
 _VLine	KEYWORD2
 _VPoint	KEYWORD2
+_VCircle	KEYWORD2
 _FString	KEYWORD2
 _Sound	KEYWORD2
 PanelCallback	KEYWORD2
@@ -58,7 +60,7 @@ PanelConnected	LITERAL1
 Reset	LITERAL1
 DynamicDisplay	LITERAL1
 UnixTime	LITERAL1
-PanelColor	LITERAL1
+
 Beep	LITERAL1
 #
 Button_1	LITERAL1
@@ -200,7 +202,59 @@ Info	LITERAL1
 InfoTitle	LITERAL1
 InfoText	LITERAL1
 #
-
+PanelColor	LITERAL1
+#
+GraphDrawCircle	LITERAL1
+#
+GraphInput_1	LITERAL1
+GraphInput_2	LITERAL1
+GraphInput_3	LITERAL1
+GraphInput_4	LITERAL1
+GraphInput_5	LITERAL1
+#
+GraphInputLabel_1	LITERAL1
+GraphInputLabel_2	LITERAL1
+GraphInputLabel_3	LITERAL1
+GraphInputLabel_4	LITERAL1
+GraphInputLabel_5	LITERAL1
+#
+MinGraphInput_1	LITERAL1
+MinGraphInput_2	LITERAL1
+MinGraphInput_3	LITERAL1
+MinGraphInput_4	LITERAL1
+MinGraphInput_5	LITERAL1
+#
+MaxGraphInput_1	LITERAL1
+MaxGraphInput_2	LITERAL1
+MaxGraphInput_3	LITERAL1
+MaxGraphInput_4	LITERAL1
+MaxGraphInput_5	LITERAL1
+#
+OpenFile_1	LITERAL1
+OpenFile_2	LITERAL1
+OpenFile_3	LITERAL1
+OpenFile_4	LITERAL1
+#
+ReadLineFile_1	LITERAL1
+ReadLineFile_2	LITERAL1
+ReadLineFile_3	LITERAL1
+ReadLineFile_4	LITERAL1
+#
+WriteLineFile_1	LITERAL1
+WriteLineFile_2	LITERAL1
+WriteLineFile_3	LITERAL1
+WriteLineFile_4	LITERAL1
+#
+ClearFile_1	LITERAL1
+ClearFile_2	LITERAL1
+ClearFile_3	LITERAL1
+ClearFile_4	LITERAL1
+#
+FileOpenDialogTitle_1	LITERAL1
+FileOpenDialogTitle_2	LITERAL1
+FileOpenDialogTitle_3	LITERAL1
+FileOpenDialogTitle_4	LITERAL1
+#
 #######################################
 # Built in varables (LITERAL2)
 #######################################

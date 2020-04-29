@@ -4,6 +4,7 @@ enum ModeList
   Buttons,
   Sliders,
   Inputs,
+  Graphinput,
   Roling,
   Static,
   Draw,
@@ -49,7 +50,9 @@ void PanelCallback(vp_channel event)
      
      case Clock: 
        ClockCallback( event); break;
-     
+
+     case Graphinput: 
+       GraphInputCallback( event); break;
        
      default: 
        break;

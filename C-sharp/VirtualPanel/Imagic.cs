@@ -106,16 +106,19 @@ namespace VirtualPanel
     {
         public Point Location { get; set; }
         public Color Color { get; set; }
+        public float Width { get; set; }
 
-        public Pixel(int x, int y, Color color)
+        public Pixel(int x, int y, Color color, float width)
         {
             Location = new Point(x, y);
             Color = color;
+            Width = width;
         }
-        public Pixel(Point loc, Color color)
+        public Pixel(Point loc, Color color, float width)
         {
             Location = loc;
             Color = color;
+            Width = width;
         }
 
         public override bool Equals(Object obj)
@@ -137,7 +140,58 @@ namespace VirtualPanel
 
         public void Draw(Graphics g)
         {
-            g.FillRectangle(new SolidBrush(Color), Location.X, Location.Y, 1, 1);
+            g.FillRectangle(new SolidBrush(Color), Location.X-(Width/2), Location.Y-(Width/2), Width, Width);
+        }
+    }
+
+    public struct Circle : IDrawable
+    {
+        public Point Location { get; set; }
+        public Color Color { get; set; }
+        public float Size { get; set; }
+        public float Width { get; set; }
+        public Int32 StartAngle { get; set; }
+        public Int32 ArcAngle { get; set; }
+
+        public Circle(int x, int y, Color color, float size, float width, int startAngle, int arcAngle)
+        {
+            Location = new Point(x, y);
+            Color = color;
+            Size = size;
+            Width = width;
+            StartAngle = startAngle;
+            ArcAngle = arcAngle;
+        }
+        public Circle(Point loc, Color color, float size, float width, int startAngle, int arcAngle)
+        {
+            Location = loc;
+            Color = color;
+            Size = size;
+            Width = width;
+            StartAngle = startAngle;
+            ArcAngle = arcAngle;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            return obj is Circle && this == (Circle)obj;
+        }
+        public override int GetHashCode()
+        {
+            return Location.GetHashCode();
+        }
+        public static bool operator ==(Circle x, Circle y)
+        {
+            return x.Location == y.Location && x.Size == y.Size && x.StartAngle == y.StartAngle;
+        }
+        public static bool operator !=(Circle x, Circle y)
+        {
+            return !(x == y);
+        }
+
+        public void Draw(Graphics g)
+        {
+            g.DrawArc(new Pen(Color, Width), Location.X - (Size / 2), Location.Y - (Size / 2), Size, Size, StartAngle, ArcAngle);
         }
     }
 

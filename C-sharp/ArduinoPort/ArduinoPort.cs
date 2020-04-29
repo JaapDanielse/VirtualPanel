@@ -403,6 +403,16 @@ namespace ArduinoCom
                     Debug.WriteLine(ae);
                     continue;
                 }
+                catch (OverflowException oe)
+                {
+                    Debug.WriteLine(oe);
+                    continue;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    continue;
+                }
             }
         }
 

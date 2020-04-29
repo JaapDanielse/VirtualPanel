@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
 using ArduinoCom;
 using System.Diagnostics;
+using System.IO;
 
 namespace VirtualPanel
 {
@@ -165,6 +166,8 @@ namespace VirtualPanel
         //
         PanelColor, //
         //
+        GraphDrawCircle, //
+        //
         GraphInput_1, //
         GraphInput_2, //
         GraphInput_3, //
@@ -189,7 +192,32 @@ namespace VirtualPanel
         GraphInputLabel_4, //
         GraphInputLabel_5, //
         //
-        EndChannel
+        OpenFile_1, //
+        OpenFile_2, //
+        OpenFile_3, //
+        OpenFile_4, //
+        //
+        ReadLineFile_1, //
+        ReadLineFile_2, //
+        ReadLineFile_3, //
+        ReadLineFile_4, //
+        //
+        WriteLineFile_1, //
+        WriteLineFile_2, //
+        WriteLineFile_3, //
+        WriteLineFile_4, //
+        //
+        ClearFile_1, //
+        ClearFile_2, //
+        ClearFile_3, //
+        ClearFile_4, //
+        //
+        FileOpenDialogTitle_1, //
+        FileOpenDialogTitle_2, //
+        FileOpenDialogTitle_3, //
+        FileOpenDialogTitle_4, //
+        //
+        EndChannel //
     }
 
     public partial class VirtualPanelForm : Form
@@ -224,6 +252,19 @@ namespace VirtualPanel
         public Color PanelColor = Color.CornflowerBlue;
         private Color PanelColorHoverColor = Color.LightGray;
 
+        string dialogdir = "";
+
+        FileHandle FileHandle_1 = new FileHandle();
+        FileHandle FileHandle_2 = new FileHandle();
+        FileHandle FileHandle_3 = new FileHandle();
+        FileHandle FileHandle_4 = new FileHandle();
+
+        String DialogTitleFile_1 = "VirtualPanel Open File 1";
+        String DialogTitleFile_2 = "VirtualPanel Open File 2";
+        String DialogTitleFile_3 = "VirtualPanel Open File 3";
+        String DialogTitleFile_4 = "VirtualPanel Open File 4";
+
+        public Point GraphLocation = new Point(0, 0);
 
 
         public VirtualPanelForm()
@@ -276,7 +317,7 @@ namespace VirtualPanel
             port = new ArduinoPort("[VirtualPanel]");
             menuStrip1.Renderer = new MenuRenderer();
 
-            
+            PreviousLocation = Location;
 
             stats = new MonitorForm(port);
             stats.Show();
@@ -302,6 +343,8 @@ namespace VirtualPanel
             port.MessageReceived += Port_MessageReceived;
             port.SearchPortTimeout = TimeSpan.FromSeconds(2);
             port.SearchPollFrequency = TimeSpan.FromMilliseconds(200);
+
+
 
         }
 
@@ -443,6 +486,11 @@ namespace VirtualPanel
             MaxPanelInputF_1 = float.MaxValue;
             MaxPanelInputF_2 = float.MaxValue;
 
+            DialogTitleFile_1 = "VirtualPanel Open File 1";
+            DialogTitleFile_2 = "VirtualPanel Open File 2";
+            DialogTitleFile_3 = "VirtualPanel Open File 3";
+            DialogTitleFile_4 = "VirtualPanel Open File 4";
+
             if (port.IsConnected) port.Send((byte)ChannelId.PanelConnected);
             PannelConnected = true;
 
@@ -482,6 +530,41 @@ namespace VirtualPanel
                     if ((int)mse.Data >= 100 && (int)mse.Data <= 2500) timer1.Interval = (int)mse.Data;
                     timer1.Enabled = true;
                 }
+
+                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_1 && mse.Type == vp_type.vp_string) FileOpen(FileHandle_1, ChannelId.OpenFile_1, (string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_2 && mse.Type == vp_type.vp_string) FileOpen(FileHandle_2, ChannelId.OpenFile_2, (string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_3 && mse.Type == vp_type.vp_string) FileOpen(FileHandle_3, ChannelId.OpenFile_3, (string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_4 && mse.Type == vp_type.vp_string) FileOpen(FileHandle_4, ChannelId.OpenFile_4, (string)mse.Data);
+
+                if ((ChannelId)mse.ChannelID == ChannelId.ReadLineFile_1 && mse.Type == vp_type.vp_void) FileReadLine(FileHandle_1, ChannelId.ReadLineFile_1);
+                if ((ChannelId)mse.ChannelID == ChannelId.ReadLineFile_2 && mse.Type == vp_type.vp_void) FileReadLine(FileHandle_2, ChannelId.ReadLineFile_2);
+                if ((ChannelId)mse.ChannelID == ChannelId.ReadLineFile_3 && mse.Type == vp_type.vp_void) FileReadLine(FileHandle_3, ChannelId.ReadLineFile_3);
+                if ((ChannelId)mse.ChannelID == ChannelId.ReadLineFile_4 && mse.Type == vp_type.vp_void) FileReadLine(FileHandle_4, ChannelId.ReadLineFile_4);
+
+                if ((ChannelId)mse.ChannelID == ChannelId.ReadLineFile_1 && mse.Type == vp_type.vp_long) FileHandle_1.MoveReadCaret((long)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.ReadLineFile_2 && mse.Type == vp_type.vp_long) FileHandle_2.MoveReadCaret((long)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.ReadLineFile_3 && mse.Type == vp_type.vp_long) FileHandle_3.MoveReadCaret((long)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.ReadLineFile_4 && mse.Type == vp_type.vp_long) FileHandle_4.MoveReadCaret((long)mse.Data);
+
+                if ((ChannelId)mse.ChannelID == ChannelId.WriteLineFile_1 && mse.Type == vp_type.vp_string) FileWriteLine(FileHandle_1, ChannelId.WriteLineFile_1, (string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.WriteLineFile_2 && mse.Type == vp_type.vp_string) FileWriteLine(FileHandle_2, ChannelId.WriteLineFile_2, (string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.WriteLineFile_3 && mse.Type == vp_type.vp_string) FileWriteLine(FileHandle_3, ChannelId.WriteLineFile_3, (string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.WriteLineFile_4 && mse.Type == vp_type.vp_string) FileWriteLine(FileHandle_4, ChannelId.WriteLineFile_4, (string)mse.Data);
+
+                if ((ChannelId)mse.ChannelID == ChannelId.WriteLineFile_1 && mse.Type == vp_type.vp_long) FileHandle_1.MoveWriteCaret((long)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.WriteLineFile_2 && mse.Type == vp_type.vp_long) FileHandle_2.MoveWriteCaret((long)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.WriteLineFile_3 && mse.Type == vp_type.vp_long) FileHandle_3.MoveWriteCaret((long)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.WriteLineFile_4 && mse.Type == vp_type.vp_long) FileHandle_4.MoveWriteCaret((long)mse.Data);
+
+                if ((ChannelId)mse.ChannelID == ChannelId.ClearFile_1 && mse.Type == vp_type.vp_void) FileHandle_1.Clear();
+                if ((ChannelId)mse.ChannelID == ChannelId.ClearFile_2 && mse.Type == vp_type.vp_void) FileHandle_2.Clear();
+                if ((ChannelId)mse.ChannelID == ChannelId.ClearFile_3 && mse.Type == vp_type.vp_void) FileHandle_3.Clear();
+                if ((ChannelId)mse.ChannelID == ChannelId.ClearFile_4 && mse.Type == vp_type.vp_void) FileHandle_4.Clear();
+
+                if ((ChannelId)mse.ChannelID == ChannelId.FileOpenDialogTitle_1 && mse.Type == vp_type.vp_string) DialogTitleFile_1 = (string)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.FileOpenDialogTitle_2 && mse.Type == vp_type.vp_string) DialogTitleFile_2 = (string)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.FileOpenDialogTitle_3 && mse.Type == vp_type.vp_string) DialogTitleFile_3 = (string)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.FileOpenDialogTitle_4 && mse.Type == vp_type.vp_string) DialogTitleFile_4 = (string)mse.Data;
 
                 if (id == ChannelId.Beep && mse.Type == vp_type.vp_void) System.Console.Beep(500, 400);
                 if (id == ChannelId.Beep && mse.Type == vp_type.vp_int) System.Console.Beep((int)mse.Data, 400);
@@ -563,6 +646,8 @@ namespace VirtualPanel
             }
 
             if ((ChannelId)mse.ChannelID == ChannelId.PanelColor && mse.Type == vp_type.vp_string) SetPanelColor((string)mse.Data);
+
+
         }
 
         private void SetAppearance(Control control, MessageEventArgs<object> mse)
@@ -598,6 +683,130 @@ namespace VirtualPanel
 
                 }
 
+            }
+        }
+
+        private void FileWriteLine(FileHandle file, ChannelId replyChannel, string line)
+        {
+            if (!file.isOpen)
+            {
+                if (port.IsConnected) port.Send((byte)replyChannel, false);
+                return;
+            }
+
+            file.WriteLine(line);
+        }
+
+
+        private void FileOpen(FileHandle file, ChannelId replyChannel, string filestring)
+        {
+            if (file == FileHandle_1) openFileDialog1.Title = DialogTitleFile_1;
+            if (file == FileHandle_2) openFileDialog1.Title = DialogTitleFile_2;
+            if (file == FileHandle_3) openFileDialog1.Title = DialogTitleFile_3;
+            if (file == FileHandle_4) openFileDialog1.Title = DialogTitleFile_4;
+
+            openFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.FileName = "";
+
+            string fdir = "";
+            string fnam = "";
+            string fext = "";
+            bool wild = false;
+            bool dirok = false;
+            bool forcecreate = false;
+
+            if (filestring.Contains("/C") || filestring.Contains("/c"))
+            {
+                var test = filestring.Split('/');
+                filestring = test[0];
+                forcecreate = true;
+            }
+
+            try { fdir = Path.GetDirectoryName(filestring); } catch (Exception ex) { };
+            try { fnam = Path.GetFileName(filestring); } catch (Exception ex) { };
+            try { fext = Path.GetExtension(filestring); } catch (Exception ex) { };
+
+            if (fnam.Contains("*")) wild = true;
+
+            if (fdir != "")
+                dirok = false;
+            else if (dialogdir != "")
+                dirok = true;
+
+            // check if directory exists
+            if (fdir != "" && Directory.Exists(fdir + "\\"))
+            {
+                dialogdir = fdir + "\\";
+                dirok = true;
+                openFileDialog1.InitialDirectory = dialogdir;
+                if (fnam == "")
+                { // no file specified, only a (existing) directory, set 
+                    return;
+                }
+            } // dialogdir is set. If there was no file or wildcard we exit.
+
+            if (fnam != "" && !wild)
+            {
+                openFileDialog1.FileName = fnam;
+                if (fext != "")
+                    openFileDialog1.Filter = fext.Remove(0, 1) + " files|*" + fext + "|All files (*.*)|*.*";
+                else
+                    openFileDialog1.Filter = "All files (*.*)|*.*";
+            }
+
+            if (File.Exists(dialogdir + fnam) && !wild)
+            { // open existing file
+                int LineCount = file.Open(dialogdir + fnam);
+                if (port.IsConnected) port.Send((byte)replyChannel, vp_type.vp_long, LineCount);
+                return;
+            }
+
+            if (wild)
+            { // set wildcard filter
+                openFileDialog1.Filter = fext.Remove(0, 1) + " files|*" + fext + "|All files (*.*)|*.*";
+            }
+
+            if (!wild && dirok && fnam != "" && fext != "" && forcecreate)
+            { // force create a new file and open
+                File.Create(dialogdir + fnam).Close();
+                int LineCount = file.Open(dialogdir + fnam);
+                if (port.IsConnected) port.Send((byte)replyChannel, vp_type.vp_long, LineCount);
+                return;
+            }
+
+            // open dialog
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            { // dialog ok, if not exist create and open
+                if (!File.Exists(openFileDialog1.FileName))
+                    File.Create(openFileDialog1.FileName).Close(); 
+                dialogdir = Path.GetDirectoryName(openFileDialog1.FileName) + "\\"; // save dialog dir.
+                int LineCount = file.Open(openFileDialog1.FileName);
+                if (port.IsConnected) port.Send((byte)replyChannel, vp_type.vp_long, LineCount);
+            }
+            else
+            {
+                if (port.IsConnected) port.Send((byte)replyChannel, false);
+            }
+        }
+
+       private void FileReadLine(FileHandle file, ChannelId replyChannel)
+        {
+            if (!file.isOpen)
+            {
+                if (port.IsConnected) port.Send((byte)replyChannel, false);
+                return;
+            }
+
+            string line = file.ReadLine();
+
+            if (line != null)
+            {
+                if (port.IsConnected) { port.Send((byte)replyChannel, line); }
+            }
+            else
+            {
+                if (port.IsConnected) { port.Send((byte)replyChannel, false); }
             }
         }
 
@@ -1229,6 +1438,31 @@ namespace VirtualPanel
             }
         }
 
+        private Point PreviousLocation { get; set; }
 
+        private void VirtualPanelForm_Move(object sender, EventArgs e)
+        {
+            if (info.Visible == true)
+                info.Location = new Point(Location.X + (info.Location.X - PreviousLocation.X), Location.Y + (info.Location.Y - PreviousLocation.Y));
+
+            if (graph.Visible == true)
+                graph.Location = new Point(Location.X + (graph.Location.X - PreviousLocation.X), Location.Y + (graph.Location.Y - PreviousLocation.Y));
+
+            if (stats.Visible == true)
+                stats.Location = new Point(Location.X + (stats.Location.X - PreviousLocation.X), Location.Y + (stats.Location.Y - PreviousLocation.Y));
+
+            if (settings.Visible == true)
+                settings.Location = new Point(Location.X + (settings.Location.X - PreviousLocation.X), Location.Y + (settings.Location.Y - PreviousLocation.Y));
+
+            PreviousLocation = new Point(Location.X, Location.Y);
+        }
+
+        private void filesToDisk_Tick(object sender, EventArgs e)
+        {
+            FileHandle_1.toDisk();
+            FileHandle_2.toDisk();
+            FileHandle_3.toDisk();
+            FileHandle_4.toDisk();
+        }
     }
 }

@@ -66,9 +66,12 @@ namespace VirtualPanel
         Imagic PersistentDrawing = new Imagic();
 
         int DrawPenSize = 1;
+        int DrawPixelSize = 1;
+        int DrawCirclePenSize = 1;
 
         Color DrawTextColor = Color.White;
-        Color DrawColor = Color.White;
+        Color DrawLineColor = Color.White;
+        Color DrawCircleColor = Color.White;
         Color DrawPointColor = Color.White;
 
         Point DrawtextPoint = new Point(0, 0);
@@ -160,8 +163,12 @@ namespace VirtualPanel
             graphLabel4.Visible = false;
             graphLabel5.Visible = false;
             DrawPenSize = 1;
+            DrawPixelSize = 1;
+            DrawCirclePenSize = 1;
             DrawTextColor = Color.White;
-            DrawColor = Color.White;
+            DrawLineColor = Color.White;
+            DrawPointColor = Color.White;
+            DrawCircleColor = Color.White;
 
             PenColor1.Visible = false;
             PenColor2.Visible = false;
@@ -253,7 +260,8 @@ namespace VirtualPanel
                 {
                     if ((string)mse.Data == "$CLEAR") { PersistentDrawing.Clear(); LinePointValid = false; }
                 }
- //               if ((ChannelId)mse.ChannelID == ChannelId.GraphPen && mse.Type == vp_type.vp_string) SetDrawPointPen((string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawCircle && mse.Type == vp_type.vp_string) DrawCircle((string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawCircle && mse.Type == vp_type.vp_string) SetCirclePen((string)mse.Data);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_ulong) DrawPersitentLine((Int64)mse.Data);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_string) SetDrawPen((string)mse.Data);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_uint) DrawLinePoint((ushort)(int)mse.Data);
@@ -420,10 +428,7 @@ namespace VirtualPanel
                 if (CaptionId == 2) PersistentDrawing.Add(new Text(new Point(10, 202), data, DrawTextColor, 8));
             }
             GraphPictureBox1.Invalidate();
-
         }
-
-
 
         private void DrawTextPos(int data)
         {
@@ -454,12 +459,42 @@ namespace VirtualPanel
             ys = GraphPictureBox1.Height - ys;
             ye = GraphPictureBox1.Height - ye;
 
-            if (DrawColor == Color.Black)
-                PersistentDrawing.Delete(new Line(xs, ys, xe, ye, DrawColor, DrawPenSize));
+            if (DrawLineColor == Color.Black)
+                PersistentDrawing.Delete(new Line(xs, ys, xe, ye, DrawLineColor, DrawPenSize));
             else
-            PersistentDrawing.Add(new Line(xs, ys, xe, ye, DrawColor, DrawPenSize));
+            PersistentDrawing.Add(new Line(xs, ys, xe, ye, DrawLineColor, DrawPenSize));
             GraphPictureBox1.Invalidate();
         }
+
+
+        private void DrawCircle(String CircleParams)
+        {
+            int xc = 0;
+            int yc = 0;
+            int radius = 0;
+            int startAngle = 0;
+            int arcAngle = 0;
+
+            if(CircleParams.Substring(0, 2) == "$$") // hexcoded circle parameters? (byte x)(byte y)(byte radius)(int startangle)(int arc)
+            {
+                xc = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(CircleParams.Substring(2, 2), 16)));
+                yc = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(CircleParams.Substring(4, 2), 16)));
+                radius = Convert.ToInt32(Convert.ToByte(Convert.ToInt16(CircleParams.Substring(6, 2), 16)));
+                startAngle = Convert.ToInt32(Convert.ToInt16(CircleParams.Substring(8, 4), 16));
+                arcAngle = Convert.ToInt32(Convert.ToInt16(CircleParams.Substring(12, 4), 16));
+                xc = xc + 4; // within draw box
+                yc = GraphPictureBox1.Height - yc; // botom to top
+                startAngle = startAngle - 90;
+                radius = radius * 2; // radius to box size
+
+                if (DrawLineColor == Color.Black || radius == 0)
+                    PersistentDrawing.Delete(new Circle(xc, yc, DrawCircleColor, radius, DrawCirclePenSize, startAngle, arcAngle));
+                else
+                    PersistentDrawing.Add(new Circle(xc, yc, DrawCircleColor, radius, DrawCirclePenSize, startAngle, arcAngle));
+                GraphPictureBox1.Invalidate();
+            }
+        }
+
 
         private void DrawLinePoint(ushort data)
         {
@@ -473,10 +508,10 @@ namespace VirtualPanel
 
             if (LinePointValid)
             {
-                if (DrawColor == Color.Black)
-                    PersistentDrawing.Delete(new Line(LinePoint, DrawPoint, DrawColor, DrawPenSize));
+                if (DrawLineColor == Color.Black)
+                    PersistentDrawing.Delete(new Line(LinePoint, DrawPoint, DrawLineColor, DrawPenSize));
                 else
-                    PersistentDrawing.Add(new Line(LinePoint, DrawPoint, DrawColor, DrawPenSize));
+                    PersistentDrawing.Add(new Line(LinePoint, DrawPoint, DrawLineColor, DrawPenSize));
 
                 GraphPictureBox1.Invalidate();
                 LinePoint = DrawPoint;
@@ -495,10 +530,10 @@ namespace VirtualPanel
             DrawPoint.X = DrawPoint.X + 4;
             DrawPoint.Y = GraphPictureBox1.Height - DrawPoint.Y;
 
-            if (DrawColor == Color.Black)
-                PersistentDrawing.Delete(new Pixel(DrawPoint.X, DrawPoint.Y, DrawPointColor));
+            if (DrawLineColor == Color.Black)
+                PersistentDrawing.Delete(new Pixel(DrawPoint.X, DrawPoint.Y, DrawPointColor, DrawPenSize));
             else
-                PersistentDrawing.Add(new Pixel(DrawPoint.X, DrawPoint.Y, DrawPointColor));
+                PersistentDrawing.Add(new Pixel(DrawPoint.X, DrawPoint.Y, DrawPointColor, DrawPenSize));
 
             GraphPictureBox1.Invalidate();
         }
@@ -507,17 +542,32 @@ namespace VirtualPanel
         {
             Color col = VirtualPanelForm.String2Color(PenColor);
             if (!col.IsEmpty) DrawPointColor = col; //
+            if (PenColor == "$1PX") DrawPixelSize = 1;
+            if (PenColor == "$2PX") DrawPixelSize = 2;
+            if (PenColor == "$3PX") DrawPixelSize = 3;
+            if (PenColor == "$4PX") DrawPixelSize = 4;
         }
 
         private void SetDrawPen(string PenColor)
         {
             Color col = VirtualPanelForm.String2Color(PenColor);
-            if (!col.IsEmpty) DrawColor = col; //
+            if (!col.IsEmpty) DrawLineColor = col; //
             if (PenColor == "$1PX") DrawPenSize = 1;
             if (PenColor == "$2PX") DrawPenSize = 2;
             if (PenColor == "$3PX") DrawPenSize = 3;
             if (PenColor == "$4PX") DrawPenSize = 4;
         }
+
+        private void SetCirclePen(string PenColor)
+        {
+            Color col = VirtualPanelForm.String2Color(PenColor);
+            if (!col.IsEmpty) DrawCircleColor = col; //
+            if (PenColor == "$1PX") DrawCirclePenSize = 1;
+            if (PenColor == "$2PX") DrawCirclePenSize = 2;
+            if (PenColor == "$3PX") DrawCirclePenSize = 3;
+            if (PenColor == "$4PX") DrawCirclePenSize = 4;
+        }
+
 
         private void SetLabelAppearance(Label control, MessageEventArgs<object> mse)
         {
@@ -816,6 +866,11 @@ namespace VirtualPanel
                 TextBox.ForeColor = Color.Red;
                 Panel.Visible = true;
             }
+        }
+
+        private void GraphForm_Move(object sender, EventArgs e)
+        {
+
         }
 
         private void GraphInputTextBox_TextChange(object sender, EventArgs e)

@@ -210,6 +210,8 @@ void InputsCallback(vp_channel event)
 void InputsInit()
 {
   Panel.send(ApplicationName,F("PanelTest - Inputs")); // set the application name
+  Panel.send(PanelColor,"$GRAY"); // set the application name
+
 
   Panel.send(Button_4,  F("next\npanel"));
   Panel.send(Button_5,  F("info"));

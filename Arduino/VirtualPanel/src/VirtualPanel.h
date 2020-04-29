@@ -6,7 +6,7 @@
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V1.0.3    26-07-2019 JpD
+	V1.1.0    23-03-2020 JpD
 */
 
 #pragma once
@@ -157,9 +157,64 @@ enum vp_channel : int // event/channel list
   GraphDoubleClick, //
   GraphRightClick, //
 	//
-  Info,
-  InfoTitle,
-  InfoText
+  Info, //
+  InfoTitle, //
+  InfoText, //
+	//
+	PanelColor, //
+	//
+	GraphDrawCircle, //
+	//
+	GraphInput_1, //
+	GraphInput_2, //
+	GraphInput_3, //
+	GraphInput_4, //
+	GraphInput_5, //
+	//
+	MinGraphInput_1, //
+	MinGraphInput_2, //
+	MinGraphInput_3, //
+	MinGraphInput_4, //
+	MinGraphInput_5, //
+	//
+	MaxGraphInput_1, //
+	MaxGraphInput_2, //
+	MaxGraphInput_3, //
+	MaxGraphInput_4, //
+	MaxGraphInput_5, //
+	//
+	GraphInputLabel_1, //
+	GraphInputLabel_2, //
+	GraphInputLabel_3, //
+	GraphInputLabel_4, //
+	GraphInputLabel_5, //
+  //
+	OpenFile_1, //
+	OpenFile_2, //
+	OpenFile_3, //
+	OpenFile_4, //
+	//
+	ReadLineFile_1, //
+	ReadLineFile_2, //
+	ReadLineFile_3, //
+	ReadLineFile_4, //
+	//
+	WriteLineFile_1, //
+	WriteLineFile_2, //
+	WriteLineFile_3, //
+	WriteLineFile_4, //
+	//
+	ClearFile_1, //
+	ClearFile_2, //
+	ClearFile_3, //
+	ClearFile_4, //
+	// 
+	FileOpenDialogTitle_1,
+	FileOpenDialogTitle_2,
+	FileOpenDialogTitle_3,
+	FileOpenDialogTitle_4,
+	//
+	EndChannel //
   //
 };
 
@@ -183,9 +238,19 @@ uint16_t _Point( uint8_t x, uint8_t y); // Declaration of graph point helper fun
 
 uint32_t _Line( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye); // Declaration of graph line helper function (packs four bytes in a uint32_t).
 
+char * _Circle( uint8_t xs, uint8_t ys, uint8_t rad, uint16_t angle, uint16_t arc); // Declaration of graph (packs four bytes in a uint32_t).
+
+char * _Circle( uint8_t x, uint8_t y, uint8_t rad);
+
+
 uint32_t _VLine( uint8_t xs, uint8_t ys, uint8_t xe, uint8_t ye); // Declaration of graph line helper function (packs four bytes in a uint32_t). (converting y coordinates to values)
 
 uint16_t _VPoint( uint8_t x, uint8_t y); // Declaration of graph point helper function (packs two bytes in a iunt16_t). (converting y coordinate to value)
+
+char * _VCircle( uint8_t xs, uint8_t ys, uint8_t rad, uint16_t angle, uint16_t arc); // Declaration of graph (packs four bytes in a uint32_t).
+
+char * _VCircle( uint8_t x, uint8_t y, uint8_t rad);
+
 
 uint32_t _Sound( uint16_t frequency, uint16_t duration); // Declaration of Beep helper funtion
 

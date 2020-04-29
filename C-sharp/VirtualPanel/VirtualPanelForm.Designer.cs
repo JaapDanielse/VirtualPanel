@@ -98,6 +98,8 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.ScrollBar5 = new System.Windows.Forms.HScrollBar();
             this.scrolllabel5 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.filesToDisk = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.connected_box)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -826,6 +828,18 @@
             this.scrolllabel5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.scrolllabel5.Visible = false;
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.CheckFileExists = false;
+            this.openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            this.openFileDialog1.Title = "VirtualPanel Open File";
+            // 
+            // filesToDisk
+            // 
+            this.filesToDisk.Enabled = true;
+            this.filesToDisk.Interval = 300;
+            this.filesToDisk.Tick += new System.EventHandler(this.filesToDisk_Tick);
+            // 
             // VirtualPanelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -883,6 +897,7 @@
             this.Text = "ArduinoVirtualPanel";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VirtualPanelForm_FormClosing);
             this.Shown += new System.EventHandler(this.VirtualPanelForm_Shown);
+            this.Move += new System.EventHandler(this.VirtualPanelForm_Move);
             ((System.ComponentModel.ISupportInitialize)(this.connected_box)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led1)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -980,6 +995,8 @@
         private System.Windows.Forms.HScrollBar ScrollBar5;
         private System.Windows.Forms.Label scrolllabel5;
         private System.Windows.Forms.Label display3;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Timer filesToDisk;
     }
 }
 

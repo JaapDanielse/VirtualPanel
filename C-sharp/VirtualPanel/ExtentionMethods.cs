@@ -10,6 +10,12 @@ namespace VirtualPanel
 {
     public static class ExtentionMethodss
     {
+        public static string Truncate(this string value, int maxLength)
+        {
+            if (string.IsNullOrEmpty(value)) return value;
+            return value.Length <= maxLength ? value : value.Substring(0, maxLength);
+        }
+
         public static String Right(this String s, int start, int length)
         {
             if (s.Length == 0 || start < 0 || start >= s.Length)

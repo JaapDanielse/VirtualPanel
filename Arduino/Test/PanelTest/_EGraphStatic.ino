@@ -15,8 +15,8 @@ void StaticCallback(vp_channel event)
     { 
      // initialize panel layout
       Panel.send(ApplicationName,"PanelTest - StaticGraph"); // set the application name
+      Panel.send(PanelColor,"$PURPLE"); // set the application name
       Panel.send(DynamicDisplay,500);     // enable dynamic display request
-
       Panel.send(Button_4,  F("next\npanel"));
       Panel.send(Button_5,  F("info"));
       Panel.send(Button_6,  F("moni\ntor"));

@@ -6,7 +6,7 @@
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V1.0.1    7-06-2019 JpD
+	V1.1.0    03-04-2020 JpD
 */
 
 #include "VirtualPanel.h"
@@ -62,6 +62,37 @@ uint16_t _VPoint( uint8_t x, uint8_t y)
 	
 	return(point);
 }
+
+// _Circle Graph draw helper function. Packs centre point (2xbyte) and radius (int16) into string.
+char * _Circle( uint8_t x, uint8_t y, uint8_t rad)
+{
+	return (_Circle(x,y,rad, (uint16_t)0, (uint16_t)360));
+}
+
+// _Circle Graph draw helper function. Packs centre point (2xbyte), radius, start angle and arc (int16) into string.
+char * _Circle( uint8_t x, uint8_t y, uint8_t rad, uint16_t angle, uint16_t arc)
+{
+	static char circleparams[17];
+	if (arc <= (uint16_t)360)
+  	sprintf(circleparams, "$$%02X%02X%02X%04X%04X", x, y, rad, angle%(uint16_t)360, arc);
+	return(circleparams);
+}
+
+char * _VCircle( uint8_t x, uint8_t y, uint8_t rad)
+{
+	return (_VCircle(x,y,rad, (uint16_t)0, (uint16_t)360));
+}
+
+char * _VCircle( uint8_t x, uint8_t y, uint8_t rad, uint16_t angle, uint16_t arc)
+{
+	static char circleparams[17];
+	uint8_t point = map(y,0,255,0,220);
+	if (arc <= (uint16_t)360)
+  	sprintf(circleparams, "$$%02X%02X%02X%04X%04X", x, point, rad, angle%(uint16_t)360, arc);
+	return(circleparams);
+}
+
+
 
 // _Line Graph draw helper function. Packs four bytes into a uint32_t.
 uint32_t _Sound( uint16_t frequency, uint16_t duration)
