@@ -28,11 +28,11 @@ namespace VirtualPanel
         {
             InfoLabel.Text = "VirtualPanel";
             InfoRichTextBox.Text = "";
-            InfoRichTextBox.AppendText("Arduino Experiment controlpanel V1.1beta\n\n");
+            InfoRichTextBox.AppendText("Arduino Experiment controlpanel V1.1.0\n\n");
             InfoRichTextBox.AppendText("Functional design: Jaap Daniëlse\n");
             InfoRichTextBox.AppendText("Application design and development:\n");
             InfoRichTextBox.AppendText("Jaap, Tim, and Paul Daniëlse\n\n");
-            InfoRichTextBox.AppendText("Copyright 2019, J.C. Daniëlse, Published under MIT Licence\n\n");
+            InfoRichTextBox.AppendText("Copyright 2020, J.C. Daniëlse, Published under MIT Licence\n\n");
             InfoRichTextBox.AppendText("Documentation:\n https://github.com/JaapDanielse/VirtualPanel/wiki \n");
         }
 
