@@ -66,13 +66,8 @@ void DrawCallback(vp_channel event)
     case Button_14:
     {
       DrawStat = MAZ;
+      Panel.send(Graph, F("$CLEAR"));
       i=0;
-//      Squares = false;
-//      Radar = false;
-//      Panel.send(Graph, F("$CLEAR"));
-//      if (++ColNum > MaxColNum) ColNum=0;
-//      Panel.send(GraphDrawLine,  Color[ColNum]);
-//      for(i=0; i<110; i++) { DisplayMaze(i);}
       break;
     }
 
@@ -80,10 +75,10 @@ void DrawCallback(vp_channel event)
     {
       DrawStat = RAD;
       Panel.send(Graph, F("$CLEAR"));
+      DrawCircles();
       break;
     }
 
-  
 
     case DynamicDisplay: // dynamic display request (requested every 500ms)
     {
@@ -146,41 +141,17 @@ void DrawSquares(int SquareSize)
 }
 
 
-
-
-
 void DrawCircles()
 {
-
-   int Dist = 110;
-
-   Panel.send(GraphDrawLine,F("$ORANGE"));
-   Panel.send(GraphDrawLine,F("$2PX"));
-   Panel.send(GraphDrawLine); // new line
-   for(int Angle=0 ; Angle <= 180 ; Angle+=2)
-   {
-     float RadAngle = (float)(PI/180.0) * Angle;
-     byte x = 5 + (Dist * cos(RadAngle) + 127);
-     byte y = (Dist * sin(RadAngle) + 30) ;
-     Panel.send(GraphDrawLine,_Point(x,y));
-   }
-
-   Dist = 55;
+   Panel.send(GraphDrawCircle, "$ORANGE");
+   Panel.send(GraphDrawCircle, "$2PX");
+   Panel.send(GraphDrawCircle, _Circle(132,30,110,270,180));
+   
+   Panel.send(GraphDrawCircle, "$1PX");
+   Panel.send(GraphDrawCircle, _Circle(132,30,55,270,180));
    
    Panel.send(GraphDrawLine,F("$1PX"));
-   Panel.send(GraphDrawLine); // new line
-   for(int Angle=0 ; Angle <= 180 ; Angle+=2)
-   {
-     float RadAngle = (float)(PI/180.0) * Angle;
-     byte x = 5 + (Dist * cos(RadAngle) + 127);
-     byte y = (Dist * sin(RadAngle) + 30) ;
-     Panel.send(GraphDrawLine,_Point(x,y));
-   }
-
-   Panel.send(GraphDrawLine,F("$1PX"));
    Panel.send(GraphCaption_2,"0 deg                                          180 deg");
-   Panel.send(GraphDrawPixel,_Point(200,200));
-
 }
 
 
@@ -232,9 +203,7 @@ void Swipe(int Angle, int Distance)
 
    Panel.send(GraphText, _Point(100,180));
    Panel.sendf(GraphText, F("Angle %d"), 180-Angle);
-  
 }
-
 
 
 void DisplayMaze(int square)
@@ -255,7 +224,6 @@ void DisplayMaze(int square)
     default: break;
   }
 }
-
 
 
 void DrawSquareCross(int x, int y)
@@ -281,6 +249,7 @@ void DrawSquareCross(int x, int y)
      Panel.send(GraphDrawLine,_Point(x+20,y+13));
 
 }
+
 
 void DrawSquareVert(int x, int y)
 {
@@ -318,6 +287,7 @@ void DrawSquareLeft(int x, int y)
      Panel.send(GraphDrawLine,_Point(x+13, y+20));
      Panel.send(GraphDrawLine,_Point(x+20, y+13));
 }
+
 
 void DrawSquareRight(int x, int y)
 {

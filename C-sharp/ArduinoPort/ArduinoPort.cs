@@ -37,16 +37,7 @@ namespace ArduinoCom
 
             // Set up port object.
             port = new SerialPort();
-            port.BaudRate = baudrate;
-            port.Parity = Parity.None;
-            port.DataBits = 8;
-            port.StopBits = StopBits.One;
-            port.Handshake = Handshake.None;
-            port.RtsEnable = false;
-            port.DtrEnable = false;
-
-            port.NewLine = "\r\n";
-            port.Encoding = Encoding.UTF8;
+            SetPortSettings(baudrate);
 
             // Setup port checker timer.
             checkPort.Elapsed += CheckPort_Elapsed;
@@ -68,19 +59,28 @@ namespace ArduinoCom
         {
             DeviceID = device_id;
 
-            port = new SerialPort(portname, baudrate);
-            port.Parity = Parity.None;
-            port.DataBits = 8;
-            port.StopBits = StopBits.One;
-            port.Handshake = Handshake.None;
-            port.DtrEnable = true;
-            port.NewLine = "\r\n";
+            port = new SerialPort(portname);
+            SetPortSettings(baudrate);
 
             // Setup port checker timer.
             checkPort.Elapsed += CheckPort_Elapsed;
 
             AutoSearchPortName = false;
 
+        }
+
+        private void SetPortSettings(int baudrate)
+        {
+            port.BaudRate = baudrate;
+            port.Parity = Parity.None;
+            port.DataBits = 8;
+            port.StopBits = StopBits.One;
+            port.Handshake = Handshake.None;
+            port.RtsEnable = false;
+            port.DtrEnable = false;
+            port.NewLine = "\r\n";
+            port.Encoding = Encoding.UTF8;
+            port.WriteTimeout = 200;
         }
 
         private void CheckPort_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -310,10 +310,17 @@ namespace ArduinoCom
 
             Debug.WriteLine(data);
 
-            if (port.IsOpen)
-                port.WriteLine(data);
-            else // If we are connected but the port is not open we need to update internal state, and notify.
-                Disconnect(true);
+            try
+            {
+                if (port.IsOpen)
+                    port.WriteLine(data);
+                else // If we are connected but the port is not open we need to update internal state, and notify.
+                    Disconnect(true);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Writing to port failed: " + e);
+            }
         }
 
         // Attached to port receive event (PORT thread)

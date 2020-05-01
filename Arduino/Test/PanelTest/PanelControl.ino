@@ -5,6 +5,7 @@ enum ModeList
   Sliders,
   Inputs,
   Graphinput,
+  Files,
   Roling,
   Static,
   Draw,
@@ -54,6 +55,9 @@ void PanelCallback(vp_channel event)
      case Graphinput: 
        GraphInputCallback( event); break;
        
+     case Files:
+       FilesCallback(event); break;
+       
      default: 
        break;
    }
@@ -61,8 +65,6 @@ void PanelCallback(vp_channel event)
 
 void WriteInfo()
 {
-
-  
   Panel.send(InfoTitle, F("PannelTest"));
   Panel.send(InfoText,  F("Application specific help text"));
   Panel.send(InfoText,  F("Can be changed run-time"));

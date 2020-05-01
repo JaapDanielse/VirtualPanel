@@ -8,7 +8,7 @@ void GraphInputCallback(vp_channel event)
     case PanelConnected: // receive panel connected event
     
       Panel.send(PanelColor,"$GREEN"); // set the application name
-      Panel.send(ApplicationName,"PanelTest - Graph Values"); // set the application name
+      Panel.send(ApplicationName,"PanelTest - Graph Inputs"); // set the application name
       Panel.send(Button_4,  F("next\npanel"));
       Panel.send(Graph,true);
       Panel.send(GraphLabel_1, "Channel 1");

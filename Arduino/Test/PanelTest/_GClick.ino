@@ -21,8 +21,6 @@ void ClickCallback(vp_channel event)
       Panel.send(GraphButton_3, "clear");
       Panel.send(GraphDrawPixel, Color[ColNum]);
       Panel.send(GraphDrawLine,  Color[ColNum]);
-      Panel.send(GraphDrawLine, PenSize[2]);
-     Panel.send(GraphDrawCircle, _Circle(128,110,100,180,180));
       Panel.send(GraphDrawLine, PenSize[0]);
       WriteInfo();
       Graphmode = true;

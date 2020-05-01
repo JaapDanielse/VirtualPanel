@@ -47,36 +47,16 @@ void PanelCallback(vp_channel event)
 
 void DrawCircles()
 {
-
-   int16_t Dist = 110;
-
-   Panel.send(GraphDrawLine, "$ORANGE");
-   Panel.send(GraphDrawLine, "$2PX");
-   Panel.send(GraphDrawLine); // new line
-   for(int Angle=0 ; Angle <= 180 ; Angle+=2)
-   {
-     float RadAngle = (float)(PI/180.0) * Angle;
-     byte x = 5 + (Dist * cos(RadAngle) + 127);
-     byte y = (Dist * sin(RadAngle) + 30) ;
-     Panel.send(GraphDrawLine,_Point(x,y));
-   }
-
-   Dist = 55;
+   Panel.send(GraphDrawCircle, "$ORANGE");
+   Panel.send(GraphDrawCircle, "$2PX");
+   Panel.send(GraphDrawCircle, _Circle(132,30,110,270,180));
    
-   Panel.send(GraphDrawLine, "$1PX");
-   Panel.send(GraphDrawLine); // new line
-   for(int Angle=0 ; Angle <= 180 ; Angle+=2)
-   {
-     float RadAngle = (float)(PI/180.0) * Angle;
-     byte x = 5 + (Dist * cos(RadAngle) + 127);
-     byte y = (Dist * sin(RadAngle) + 30) ;
-     Panel.send(GraphDrawLine,_Point(x,y));
-   }
-
+   Panel.send(GraphDrawCircle, "$1PX");
+   Panel.send(GraphDrawCircle, _Circle(132,30,55,270,180));
+   
    Panel.send(GraphDrawLine,"$1PX");
    Panel.send(GraphCaption_2,"0 deg                                          180 deg");
    Panel.send(GraphDrawPixel,_Point(200,200));
-
 }
 
 
