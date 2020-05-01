@@ -19,7 +19,7 @@ V1.1.0 Release notes
 - Added PanelColor channel, set color of the pannel collor bars to differentiate experiments. 
 - Added Inputs on Graph Labels, allow to use inputs on the graph labels similar to the inputs on the monitor labels.
 - Added $SMALL for Buttons. 
-- Added GraphDrawCircle channel and _Circle and _VCircle functions allowing to draw circles and -(sections).
+- Added GraphDrawCircle channel and _Circle and _VCircle functions allowing to draw circles and circle sections.
 - Made $BIG for buttons bigger.
 - Slider value limmited to value 1000.
 - Made auxillary windows (Monitor, Graph etc.) keep their relative positions when moving the main window.
