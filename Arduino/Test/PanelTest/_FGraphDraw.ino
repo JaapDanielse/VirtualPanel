@@ -27,7 +27,7 @@ void DrawCallback(vp_channel event)
       Panel.send(Button_11, F("square"));
       Panel.send(Button_14, F("maze"));
       Panel.send(Button_17, F("radar"));
-      Panel.send(DynamicDisplay,100); 
+      Panel.send(DynamicDisplay,(int16_t)100); 
       WriteInfo();
       Graphmode = true;
       Panel.send(Graph,Graphmode); 

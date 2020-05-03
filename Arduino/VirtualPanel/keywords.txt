@@ -250,6 +250,11 @@ ClearFile_2	LITERAL1
 ClearFile_3	LITERAL1
 ClearFile_4	LITERAL1
 #
+DeleteFile_1	LITERAL1
+DeleteFile_2	LITERAL1
+DeleteFile_3	LITERAL1
+DeleteFile_4	LITERAL1
+#
 FileOpenDialogTitle_1	LITERAL1
 FileOpenDialogTitle_2	LITERAL1
 FileOpenDialogTitle_3	LITERAL1

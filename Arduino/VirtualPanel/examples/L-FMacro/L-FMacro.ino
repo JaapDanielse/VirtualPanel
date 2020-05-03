@@ -4,7 +4,7 @@
 // Duplicate of D-Monitor-Info but using the F() macro.
 // This example will not work on Arduino Due.
 // If you compare the Global variable bytes 
-// this sketch will use approximately 18% where D-Monitor-Info will use 34%
+// this sketch will use approximately 18% dynamic memory where D-Monitor-Info will use 34%
 
 
 #include "VirtualPanel.h"
@@ -31,7 +31,7 @@ void PanelCallback(vp_channel event)
   switch (event) 
   {
     case PanelConnected: // receive panel connected event
-      Panel.send(ApplicationName,"Monitor-Info"); // set the application name
+      Panel.send(ApplicationName,"F-Macro"); // set the application name
       Panel.send(Led_1,F("$OFF")); // Turn Led_1 off (black)
       Panel.send(Button_3,F("on/off")); // Button_3 visible and set text "on/off"
       Panel.send(Button_7,F("moni\ntor")); // Button_3 visible and set text "on/off"

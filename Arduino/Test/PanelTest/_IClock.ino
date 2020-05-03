@@ -10,7 +10,7 @@
       Panel.send(Display_1, F("$BIG"));       // set display 1 (time) to big font
       Panel.send(Display_1, F("$BOLD"));      // set display 1 (time) to bold 
       Panel.send(Display_2, F("$BLACK"));     // set display 2 (date) to black
-      Panel.send(DynamicDisplay,500);     // enable dynamic display request
+      Panel.send(DynamicDisplay,(int16_t)500);     // enable dynamic display request
       Panel.send(UnixTime, true);          // request time
 
       WriteInfo();

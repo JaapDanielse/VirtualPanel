@@ -23,10 +23,10 @@ V1.1.0 Release notes
 - Made $BIG for buttons bigger.
 - Slider value limmited to value 1000.
 - Made auxillary windows (Monitor, Graph etc.) keep their relative positions when moving the main window.
-- Fixed connection problem when existing com port or bluetooth port is present.
+- Fixed connection hangup problem when existing com port or bluetooth port is present.
 
-- Added additonal examples 
+- Added additonal examples, improved existiong examples 
 - QuickReference (VirtualPanel\extras) is revised correcting errors and updated to include the added functionality.
 
-V1.1.0 is backward compatible; the executable will operate correctly on earlier arduino implementations, 
-Recompiling arduino implementations will compile unchanged.
+V1.1.0 is backward compatible: the executable will operate correctly on earlier Arduino implementations, 
+Recompiling Arduino implementations will compile unchanged.

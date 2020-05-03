@@ -33,12 +33,24 @@ namespace VirtualPanel
 
         public void MoveWriteCaret(long line)
         {
-            writeCaret = (int)(line - 1);
+            int newPos = (int) line - 1;
+
+            if (newPos < 0)
+                newPos = 0;
+
+            writeCaret = newPos;
         }
 
         public void MoveReadCaret(long line)
         {
-            readCaret = (int)(line - 1);
+            int newPos = (int)line - 1;
+
+            if (newPos >= lines.Count)
+                newPos = lines.Count - 1;
+            if (newPos < 0)
+                newPos = 0;
+
+            readCaret = newPos;
         }
 
         public string ReadLine()
@@ -97,6 +109,17 @@ namespace VirtualPanel
 
             readCaret = 0;
             writeCaret = 0;
+        }
+
+        public void Delete()
+        {
+            if (!isOpen)
+                return;
+
+            File.Delete(filePath);
+
+            filePath = "";
+            lines = new List<string>();
         }
 
         public void toDisk()

@@ -1,6 +1,6 @@
 ﻿
 // VirtualPanel Windows application - Documentation https://github.com/JaapDanielse/VirtualPanel/wiki/Basic-Examples
-// MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
+// MIT Licence - Copyright (c) 2020 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
 
 
 
@@ -211,6 +211,11 @@ namespace VirtualPanel
         ClearFile_2, //
         ClearFile_3, //
         ClearFile_4, //
+        //
+        DeleteFile_1, //
+        DeleteFile_2, //
+        DeleteFile_3, //
+        DeleteFile_4, //
         //
         FileOpenDialogTitle_1, //
         FileOpenDialogTitle_2, //
@@ -486,6 +491,13 @@ namespace VirtualPanel
             MaxPanelInputF_1 = float.MaxValue;
             MaxPanelInputF_2 = float.MaxValue;
 
+            dialogdir = "";
+
+            FileHandle_1 = new FileHandle();
+            FileHandle_2 = new FileHandle();
+            FileHandle_3 = new FileHandle();
+            FileHandle_4 = new FileHandle();
+
             DialogTitleFile_1 = "VirtualPanel Open File 1";
             DialogTitleFile_2 = "VirtualPanel Open File 2";
             DialogTitleFile_3 = "VirtualPanel Open File 3";
@@ -493,7 +505,6 @@ namespace VirtualPanel
 
             if (port.IsConnected) port.Send((byte)ChannelId.PanelConnected);
             PannelConnected = true;
-
         }
 
         private void Port_Disconnected(object sender, ConnectedEventArgs e)
@@ -560,6 +571,11 @@ namespace VirtualPanel
                 if ((ChannelId)mse.ChannelID == ChannelId.ClearFile_2 && mse.Type == vp_type.vp_void) FileHandle_2.Clear();
                 if ((ChannelId)mse.ChannelID == ChannelId.ClearFile_3 && mse.Type == vp_type.vp_void) FileHandle_3.Clear();
                 if ((ChannelId)mse.ChannelID == ChannelId.ClearFile_4 && mse.Type == vp_type.vp_void) FileHandle_4.Clear();
+
+                if ((ChannelId)mse.ChannelID == ChannelId.DeleteFile_1 && mse.Type == vp_type.vp_void) FileHandle_1.Delete();
+                if ((ChannelId)mse.ChannelID == ChannelId.DeleteFile_2 && mse.Type == vp_type.vp_void) FileHandle_2.Delete();
+                if ((ChannelId)mse.ChannelID == ChannelId.DeleteFile_3 && mse.Type == vp_type.vp_void) FileHandle_3.Delete();
+                if ((ChannelId)mse.ChannelID == ChannelId.DeleteFile_4 && mse.Type == vp_type.vp_void) FileHandle_4.Delete();
 
                 if ((ChannelId)mse.ChannelID == ChannelId.FileOpenDialogTitle_1 && mse.Type == vp_type.vp_string) DialogTitleFile_1 = (string)mse.Data;
                 if ((ChannelId)mse.ChannelID == ChannelId.FileOpenDialogTitle_2 && mse.Type == vp_type.vp_string) DialogTitleFile_2 = (string)mse.Data;
@@ -715,7 +731,7 @@ namespace VirtualPanel
             bool dirok = false;
             bool forcecreate = false;
 
-            if (filestring.Contains("/C") || filestring.Contains("/c"))
+            if (filestring.Contains("/F") || filestring.Contains("/f"))
             {
                 var test = filestring.Split('/');
                 filestring = test[0];
@@ -754,7 +770,7 @@ namespace VirtualPanel
                     openFileDialog1.Filter = "All files (*.*)|*.*";
             }
 
-            if (File.Exists(dialogdir + fnam) && !wild)
+            if (File.Exists(dialogdir + fnam) && !wild && forcecreate)
             { // open existing file
                 int LineCount = file.Open(dialogdir + fnam);
                 if (port.IsConnected) port.Send((byte)replyChannel, vp_type.vp_long, LineCount);
@@ -1027,6 +1043,9 @@ namespace VirtualPanel
 
         private void SetScrollBarMax(VScrollBar ScrollBar, int MaxValue)
         {
+            if (MaxValue > 1000) MaxValue = 1000;
+            if (MaxValue < 0) MaxValue = 0;
+
             if (MaxValue / 10 > 0)
                 ScrollBar.LargeChange = MaxValue / 10;
             else

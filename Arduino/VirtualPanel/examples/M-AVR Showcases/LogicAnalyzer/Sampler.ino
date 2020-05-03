@@ -45,6 +45,8 @@ void Sample()
     delayMicroseconds(SampleSpeed);
     SampleBuffer[SampleBufferIdx] |= (B00001111 & PINB);  // read pin 8,9,10,11 into low buffer byte
     delayMicroseconds(SampleSpeed);
+    
+    if (Serial.available()) return;
   }
   
   SampleTime = micros() - SampleTime;

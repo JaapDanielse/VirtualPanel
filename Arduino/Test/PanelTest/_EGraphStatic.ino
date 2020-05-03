@@ -1,9 +1,9 @@
 
-int vpos = 128;
+int16_t vpos = 128;
 float vdiv = 50.0;
 float sincount =  6.0;
-int SampleCount = 90;
-int trig = 110;
+int16_t SampleCount = 90;
+int16_t trig = 110;
 bool freq = false;
 float tsincount;
 
@@ -16,7 +16,7 @@ void StaticCallback(vp_channel event)
      // initialize panel layout
       Panel.send(ApplicationName,"PanelTest - StaticGraph"); // set the application name
       Panel.send(PanelColor,"$PURPLE"); // set the application name
-      Panel.send(DynamicDisplay,500);     // enable dynamic display request
+      Panel.send(DynamicDisplay,(int16_t)500);     // enable dynamic display request
       Panel.send(Button_4,  F("next\npanel"));
       Panel.send(Button_5,  F("info"));
       Panel.send(Button_6,  F("moni\ntor"));
@@ -25,18 +25,18 @@ void StaticCallback(vp_channel event)
       Panel.send(Button_5,  F("info"));
       Panel.send(Button_6,  F("moni\ntor"));
       Panel.send(Button_7,  F("graph"));
-      Panel.send(GraphValueCount_1,SampleCount);
+      Panel.send(GraphValueCount_1, SampleCount);
       Panel.send(GraphValue_1,F("$STATIC"));
       Panel.send(GraphValue_1,F("$BLUE"));
-      Panel.send(GraphValueCount_2,SampleCount);
+      Panel.send(GraphValueCount_2, SampleCount);
       Panel.send(GraphValue_2,F("$STATIC"));
       Panel.send(GraphValue_2,F("$PURPLE"));
       Panel.send(Slider_3, F("ampl."));
-      Panel.send(MaxSlider_3, 150);
-      Panel.send(Slider_3, (int)vdiv);
-      Panel.send(MaxSlider_4, 150);
+      Panel.send(MaxSlider_3, (int16_t)150);
+      Panel.send(Slider_3, (int16_t)vdiv);
+      Panel.send(MaxSlider_4, (int16_t)150);
       Panel.send(Slider_4, F("freq."));
-      Panel.send(Slider_4, (int)sincount*10);
+      Panel.send(Slider_4, (int16_t)(sincount*10));
       WriteInfo();
       Graphmode = true;
       Panel.send(Graph,Graphmode); 
@@ -106,8 +106,8 @@ void StaticCallback(vp_channel event)
 
     case DynamicDisplay: // dynamic display request (requested every 500ms)
     {
-      Panel.sendf(Display_1,F("amp. %d"),(int)vdiv);  
-      Panel.sendf(Display_2,F("freq. %d"),(int)sincount);  
+      Panel.sendf(Display_1,F("amp. %d"), (int16_t)vdiv);  
+      Panel.sendf(Display_2,F("freq. %d"), sincount);  
       Sinus();
       break;
     }

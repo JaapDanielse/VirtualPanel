@@ -21,6 +21,7 @@ void GraphInputCallback(vp_channel event)
       Panel.send(GraphLabel_4, "$PURPLE");
       Panel.send(GraphLabel_5, "Channel 5");
       Panel.send(GraphLabel_5, "$YELLOW");
+      Panel.send(GraphDrawCircle, _Circle(128,110,100));
     break;
 
 

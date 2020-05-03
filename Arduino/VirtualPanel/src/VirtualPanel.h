@@ -209,6 +209,11 @@ enum vp_channel : int // event/channel list
 	ClearFile_3, //
 	ClearFile_4, //
 	// 
+	DeleteFile_1, //
+	DeleteFile_2, //
+	DeleteFile_3, //
+	DeleteFile_4, //
+	//
 	FileOpenDialogTitle_1,
 	FileOpenDialogTitle_2,
 	FileOpenDialogTitle_3,

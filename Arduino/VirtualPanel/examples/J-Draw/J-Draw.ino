@@ -56,7 +56,6 @@ void DrawCircles()
    
    Panel.send(GraphDrawLine,"$1PX");
    Panel.send(GraphCaption_2,"0 deg                                          180 deg");
-   Panel.send(GraphDrawPixel,_Point(200,200));
 }
 
 
@@ -105,7 +104,9 @@ void Swipe(int Angle, int Distance)
    ysOld[OldIdx] = ys;
    xeOld[OldIdx] = xe;
    yeOld[OldIdx] = ye;
-
+   Panel.send(GraphText,_Point(200,210));
+   Panel.send(GraphText,"$YELLOW");
+   Panel.sendf(GraphText, "%d", 180-Angle);
    Panel.sendf(GraphLabel_1, "Angle %d", 180-Angle);
   
 }

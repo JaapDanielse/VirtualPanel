@@ -118,6 +118,7 @@ void Capture()
   while (Serial.available()){ Serial.read(); }
   Panel.send(Led_2,F("$ORANGE")); 
   Sample();
+  while (Serial.available()){ Serial.read(); }
   Panel.send(DynamicDisplay, true);
   WindowPosition = 0;
   Panel.send(Slider_5,0); 

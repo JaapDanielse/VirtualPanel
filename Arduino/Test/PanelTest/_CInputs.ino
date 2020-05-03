@@ -1,17 +1,17 @@
 
   static byte  MyByte = 0;
-  static int   MyInt = 0;
-  static long  MyLong = 0;
+  static int16_t   MyInt = 0;
+  static int32_t  MyLong = 0;
   static float MyFloat = 0;
-  static unsigned int MyUInt = 0;
-  static unsigned long MyULong = 0;
+  static uint16_t MyUInt = 0;
+  static uint32_t MyULong = 0;
 
-  static int MonValue_1 = 100;
-  static int MonValue_2 = 200;
-  static int MonValue_3 = 300;
-  static int MonValue_4 = 400;
-  static int MonValue_5 = 500;
-  static int MonValue_6 = 600;
+  static int16_t  MonValue_1 = 100;
+  static int16_t  MonValue_2 = 200;
+  static int16_t  MonValue_3 = 300;
+  static int16_t  MonValue_4 = 400;
+  static int16_t  MonValue_5 = 500;
+  static int16_t  MonValue_6 = 600;
   
 
 void InputsCallback(vp_channel event)

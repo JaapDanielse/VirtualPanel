@@ -117,7 +117,7 @@ void Sampler()
           Panel.send(GraphValue_1, (byte)0); // outside the buffer send 0
       }
     }
-
+    
     // output caption
     tmpfloat = ((float)SampleMin/51.0); // min scanvalue / (255/5V = 51 unit/volt) = min. voltage
     if(ACSelect) tmpfloat -= VCCValue/2.0;
@@ -144,10 +144,11 @@ void Sampler()
     Panel.send(GraphText,F("$YELLOW"));
     Panel.send(GraphText,_Point(5,200));
     Panel.sendf(GraphText, "T=%s ms f=%s Hz", outstr1, outstr2);
-
+    
     // frame indicator off
+    delay(100);
     Panel.send(Led_12, F("$OFF"));
-
+    
     SampleReady = false; // Set for next samplre run
     Sampling = false; // 
 

@@ -6,7 +6,7 @@
 bool    Power = false; // Power status
 bool    MonitorVisible = false; // Power status
 bool    InfoVisible = false; // Power status
-float   Frequency = 500.023;  // Integer variabel
+int16_t Frequency = 500;  // Integer variabel
 int16_t Duration  = 400;  // Integer variabel
 
 void setup() 
@@ -25,7 +25,7 @@ void PanelCallback(vp_channel event)
   switch (event) 
   {
     case PanelConnected: // receive panel connected event
-      Panel.send(ApplicationName,"Beep"); // set the application name
+      Panel.send(ApplicationName,"Beep-Inputs"); // set the application name
       
       Panel.send(Button_8,"info"); // Button_3 visible and set text "on/off"
       Panel.send(Button_15,"beep\ndefault"); // Button_3 visible and set text "on/off"
@@ -36,8 +36,8 @@ void PanelCallback(vp_channel event)
       Panel.send(InfoText, "Same example as Beep");
       Panel.send(InfoText, "But now the scrollbars have been changed to input");
       Panel.send(InfoText, "You can access them by double clicking the display");
-      Panel.send(InfoText, "Frequency is limited between 37 and 1000Hz");
-      Panel.send(InfoText, "Duration can be set between 10 and 1000mS");
+      Panel.send(InfoText, "Frequency is limited between 37 and 10.000 Hz");
+      Panel.send(InfoText, "Duration can be set between 10 and 1000 mS");
     break;
 
     case Button_8: // Catch button pressed
@@ -57,8 +57,8 @@ void PanelCallback(vp_channel event)
     break;
 
     case Display_1: // display has been double clicked 
-      Panel.send(MinPanelInput_1, (float)37.5); // 
-      Panel.send(MaxPanelInput_1, (float)10000.0); // 
+      Panel.send(MinPanelInput_1, (int16_t)37.5); // 
+      Panel.send(MaxPanelInput_1, (int16_t)10000.0); // 
       Panel.send(PanelInputLabel_1, "Frequency:"); // 
       Panel.send(PanelInput_1, Frequency); // 
     break;
@@ -79,7 +79,7 @@ void PanelCallback(vp_channel event)
 
     case PanelInput_1:
       if (Panel.vpr_type != vp_type::vp_void) // check if not discarded
-        Frequency = Panel.vpr_float; // ok, store
+        Frequency = Panel.vpr_int; // ok, store
     break;
 
     case PanelInput_2:
@@ -89,7 +89,7 @@ void PanelCallback(vp_channel event)
 
     case MonitorInput_1:
       if (Panel.vpr_type != vp_type::vp_void) // check if not discarded
-        Frequency = Panel.vpr_float;
+        Frequency = Panel.vpr_int;
     break;
   }
 
