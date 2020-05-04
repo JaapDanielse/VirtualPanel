@@ -1043,7 +1043,7 @@ namespace VirtualPanel
 
         private void SetScrollBarMax(VScrollBar ScrollBar, int MaxValue)
         {
-            if (MaxValue > 1000) MaxValue = 1000;
+            if (MaxValue > 1024) MaxValue = 1000;
             if (MaxValue < 0) MaxValue = 0;
 
             if (MaxValue / 10 > 0)

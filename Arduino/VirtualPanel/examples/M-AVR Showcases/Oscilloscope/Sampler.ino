@@ -59,6 +59,8 @@ void Sampler()
     TriggerValue = TriggerLevel * (255.0 / (float)GridSize); // calculate trigger value from level
 
     Panel.send(Led_12, F("$ORANGE")); // frame indicator on
+    delay(12); // Support FTDI FT232R chips (else buffered USB output does not blink led)
+    
     SetVertPos(0, false); // remove position line (if there)
     float TimePerSample = (float)SampleTime/(float)(long)(MaxSampleValues+1); // calculate time per sample
 
@@ -145,9 +147,7 @@ void Sampler()
     Panel.send(GraphText,_Point(5,200));
     Panel.sendf(GraphText, "T=%s ms f=%s Hz", outstr1, outstr2);
     
-    // frame indicator off
-    delay(100);
-    Panel.send(Led_12, F("$OFF"));
+    Panel.send(Led_12, F("$OFF")); // frame indicator off
     
     SampleReady = false; // Set for next samplre run
     Sampling = false; // 

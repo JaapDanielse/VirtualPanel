@@ -21,7 +21,7 @@ V1.1.0 Release notes
 - Added $SMALL for Buttons. 
 - Added GraphDrawCircle channel and _Circle and _VCircle functions allowing to draw circles and circle sections.
 - Made $BIG for buttons bigger.
-- Slider value limmited to value 1000.
+- Slider value limmited to value 1024.
 - Made auxillary windows (Monitor, Graph etc.) keep their relative positions when moving the main window.
 - Fixed connection hangup problem when existing com port or bluetooth port is present.
 
