@@ -18,6 +18,7 @@ V1.1.0 Release notes
 - Added File-IO, allow reading and writing files on the PC.
 - Added PanelColor channel, set color of the pannel collor bars to differentiate experiments. 
 - Added Inputs on Graph Labels, allow to use inputs on the graph labels similar to the inputs on the monitor labels.
+- Input handling improved, input colors change when editing, on discard old value is reset.
 - Added $SMALL for Buttons. 
 - Added GraphDrawCircle channel and _Circle and _VCircle functions allowing to draw circles and circle sections.
 - Made $BIG for buttons bigger.

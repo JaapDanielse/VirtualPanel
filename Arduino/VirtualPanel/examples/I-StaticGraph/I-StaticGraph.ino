@@ -37,11 +37,11 @@ void PanelCallback(vp_channel event)
       Panel.send(GraphValue_1, "$STATIC");
       Panel.send(GraphValue_1, "$ORANGE");
       Panel.send(Graph, (bool)true); 
-    break; 
+      break; 
 
     case DynamicDisplay: // dynamic display request (requested every 500ms)
       Sinus();
-    break;
+      break;
   }
 }
 

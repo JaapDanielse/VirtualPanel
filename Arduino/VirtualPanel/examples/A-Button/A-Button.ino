@@ -28,7 +28,7 @@ void PanelCallback(vp_channel event)
       Panel.send(ApplicationName,"Minimal"); // set the application name
       Panel.send(Led_1,"$OFF"); // Turn Led_1 off (black)
       Panel.send(Button_3,"on/off"); // Button_3 visible and set text "on/off"
-    break;
+      break;
 
     case Button_3: // Catch button pressed
       Power = !Power;
@@ -36,7 +36,7 @@ void PanelCallback(vp_channel event)
         Panel.send(Led_1,"$RED"); // Turn Led_1 on (red)
       else
         Panel.send(Led_1,"$OFF"); // Turn Led_1 off (black)
-    break;
+      break;
 
   }
 }

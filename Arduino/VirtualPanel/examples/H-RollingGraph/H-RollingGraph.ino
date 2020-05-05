@@ -57,11 +57,11 @@ void PanelCallback(vp_channel event)
       Panel.send(InfoText, "The number of values can be set. Default (used here) is 50.");
 
       Panel.send(DynamicDisplay, (int16_t)100);     // enable dynamic display request
-    break;
+      break;
 
     case Button_8: // Catch button pressed
       InfoVisible = !InfoVisible;
-    break;
+      break;
     
     case DynamicDisplay: // dynamic display request (requested every 500ms)
       Panel.sendf(Display_1,"y:%03d  o:%03d  r:%03d  b:%03d  g:%03d", yellow, orange, red, blue, green); 
@@ -70,7 +70,7 @@ void PanelCallback(vp_channel event)
       Panel.send(GraphValue_3,(byte)map(red,   0,255, 102,153)); // map red to grid sections 5 and 6
       Panel.send(GraphValue_4,(byte)map(blue,  0,255,  51,102)); // map blue to grid sections 3 and 4
       Panel.send(GraphValue_5,(byte)map(green, 0,255,   0, 51)); // map green to grid sections 1 and 2
-    break;
+      break;
   }
 
   StaticChange();

@@ -40,31 +40,32 @@ void PanelCallback(vp_channel event)
       Panel.send(GraphButton_1,  Color[ColorNum]);
       Panel.send(GraphDrawPixel, Color[ColorNum]);
       Panel.send(GraphDrawLine,  Color[ColorNum]);
-    break;
+      break;
+    
     case GraphButton_2:
       if (++PenSizeNum > MaxPenSizeNum) PenSizeNum=0;
       Panel.send(GraphButton_2, PenSize[PenSizeNum]);
       Panel.send(GraphDrawLine, PenSize[PenSizeNum]);
-    break;
+      break;
 
     case GraphButton_3:
       Panel.send(Graph,"$CLEAR"); //
-    break;
+      break;
 
     case GraphClick:
       Panel.send(GraphDrawPixel, Panel.vpr_uint); // 
       Panel.send(GraphDrawLine, Panel.vpr_uint); // 
-    break;
+      break;
 
     case GraphDoubleClick:
       Panel.send(Display_2, "Double");
       Panel.send(Graph,"$CLEAR"); //
-    break;
+      break;
 
     case GraphRightClick:
       Panel.send(Display_2, "Right");
       Panel.send(GraphDrawLine); // Start a new line
-    break;
+      break;
 
   }
 }

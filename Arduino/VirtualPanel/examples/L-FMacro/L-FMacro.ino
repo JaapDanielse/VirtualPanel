@@ -48,7 +48,7 @@ void PanelCallback(vp_channel event)
       Panel.send(InfoText, F("Both can also be activated from the menu (▼)"));
       
       Panel.send(DynamicDisplay, (int16_t)500); // Switch on DynamicDisplay at 250 mS interval
-    break;
+      break;
 
     case Button_3: // Catch button pressed
       Power = !Power;
@@ -56,21 +56,20 @@ void PanelCallback(vp_channel event)
         Panel.send(MonitorLog, F("Power On")); // log action
       else
         Panel.send(MonitorLog, F("Power Off")); // log action
-     
-    break;
+      break;
 
     case Button_7: // Catch button pressed
       MonitorVisible = !MonitorVisible;
-    break;
+      break;
 
     case Button_8: // Catch button pressed
       InfoVisible = !InfoVisible;
-    break;
+      break;
 
     case Slider_2: // catch slider change
       Factor = Panel.vpr_int; 
       Panel.sendf(MonitorLog, F("Factor change (%d)"), Factor); // log action
-    break;
+      break;
 
     case DynamicDisplay: // Catch Dynamic display event
       // although numbers are generated fast display is at a resonable pace controlled by the panel
@@ -81,7 +80,7 @@ void PanelCallback(vp_channel event)
       Panel.sendf(MonitorField_1, "Factor %d", Factor); // Show Value on display_1
       Panel.sendf(MonitorField_2, "Value %d", Value); // Show Value on display_1
       Panel.sendf(MonitorField_3, "Calculated: %d", Value * Factor ); // Show Value on display_1
-    break;
+      break;
   }
   
   if ( event != DynamicDisplay) StaticChange(); // handle changes because of button click

@@ -22,6 +22,11 @@ void GraphInputCallback(vp_channel event)
       Panel.send(GraphLabel_5, "Channel 5");
       Panel.send(GraphLabel_5, "$YELLOW");
       Panel.send(GraphDrawCircle, _Circle(128,110,100));
+      Panel.send(MinGraphInput_1, 0); // 
+      Panel.send(MaxGraphInput_1, 100); // 
+      Panel.send(GraphInputLabel_1, "descr."); // 
+      Panel.send(GraphInput_1, Value); // 
+      Panel.send(GraphInput_1, true); // 
     break;
 
 
@@ -31,10 +36,6 @@ void GraphInputCallback(vp_channel event)
       break;
 
     case GraphLabel_1: // display has been double clicked 
-      Panel.send(MinGraphInput_1, 0); // 
-      Panel.send(MaxGraphInput_1, 100); // 
-      Panel.send(GraphInputLabel_1, "descr."); // 
-      Panel.send(GraphInput_1, Value); // 
     break;
 
     case GraphInput_1:

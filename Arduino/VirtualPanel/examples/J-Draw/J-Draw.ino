@@ -23,7 +23,6 @@ void PanelCallback(vp_channel event)
   switch (event) 
   {
     case PanelConnected: // receive panel connected message
-    { 
       Panel.send(ApplicationName,"Draw"); // set the application name
       Panel.send(GraphText, _Point(5,210));
       Panel.send(GraphText, "Simulated distance sensor sweep");
@@ -32,16 +31,13 @@ void PanelCallback(vp_channel event)
       
       DrawCircles();    
       break;
-    }
 
     case DynamicDisplay: // dynamic display request (requested every 500ms)
-    {
       if (Direction) Angle+=2; else Angle-=2;
       if (Angle <= 0 || Angle >= 180) Direction = !Direction; 
       Angle = constrain( Angle, 0, 180);
       Swipe(Angle, Distance);
       break;
-    }
   }
 }
 

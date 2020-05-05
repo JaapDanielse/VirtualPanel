@@ -332,11 +332,11 @@
             // MonitorInputTextBox_1
             // 
             this.MonitorInputTextBox_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.MonitorInputTextBox_1.ForeColor = System.Drawing.SystemColors.WindowText;
             this.MonitorInputTextBox_1.Location = new System.Drawing.Point(12, 9);
             this.MonitorInputTextBox_1.Name = "MonitorInputTextBox_1";
             this.MonitorInputTextBox_1.Size = new System.Drawing.Size(163, 13);
             this.MonitorInputTextBox_1.TabIndex = 0;
-            this.MonitorInputTextBox_1.Text = " ";
             this.MonitorInputTextBox_1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.MonitorInputTextBox_1.TextChanged += new System.EventHandler(this.MonitorInputTextBox_TextChange);
             // 

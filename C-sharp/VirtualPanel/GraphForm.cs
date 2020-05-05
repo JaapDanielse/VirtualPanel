@@ -31,6 +31,12 @@ namespace VirtualPanel
         private bool GraphInputFlag_4 = false;
         private bool GraphInputFlag_5 = false;
 
+        private bool GraphInputEdit_1 = false;
+        private bool GraphInputEdit_2 = false;
+        private bool GraphInputEdit_3 = false;
+        private bool GraphInputEdit_4 = false;
+        private bool GraphInputEdit_5 = false;
+
         private long MinGraphInput_1 = long.MinValue;
         private long MinGraphInput_2 = long.MinValue;
         private long MinGraphInput_3 = long.MinValue;
@@ -54,6 +60,12 @@ namespace VirtualPanel
         private float MaxGraphInputF_3 = float.MaxValue;
         private float MaxGraphInputF_4 = float.MaxValue;
         private float MaxGraphInputF_5 = float.MaxValue;
+
+        private string GraphInputText_1 = "";
+        private string GraphInputText_2 = "";
+        private string GraphInputText_3 = "";
+        private string GraphInputText_4 = "";
+        private string GraphInputText_5 = "";
 
         Graph GraphPlot_1;
         Graph GraphPlot_2;
@@ -215,6 +227,12 @@ namespace VirtualPanel
             GraphInputFlag_4 = false;
             GraphInputFlag_5 = false;
 
+            GraphInputEdit_1 = false;
+            GraphInputEdit_2 = false;
+            GraphInputEdit_3 = false;
+            GraphInputEdit_4 = false;
+            GraphInputEdit_5 = false;
+
             MinGraphInput_1 = long.MinValue;
             MinGraphInput_2 = long.MinValue;
             MinGraphInput_3 = long.MinValue;
@@ -239,10 +257,16 @@ namespace VirtualPanel
             MaxGraphInputF_4 = float.MaxValue;
             MaxGraphInputF_5 = float.MaxValue;
 
+            GraphInputText_1 = "";
+            GraphInputText_2 = "";
+            GraphInputText_3 = "";
+            GraphInputText_4 = "";
+            GraphInputText_5 = "";
+
     }
 
 
-        private void Arduinoport_MessageReceived(object sender, MessageEventArgs<object> mse)
+    private void Arduinoport_MessageReceived(object sender, MessageEventArgs<object> mse)
         {
             ChannelId id = (ChannelId)mse.ChannelID;
 
@@ -336,51 +360,57 @@ namespace VirtualPanel
 
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_1)
                 {
-                    GraphInputType_1 = mse.Type;
-                    if (GraphInputType_1 != vp_type.vp_void && GraphInputType_1 != vp_type.vp_boolean)
+                    if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                     {
+                        GraphInputType_1 = mse.Type;
                         GraphInputPanel_1.Visible = true;
-                        GraphInputTextBox_1.Text = mse.Data.ToString();
+                        GraphInputText_1 = mse.Data.ToString();
+                        GraphInputTextBox_1.Text = GraphInputText_1;
                     }
                 }
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_2)
+                else if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_2)
                 {
-                    GraphInputType_2 = mse.Type;
-                    if (GraphInputType_2 != vp_type.vp_void && GraphInputType_2 != vp_type.vp_boolean)
+                    if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                     {
+                        GraphInputType_2 = mse.Type;
                         GraphInputPanel_2.Visible = true;
-                        GraphInputTextBox_2.Text = mse.Data.ToString();
+                        GraphInputText_2 = mse.Data.ToString();
+                        GraphInputTextBox_2.Text = GraphInputText_2;
                     }
                 }
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_3)
+                else if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_3)
                 {
-                    GraphInputType_3 = mse.Type;
-                    if (GraphInputType_3 != vp_type.vp_void && GraphInputType_3 != vp_type.vp_boolean)
+                    if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                     {
-                        GraphInputTextBox_3.Text = mse.Data.ToString();
+                        GraphInputType_3 = mse.Type;
                         GraphInputPanel_3.Visible = true;
+                        GraphInputText_3 = mse.Data.ToString();
+                        GraphInputTextBox_3.Text = GraphInputText_3;
                     }
                 }
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_4)
+                else if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_4)
                 {
-                    GraphInputType_4 = mse.Type;
-                    if (GraphInputType_4 != vp_type.vp_void && GraphInputType_4 != vp_type.vp_boolean)
+                    if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                     {
+                        GraphInputType_4 = mse.Type;
                         GraphInputPanel_4.Visible = true;
-                        GraphInputTextBox_4.Text = mse.Data.ToString();
+                        GraphInputText_4 = mse.Data.ToString();
+                        GraphInputTextBox_4.Text = GraphInputText_4;
                     }
                 }
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_5)
+                else if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_5)
                 {
-                    GraphInputType_5 = mse.Type;
-                    if (GraphInputType_5 != vp_type.vp_void && GraphInputType_5 != vp_type.vp_boolean)
+                    if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                     {
+                        GraphInputType_5 = mse.Type;
                         GraphInputPanel_5.Visible = true;
-                        GraphInputTextBox_5.Text = mse.Data.ToString();
+                        GraphInputText_5 = mse.Data.ToString();
+                        GraphInputTextBox_5.Text = GraphInputText_5;
                     }
                 }
             }
         }
+
 
         private void SetGraphAttr(string data, Graph GraphPlot)
         {
@@ -720,26 +750,36 @@ namespace VirtualPanel
             {
                 if (!GraphInputFlag_1) GraphInputPanel_1.Visible = false;
                 if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphInput_1);
+                GraphInputTextBox_1.Text = GraphInputText_1;
+                GraphInputTextBox_1.ForeColor = Color.Black;
             }
             if (sender == GraphDiscardInput_2)
             {
                 if (!GraphInputFlag_2) GraphInputPanel_2.Visible = false;
                 if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphInput_2);
+                GraphInputTextBox_2.Text = GraphInputText_2;
+                GraphInputTextBox_2.ForeColor = Color.Black;
             }
             if (sender == GraphDiscardInput_3)
             {
                 if (!GraphInputFlag_3) GraphInputPanel_3.Visible = false;
                 if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphInput_3);
+                GraphInputTextBox_3.Text = GraphInputText_3;
+                GraphInputTextBox_3.ForeColor = Color.Black;
             }
             if (sender == GraphDiscardInput_4)
             {
                 if (!GraphInputFlag_4) GraphInputPanel_4.Visible = false;
                 if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphInput_4);
+                GraphInputTextBox_4.Text = GraphInputText_4;
+                GraphInputTextBox_4.ForeColor = Color.Black;
             }
             if (sender == GraphDiscardInput_5)
             {
                 if (!GraphInputFlag_5) GraphInputPanel_5.Visible = false;
                 if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.GraphInput_5);
+                GraphInputTextBox_5.Text = GraphInputText_5;
+                GraphInputTextBox_5.ForeColor = Color.Black;
             }
         }
 
@@ -762,6 +802,7 @@ namespace VirtualPanel
             ChannelId GraphInput = ChannelId.GraphInput_1;
             vp_type GraphInputType = vp_type.vp_int;
             bool GraphInputFlag = false;
+            bool Valid = true;
 
             if (sender == GraphSendInput_1)
             {
@@ -826,6 +867,7 @@ namespace VirtualPanel
 
 
             if (!GraphInputFlag) Panel.Visible = false;
+            TextBox.ForeColor = Color.Black;
 
             if (GraphInputType == vp_type.vp_byte && byte.TryParse(TextBox.Text, out InputValueByte)
                  && (InputValueByte >= MinInput && InputValueByte <= MaxInput))
@@ -865,6 +907,16 @@ namespace VirtualPanel
             {
                 TextBox.ForeColor = Color.Red;
                 Panel.Visible = true;
+                Valid = false;
+            }
+
+            if (Valid)
+            {
+                if (sender == GraphSendInput_1) GraphInputText_1 = TextBox.Text;
+                if (sender == GraphSendInput_2) GraphInputText_2 = TextBox.Text;
+                if (sender == GraphSendInput_3) GraphInputText_3 = TextBox.Text;
+                if (sender == GraphSendInput_4) GraphInputText_4 = TextBox.Text;
+                if (sender == GraphSendInput_5) GraphInputText_5 = TextBox.Text;
             }
         }
 
@@ -893,6 +945,14 @@ namespace VirtualPanel
             TextBox TextBox = (TextBox)sender;
             vp_type GraphInputType = vp_type.vp_int;
 
+            Color EditColor = Color.Blue;
+
+            if (sender == GraphInputTextBox_1 && !GraphInputEdit_1) { EditColor = Color.Black; GraphInputEdit_1 = true; }
+            if (sender == GraphInputTextBox_2 && !GraphInputEdit_2) { EditColor = Color.Black; GraphInputEdit_2 = true; }
+            if (sender == GraphInputTextBox_3 && !GraphInputEdit_3) { EditColor = Color.Black; GraphInputEdit_3 = true; }
+            if (sender == GraphInputTextBox_4 && !GraphInputEdit_4) { EditColor = Color.Black; GraphInputEdit_4 = true; }
+            if (sender == GraphInputTextBox_5 && !GraphInputEdit_5) { EditColor = Color.Black; GraphInputEdit_5 = true; }
+
             if (sender == GraphInputTextBox_1)
             { GraphInputType = GraphInputType_1; MinInput = MinGraphInput_1; MaxInput = MaxGraphInput_1; MinInputF = MinGraphInputF_1; MaxInputF = MaxGraphInputF_1; }
             if (sender == GraphInputTextBox_2)
@@ -904,13 +964,12 @@ namespace VirtualPanel
             if (sender == GraphInputTextBox_5)
             { GraphInputType = GraphInputType_5; MinInput = MinGraphInput_5; MaxInput = MaxGraphInput_5; MinInputF = MinGraphInputF_5; MaxInputF = MaxGraphInputF_5; }
 
-            TextBox.ForeColor = Color.Black;
+            TextBox.ForeColor = EditColor;
 
             if (GraphInputType == vp_type.vp_byte && byte.TryParse(TextBox.Text, out InputValueByte))
             {
                 if (InputValueByte >= MinInput && InputValueByte <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -918,7 +977,6 @@ namespace VirtualPanel
             {
                 if (InputValueShort >= MinInput && InputValueShort <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -926,7 +984,6 @@ namespace VirtualPanel
             {
                 if (InputValueUShort >= MinInput && InputValueUShort <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -934,7 +991,6 @@ namespace VirtualPanel
             {
                 if (InputValueLong >= MinInput && InputValueLong <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -942,7 +998,6 @@ namespace VirtualPanel
             {
                 if (InputValueULong >= MinInput && InputValueULong <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -950,7 +1005,6 @@ namespace VirtualPanel
             {
                 if (InputValueFloat >= MinInputF && InputValueFloat <= MaxInputF)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -958,7 +1012,6 @@ namespace VirtualPanel
             {
                 if (TextBox.Text.Length <= 35)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }

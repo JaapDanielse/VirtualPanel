@@ -33,7 +33,7 @@ void PanelCallback(vp_channel event)
       Panel.send(Slider_2, "factor"); // Set Slider label
       Panel.send(MaxSlider_2, (int16_t)100); // Set Slider maximum value
       Panel.send(Slider_2, Factor); // Set Slider initial Value
-    break;
+      break;
 
     case Button_3: // Catch button pressed
       Power = !Power;
@@ -41,12 +41,12 @@ void PanelCallback(vp_channel event)
         Panel.send(Led_1,"$RED"); // Turn Led_1 on (red)
       else
         Panel.send(Led_1,"$OFF"); // Turn Led_1 off (black)
-    break;
+      break;
 
     case Slider_2: // Catch Slider change
       Factor = Panel.vpr_int;
       Panel.sendf(Display_3, "Factor %d", Factor); // Show Factor on display_3
-    break;
+      break;
 
   }
 }

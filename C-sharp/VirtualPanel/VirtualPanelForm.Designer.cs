@@ -293,7 +293,7 @@
             this.PanelInputTextBox_1.BackColor = System.Drawing.Color.DarkGray;
             this.PanelInputTextBox_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.PanelInputTextBox_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PanelInputTextBox_1.ForeColor = System.Drawing.Color.White;
+            this.PanelInputTextBox_1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.PanelInputTextBox_1.Location = new System.Drawing.Point(4, 5);
             this.PanelInputTextBox_1.Name = "PanelInputTextBox_1";
             this.PanelInputTextBox_1.Size = new System.Drawing.Size(178, 22);

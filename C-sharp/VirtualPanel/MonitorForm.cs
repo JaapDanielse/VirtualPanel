@@ -31,6 +31,13 @@ namespace VirtualPanel
         private bool MonInput_5 = false;
         private bool MonInput_6 = false;
 
+        private bool MonInputEdit_1 = false;
+        private bool MonInputEdit_2 = false;
+        private bool MonInputEdit_3 = false;
+        private bool MonInputEdit_4 = false;
+        private bool MonInputEdit_5 = false;
+        private bool MonInputEdit_6 = false;
+
         private long MinMonInput_1 = long.MinValue;
         private long MinMonInput_2 = long.MinValue;
         private long MinMonInput_3 = long.MinValue;
@@ -58,6 +65,13 @@ namespace VirtualPanel
         private float MaxMonInputF_4 = float.MaxValue;
         private float MaxMonInputF_5 = float.MaxValue;
         private float MaxMonInputF_6 = float.MaxValue;
+
+        private string MonitorText_1 = "";
+        private string MonitorText_2 = "";
+        private string MonitorText_3 = "";
+        private string MonitorText_4 = "";
+        private string MonitorText_5 = "";
+        private string MonitorText_6 = "";
 
 
         public MonitorForm(ArduinoPort port)
@@ -132,56 +146,62 @@ namespace VirtualPanel
 
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_1)
             {
-                MonitorInputType_1 = mse.Type;
-                if (MonitorInputType_1 != vp_type.vp_void && MonitorInputType_1 != vp_type.vp_boolean)
+                if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                 {
+                    MonitorInputType_1 = mse.Type;
                     MonitorInputPanel_1.Visible = true;
-                    MonitorInputTextBox_1.Text = mse.Data.ToString();
+                    MonitorText_1 = mse.Data.ToString();
+                    MonitorInputTextBox_1.Text = MonitorText_1;
                 }
             }
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_2)
             {
-                MonitorInputType_2 = mse.Type;
-                if (MonitorInputType_2 != vp_type.vp_void && MonitorInputType_2 != vp_type.vp_boolean)
+                if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                 {
+                    MonitorInputType_2 = mse.Type;
                     MonitorInputPanel_2.Visible = true;
-                    MonitorInputTextBox_2.Text = mse.Data.ToString();
+                    MonitorText_2 = mse.Data.ToString();
+                    MonitorInputTextBox_2.Text = MonitorText_2;
                 }
             }
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_3)
             {
-                MonitorInputType_3 = mse.Type;
-                if (MonitorInputType_3 != vp_type.vp_void && MonitorInputType_3 != vp_type.vp_boolean)
+                if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                 {
-                    MonitorInputTextBox_3.Text = mse.Data.ToString();
+                    MonitorInputType_3 = mse.Type;
                     MonitorInputPanel_3.Visible = true;
+                    MonitorText_3 = mse.Data.ToString();
+                    MonitorInputTextBox_3.Text = MonitorText_3;
                 }
             }
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_4)
             {
-                MonitorInputType_4 = mse.Type;
-                if (MonitorInputType_4 != vp_type.vp_void && MonitorInputType_4 != vp_type.vp_boolean)
+                if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                 {
+                    MonitorInputType_4 = mse.Type;
                     MonitorInputPanel_4.Visible = true;
-                    MonitorInputTextBox_4.Text = mse.Data.ToString();
+                    MonitorText_4 = mse.Data.ToString();
+                    MonitorInputTextBox_4.Text = MonitorText_4;
                 }
             }
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_5)
             {
-                MonitorInputType_5 = mse.Type;
-                if (MonitorInputType_5 != vp_type.vp_void && MonitorInputType_5 != vp_type.vp_boolean)
+                if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                 {
+                    MonitorInputType_5 = mse.Type;
                     MonitorInputPanel_5.Visible = true;
-                    MonitorInputTextBox_5.Text = mse.Data.ToString();
+                    MonitorText_5 = mse.Data.ToString();
+                    MonitorInputTextBox_5.Text = MonitorText_5;
                 }
             }
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_6)
             {
-                MonitorInputType_6 = mse.Type;
-                if (MonitorInputType_6 != vp_type.vp_void && MonitorInputType_6 != vp_type.vp_boolean)
+                if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                 {
+                    MonitorInputType_6 = mse.Type;
                     MonitorInputPanel_6.Visible = true;
-                    MonitorInputTextBox_6.Text = mse.Data.ToString();
+                    MonitorText_6 = mse.Data.ToString();
+                    MonitorInputTextBox_6.Text = MonitorText_6;
                 }
             }
         }
@@ -225,6 +245,13 @@ namespace VirtualPanel
             MonInput_5 = false;
             MonInput_6 = false;
 
+            MonInputEdit_1 = false;
+            MonInputEdit_2 = false;
+            MonInputEdit_3 = false;
+            MonInputEdit_4 = false;
+            MonInputEdit_5 = false;
+            MonInputEdit_6 = false;
+
             MonitorInputPanel_1.Visible = false;
             MonitorInputPanel_2.Visible = false;
             MonitorInputPanel_3.Visible = false;
@@ -259,6 +286,13 @@ namespace VirtualPanel
             MaxMonInputF_4 = float.MaxValue;
             MaxMonInputF_5 = float.MaxValue;
             MaxMonInputF_6 = float.MaxValue;
+
+            MonitorText_1 = "";
+            MonitorText_2 = "";
+            MonitorText_3 = "";
+            MonitorText_4 = "";
+            MonitorText_5 = "";
+            MonitorText_6 = "";
 
     }
 
@@ -313,31 +347,43 @@ namespace VirtualPanel
             {
                 if (!MonInput_1) MonitorInputPanel_1.Visible = false;
                 if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_1);
+                MonitorInputTextBox_1.Text = MonitorText_1;
+                MonitorInputTextBox_1.ForeColor = Color.Black;
             }
             if (sender == MonitorDiscardInput_2)
             {
                 if (!MonInput_2) MonitorInputPanel_2.Visible = false;
                 if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_2);
+                MonitorInputTextBox_2.Text = MonitorText_2;
+                MonitorInputTextBox_2.ForeColor = Color.Black;
             }
             if (sender == MonitorDiscardInput_3)
             {
                 if (!MonInput_3) MonitorInputPanel_3.Visible = false;
                 if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_3);
+                MonitorInputTextBox_3.Text = MonitorText_3;
+                MonitorInputTextBox_3.ForeColor = Color.Black;
             }
             if (sender == MonitorDiscardInput_4)
             {
                 if (!MonInput_4) MonitorInputPanel_4.Visible = false;
                 if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_4);
+                MonitorInputTextBox_4.Text = MonitorText_4;
+                MonitorInputTextBox_4.ForeColor = Color.Black;
             }
             if (sender == MonitorDiscardInput_5)
             {
                 if (!MonInput_5) MonitorInputPanel_5.Visible = false;
                 if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_5);
+                MonitorInputTextBox_5.Text = MonitorText_5;
+                MonitorInputTextBox_5.ForeColor = Color.Black;
             }
             if (sender == MonitorDiscardInput_6)
             {
                 if (!MonInput_6) MonitorInputPanel_6.Visible = false;
                 if (arduinoport.IsConnected) arduinoport.Send((byte)ChannelId.MonitorInput_6);
+                MonitorInputTextBox_6.Text = MonitorText_6;
+                MonitorInputTextBox_6.ForeColor = Color.Black;
             }
         }
 
@@ -360,6 +406,7 @@ namespace VirtualPanel
             ChannelId MonitorInput = ChannelId.MonitorInput_1;
             vp_type MonitorInputType = vp_type.vp_int;
             bool MonInput = false;
+            bool Valid = true;
 
             if (sender == MonitorSendInput_1)
             {
@@ -435,6 +482,7 @@ namespace VirtualPanel
             }
 
             if (!MonInput) Panel.Visible = false;
+            TextBox.ForeColor = Color.Black;
 
             if ( MonitorInputType == vp_type.vp_byte && byte.TryParse(TextBox.Text, out InputValueByte)
                  && (InputValueByte >= MinInput && InputValueByte <= MaxInput))
@@ -474,6 +522,18 @@ namespace VirtualPanel
             {
                 TextBox.ForeColor = Color.Red;
                 Panel.Visible = true;
+                Valid = false;
+
+            }
+
+            if(Valid)
+            {
+                if (sender == MonitorSendInput_1) MonitorText_1 = TextBox.Text;
+                if (sender == MonitorSendInput_2) MonitorText_2 = TextBox.Text;
+                if (sender == MonitorSendInput_3) MonitorText_3 = TextBox.Text;
+                if (sender == MonitorSendInput_4) MonitorText_4 = TextBox.Text;
+                if (sender == MonitorSendInput_5) MonitorText_5 = TextBox.Text;
+                if (sender == MonitorSendInput_6) MonitorText_6 = TextBox.Text;
             }
         }
 
@@ -497,6 +557,15 @@ namespace VirtualPanel
             TextBox TextBox = (TextBox)sender;
             vp_type MonitorInputType = vp_type.vp_int;
 
+            Color EditColor = Color.Blue;
+
+            if (sender == MonitorInputTextBox_1 && !MonInputEdit_1) { EditColor = Color.Black; MonInputEdit_1 = true; }
+            if (sender == MonitorInputTextBox_2 && !MonInputEdit_2) { EditColor = Color.Black; MonInputEdit_2 = true; }
+            if (sender == MonitorInputTextBox_3 && !MonInputEdit_3) { EditColor = Color.Black; MonInputEdit_3 = true; }
+            if (sender == MonitorInputTextBox_4 && !MonInputEdit_4) { EditColor = Color.Black; MonInputEdit_4 = true; }
+            if (sender == MonitorInputTextBox_5 && !MonInputEdit_5) { EditColor = Color.Black; MonInputEdit_5 = true; }
+            if (sender == MonitorInputTextBox_6 && !MonInputEdit_6) { EditColor = Color.Black; MonInputEdit_6 = true; }
+
             if (sender == MonitorInputTextBox_1)
             { MonitorInputType = MonitorInputType_1; MinInput = MinMonInput_1; MaxInput = MaxMonInput_1; MinInputF = MinMonInputF_1; MaxInputF = MaxMonInputF_1; }
             if (sender == MonitorInputTextBox_2)
@@ -511,13 +580,12 @@ namespace VirtualPanel
             { MonitorInputType = MonitorInputType_6; MinInput = MinMonInput_6; MaxInput = MaxMonInput_6; MinInputF = MinMonInputF_6; MaxInputF = MaxMonInputF_6; }
 
 
-            TextBox.ForeColor = Color.Black;
+            TextBox.ForeColor = EditColor;
 
             if (MonitorInputType == vp_type.vp_byte && byte.TryParse(TextBox.Text, out InputValueByte))
             {
                 if (InputValueByte >= MinInput && InputValueByte <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -525,7 +593,6 @@ namespace VirtualPanel
             {
                 if (InputValueShort >= MinInput && InputValueShort <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -533,7 +600,6 @@ namespace VirtualPanel
             {
                 if (InputValueUShort >= MinInput && InputValueUShort <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -541,7 +607,6 @@ namespace VirtualPanel
             {
                 if (InputValueLong >= MinInput && InputValueLong <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -549,7 +614,6 @@ namespace VirtualPanel
             {
                 if (InputValueULong >= MinInput && InputValueULong <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -557,7 +621,6 @@ namespace VirtualPanel
             {
                 if (InputValueFloat >= MinInputF && InputValueFloat <= MaxInputF)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }
@@ -565,7 +628,6 @@ namespace VirtualPanel
             {
                 if (TextBox.Text.Length <= 35)
                 {
-                    TextBox.ForeColor = Color.Black;
                     ValueValid = true;
                 }
             }

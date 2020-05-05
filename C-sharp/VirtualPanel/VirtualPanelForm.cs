@@ -20,7 +20,7 @@ namespace VirtualPanel
     {
         //
         ApplicationName, // ApplicationName
-        PanelConnected,  // PannelConnected
+        PanelConnected,  // PanelConnected
         Reset,           // Reset
         DynamicDisplay,  // DynamicDisplay
         UnixTime,        // UnixTime
@@ -232,16 +232,19 @@ namespace VirtualPanel
         private GraphForm graph;
         private InfoForm info;
         private ArduinoPort port;
-        private List<Tuple<ChannelId, Control>> pannelControlList;
+        private List<Tuple<ChannelId, Control>> panelControlList;
         int MsgNum = 0;
 
-        private bool PannelConnected = false;
+        bool PanelConnected = false;
 
         private vp_type PanelInputType_1 = vp_type.vp_int;
         private vp_type PanelInputType_2 = vp_type.vp_int;
 
         private bool PanelInput_1 = false;
         private bool PanelInput_2 = false;
+
+        private bool PanelInputColor_1 = false;
+        private bool PanelInputColor_2 = false;
 
         private long MinPanelInput_1 = long.MinValue;
         private long MinPanelInput_2 = long.MinValue;
@@ -253,6 +256,9 @@ namespace VirtualPanel
         private float MinPanelInputF_2 = float.MinValue;
         private float MaxPanelInputF_1 = float.MaxValue;
         private float MaxPanelInputF_2 = float.MaxValue;
+
+        private string PanelInputText_1 = "";
+        private string PanelInputText_2 = "";
 
         public Color PanelColor = Color.CornflowerBlue;
         private Color PanelColorHoverColor = Color.LightGray;
@@ -276,48 +282,48 @@ namespace VirtualPanel
         {
             InitializeComponent();
 
-            pannelControlList = new List<Tuple<ChannelId, Control>>();
+            panelControlList = new List<Tuple<ChannelId, Control>>();
 
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_1, button1));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_2, button2));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_3, button3));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_4, button4));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_5, button5));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_6, button6));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_7, button7));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_8, button8));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_9, button9));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_10, button10));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_11, button11));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_12, button12));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_13, button13));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_14, button14));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_15, button15));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_16, button16));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_17, button17));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_1, Led1));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_2, Led2));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_3, Led3));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_4, Led4));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_5, Led5));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_6, Led6));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_7, Led7));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_8, Led8));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_9, Led9));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_10, Led10));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_11, Led11));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_12, Led12));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_13, Led13));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.ApplicationName, ApplicationTitle));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Display_1, display1));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Display_2, display2));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Display_3, display3));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Display_4, display4));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_1, ScrollBar1));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_2, ScrollBar2));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_3, ScrollBar3));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_4, ScrollBar4));
-            pannelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_5, ScrollBar5));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_1, button1));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_2, button2));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_3, button3));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_4, button4));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_5, button5));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_6, button6));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_7, button7));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_8, button8));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_9, button9));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_10, button10));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_11, button11));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_12, button12));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_13, button13));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_14, button14));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_15, button15));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_16, button16));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Button_17, button17));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_1, Led1));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_2, Led2));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_3, Led3));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_4, Led4));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_5, Led5));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_6, Led6));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_7, Led7));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_8, Led8));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_9, Led9));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_10, Led10));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_11, Led11));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_12, Led12));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Led_13, Led13));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.ApplicationName, ApplicationTitle));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Display_1, display1));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Display_2, display2));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Display_3, display3));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Display_4, display4));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_1, ScrollBar1));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_2, ScrollBar2));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_3, ScrollBar3));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_4, ScrollBar4));
+            panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_5, ScrollBar5));
 
             port = new ArduinoPort("[VirtualPanel]");
             menuStrip1.Renderer = new MenuRenderer();
@@ -374,7 +380,7 @@ namespace VirtualPanel
             graph.Visible = false;
             info.Visible = false;
 
-            foreach (var t in pannelControlList)
+            foreach (var t in panelControlList)
             {
                 t.Item2.Visible = false;
                 t.Item2.ForeColor = Color.Black;
@@ -481,6 +487,9 @@ namespace VirtualPanel
             PanelInput_1 = false;
             PanelInput_2 = false;
 
+            PanelInputColor_1 = false;
+            PanelInputColor_2 = false;
+
             MinPanelInput_1 = long.MinValue;
             MinPanelInput_2 = long.MinValue;
             MaxPanelInput_1 = long.MaxValue;
@@ -504,12 +513,12 @@ namespace VirtualPanel
             DialogTitleFile_4 = "VirtualPanel Open File 4";
 
             if (port.IsConnected) port.Send((byte)ChannelId.PanelConnected);
-            PannelConnected = true;
+            PanelConnected = true;
         }
 
         private void Port_Disconnected(object sender, ConnectedEventArgs e)
         {
-            PannelConnected = false;
+            PanelConnected = false;
             connection_label.Text = "not connected";
             if (connected_box.BackColor == Color.Lime) connected_box.BackColor = Color.DarkGreen;
 
@@ -527,7 +536,7 @@ namespace VirtualPanel
             MsgNum++;
             ChannelId id = (ChannelId) mse.ChannelID;
 
-            Tuple<ChannelId, Control> control = pannelControlList.Find(t => t.Item1 == id);
+            Tuple<ChannelId, Control> control = panelControlList.Find(t => t.Item1 == id);
 
             if (control != null)
                 SetAppearance(control.Item2, mse);
@@ -620,7 +629,7 @@ namespace VirtualPanel
                 if (id == ChannelId.MaxSlider_5 && mse.Type == vp_type.vp_int) ScrollBar5.Maximum = (int)mse.Data + ScrollBar5.LargeChange - 1;
 
                 if ((ChannelId)mse.ChannelID == ChannelId.PanelInput_1 && mse.Type == vp_type.vp_boolean) PanelInput_1 = (bool)mse.Data;
-                if ((ChannelId)mse.ChannelID == ChannelId.PanelInput_1 && mse.Type == vp_type.vp_boolean) PanelInput_2 = (bool)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.PanelInput_2 && mse.Type == vp_type.vp_boolean) PanelInput_2 = (bool)mse.Data;
 
                 if ((ChannelId)mse.ChannelID == ChannelId.PanelInputLabel_1 && mse.Type == vp_type.vp_string) PanelInputLabel_1.Text = mse.Data.ToString();
                 if ((ChannelId)mse.ChannelID == ChannelId.PanelInputLabel_2 && mse.Type == vp_type.vp_string) PanelInputLabel_2.Text = mse.Data.ToString();
@@ -641,22 +650,24 @@ namespace VirtualPanel
 
                 if ((ChannelId)mse.ChannelID == ChannelId.PanelInput_1)
                 {
-                    PanelInputType_1 = mse.Type;
-                    if (PanelInputType_1 != vp_type.vp_void && PanelInputType_1 != vp_type.vp_boolean)
+                    if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                     {
+                        PanelInputType_1 = mse.Type;
                         PanelInputPanel_1.Visible = true;
                         PanelInputPanel_1.BringToFront();
-                        PanelInputTextBox_1.Text = mse.Data.ToString();
+                        PanelInputText_1 = mse.Data.ToString();
+                        PanelInputTextBox_1.Text = PanelInputText_1;
                     }
                 }
                 if ((ChannelId)mse.ChannelID == ChannelId.PanelInput_2)
                 {
-                    PanelInputType_2 = mse.Type;
-                    if (PanelInputType_2 != vp_type.vp_void && PanelInputType_2 != vp_type.vp_boolean)
+                    if (mse.Type != vp_type.vp_void && mse.Type != vp_type.vp_boolean)
                     {
+                        PanelInputType_2 = mse.Type;
                         PanelInputPanel_2.Visible = true;
                         PanelInputPanel_2.BringToFront();
-                        PanelInputTextBox_2.Text = mse.Data.ToString();
+                        PanelInputText_2 = mse.Data.ToString();
+                        PanelInputTextBox_2.Text = PanelInputText_2;
                     }
                 }
             }
@@ -1044,7 +1055,7 @@ namespace VirtualPanel
         private void SetScrollBarMax(VScrollBar ScrollBar, int MaxValue)
         {
             if (MaxValue > 1024) MaxValue = 1000;
-            if (MaxValue < 0) MaxValue = 0;
+            if (MaxValue < 0) MaxValue = 100;
 
             if (MaxValue / 10 > 0)
                 ScrollBar.LargeChange = MaxValue / 10;
@@ -1134,7 +1145,7 @@ namespace VirtualPanel
 
         private void button_Click(object sender, EventArgs e)
         {
-            Tuple<ChannelId, Control> channel = pannelControlList.Find(t => t.Item2 == sender);
+            Tuple<ChannelId, Control> channel = panelControlList.Find(t => t.Item2 == sender);
             if (channel != null)
             {
                 if (port.IsConnected) port.Send((byte)channel.Item1);
@@ -1150,7 +1161,7 @@ namespace VirtualPanel
 
         private void ScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
-           Tuple<ChannelId, Control> channel = pannelControlList.Find(t => t.Item2 == sender);
+           Tuple<ChannelId, Control> channel = panelControlList.Find(t => t.Item2 == sender);
            if (channel != null)
            {
               VScrollBar temp = (VScrollBar)channel.Item2;
@@ -1258,12 +1269,17 @@ namespace VirtualPanel
             float InputValueFloat = 0;
 
             bool ValueValid = false;
+            Color EditColor = Color.FromArgb(255, 64, 64, 64);
+
+            if (sender == PanelInputTextBox_1 && !PanelInputColor_1) { EditColor = Color.White; PanelInputColor_1 = true; }
+            if (sender == PanelInputTextBox_2 && !PanelInputColor_2) { EditColor = Color.White; PanelInputColor_2 = true; }
 
             TextBox TextBox = (TextBox)sender;
             vp_type InputType = vp_type.vp_int;
 
             if (sender == PanelInputTextBox_1)
             { InputType = PanelInputType_1; MinInput = MinPanelInput_1; MaxInput = MaxPanelInput_1; MinInputF = MinPanelInputF_1; MaxInputF = MaxPanelInputF_1; }
+
             if (sender == PanelInputTextBox_2)
             { InputType = PanelInputType_2; MinInput = MinPanelInput_2; MaxInput = MaxPanelInput_2; MinInputF = MinPanelInputF_2; MaxInputF = MaxPanelInputF_2; }
 
@@ -1272,7 +1288,7 @@ namespace VirtualPanel
             {
                 if (InputValueByte >= MinInput && InputValueByte <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.White;
+                    TextBox.ForeColor = EditColor;
                     ValueValid = true;
                 }
             }
@@ -1280,7 +1296,7 @@ namespace VirtualPanel
             {
                 if (InputValueShort >= MinInput && InputValueShort <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.White;
+                    TextBox.ForeColor = EditColor;
                     ValueValid = true;
                 }
             }
@@ -1288,7 +1304,7 @@ namespace VirtualPanel
             {
                 if (InputValueUShort >= MinInput && InputValueUShort <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.White;
+                    TextBox.ForeColor = EditColor;
                     ValueValid = true;
                 }
             }
@@ -1296,7 +1312,7 @@ namespace VirtualPanel
             {
                 if (InputValueLong >= MinInput && InputValueLong <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.White;
+                    TextBox.ForeColor = EditColor;
                     ValueValid = true;
                 }
             }
@@ -1304,7 +1320,7 @@ namespace VirtualPanel
             {
                 if (InputValueULong >= MinInput && InputValueULong <= MaxInput)
                 {
-                    TextBox.ForeColor = Color.White;
+                    TextBox.ForeColor = EditColor;
                     ValueValid = true;
                 }
             }
@@ -1312,7 +1328,7 @@ namespace VirtualPanel
             {
                 if (InputValueFloat >= MinInputF && InputValueFloat <= MaxInputF)
                 {
-                    TextBox.ForeColor = Color.White;
+                    TextBox.ForeColor = EditColor;
                     ValueValid = true;
                 }
             }
@@ -1320,7 +1336,7 @@ namespace VirtualPanel
             {
                 if (TextBox.Text.Length <= 35 && (TextBox.Text.Length >= MinInput && TextBox.Text.Length <= MaxInput))
                 {
-                    TextBox.ForeColor = Color.White;
+                    TextBox.ForeColor = EditColor;
                     ValueValid = true;
                 }
             }
@@ -1347,6 +1363,7 @@ namespace VirtualPanel
             ChannelId PanelInput = ChannelId.PanelInput_1;
             vp_type PanelInputType = vp_type.vp_int;
             bool MonInput = false;
+            bool Valid = true;
 
             if (sender == PanelSendInput_1)
             {
@@ -1373,6 +1390,7 @@ namespace VirtualPanel
                 MaxInputF = MaxPanelInputF_2;
             }
 
+            TextBox.ForeColor = Color.White;
             if (!MonInput) Panel.Visible = false;
 
             if ( PanelInputType == vp_type.vp_byte && byte.TryParse(TextBox.Text, out InputValueByte)
@@ -1414,7 +1432,17 @@ namespace VirtualPanel
             {
                 TextBox.ForeColor = Color.Red;
                 Panel.Visible = true;
+                Valid = false;
             }
+            if (Valid)
+            {
+                if (sender == PanelSendInput_1) PanelInputText_1 = TextBox.Text;
+                if (sender == PanelSendInput_1) PanelInputText_2 = TextBox.Text;
+            }
+
+
+
+
         }
 
         private void PanelDiscardInput_Click(object sender, EventArgs e)
@@ -1423,11 +1451,15 @@ namespace VirtualPanel
             {
                 if (!PanelInput_1) PanelInputPanel_1.Visible = false;
                 if (port.IsConnected) port.Send((byte)ChannelId.PanelInput_1);
+                PanelInputTextBox_1.Text = PanelInputText_1;
+                PanelInputTextBox_1.ForeColor = Color.White;
             }
             if (sender == PanelDiscardInput_2)
             {
                 if (!PanelInput_2) PanelInputPanel_2.Visible = false;
                 if (port.IsConnected) port.Send((byte)ChannelId.PanelInput_2);
+                PanelInputTextBox_2.Text = PanelInputText_2;
+                PanelInputTextBox_2.ForeColor = Color.White;
             }
         }
 
@@ -1446,7 +1478,7 @@ namespace VirtualPanel
 
         private void ScrollBar5_Scroll(object sender, ScrollEventArgs e)
         {
-            Tuple<ChannelId, Control> channel = pannelControlList.Find(t => t.Item2 == sender);
+            Tuple<ChannelId, Control> channel = panelControlList.Find(t => t.Item2 == sender);
             if (channel != null)
             {
                 HScrollBar temp = (HScrollBar)channel.Item2;

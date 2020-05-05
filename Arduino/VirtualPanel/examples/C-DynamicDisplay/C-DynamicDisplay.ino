@@ -32,22 +32,22 @@ void PanelCallback(vp_channel event)
       Panel.send(Slider_2, Factor); // Set Slider initial Value
 
       Panel.send(DynamicDisplay, (int16_t)500); // Switch on DynamicDisplay at 250 mS interval
-    break;
+      break;
 
     case Button_3: // Catch button pressed
       Power = !Power;
-    break;
+      break;
 
     case Slider_2: // Catch Slider change
       Factor = Panel.vpr_int; 
-    break;
+      break;
 
     case DynamicDisplay: // Catch Dynamic display event
       // although numbers are generated fast display is at a resonable pace controlled by the panel
       Panel.sendf(Display_1, "Value %d",  Value); // Show Value on display_1
       Panel.sendf(Display_3, "Factor %d", Factor); // Show Factor on display_3
       Panel.sendf(Display_2, "Result %d", Value*Factor); // Multiplication of Value and Factor on display 2
-    break;
+      break;
   }
   
   StaticChange(); // catch changes because of buttons or sliders

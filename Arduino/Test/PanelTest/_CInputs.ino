@@ -104,7 +104,7 @@ void InputsCallback(vp_channel event)
       if (Panel.vpr_type == vp_type::vp_long)
       {
         MyLong = Panel.vpr_long;
-        Panel.sendf(MonitorLog, F("Panel Input 3: %d"), MyLong);
+        Panel.sendf(MonitorLog, F("Panel Input 3: %ld"), MyLong);
       }
     break;
 
@@ -114,12 +114,12 @@ void InputsCallback(vp_channel event)
       if (Panel.vpr_type == vp_type::vp_uint)
       {
         MyUInt = Panel.vpr_uint;
-        Panel.sendf(MonitorLog, F("Panel Input 2: %u"), MyUInt);
+        Panel.sendf(MonitorLog, F("Panel Input 2: %d"), MyUInt);
       }
       if (Panel.vpr_type == vp_type::vp_ulong)
       {
         MyULong = Panel.vpr_ulong;
-        Panel.sendf(MonitorLog, F("Panel Input 4: %u"),MyULong);
+        Panel.sendf(MonitorLog, F("Panel Input 4: %ld"),MyULong);
       }
       break;
 

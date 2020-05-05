@@ -27,55 +27,74 @@ void PanelCallback(vp_channel event)
     case PanelConnected: // receive panel connected event
       Panel.send(ApplicationName,"Beep-Inputs"); // set the application name
       
-      Panel.send(Button_8,"info"); // Button_3 visible and set text "on/off"
-      Panel.send(Button_15,"beep\ndefault"); // Button_3 visible and set text "on/off"
-      Panel.send(Button_16,"beep\nfreq"); // Button_3 visible and set text "on/off"
-      Panel.send(Button_17,"beep\nfrq+dur"); // Button_3 visible and set text "on/off"
-      
+      Panel.send(Button_5,"beep\ndefault");
+      Panel.send(Button_6,"beep\nfreq");
+      Panel.send(Button_7,"beep\nfrq+dur");
+      Panel.send(Button_14,"moni-\ntor");
+      Panel.send(Button_17,"info");
+
+      // Panel input 1
+      Panel.send(MinPanelInput_1, (int16_t)38); // set input minimum
+      Panel.send(MaxPanelInput_1, (int16_t)10000.0); // set input maximum
+      Panel.send(PanelInputLabel_1, "Frequency:"); // set input label
+
+      // Panel input 2
+      Panel.send(MinPanelInput_2, (int16_t)10); // set input minimum
+      Panel.send(MaxPanelInput_2, (int16_t)1000); // set input maximum
+      Panel.send(PanelInputLabel_2, "Duration:"); // set input label
+
+      // Monitor input 1
+      Panel.send(MinMonitorInput_1, (int16_t)38); // minimum value
+      Panel.send(MaxMonitorInput_1, (int16_t)10000); // maximum value
+      Panel.send(MonitorInputLabel_1, "Frequency:"); // label
+      Panel.send(MonitorInput_1, Frequency); // value
+      Panel.send(MonitorInput_1, true); // set permanent
+
+      // Monitor input 2
+      Panel.send(MinMonitorInput_2, (int16_t)10); // minimum value
+      Panel.send(MaxMonitorInput_2, (int16_t)1000); // maximum value
+      Panel.send(MonitorInputLabel_2, "Duration:"); // label
+      Panel.send(MonitorInput_2, Duration); // value
+      Panel.send(MonitorInput_2, true); // set permanent
+
+      // Info screen 
       Panel.send(InfoTitle, "Input"); // Info Title the F() macro can be used to force strings in program memory
       Panel.send(InfoText, "Same example as Beep");
       Panel.send(InfoText, "But now the scrollbars have been changed to input");
       Panel.send(InfoText, "You can access them by double clicking the display");
-      Panel.send(InfoText, "Frequency is limited between 37 and 10.000 Hz");
+      Panel.send(InfoText, "Frequency is limited between 38 and 10.000 Hz");
       Panel.send(InfoText, "Duration can be set between 10 and 1000 mS");
-    break;
+      break;
 
-    case Button_8: // Catch button pressed
-      InfoVisible = !InfoVisible;
-    break;
+    case Button_5: // Catch button pressed
+      Panel.send(Beep); // Beep default 500Hz 400ms
+      break;
 
-    case Button_15: // Catch button pressed
-     Panel.send(Beep); // Beep default 300 Hz, 
-    break;
+    case Button_6: // Catch button pressed
+      Panel.send(Beep, (int16_t)Frequency); // Beep set frequency 400ms
+      break;
 
-    case Button_16: // Catch button pressed
-      Panel.send(Beep, (int16_t)Frequency); //
-    break;
+    case Button_7: // Catch button pressed
+      Panel.send(Beep,_Sound((int)Frequency, Duration)); // Beep set frequency and duration
+      break;
+
+    case Button_14: // Catch button pressed
+      MonitorVisible = !MonitorVisible; // togle inof pannel
+      Panel.send(Monitor, MonitorVisible); // send to panel
+      break;
 
     case Button_17: // Catch button pressed
-      Panel.send(Beep,_Sound((int)Frequency, Duration));
-    break;
+      InfoVisible = !InfoVisible; // togle inof pannel
+      Panel.send(Info, InfoVisible); // send to panel
+      break;
 
-    case Display_1: // display has been double clicked 
-      Panel.send(MinPanelInput_1, (int16_t)37.5); // 
-      Panel.send(MaxPanelInput_1, (int16_t)10000.0); // 
-      Panel.send(PanelInputLabel_1, "Frequency:"); // 
-      Panel.send(PanelInput_1, Frequency); // 
-    break;
+    case Display_1: // display 1 has been double clicked 
+      Panel.send(PanelInput_1, Frequency); // set current frequency value
+      break;
 
-    case Display_2: // display has been double clicked 
-      Panel.send(MinPanelInput_2, (int16_t)10); // 
-      Panel.send(MaxPanelInput_2, (int16_t)1000); // 
-      Panel.send(PanelInputLabel_2, "Duration:"); // 
-      Panel.send(PanelInput_2, Duration); // 
-    break;
-
-    case MonitorField_1: // display has been double clicked 
-      Panel.send(MinMonitorInput_1, (float)37.5); // 
-      Panel.send(MaxMonitorInput_1, (float)10000.0); // 
-      Panel.send(MonitorInputLabel_1, "Frequency:"); // 
-      Panel.send(MonitorInput_1, Frequency); // 
-    break;
+    case Display_2: // display 2 has been double clicked 
+      Panel.send(PanelInput_2, Duration); // set current duration value
+      break;
 
     case PanelInput_1:
       if (Panel.vpr_type != vp_type::vp_void) // check if not discarded
@@ -91,18 +110,15 @@ void PanelCallback(vp_channel event)
       if (Panel.vpr_type != vp_type::vp_void) // check if not discarded
         Frequency = Panel.vpr_int;
     break;
+
+    case MonitorInput_2:
+      if (Panel.vpr_type != vp_type::vp_void) // check if not discarded
+        Duration = Panel.vpr_int;
+    break;
   }
-
-  StaticChange();
-}
-
-
-void StaticChange()
-{
-  Panel.send(Display_1, Frequency); // write display_1
-  Panel.send(Display_3, "Frequency"); // write display_1
-  Panel.sendf(Display_2, "Duration. %d mS", Duration); // write display_2
+  
+  // code for all panel evnents
+  Panel.sendf(Display_1, "Frequency: %d Hz", Frequency); // write display_1
+  Panel.sendf(Display_2, "Duration: %d mS", Duration); // write display_2
   Panel.send(MonitorField_1, Frequency); // write display_1
-
-  Panel.send(Info, InfoVisible); // set info panel visible
 }
