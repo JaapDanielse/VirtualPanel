@@ -22,11 +22,10 @@ V1.1.0 Release notes
 - Added $SMALL for Buttons. 
 - Added GraphDrawCircle channel and _Circle and _VCircle functions allowing to draw circles and circle sections.
 - Made $BIG for buttons bigger.
-- Slider value limmited to value 1024.
+- Slider operation for values higher than 1119 corrected.
 - Made auxillary windows (Monitor, Graph etc.) keep their relative positions when moving the main window.
 - Fixed connection hangup problem when existing com port or bluetooth port is present.
-
-- Added additonal examples, improved existiong examples 
+- Added additonal examples, improved existing examples 
 - QuickReference (VirtualPanel\extras) is revised correcting errors and updated to include the added functionality.
 
 V1.1.0 is backward compatible: the executable will operate correctly on earlier Arduino implementations, 

@@ -260,7 +260,7 @@ namespace VirtualPanel
         private string PanelInputText_1 = "";
         private string PanelInputText_2 = "";
 
-        public Color PanelColor = Color.CornflowerBlue;
+        public Color PanelColor = Color.DimGray;
         private Color PanelColorHoverColor = Color.LightGray;
 
         string dialogdir = "";
@@ -388,7 +388,7 @@ namespace VirtualPanel
 
             panel1.Visible = false;
 
-            PanelColor = Color.CornflowerBlue;
+            PanelColor = Color.DimGray;
             PanelColorHoverColor = Color.LightGray;
 
             menuStrip1.BackColor = PanelColor;
@@ -934,6 +934,11 @@ namespace VirtualPanel
                     button.Font = new Font("Microsoft Sans Serif", 10);
                     button.Text = "⚫⚪";
                 }
+                else if ((string)mse.Data == "$ONOFFS")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 6);
+                    button.Text = "⚫⚪";
+                }
                 else if ((string)mse.Data == "$LTURN")
                 {
                     button.Font = new Font("Microsoft Sans Serif", 10);
@@ -1054,15 +1059,10 @@ namespace VirtualPanel
 
         private void SetScrollBarMax(VScrollBar ScrollBar, int MaxValue)
         {
-            if (MaxValue > 1024) MaxValue = 1000;
-            if (MaxValue < 0) MaxValue = 100;
-
-            if (MaxValue / 10 > 0)
-                ScrollBar.LargeChange = MaxValue / 10;
-            else
-                ScrollBar.LargeChange = 1;
-
-            ScrollBar.Maximum = MaxValue + ScrollBar.LargeChange - 1;
+            if (MaxValue < 0)
+                MaxValue = 100; 
+            ScrollBar.LargeChange = 1;
+            ScrollBar.Maximum = MaxValue;
             ScrollBar.Value = MaxValue;
         }
 
@@ -1119,17 +1119,17 @@ namespace VirtualPanel
                 if (mse.Type == vp_type.vp_int)
                 {
                     if (scrollBar.Name == "ScrollBar1")
-                        if ((int)mse.Data <= (ScrollBar1.Maximum - ScrollBar1.LargeChange + 1) && (int)mse.Data >= 0)
-                            ScrollBar1.Value = ((ScrollBar1.Maximum - ScrollBar1.LargeChange + 1) - (int)mse.Data);
+                        if ((int)mse.Data <= ScrollBar1.Maximum && (int)mse.Data >= 0)
+                            ScrollBar1.Value = ScrollBar1.Maximum - (int)mse.Data;
                     if (scrollBar.Name == "ScrollBar2")
-                        if ((int)mse.Data <= (ScrollBar2.Maximum - ScrollBar2.LargeChange + 1) && (int)mse.Data >= 0)
-                            ScrollBar2.Value = ((ScrollBar2.Maximum - ScrollBar2.LargeChange + 1) - (int)mse.Data);
+                        if ((int)mse.Data <= ScrollBar2.Maximum && (int)mse.Data >= 0)
+                            ScrollBar2.Value = ScrollBar2.Maximum - (int)mse.Data;
                     if (scrollBar.Name == "ScrollBar3")
-                        if ((int)mse.Data <= (ScrollBar3.Maximum - ScrollBar3.LargeChange + 1) && (int)mse.Data >= 0)
-                            ScrollBar3.Value = ((ScrollBar3.Maximum - ScrollBar3.LargeChange + 1) - (int)mse.Data);
+                        if ((int)mse.Data <= ScrollBar3.Maximum && (int)mse.Data >= 0)
+                            ScrollBar3.Value = ScrollBar3.Maximum - (int)mse.Data;
                     if (scrollBar.Name == "ScrollBar4")
-                        if ((int)mse.Data <= (ScrollBar4.Maximum - ScrollBar4.LargeChange + 1) && (int)mse.Data >= 0)
-                            ScrollBar4.Value = ((ScrollBar4.Maximum - ScrollBar4.LargeChange + 1) - (int)mse.Data);
+                        if ((int)mse.Data <= ScrollBar4.Maximum && (int)mse.Data >= 0)
+                            ScrollBar4.Value = ScrollBar4.Maximum - (int)mse.Data;
                 }
             }
         }

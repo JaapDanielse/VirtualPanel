@@ -72,7 +72,7 @@ char * _Circle( uint8_t x, uint8_t y, uint8_t rad)
 // _Circle Graph draw helper function. Packs centre point (2xbyte), radius, start angle and arc (int16) into string.
 char * _Circle( uint8_t x, uint8_t y, uint8_t rad, uint16_t angle, uint16_t arc)
 {
-	static char circleparams[17];
+	char circleparams[17];
 	if (arc <= (uint16_t)360)
   	sprintf(circleparams, "$$%02X%02X%02X%04X%04X", x, y, rad, angle%(uint16_t)360, arc);
 	return(circleparams);
@@ -85,7 +85,7 @@ char * _VCircle( uint8_t x, uint8_t y, uint8_t rad)
 
 char * _VCircle( uint8_t x, uint8_t y, uint8_t rad, uint16_t angle, uint16_t arc)
 {
-	static char circleparams[17];
+	char circleparams[17];
 	uint8_t point = map(y,0,255,0,220);
 	if (arc <= (uint16_t)360)
   	sprintf(circleparams, "$$%02X%02X%02X%04X%04X", x, point, rad, angle%(uint16_t)360, arc);
@@ -109,7 +109,7 @@ uint32_t _Sound( uint16_t frequency, uint16_t duration)
 // _FString - dtostrf wrapper for use in sendf.
 char * _FString(float FloatValue, int16_t StringSize, int16_t Decimals)
 {
-  static char FloatString[11];
+  char FloatString[11];
   dtostrf(FloatValue, StringSize, Decimals, FloatString);
   int i=0;
   while (FloatString[i]==' ') FloatString[i++]='0';

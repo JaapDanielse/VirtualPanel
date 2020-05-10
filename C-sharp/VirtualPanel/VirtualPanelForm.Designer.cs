@@ -506,7 +506,6 @@
             // ScrollBar2
             // 
             this.ScrollBar2.Location = new System.Drawing.Point(339, 43);
-            this.ScrollBar2.Maximum = 109;
             this.ScrollBar2.Name = "ScrollBar2";
             this.ScrollBar2.Size = new System.Drawing.Size(44, 137);
             this.ScrollBar2.TabIndex = 44;
@@ -516,22 +515,21 @@
             // ScrollBar3
             // 
             this.ScrollBar3.Location = new System.Drawing.Point(393, 43);
-            this.ScrollBar3.Maximum = 109;
             this.ScrollBar3.Name = "ScrollBar3";
             this.ScrollBar3.Size = new System.Drawing.Size(44, 137);
             this.ScrollBar3.TabIndex = 45;
-            this.ScrollBar3.Value = 109;
+            this.ScrollBar3.Value = 100;
             this.ScrollBar3.Visible = false;
             this.ScrollBar3.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ScrollBar_Scroll);
             // 
             // ScrollBar4
             // 
             this.ScrollBar4.Location = new System.Drawing.Point(447, 43);
-            this.ScrollBar4.Maximum = 109;
+            this.ScrollBar4.Maximum = 10;
             this.ScrollBar4.Name = "ScrollBar4";
             this.ScrollBar4.Size = new System.Drawing.Size(44, 137);
             this.ScrollBar4.TabIndex = 46;
-            this.ScrollBar4.Value = 109;
+            this.ScrollBar4.Value = 10;
             this.ScrollBar4.Visible = false;
             this.ScrollBar4.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ScrollBar_Scroll);
             // 
@@ -675,7 +673,7 @@
             this.ScrollBar1.Name = "ScrollBar1";
             this.ScrollBar1.Size = new System.Drawing.Size(44, 137);
             this.ScrollBar1.TabIndex = 54;
-            this.ScrollBar1.Value = 109;
+            this.ScrollBar1.Value = 100;
             this.ScrollBar1.Visible = false;
             this.ScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ScrollBar_Scroll);
             // 
