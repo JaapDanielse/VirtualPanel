@@ -33,6 +33,9 @@ namespace VirtualPanel
 
         public void MoveWriteCaret(long line)
         {
+            if (!isOpen)
+                return;
+
             int newPos = (int) line - 1;
 
             if (newPos < 0)
@@ -43,6 +46,9 @@ namespace VirtualPanel
 
         public void MoveReadCaret(long line)
         {
+            if (!isOpen)
+                return;
+
             int newPos = (int)line - 1;
 
             if (newPos >= lines.Count)

@@ -4,7 +4,6 @@ VirtualPanel and ArduinoPort library
 * Copy the VirtualPanel\ directory to the myDocuments\Arduino\libraries\ directory
 * Copy the ArduinoPort\ directory to the myDocuments\Arduino\libraries\ directory
 
-
 VirtualPanel Windows executable
 * The VirtualPanel.exe is a portable application. You can place it anywhere.
 * Keep together with ArduinoPort.dll
@@ -12,6 +11,7 @@ VirtualPanel Windows executable
 
 See examples at: myDocuments\Arduino\libraries\VirtualPanel\examples
 If you activate the VirtualPanel.exe after loading an example sketch, it will connect automatically.
+
 
 V1.1.0 Release notes 
 
@@ -21,12 +21,21 @@ V1.1.0 Release notes
 - Input handling improved, input colors change when editing, on discard old value is reset.
 - Added $SMALL for Buttons. 
 - Added GraphDrawCircle channel and _Circle and _VCircle functions allowing to draw circles and circle sections.
-- Made $BIG for buttons bigger.
-- Slider operation for values higher than 1119 corrected.
-- Made auxillary windows (Monitor, Graph etc.) keep their relative positions when moving the main window.
-- Fixed connection hangup problem when existing com port or bluetooth port is present.
+- Added _FString() overload with user buffer param. This is needed when more float values are used in one string.
 - Added additonal examples, improved existing examples 
+
+- Made auxillary windows (Monitor, Graph etc.) keep their relative positions when moving the main window.
+- Made $BIG for buttons bigger.
+- Slider operation for values higher than 1110 corrected.
+- Fixed connection hangup problem when existing com port or bluetooth port is present.
+- Info Panel now handles unicode characters.
+- Setting graph label invisible also makes color bar invisible.
+- Corrected string length setting on Monitor inputs.
+
 - QuickReference (VirtualPanel\extras) is revised correcting errors and updated to include the added functionality.
 
 V1.1.0 is backward compatible: the executable will operate correctly on earlier Arduino implementations, 
 Recompiling Arduino implementations will compile unchanged.
+
+VirtualPanel V1.1.0 was built with Visual studio 2019 / .NET Framework 4.7.2
+Testing of the Arduino code was done using Arduino 1.8.12 IDE

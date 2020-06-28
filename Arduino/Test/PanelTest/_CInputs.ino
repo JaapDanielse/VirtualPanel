@@ -87,7 +87,7 @@ void InputsCallback(vp_channel event)
      break;
     
    case MonitorField_6: // display has been double clicked 
-     Panel.send(MinMonitorInput_6, 0); // 
+     Panel.send(MinMonitorInput_6, 2); // 
      Panel.send(MaxMonitorInput_6, 10); // 
      Panel.send(MonitorInput_6, "test"); // 
      Panel.send(MonitorInputLabel_6, F("Mon Field 6 Text:")); // 

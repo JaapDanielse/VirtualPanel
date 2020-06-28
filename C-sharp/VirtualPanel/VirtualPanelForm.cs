@@ -382,8 +382,8 @@ namespace VirtualPanel
 
             foreach (var t in panelControlList)
             {
-                t.Item2.Visible = false;
                 t.Item2.ForeColor = Color.Black;
+                t.Item2.Visible = false;
             }
 
             panel1.Visible = false;

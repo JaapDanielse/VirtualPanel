@@ -514,7 +514,7 @@ namespace VirtualPanel
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, InputValueFloat);
             }
-            else if (MonitorInputType == vp_type.vp_string && TextBox.Text.Length <= 35)
+            else if (MonitorInputType == vp_type.vp_string && TextBox.Text.Length <= 35 && TextBox.Text.Length <= MaxInput && TextBox.Text.Length >= MinInput)
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)MonitorInput, TextBox.Text);
             }
@@ -626,7 +626,7 @@ namespace VirtualPanel
             }
             else if (MonitorInputType == vp_type.vp_string )
             {
-                if (TextBox.Text.Length <= 35)
+              if (TextBox.Text.Length <= 35 && TextBox.Text.Length <= MaxInput && TextBox.Text.Length >= MinInput)
                 {
                     ValueValid = true;
                 }

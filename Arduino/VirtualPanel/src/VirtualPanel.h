@@ -261,6 +261,8 @@ uint32_t _Sound( uint16_t frequency, uint16_t duration); // Declaration of Beep 
 
 char * _FString(float FloatValue, int16_t StringSize, int16_t Decimals); // Declaration of F(loat)String helper function
 
+char * _FString(float FloatValue, int16_t StringSize, int16_t Decimals, char * ReturnBuffer);
+
 
 
 

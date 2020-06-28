@@ -111,9 +111,9 @@ namespace VirtualPanel
 
 
             GraphPlot_1.Color = Color.White;
-            GraphPlot_2.Color =  Color.Yellow;
-            GraphPlot_3.Color =  Color.Orange;
-            GraphPlot_4.Color =  Color.Red;
+            GraphPlot_2.Color = Color.Yellow;
+            GraphPlot_3.Color = Color.Orange;
+            GraphPlot_4.Color = Color.Red;
             GraphPlot_5.Color = Color.DodgerBlue;
 
             pannelControlList = new List<Tuple<ChannelId, Control>>();
@@ -613,7 +613,11 @@ namespace VirtualPanel
 
             if (mse.Type == vp_type.vp_boolean)
             {
-                if (!(bool)mse.Data) control.Visible = false;
+                if (!(bool)mse.Data)
+                {
+                    control.Visible = false;
+                    p.Visible = false;
+                }
             }
             else if (mse.Type == vp_type.vp_string)
             {
@@ -899,7 +903,7 @@ namespace VirtualPanel
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)GraphInput, InputValueFloat);
             }
-            else if (GraphInputType == vp_type.vp_string && TextBox.Text.Length <= 35)
+            else if (GraphInputType == vp_type.vp_string && TextBox.Text.Length <= 35 && TextBox.Text.Length <= MaxInput && TextBox.Text.Length >= MinInput)
             {
                 if (arduinoport.IsConnected) arduinoport.Send((byte)GraphInput, TextBox.Text);
             }
@@ -920,10 +924,6 @@ namespace VirtualPanel
             }
         }
 
-        private void GraphForm_Move(object sender, EventArgs e)
-        {
-
-        }
 
         private void GraphInputTextBox_TextChange(object sender, EventArgs e)
         {
@@ -1010,7 +1010,7 @@ namespace VirtualPanel
             }
             else if (GraphInputType == vp_type.vp_string)
             {
-                if (TextBox.Text.Length <= 35)
+                if (TextBox.Text.Length <= 35 && TextBox.Text.Length <= MaxInput && TextBox.Text.Length >= MinInput)
                 {
                     ValueValid = true;
                 }

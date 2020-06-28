@@ -1,8 +1,11 @@
 
-The three VirtualPanel show cases/ examples in this folder:
+The VirtualPanel show cases/ examples in this folder:
 - SignalGenerator
 - FrequencyCounter
 - Oscilloscope
+- LogicAnalyzer
+- FourChanelVoltmeter
+
 use specific features of the AVR processor architecture and will only work on 
 board featuring processors with this architecture.
 
