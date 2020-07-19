@@ -726,14 +726,35 @@ namespace VirtualPanel
 
         private void FileOpen(FileHandle file, ChannelId replyChannel, string filestring)
         {
-            if (file == FileHandle_1) openFileDialog1.Title = DialogTitleFile_1;
-            if (file == FileHandle_2) openFileDialog1.Title = DialogTitleFile_2;
-            if (file == FileHandle_3) openFileDialog1.Title = DialogTitleFile_3;
-            if (file == FileHandle_4) openFileDialog1.Title = DialogTitleFile_4;
+            OpenFileDialog FileDialogUsed = new OpenFileDialog();
 
-            openFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 1;
-            openFileDialog1.FileName = "";
+            if (file == FileHandle_1)
+            {
+                FileDialogUsed = openFileDialog1;
+                FileDialogUsed.Title = DialogTitleFile_1;
+            }
+
+            if (file == FileHandle_2)
+            {
+                FileDialogUsed = openFileDialog2;
+                FileDialogUsed.Title = DialogTitleFile_2;
+            }
+
+            if (file == FileHandle_3)
+            {
+                FileDialogUsed = openFileDialog3;
+                FileDialogUsed.Title = DialogTitleFile_3;
+            }
+
+            if (file == FileHandle_4)
+            {
+                FileDialogUsed = openFileDialog4;
+                FileDialogUsed.Title = DialogTitleFile_4;
+            }
+
+            FileDialogUsed.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            FileDialogUsed.FilterIndex = 1;
+            FileDialogUsed.FileName = "";
 
             string fdir = "";
             string fnam = "";
@@ -765,7 +786,7 @@ namespace VirtualPanel
             {
                 dialogdir = fdir + "\\";
                 dirok = true;
-                openFileDialog1.InitialDirectory = dialogdir;
+                FileDialogUsed.InitialDirectory = dialogdir;
                 if (fnam == "")
                 { // no file specified, only a (existing) directory, set 
                     return;
@@ -774,11 +795,11 @@ namespace VirtualPanel
 
             if (fnam != "" && !wild)
             {
-                openFileDialog1.FileName = fnam;
+                FileDialogUsed.FileName = fnam;
                 if (fext != "")
-                    openFileDialog1.Filter = fext.Remove(0, 1) + " files|*" + fext + "|All files (*.*)|*.*";
+                    FileDialogUsed.Filter = fext.Remove(0, 1) + " files|*" + fext + "|All files (*.*)|*.*";
                 else
-                    openFileDialog1.Filter = "All files (*.*)|*.*";
+                    FileDialogUsed.Filter = "All files (*.*)|*.*";
             }
 
             if (File.Exists(dialogdir + fnam) && !wild && forcecreate)
@@ -790,7 +811,7 @@ namespace VirtualPanel
 
             if (wild)
             { // set wildcard filter
-                openFileDialog1.Filter = fext.Remove(0, 1) + " files|*" + fext + "|All files (*.*)|*.*";
+                FileDialogUsed.Filter = fext.Remove(0, 1) + " files|*" + fext + "|All files (*.*)|*.*";
             }
 
             if (!wild && dirok && fnam != "" && fext != "" && forcecreate)
@@ -802,12 +823,12 @@ namespace VirtualPanel
             }
 
             // open dialog
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (FileDialogUsed.ShowDialog() == DialogResult.OK)
             { // dialog ok, if not exist create and open
-                if (!File.Exists(openFileDialog1.FileName))
-                    File.Create(openFileDialog1.FileName).Close(); 
-                dialogdir = Path.GetDirectoryName(openFileDialog1.FileName) + "\\"; // save dialog dir.
-                int LineCount = file.Open(openFileDialog1.FileName);
+                if (!File.Exists(FileDialogUsed.FileName))
+                    File.Create(FileDialogUsed.FileName).Close(); 
+                dialogdir = Path.GetDirectoryName(FileDialogUsed.FileName) + "\\"; // save dialog dir.
+                int LineCount = file.Open(FileDialogUsed.FileName);
                 if (port.IsConnected) port.Send((byte)replyChannel, vp_type.vp_long, LineCount);
             }
             else

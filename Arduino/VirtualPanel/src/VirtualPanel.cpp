@@ -6,12 +6,51 @@
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V1.1.0    03-04-2020 JpD
+	V1.2.0 19-7-2020  
 */
 
 #include "VirtualPanel.h"
 
 VirtualPanel Panel(PanelCallback); // instantiation of the Panel object
+
+extern vpsrq_Stats PanelSrqStatus = vpsrq_Success;
+
+// Synchronous request handling
+bool PanelSyncRequest(int event)
+{
+  static bool SyncBusy = false;
+  unsigned long SyncTimeout = 0;
+
+  if(SyncBusy)
+  {
+	  PanelSrqStatus = vpsrq_ConcurrencyErr; // ConcurrencyErr
+	  return false; 
+  }
+  
+  for (int i=0; i < sizeof(vpsrq_Channels)/2; i++)
+  {
+    if(event == vpsrq_Channels[i])
+    {
+      SyncBusy = true;      
+      Panel.send(event);
+      SyncTimeout = millis() + 100;
+      while(SyncTimeout > millis())
+      {
+        if(Panel.receive(event)) 
+        {
+          SyncBusy = false;
+					PanelSrqStatus = vpsrq_Success; // Succes!
+          return true;
+        }
+      }
+      SyncBusy = false;
+	    PanelSrqStatus = vpsrq_Timeout; // error Timeout 
+			return false;
+    }
+  }
+  PanelSrqStatus = vpsrq_InvalidChannel; // error not a SyncRequest event
+  return false;	
+}
 
 
 // _Line Graph draw helper function. Packs four bytes into a uint32_t.

@@ -6,7 +6,7 @@
 	event communication between an Arduino and a PC based application
 	under C# using the ArduinoPort.dll.
   	
-	V1.0.1    7-06-2019 JpD
+	V1.2.0	14-7-2020  
 */
 
 #include "ArduinoPort.h"
@@ -138,7 +138,7 @@ bool ArduinoPort::delay(uint16_t delaytime, bool doReceive)
   return DataReceived;
 }
 
-void ArduinoPort::receive()
+bool ArduinoPort::receive(int SyncChannel=-1)
 {
 	char buf[9];
 	uint32_t value;
@@ -162,8 +162,8 @@ void ArduinoPort::receive()
 			if (!strcmp("ID", SerialInpBuf))
 			{
 				_comport->println(_panel_id);
-   				SerialInpIdx = 0; //discard input
-				return;
+   			SerialInpIdx = 0; //discard input
+				return false;
 			}
 
 			strncpy(buf, SerialInpBuf, 2);
@@ -207,12 +207,13 @@ void ArduinoPort::receive()
 					vpr_string = SerialInpBuf;
 					break;
 			}
-
-			_CallBackPointer(channel);
-
+			
 			SerialInpIdx = 0;
+			if(SyncChannel == channel) return true;
+			_CallBackPointer(channel);
 		}
 	}
+	return false;
 }
 
 bool ArduinoPort::IsAllHex(char* hexvalue)

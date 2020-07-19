@@ -1,4 +1,4 @@
-VirtualPanel Release 1.1.0
+VirtualPanel Release 1.2.0
 
 VirtualPanel and ArduinoPort library
 * Copy the VirtualPanel\ directory to the myDocuments\Arduino\libraries\ directory
@@ -12,6 +12,13 @@ VirtualPanel Windows executable
 See examples at: myDocuments\Arduino\libraries\VirtualPanel\examples
 If you activate the VirtualPanel.exe after loading an example sketch, it will connect automatically.
 
+V1.2.0 Release notes
+
+- Added PanelSyncRequest function for ReadLineFile_x and UnixTime.
+- Added IndexedFile example using PanelSyncRequest.
+- Bugfix for simultaneous file dialogs.
+- Bugfix to support 60 char line size for read.
+- Short term successor to V1.1.0 see notes below
 
 V1.1.0 Release notes 
 

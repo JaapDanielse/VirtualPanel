@@ -1,20 +1,16 @@
 #######################################
-# Syntax Coloring Map For VirtualPanel Libraray
+# Syntax Coloring Map For VirtualPanel Library V1.2.x
 #KEYWORD	KEYWORD_TOKENTYPE	REFERENCE_LINK	RSYNTAXTEXTAREA_TOKENTYPE (separation single tab)
-#
-
 #######################################
+
 # Datatypes (KEYWORD1)
 #######################################
-
 vp_type	KEYWORD1
 ArduinoPort	KEYWORD1
 VirtualPanel	KEYWORD1
 
-#######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-
 begin	KEYWORD2
 receive	KEYWORD2
 send	KEYWORD2
@@ -27,40 +23,28 @@ _VPoint	KEYWORD2
 _VCircle	KEYWORD2
 _FString	KEYWORD2
 _Sound	KEYWORD2
+PanelSyncRequest	KEYWORD2
 PanelCallback	KEYWORD2
 
-#######################################
 # Instances (KEYWORD2)
 #######################################
-
 Panel	KEYWORD2
 
-#######################################
 # Constants (LITERAL1)
 #######################################
 
 # VirtualPanel variable types
-######################
-vp_void	LITERAL1
-vp_string	LITERAL1
-vp_boolean	LITERAL1
-vp_byte	LITERAL1
-vp_int	LITERAL1
-vp_uint	LITERAL1
-vp_long	LITERAL1
-vp_ulong	LITERAL1
-vp_float	LITERAL1
+#######################################
 vp_channel	LITERAL1
 
-
 # VirtualPanel Channel names
-######################
+#######################################
 ApplicationName	LITERAL1
 PanelConnected	LITERAL1
 Reset	LITERAL1
 DynamicDisplay	LITERAL1
 UnixTime	LITERAL1
-
+#
 Beep	LITERAL1
 #
 Button_1	LITERAL1
@@ -259,19 +243,14 @@ FileOpenDialogTitle_1	LITERAL1
 FileOpenDialogTitle_2	LITERAL1
 FileOpenDialogTitle_3	LITERAL1
 FileOpenDialogTitle_4	LITERAL1
-#
+
+# VirtualPanel Sync Request Stats
 #######################################
+vpsrq_Success	LITERAL1
+vpsrq_Timeout	LITERAL1
+vpsrq_InvalidChannel	LITERAL1
+vpsrq_ConcurrencyErr	LITERAL1
+
 # Built in varables (LITERAL2)
 #######################################
-
-vpr_type	LITERAL2
-vpr_void	LITERAL2
-vpr_string	LITERAL2
-vpr_boolean	LITERAL2
-vpr_byte	LITERAL2
-vpr_int	LITERAL2
-vpr_uint	LITERAL2
-vpr_long	LITERAL2
-vpr_ulong	LITERAL2
-vpr_float	LITERAL2
-
+PanelSrqStatus	LITERAL2

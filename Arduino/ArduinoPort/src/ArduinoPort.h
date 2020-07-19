@@ -6,7 +6,7 @@
 	event communication between an Arduino and a PC based application
 	under C# using the ArduinoPort.dll.
   	
-	V1.0.1    7-06-2019 JpD
+	V1.2.0	19-7-2020  
 */
 
 #pragma once
@@ -18,7 +18,7 @@
 #endif
 
 #define SENDFBUFFERSIZE 60 // Buffersize for formatted text sendf
-#define RECEIVEBUFFERSIZE 40 // Buffersize for pannel events
+#define RECEIVEBUFFERSIZE 65 // Buffersize for pannel events: 60 + 5 (msg overhead)
 
 // message content type declaration
 enum class vp_type
@@ -58,7 +58,7 @@ class ArduinoPort
 		void sendf(int channel, const char* message, ...);
 		void sendf(int channel, const __FlashStringHelper* message, ...);
 		bool delay(uint16_t delaytime, bool receive = true);
-		void receive();
+		bool receive(int SyncChannel=-1);
 
     vp_type  vpr_type = vp_type::vp_error;
 
