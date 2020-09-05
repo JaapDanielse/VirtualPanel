@@ -14,11 +14,21 @@ If you activate the VirtualPanel.exe after loading an example sketch, it will co
 
 V1.2.0 Release notes
 
-- Added PanelSyncRequest function for ReadLineFile_x and UnixTime.
-- Added IndexedFile example using PanelSyncRequest.
-- Bugfix for simultaneous file dialogs.
+- Added PanelSyncRequest() function for ReadLineFile_x and UnixTime.
+- Replaced O-Files eaxample with M-WriteFile, N-ReadFileClassic, O-ReadFileSync and P-FileDraw examples.
+- All examples have been checked for compiler warnings and corrected where necessary.
+- Bugfix for simultaneously activated file dialogs.
 - Bugfix to support 60 char line size for read.
-- Short term successor to V1.1.0 see notes below
+- Bugfix for DrawPixel pen size.
+- Removed (obsolete) reset button from message log panel.
+- Slider label now two lines.
+> Short term successor to V1.1.0 see notes below.
+
+V1.2.0 is backward compatible: the executable will operate correctly on earlier Arduino implementations, 
+Recompiling Arduino implementations will compile unchanged.
+
+VirtualPanel V1.2.0 was built with Visual studio 2019 / .NET Framework 4.7.2
+Testing of the Arduino code was done using Arduino 1.8.12 IDE
 
 V1.1.0 Release notes 
 

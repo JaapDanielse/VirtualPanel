@@ -3,11 +3,11 @@
 
 #include "VirtualPanel.h"
 
-char * Color[] = {"$WHITE","$YELLOW","$ORANGE","$RED","$GREEN","$BLUE","$GRAY"};
+const char * Color[] = {"$WHITE","$YELLOW","$ORANGE","$RED","$GREEN","$BLUE","$GRAY"};
 int ColorNum = 0;
 const int MaxColorNum = 6;
 
-char * PenSize[] = {"$1PX","$2PX","$3PX","$4PX"};
+const char * PenSize[] = {"$1PX","$2PX","$3PX","$4PX"};
 int PenSizeNum = 0;
 const int MaxPenSizeNum = 3;
 
@@ -66,6 +66,7 @@ void PanelCallback(vp_channel event)
       Panel.send(Display_2, "Right");
       Panel.send(GraphDrawLine); // Start a new line
       break;
-
+    
+    default: break;
   }
 }

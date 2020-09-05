@@ -13,7 +13,7 @@
 
 VirtualPanel Panel(PanelCallback); // instantiation of the Panel object
 
-extern vpsrq_Stats PanelSrqStatus = vpsrq_Success;
+vpsrq_Stats PanelSrqStatus = vpsrq_Success;
 
 // Synchronous request handling
 bool PanelSyncRequest(int event)
@@ -27,7 +27,7 @@ bool PanelSyncRequest(int event)
 	  return false; 
   }
   
-  for (int i=0; i < sizeof(vpsrq_Channels)/2; i++)
+  for (uint16_t i=0; i < sizeof(vpsrq_Channels)/2; i++)
   {
     if(event == vpsrq_Channels[i])
     {

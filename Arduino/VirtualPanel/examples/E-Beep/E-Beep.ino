@@ -37,7 +37,7 @@ void PanelCallback(vp_channel event)
       
       Panel.send(Slider_1,"Dur."); // Set Slider label
       Panel.send(MaxSlider_1,(int16_t)(1000-1)); // Set maximum value (1000 mS - minimum (1 mS)
-      Panel.send(Slider_2, Duration); // Set initial value
+      Panel.send(Slider_1, Duration); // Set initial value
 
       Panel.send(Slider_2,"KHz"); // Set Slider label
       Panel.send(MaxSlider_2, (int16_t)9); // Set maximum value (9 KHz) 
@@ -85,19 +85,22 @@ void PanelCallback(vp_channel event)
     case Slider_3: // Catch Slider change
        Herz = (Panel.vpr_int); // get Slider value
       break;
-   }
 
-   // Next code for all panel events
-   Frequency = (KiloHerz*1000) + Herz; // calculate frequecy
+      
+    default: break;
+  }
 
-   // Minimum frequency 37 Hz
-   if(Frequency < 38)
-   { 
-     Frequency = 38; // set minimum Freq
-     Herz = 38; // set minimum Hz
-     Panel.send(Slider_3, (Herz)); // move slider to minimum
-   }
+  // Next code for all panel events
+  Frequency = (KiloHerz*1000) + Herz; // calculate frequecy
 
-   Panel.sendf(Display_1, "Freq. %d Hz", Frequency); // write display_1
-   Panel.sendf(Display_2, "Duration. %d mS", Duration); // write display_2
+  // Minimum frequency 37 Hz
+  if(Frequency < 38)
+  { 
+    Frequency = 38; // set minimum Freq
+    Herz = 38; // set minimum Hz
+    Panel.send(Slider_3, (Herz)); // move slider to minimum
+  }
+
+  Panel.sendf(Display_1, "Freq. %d Hz", Frequency); // write display_1
+  Panel.sendf(Display_2, "Duration. %d mS", Duration); // write display_2
 } 

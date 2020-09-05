@@ -22,14 +22,14 @@ ArduinoPort::ArduinoPort(const char* panel_id, PanelCallbackFunction CallBackPoi
 void ArduinoPort::send(int channel)
 {
 	char buf[4];
-	sprintf(buf, "%02X%1X", channel, vp_type::vp_void);
+	sprintf(buf, "%02X%1X", channel, (uint8_t)vp_type::vp_void);
 	_comport->println(buf);
 }
 
 void ArduinoPort::send(int channel, bool value)
 {
 	char buf[5];
-	sprintf(buf, "%02X%1X%1X", channel, vp_type::vp_boolean, value);
+	sprintf(buf, "%02X%1X%1X", channel, (uint8_t)vp_type::vp_boolean, value);
 	_comport->println(buf);
 }
 
@@ -37,7 +37,7 @@ void ArduinoPort::send(int channel, bool value)
 void ArduinoPort::sendf(int channel, const __FlashStringHelper* message, ...)
 {
 	char buf[SENDFBUFFERSIZE];
-	sprintf(buf, "%02X%1X", channel, vp_type::vp_string);
+	sprintf(buf, "%02X%1X", channel, (uint8_t)vp_type::vp_string);
 	_comport->print(buf);
 	
 	va_list args;
@@ -53,7 +53,7 @@ void ArduinoPort::sendf(int channel, const __FlashStringHelper* message, ...)
 void ArduinoPort::sendf(int channel, const char* message, ...)
 {
 	char buf[SENDFBUFFERSIZE];
-	sprintf(buf, "%02X%1X", channel, vp_type::vp_string);
+	sprintf(buf, "%02X%1X", channel, (uint8_t)vp_type::vp_string);
 	_comport->print(buf);
 	va_list args;
 	va_start(args, message);
@@ -88,7 +88,7 @@ void ArduinoPort::send(int channel, uint8_t value)
 void ArduinoPort::send(int channel, int16_t value)
 {
 	char buf[8];
-	sprintf(buf, "%02X%1X%04X", channel, vp_type::vp_int, value);
+	sprintf(buf, "%02X%1X%04X", channel, vp_type::vp_int, (uint16_t)value);
 	_comport->println(buf);
 }
 
@@ -102,14 +102,14 @@ void ArduinoPort::send(int channel, uint16_t value)
 void ArduinoPort::send(int channel, int32_t value)
 {
 	char buf[12];
-	sprintf(buf, "%02X%1X%08lX", channel, vp_type::vp_long, value);
+	sprintf(buf, "%02X%1X%08lX", channel, vp_type::vp_long, (unsigned long)value);
 	_comport->println(buf);
 }
 
 void ArduinoPort::send(int channel, uint32_t value)
 {
 	char buf[12];
-	sprintf(buf, "%02X%1X%08lX", channel, vp_type::vp_ulong, value);
+	sprintf(buf, "%02X%1X%08lX", channel, vp_type::vp_ulong, (unsigned long)value);
 	_comport->println(buf);
 }
 
@@ -138,10 +138,10 @@ bool ArduinoPort::delay(uint16_t delaytime, bool doReceive)
   return DataReceived;
 }
 
-bool ArduinoPort::receive(int SyncChannel=-1)
+bool ArduinoPort::receive(int SyncChannel)
 {
 	char buf[9];
-	uint32_t value;
+	uint32_t value=0;
 	bool hex;
 	int16_t len;
 
@@ -189,7 +189,7 @@ bool ArduinoPort::receive(int SyncChannel=-1)
 				case vp_type::vp_string:
 					vpr_string = &SerialInpBuf[3]; break;
 				case vp_type::vp_boolean:
-					if (hex && len == 1) { vpr_boolean = (value == 1) ? true : false;  break; }
+					if (hex && len == 1) { vpr_boolean = (value == 1) ? true : false; } break;
 				case vp_type::vp_byte:
 					if (hex && len == 2) { vpr_byte = (uint8_t)value; } break;
 				case vp_type::vp_int:

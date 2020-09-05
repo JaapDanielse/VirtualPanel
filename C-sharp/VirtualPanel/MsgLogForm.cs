@@ -48,11 +48,6 @@ namespace VirtualPanel
             e.Cancel = true;
         }
 
-        private void btn_reset_Click(object sender, EventArgs e)
-        {
-            arduinoport.Reset();
-        }
-
         private void LogHoldButton_Click(object sender, EventArgs e)
         {
             onHold = !onHold;

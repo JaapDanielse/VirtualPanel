@@ -465,9 +465,9 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(336, 157);
+            this.button11.Location = new System.Drawing.Point(337, 157);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(49, 48);
+            this.button11.Size = new System.Drawing.Size(48, 48);
             this.button11.TabIndex = 38;
             this.button11.Text = "button11";
             this.button11.UseVisualStyleBackColor = true;
@@ -510,7 +510,7 @@
             // 
             this.ScrollBar2.Location = new System.Drawing.Point(339, 43);
             this.ScrollBar2.Name = "ScrollBar2";
-            this.ScrollBar2.Size = new System.Drawing.Size(44, 137);
+            this.ScrollBar2.Size = new System.Drawing.Size(44, 135);
             this.ScrollBar2.TabIndex = 44;
             this.ScrollBar2.Visible = false;
             this.ScrollBar2.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ScrollBar_Scroll);
@@ -519,7 +519,7 @@
             // 
             this.ScrollBar3.Location = new System.Drawing.Point(393, 43);
             this.ScrollBar3.Name = "ScrollBar3";
-            this.ScrollBar3.Size = new System.Drawing.Size(44, 137);
+            this.ScrollBar3.Size = new System.Drawing.Size(44, 135);
             this.ScrollBar3.TabIndex = 45;
             this.ScrollBar3.Value = 100;
             this.ScrollBar3.Visible = false;
@@ -530,7 +530,7 @@
             this.ScrollBar4.Location = new System.Drawing.Point(447, 43);
             this.ScrollBar4.Maximum = 10;
             this.ScrollBar4.Name = "ScrollBar4";
-            this.ScrollBar4.Size = new System.Drawing.Size(44, 137);
+            this.ScrollBar4.Size = new System.Drawing.Size(44, 135);
             this.ScrollBar4.TabIndex = 46;
             this.ScrollBar4.Value = 10;
             this.ScrollBar4.Visible = false;
@@ -542,7 +542,7 @@
             this.scrolllabel2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.scrolllabel2.Location = new System.Drawing.Point(339, 180);
             this.scrolllabel2.Name = "scrolllabel2";
-            this.scrolllabel2.Size = new System.Drawing.Size(44, 22);
+            this.scrolllabel2.Size = new System.Drawing.Size(44, 26);
             this.scrolllabel2.TabIndex = 47;
             this.scrolllabel2.Text = "scrllab2";
             this.scrolllabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -552,7 +552,7 @@
             this.scrolllabel3.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.scrolllabel3.Location = new System.Drawing.Point(393, 180);
             this.scrolllabel3.Name = "scrolllabel3";
-            this.scrolllabel3.Size = new System.Drawing.Size(44, 22);
+            this.scrolllabel3.Size = new System.Drawing.Size(44, 26);
             this.scrolllabel3.TabIndex = 48;
             this.scrolllabel3.Text = "scrllab3";
             this.scrolllabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -562,7 +562,7 @@
             this.scrolllabel4.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.scrolllabel4.Location = new System.Drawing.Point(447, 180);
             this.scrolllabel4.Name = "scrolllabel4";
-            this.scrolllabel4.Size = new System.Drawing.Size(44, 22);
+            this.scrolllabel4.Size = new System.Drawing.Size(44, 26);
             this.scrolllabel4.TabIndex = 49;
             this.scrolllabel4.Text = "scrllab4";
             this.scrolllabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -674,7 +674,7 @@
             this.ScrollBar1.Location = new System.Drawing.Point(14, 43);
             this.ScrollBar1.Maximum = 109;
             this.ScrollBar1.Name = "ScrollBar1";
-            this.ScrollBar1.Size = new System.Drawing.Size(44, 137);
+            this.ScrollBar1.Size = new System.Drawing.Size(44, 135);
             this.ScrollBar1.TabIndex = 54;
             this.ScrollBar1.Value = 100;
             this.ScrollBar1.Visible = false;
@@ -686,7 +686,7 @@
             this.scrolllabel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.scrolllabel1.Location = new System.Drawing.Point(14, 180);
             this.scrolllabel1.Name = "scrolllabel1";
-            this.scrolllabel1.Size = new System.Drawing.Size(44, 22);
+            this.scrolllabel1.Size = new System.Drawing.Size(44, 26);
             this.scrolllabel1.TabIndex = 55;
             this.scrolllabel1.Text = "scrllab1";
             this.scrolllabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

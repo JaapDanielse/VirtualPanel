@@ -12,7 +12,7 @@
 #pragma once
 #include "ArduinoPort.h" 
 
-enum vp_channel : int // event/channel list 
+enum vp_channel : uint16_t // event/channel list 
 {
   //
   ApplicationName, // >string, >color string
@@ -255,7 +255,6 @@ class VirtualPanel : public ArduinoPort
 	    Serial.begin(115200);
 	 }
 };
-
 
 void PanelCallback(vp_channel event); // Callback Function declaration. Calback routine itself must be created in the sketch
 

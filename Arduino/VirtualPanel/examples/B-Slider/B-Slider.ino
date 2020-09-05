@@ -47,6 +47,7 @@ void PanelCallback(vp_channel event)
       Factor = Panel.vpr_int;
       Panel.sendf(Display_3, "Factor %d", Factor); // Show Factor on display_3
       break;
-
+      
+      default: break;
   }
 }

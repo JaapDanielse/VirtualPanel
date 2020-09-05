@@ -1,8 +1,8 @@
 
-  static byte  MyByte = 0;
-  static int16_t   MyInt = 0;
+  //static byte     MyByte = 0;
+  static int16_t  MyInt = 0;
   static int32_t  MyLong = 0;
-  static float MyFloat = 0;
+  //static float    MyFloat = 0;
   static uint16_t MyUInt = 0;
   static uint32_t MyULong = 0;
 
@@ -11,7 +11,7 @@
   static int16_t  MonValue_3 = 300;
   static int16_t  MonValue_4 = 400;
   static int16_t  MonValue_5 = 500;
-  static int16_t  MonValue_6 = 600;
+  //static int16_t  MonValue_6 = 600;
   
 
 void InputsCallback(vp_channel event)
@@ -60,7 +60,7 @@ void InputsCallback(vp_channel event)
 
     case Display_4: // display has been double clicked 
       Panel.send(MinPanelInput_2, (uint32_t)0); // 
-      Panel.send(MaxPanelInput_2, (uint32_t)100000); // 
+      Panel.send(MaxPanelInput_2, (uint32_t)500000); // 
       Panel.send(PanelInputLabel_2, F("Four (Uns. Long):")); // 
       Panel.send(PanelInput_2, MyULong); // 
     break;
@@ -234,12 +234,25 @@ void InputsInit()
   Monmode = true;
   Panel.send(Monitor, Monmode); // 
 
-//  Panel.send(MonitorField_1, false);
-//  Panel.send(MonitorField_2, (byte)254 );
-//  Panel.send(MonitorField_3, (int)-32768 );
-//  Panel.send(MonitorField_4, (unsigned int)65535 );
-//  Panel.send(MonitorField_5, (long)-2147483648 );
-//  Panel.send(MonitorField_6, (unsigned long)4294967295 );
+  Panel.send(MonitorLog, "bool");
+  Panel.send(MonitorLog, false);
+  Panel.send(MonitorLog, true);
+  Panel.send(MonitorLog, "byte");
+  Panel.send(MonitorLog, (byte)0 );
+  Panel.send(MonitorLog, (byte)255 );
+  Panel.send(MonitorLog, "int (int16_t)");
+  Panel.send(MonitorLog, (int16_t)100 );
+  Panel.send(MonitorLog, (int16_t)-32768 );
+  Panel.send(MonitorLog, (int16_t) 32767 );
+  Panel.send(MonitorLog, "unsigned int (uint16_t)");
+  Panel.send(MonitorLog, (uint16_t)0 );
+  Panel.send(MonitorLog, (uint16_t)65535 );
+  Panel.send(MonitorLog, "long (int32_t)");
+  Panel.send(MonitorLog, (int32_t)-2147483648 );
+  Panel.send(MonitorLog, (int32_t)2147483647 );
+  Panel.send(MonitorLog, "unsigned long (uint32_t)");
+  Panel.send(MonitorLog, (uint32_t)0 );
+  Panel.send(MonitorLog, (uint32_t)4294967295 );
 
   Panel.send(MonitorField_3, MonValue_3 );
   Panel.send(MonitorField_4, MonValue_4  );

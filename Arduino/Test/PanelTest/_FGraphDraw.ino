@@ -160,7 +160,6 @@ void Swipe(int Angle, int Distance)
    #define MinDist 10//
    #define OldSize 50//
 
-   static int OldAngle=0;
    static int OldIdx=0;
    static byte xsOld[OldSize];
    static byte ysOld[OldSize];
@@ -192,7 +191,7 @@ void Swipe(int Angle, int Distance)
    byte xe = 5 + (Distance * cos(RadAngle) + 127);
    byte ye = (Distance * sin(RadAngle) + 30) ;
 
-   OldAngle = Angle;
+ //  OldAngle = Angle;
    
    Panel.send(GraphDrawLine,F("$YELLOW"));
    Panel.send(GraphDrawLine,_Line(xs,ys,xe,ye));

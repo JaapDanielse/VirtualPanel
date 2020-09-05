@@ -645,6 +645,8 @@ namespace VirtualPanel
                 if ((ChannelId)mse.ChannelID == ChannelId.MaxPanelInput_2 && mse.Type == vp_type.vp_int) MaxPanelInput_2 = (int)mse.Data;
                 if ((ChannelId)mse.ChannelID == ChannelId.MaxPanelInput_1 && mse.Type == vp_type.vp_long) MaxPanelInput_1 = (long)mse.Data;
                 if ((ChannelId)mse.ChannelID == ChannelId.MaxPanelInput_2 && mse.Type == vp_type.vp_long) MaxPanelInput_2 = (long)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxPanelInput_1 && mse.Type == vp_type.vp_ulong) MaxPanelInput_1 = (long)mse.Data;
+                if ((ChannelId)mse.ChannelID == ChannelId.MaxPanelInput_2 && mse.Type == vp_type.vp_ulong) MaxPanelInput_2 = (long)mse.Data;
                 if ((ChannelId)mse.ChannelID == ChannelId.MaxPanelInput_1 && mse.Type == vp_type.vp_float) MaxPanelInputF_1 = (float)mse.Data;
                 if ((ChannelId)mse.ChannelID == ChannelId.MaxPanelInput_2 && mse.Type == vp_type.vp_float) MaxPanelInputF_2 = (float)mse.Data;
 
@@ -985,6 +987,10 @@ namespace VirtualPanel
                 {
                     button.Font = new Font("Microsoft Sans Serif", 10);
                     button.Text = "■";
+                }
+                else if ((string)mse.Data == "$HUGE")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 14);
                 }
                 else if ((string)mse.Data == "$BIG")
                 {

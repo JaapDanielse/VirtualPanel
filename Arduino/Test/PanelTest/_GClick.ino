@@ -1,6 +1,6 @@
 
 
-char * PenSize[] = {"$1PX","$2PX","$3PX","$4PX"};
+const char * PenSize[] = {"$1PX","$2PX","$3PX","$4PX"};
 int PenSizeNum = 0;
 const int MaxPenSizeNum = 3;
 

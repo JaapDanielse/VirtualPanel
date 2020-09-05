@@ -48,14 +48,14 @@ void PanelCallback(vp_channel event)
       Panel.send(MaxMonitorInput_1, (int16_t)10000); // maximum value
       Panel.send(MonitorInputLabel_1, "Frequency:"); // label
       Panel.send(MonitorInput_1, Frequency); // value
-      Panel.send(MonitorInput_1, true); // set permanent
+      Panel.send(MonitorInput_1, (bool)true); // set permanent
 
       // Monitor input 2
       Panel.send(MinMonitorInput_2, (int16_t)10); // minimum value
       Panel.send(MaxMonitorInput_2, (int16_t)1000); // maximum value
       Panel.send(MonitorInputLabel_2, "Duration:"); // label
       Panel.send(MonitorInput_2, Duration); // value
-      Panel.send(MonitorInput_2, true); // set permanent
+      Panel.send(MonitorInput_2, (bool)true); // set permanent
 
       // Info screen 
       Panel.send(InfoTitle, "Input"); // Info Title the F() macro can be used to force strings in program memory
@@ -115,6 +115,8 @@ void PanelCallback(vp_channel event)
       if (Panel.vpr_type != vp_type::vp_void) // check if not discarded
         Duration = Panel.vpr_int;
     break;
+    
+    default: break;
   }
   
   // code for all panel evnents

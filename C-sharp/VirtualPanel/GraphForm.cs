@@ -292,8 +292,7 @@ namespace VirtualPanel
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawLine && mse.Type == vp_type.vp_void) LinePointValid = false;
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawPixel && mse.Type == vp_type.vp_uint) DrawPixel((ushort)(int)mse.Data);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphDrawPixel && mse.Type == vp_type.vp_string) SetDrawPointPen((string)mse.Data); ;
-                if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_uint)
-                    DrawTextPos((Int32)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_uint) DrawTextPos((Int32)mse.Data);
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphText && mse.Type == vp_type.vp_string) Drawtext((string)mse.Data);
 
                 if ((ChannelId)mse.ChannelID == ChannelId.GraphGrid && mse.Type == vp_type.vp_boolean) Grid = (bool)mse.Data;
@@ -561,9 +560,9 @@ namespace VirtualPanel
             DrawPoint.Y = GraphPictureBox1.Height - DrawPoint.Y;
 
             if (DrawLineColor == Color.Black)
-                PersistentDrawing.Delete(new Pixel(DrawPoint.X, DrawPoint.Y, DrawPointColor, DrawPenSize));
+                PersistentDrawing.Delete(new Pixel(DrawPoint.X, DrawPoint.Y, DrawPointColor, DrawPixelSize));
             else
-                PersistentDrawing.Add(new Pixel(DrawPoint.X, DrawPoint.Y, DrawPointColor, DrawPenSize));
+                PersistentDrawing.Add(new Pixel(DrawPoint.X, DrawPoint.Y, DrawPointColor, DrawPixelSize));
 
             GraphPictureBox1.Invalidate();
         }

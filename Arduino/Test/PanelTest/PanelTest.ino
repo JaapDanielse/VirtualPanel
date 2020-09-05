@@ -9,7 +9,7 @@ boolean Infomode = false;
 
 #define MaxColNum 8 //
 
-char * Color[] = {"$WHITE","$YELLOW","$ORANGE","$RED","$GREEN","$BLUE","$PURPLE","$BROWN","$GRAY"};
+const char * Color[] = {"$WHITE","$YELLOW","$ORANGE","$RED","$GREEN","$BLUE","$PURPLE","$BROWN","$GRAY"};
 int ColNum = 0;
 
 byte GraphValue=0;

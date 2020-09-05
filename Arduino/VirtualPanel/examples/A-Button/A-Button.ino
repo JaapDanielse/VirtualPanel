@@ -38,5 +38,7 @@ void PanelCallback(vp_channel event)
         Panel.send(Led_1,"$OFF"); // Turn Led_1 off (black)
       break;
 
+      default: break;
+
   }
 }

@@ -42,6 +42,8 @@ void PanelCallback(vp_channel event)
     case DynamicDisplay: // dynamic display request (requested every 500ms)
       Sinus();
       break;
+
+    default: break;
   }
 }
 

@@ -71,6 +71,8 @@ void PanelCallback(vp_channel event)
       Panel.send(GraphValue_4,(byte)map(blue,  0,255,  51,102)); // map blue to grid sections 3 and 4
       Panel.send(GraphValue_5,(byte)map(green, 0,255,   0, 51)); // map green to grid sections 1 and 2
       break;
+    
+    default: break;
   }
 
   StaticChange();

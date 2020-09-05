@@ -48,6 +48,8 @@ void PanelCallback(vp_channel event)
       Panel.sendf(Display_3, "Factor %d", Factor); // Show Factor on display_3
       Panel.sendf(Display_2, "Result %d", Value*Factor); // Multiplication of Value and Factor on display 2
       break;
+
+      default: break;
   }
   
   StaticChange(); // catch changes because of buttons or sliders

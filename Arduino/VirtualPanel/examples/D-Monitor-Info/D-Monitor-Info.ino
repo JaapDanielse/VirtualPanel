@@ -83,6 +83,8 @@ void PanelCallback(vp_channel event)
       Panel.sendf(MonitorField_2, "Value %d", Value); // Show Value on display_1
       Panel.sendf(MonitorField_3, "Calculated: %d", Value * Factor ); // Show Value on display_1
       break;
+      
+      default: break;
   }
   
   if ( event != DynamicDisplay) StaticChange(); // handle changes because of button click

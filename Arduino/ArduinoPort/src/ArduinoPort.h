@@ -21,7 +21,7 @@
 #define RECEIVEBUFFERSIZE 65 // Buffersize for pannel events: 60 + 5 (msg overhead)
 
 // message content type declaration
-enum class vp_type
+enum vp_type : uint8_t
 {
 	vp_void,
 	vp_string,
@@ -58,7 +58,7 @@ class ArduinoPort
 		void sendf(int channel, const char* message, ...);
 		void sendf(int channel, const __FlashStringHelper* message, ...);
 		bool delay(uint16_t delaytime, bool receive = true);
-		bool receive(int SyncChannel=-1);
+		bool receive(int SyncChannel = -1);
 
     vp_type  vpr_type = vp_type::vp_error;
 
