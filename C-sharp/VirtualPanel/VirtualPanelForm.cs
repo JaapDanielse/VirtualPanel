@@ -413,10 +413,12 @@ namespace VirtualPanel
             SetScrollBarMax(ScrollBar2, 100);
             SetScrollBarMax(ScrollBar3, 100);
             SetScrollBarMax(ScrollBar4, 100);
+            ScrollBar5.Maximum = 100;
             ScrollBar1.Value = ScrollBar1.Maximum;
             ScrollBar2.Value = ScrollBar2.Maximum;
             ScrollBar3.Value = ScrollBar3.Maximum;
             ScrollBar4.Value = ScrollBar4.Maximum;
+            ScrollBar5.Value = 0;
 
             ApplicationTitle.ForeColor = Color.White;
 
@@ -922,93 +924,51 @@ namespace VirtualPanel
                 {
                     button.ForeColor = col; //
                 }
-                else if ((string)mse.Data == "$LEFT")
+                else if ((string)mse.Data == "$SMALL")
                 {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
-                    button.Text = "◀";
-                }
-                else if ((string)mse.Data == "$UP")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
-                    button.Text = "▲";
-                }
-                else if ((string)mse.Data == "$DOT")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
-                    button.Text = "⚫";
-                }
-                else if ((string)mse.Data == "$DOWN")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
-                    button.Text = "▼";
-                }
-                else if ((string)mse.Data == "$RIGHT")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
-                    button.Text = "▶";
-                }
-                else if ((string)mse.Data == "$SET")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
-                    button.Text = "✱";
-                 }
-                else if ((string)mse.Data == "$ONOFF")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
-                    button.Text = "⚫⚪";
-                }
-                else if ((string)mse.Data == "$ONOFFS")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 6);
-                    button.Text = "⚫⚪";
-                }
-                else if ((string)mse.Data == "$LTURN")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
-                    button.Text = "⭯";
-                }
-                else if ((string)mse.Data == "$RTURN")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
-                    button.Text = "⭮";
-                }
-                else if ((string)mse.Data == "$RUN")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
-                    button.Text = "▶";
-                }
-                else if ((string)mse.Data == "$PAUSE")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 8);
-                    //button.Font = new Font("Arial", 8);
-                    button.Text = " ▌▌";
-                }
-                else if ((string)mse.Data == "$STOP")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 10);
-                    button.Text = "■";
-                }
-                else if ((string)mse.Data == "$HUGE")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 14);
-                }
-                else if ((string)mse.Data == "$BIG")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 11);
+                    button.Font = new Font("Microsoft Sans Serif", 7);
+                    button.Font = new Font(button.Font, FontStyle.Regular);
                 }
                 else if ((string)mse.Data == "$NORMAL")
                 {
                     button.Font = new Font("Microsoft Sans Serif", 8);
                     button.Font = new Font(button.Font, FontStyle.Regular);
                 }
-                else if ((string)mse.Data == "$SMALL")
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 7);
-                    button.Font = new Font(button.Font, FontStyle.Regular);
-                }
                 else if ((string)mse.Data == "$BOLD")
                 {
                     button.Font = new Font(button.Font, FontStyle.Bold);
+                }
+                else if ((string)mse.Data == "$BIG")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 11);
+                }
+                else if ((string)mse.Data == "$6PT")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 6);
+                }
+                else if ((string)mse.Data == "$8PT")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 8);
+                }
+                else if ((string)mse.Data == "$10PT")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 10);
+                }
+                else if ((string)mse.Data == "$12PT")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 12);
+                }
+                else if ((string)mse.Data == "$14PT")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 14);
+                }
+                else if ((string)mse.Data == "$16PT")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 16);
+                }
+                else if ((string)mse.Data == "$18PT")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 18);
                 }
                 else
                 {
@@ -1074,6 +1034,26 @@ namespace VirtualPanel
                 else if ((string)mse.Data == "$SMALL")
                 {
                     display.Font = new Font("Microsoft Sans Serif", 12);
+                }
+                else if ((string)mse.Data == "$10PT")
+                {
+                    display.Font = new Font("Microsoft Sans Serif", 10);
+                }
+                else if ((string)mse.Data == "$12PT")
+                {
+                    display.Font = new Font("Microsoft Sans Serif", 12);
+                }
+                else if ((string)mse.Data == "$14PT")
+                {
+                    display.Font = new Font("Microsoft Sans Serif", 14);
+                }
+                else if ((string)mse.Data == "$16PT")
+                {
+                    display.Font = new Font("Microsoft Sans Serif", 16);
+                }
+                else if ((string)mse.Data == "$18PT")
+                {
+                    display.Font = new Font("Microsoft Sans Serif", 18);
                 }
                 else
                     display.Text = (string)mse.Data;

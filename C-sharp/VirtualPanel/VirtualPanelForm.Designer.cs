@@ -296,7 +296,7 @@
             this.PanelInputTextBox_1.BackColor = System.Drawing.Color.DarkGray;
             this.PanelInputTextBox_1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.PanelInputTextBox_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PanelInputTextBox_1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.PanelInputTextBox_1.ForeColor = System.Drawing.Color.White;
             this.PanelInputTextBox_1.Location = new System.Drawing.Point(4, 5);
             this.PanelInputTextBox_1.Name = "PanelInputTextBox_1";
             this.PanelInputTextBox_1.Size = new System.Drawing.Size(178, 22);
@@ -521,18 +521,15 @@
             this.ScrollBar3.Name = "ScrollBar3";
             this.ScrollBar3.Size = new System.Drawing.Size(44, 135);
             this.ScrollBar3.TabIndex = 45;
-            this.ScrollBar3.Value = 100;
             this.ScrollBar3.Visible = false;
             this.ScrollBar3.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ScrollBar_Scroll);
             // 
             // ScrollBar4
             // 
             this.ScrollBar4.Location = new System.Drawing.Point(447, 43);
-            this.ScrollBar4.Maximum = 10;
             this.ScrollBar4.Name = "ScrollBar4";
             this.ScrollBar4.Size = new System.Drawing.Size(44, 135);
             this.ScrollBar4.TabIndex = 46;
-            this.ScrollBar4.Value = 10;
             this.ScrollBar4.Visible = false;
             this.ScrollBar4.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ScrollBar_Scroll);
             // 
@@ -672,11 +669,9 @@
             // ScrollBar1
             // 
             this.ScrollBar1.Location = new System.Drawing.Point(14, 43);
-            this.ScrollBar1.Maximum = 109;
             this.ScrollBar1.Name = "ScrollBar1";
             this.ScrollBar1.Size = new System.Drawing.Size(44, 135);
             this.ScrollBar1.TabIndex = 54;
-            this.ScrollBar1.Value = 100;
             this.ScrollBar1.Visible = false;
             this.ScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ScrollBar_Scroll);
             // 

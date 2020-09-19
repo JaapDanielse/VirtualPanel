@@ -213,9 +213,9 @@ void SetmsDiv(int msDivChange)
   msDiv = msDivSelect[msDivSelIdx]; //set selected msDiv value
 
   MaxSampleValues = SampleValuesSize - (msDivSelIdx * 35); // max buf (idx=0) 500  min buf (idx=10) 150 (const 35)
-  Panel.send(MaxSlider_5, MaxSampleValues); // X-Position (buffer size)
+  Panel.send(MaxSlider_5, (signed int)MaxSampleValues); // X-Position (buffer size)
   Panel.send(Slider_5, "x-pos"); // text
-  Panel.send(Slider_5, MaxSampleValues/2); // half way
+  Panel.send(Slider_5, (signed int)MaxSampleValues/2); // half way
   SetXPos(triggershift + (MaxSampleValues/2)); // display change in x-position value
 }
 

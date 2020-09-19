@@ -22,6 +22,7 @@ V1.2.0 Release notes
 - Bugfix for DrawPixel pen size.
 - Removed (obsolete) reset button from message log panel.
 - Slider label now two lines.
+- Added $xPT (6,8,10,12,14,16PT) button point sizes, displays (10,12,14,16,18PT) point sizes.
 > Short term successor to V1.1.0 see notes below.
 
 V1.2.0 is backward compatible: the executable will operate correctly on earlier Arduino implementations, 
