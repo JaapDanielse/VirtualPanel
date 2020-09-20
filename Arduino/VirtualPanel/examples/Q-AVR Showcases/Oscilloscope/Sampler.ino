@@ -71,12 +71,12 @@ void Sampler()
     Panel.sendf(MonitorField_3,"Time/sample: %s µs", outstr1 ); // output to graph label
     
     // search trigger point
-    for (unsigned int i=0; i < MaxSampleValues-1; i++) // loop over the sample buffer
+    for (int i=0; i < MaxSampleValues-1; i++) // loop over the sample buffer
     {
       if( ( TriggerEdgeRizing && (SampleValues[i] < TriggerValue && SampleValues[i+1] >= TriggerValue)) || //rizing
           (!TriggerEdgeRizing && (SampleValues[i] > TriggerValue && SampleValues[i+1] <= TriggerValue)) )  //faling
       { 
-        if (abs(TriggerPos-(MaxSampleValues/2)) > abs(i-(MaxSampleValues/2))) TriggerPos = i; // close to middel of buff.
+        if (abs((int)TriggerPos-(MaxSampleValues/2)) > abs(i-(MaxSampleValues/2))) TriggerPos = i; // close to middel of buff.
         TriggerCount++; // count the number of trigger points (freq. calc.)
         if (FirstTriggerPos == 0) FirstTriggerPos = i; // first trigger position (freq.calc)
         LastTriggerPos = i; // last trigger position (freq. calc.)
@@ -107,7 +107,7 @@ void Sampler()
     {
       for (int i = WindowStart; i < WindowStart + GraphValues; i++) // loop over 
       { 
-        if (i >= 0 && i <= (int)SampleIndex-1) // within the buffer?
+        if (i >= 0 && i <= SampleIndex-1) // within the buffer?
         { // yes
           byte SampleValue = (byte) constrain(((float)(SampleValues[i]-(ACSelect*128))/VDiv) + vpos+(ACSelect*128),0,255); // Calculate value
           // the ACSelect keeps the verical position centered around the set positon when in AC mode.
@@ -119,7 +119,7 @@ void Sampler()
           Panel.send(GraphValue_1, (byte)0); // outside the buffer send 0
       }
     }
-    
+
     // output caption
     tmpfloat = ((float)SampleMin/51.0); // min scanvalue / (255/5V = 51 unit/volt) = min. voltage
     if(ACSelect) tmpfloat -= VCCValue/2.0;
@@ -146,9 +146,10 @@ void Sampler()
     Panel.send(GraphText,F("$YELLOW"));
     Panel.send(GraphText,_Point(5,200));
     Panel.sendf(GraphText, "T=%s ms f=%s Hz", outstr1, outstr2);
-    
-    Panel.send(Led_12, F("$OFF")); // frame indicator off
-    
+
+    // frame indicator off
+    Panel.send(Led_12, F("$OFF"));
+
     SampleReady = false; // Set for next samplre run
     Sampling = false; // 
 

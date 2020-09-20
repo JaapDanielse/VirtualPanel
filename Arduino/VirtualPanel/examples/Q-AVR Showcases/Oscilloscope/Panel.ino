@@ -69,7 +69,6 @@ void DrawVMeasure(bool erase)
 {
    static byte LeftX = 0;
    static byte LeftY = 0;
-   // static byte RightX = 0;
    static byte RightY = 0;
    static float MVolts = 0.0;
    char  outstr1[10];
@@ -87,7 +86,6 @@ void DrawVMeasure(bool erase)
      Panel.send(GraphText, F("$BLUE")); // set to write in blue
      LeftX  = highByte(LeftClickPos); // save positions
      LeftY  = lowByte(LeftClickPos);
-     // RightX = highByte(RightClickPos);
      RightY = lowByte(RightClickPos);
      MVolts = (float)VDiv/(220.0/5.0)*abs(LeftY-RightY); // calculate Volts
      dtostrf(MVolts,0,2,outstr1); // convert float to string 
@@ -104,7 +102,6 @@ void DrawVMeasure(bool erase)
 void DrawTMeasure(bool erase)
 {
    static byte LeftX  = 0; // left click x
-   // static byte LeftY  = 0; // left click y
    static byte RightX = 0; // right click x
    static byte RightY = 0; // right click y
    static float MTime = 0.0;
@@ -126,7 +123,6 @@ void DrawTMeasure(bool erase)
      Panel.send(GraphDrawLine,F("$BLUE")); // write in blue
      Panel.send(GraphText, F("$BLUE")); // draw in blue
      LeftX  = highByte(LeftClickPos); // save position 
-     // LeftY  = lowByte(LeftClickPos);
      RightX = highByte(RightClickPos);
      RightY = lowByte(RightClickPos);
      MTime = (float)msDiv/(263.0/6.0)*(RightX-LeftX); // calculate time
@@ -213,9 +209,10 @@ void SetmsDiv(int msDivChange)
   msDiv = msDivSelect[msDivSelIdx]; //set selected msDiv value
 
   MaxSampleValues = SampleValuesSize - (msDivSelIdx * 35); // max buf (idx=0) 500  min buf (idx=10) 150 (const 35)
-  Panel.send(MaxSlider_5, (signed int)MaxSampleValues); // X-Position (buffer size)
+  Panel.send(MaxSlider_5, MaxSampleValues); // X-Position (buffer size)
   Panel.send(Slider_5, "x-pos"); // text
-  Panel.send(Slider_5, (signed int)MaxSampleValues/2); // half way
+  Panel.send(Slider_5, MaxSampleValues/2); // half way
+  triggershift = 0; // reset triggershift
   SetXPos(triggershift + (MaxSampleValues/2)); // display change in x-position value
 }
 
@@ -391,8 +388,8 @@ void DisplayStatic()
 //-----------------------------------------------------------------------------------------------
 void InitPanel()
 {
-    Panel.send(PanelColor,"$BLUE"); // set the application name
     Panel.send(ApplicationName,"Oscilloscope"); // set the application name
+    //Panel.send(PanelColor, "$BLUE"); // set panel bar blue
     
     Panel.send(Display_1,"$WHITE"); // time division in white
     Panel.send(Display_2,"$BLACK"); // Trigger in black

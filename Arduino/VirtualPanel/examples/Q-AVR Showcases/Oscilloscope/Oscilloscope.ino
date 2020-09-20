@@ -1,6 +1,6 @@
 // VirtualPanel Oscilloscope example/showcase
 // Documentation https://github.com/JaapDanielse/VirtualPanel/wiki/Oscilloscope-Example
-// MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
+// MIT Licence - Copyright (c) 2020 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
 
 #include "VirtualPanel.h"
 
@@ -14,8 +14,8 @@ const int  ACFilter = 0; // hardware AC filter (0=none)
 float VCCValue = 5.0;
 
 byte SampleValues[SampleValuesSize+1]; // Sample buffer
-unsigned int  MaxSampleValues = SampleValuesSize; // Buffersize used
-unsigned int  SampleIndex = 0; // Sample buffer index
+int  MaxSampleValues = SampleValuesSize; // Buffersize used
+int  SampleIndex = 0; // Sample buffer index
 int  GraphValues = MaxGraphValues; // Nuber of values in display window
 
 bool Sampling = false; // True if sample run underway
