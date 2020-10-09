@@ -784,6 +784,9 @@ namespace VirtualPanel
                 GraphInputTextBox_5.Text = GraphInputText_5;
                 GraphInputTextBox_5.ForeColor = Color.Black;
             }
+
+            AcceptButton = null;
+            CancelButton = null;
         }
 
 
@@ -921,6 +924,9 @@ namespace VirtualPanel
                 if (sender == GraphSendInput_4) GraphInputText_4 = TextBox.Text;
                 if (sender == GraphSendInput_5) GraphInputText_5 = TextBox.Text;
             }
+
+            AcceptButton = null;
+            CancelButton = null;
         }
 
 
@@ -953,15 +959,25 @@ namespace VirtualPanel
             if (sender == GraphInputTextBox_5 && !GraphInputEdit_5) { EditColor = Color.Black; GraphInputEdit_5 = true; }
 
             if (sender == GraphInputTextBox_1)
-            { GraphInputType = GraphInputType_1; MinInput = MinGraphInput_1; MaxInput = MaxGraphInput_1; MinInputF = MinGraphInputF_1; MaxInputF = MaxGraphInputF_1; }
+            { GraphInputType = GraphInputType_1; MinInput = MinGraphInput_1; MaxInput = MaxGraphInput_1; MinInputF = MinGraphInputF_1; MaxInputF = MaxGraphInputF_1;
+                AcceptButton = GraphSendInput_1; CancelButton = GraphDiscardInput_1;
+            }
             if (sender == GraphInputTextBox_2)
-            { GraphInputType = GraphInputType_2; MinInput = MinGraphInput_2; MaxInput = MaxGraphInput_2; MinInputF = MinGraphInputF_2; MaxInputF = MaxGraphInputF_2; }
+            { GraphInputType = GraphInputType_2; MinInput = MinGraphInput_2; MaxInput = MaxGraphInput_2; MinInputF = MinGraphInputF_2; MaxInputF = MaxGraphInputF_2;
+                AcceptButton = GraphSendInput_2; CancelButton = GraphDiscardInput_2;
+            }
             if (sender == GraphInputTextBox_3)
-            { GraphInputType = GraphInputType_3; MinInput = MinGraphInput_3; MaxInput = MaxGraphInput_3; MinInputF = MinGraphInputF_3; MaxInputF = MaxGraphInputF_3; }
+            { GraphInputType = GraphInputType_3; MinInput = MinGraphInput_3; MaxInput = MaxGraphInput_3; MinInputF = MinGraphInputF_3; MaxInputF = MaxGraphInputF_3;
+                AcceptButton = GraphSendInput_3; CancelButton = GraphDiscardInput_3;
+            }
             if (sender == GraphInputTextBox_4)
-            { GraphInputType = GraphInputType_4; MinInput = MinGraphInput_4; MaxInput = MaxGraphInput_4; MinInputF = MinGraphInputF_4; MaxInputF = MaxGraphInputF_4; }
+            { GraphInputType = GraphInputType_4; MinInput = MinGraphInput_4; MaxInput = MaxGraphInput_4; MinInputF = MinGraphInputF_4; MaxInputF = MaxGraphInputF_4;
+                AcceptButton = GraphSendInput_4; CancelButton = GraphDiscardInput_4;
+            }
             if (sender == GraphInputTextBox_5)
-            { GraphInputType = GraphInputType_5; MinInput = MinGraphInput_5; MaxInput = MaxGraphInput_5; MinInputF = MinGraphInputF_5; MaxInputF = MaxGraphInputF_5; }
+            { GraphInputType = GraphInputType_5; MinInput = MinGraphInput_5; MaxInput = MaxGraphInput_5; MinInputF = MinGraphInputF_5; MaxInputF = MaxGraphInputF_5;
+              AcceptButton = GraphSendInput_5; CancelButton = GraphDiscardInput_5;
+            }
 
             TextBox.ForeColor = EditColor;
 

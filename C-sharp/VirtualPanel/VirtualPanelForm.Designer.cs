@@ -252,7 +252,7 @@
             this.PanelInputPanel_1.Controls.Add(this.PanelDiscardInput_1);
             this.PanelInputPanel_1.Controls.Add(this.PanelSendInput_1);
             this.PanelInputPanel_1.Controls.Add(this.PanelInputTextBox_1);
-            this.PanelInputPanel_1.Location = new System.Drawing.Point(16, 7);
+            this.PanelInputPanel_1.Location = new System.Drawing.Point(17, 8);
             this.PanelInputPanel_1.Name = "PanelInputPanel_1";
             this.PanelInputPanel_1.Size = new System.Drawing.Size(231, 35);
             this.PanelInputPanel_1.TabIndex = 63;
@@ -310,9 +310,9 @@
             this.display3.BackColor = System.Drawing.Color.Transparent;
             this.display3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.display3.ForeColor = System.Drawing.Color.White;
-            this.display3.Location = new System.Drawing.Point(28, 7);
+            this.display3.Location = new System.Drawing.Point(16, 7);
             this.display3.Name = "display3";
-            this.display3.Size = new System.Drawing.Size(109, 38);
+            this.display3.Size = new System.Drawing.Size(121, 38);
             this.display3.TabIndex = 65;
             this.display3.Text = "display3";
             this.display3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -325,7 +325,7 @@
             this.PanelInputPanel_2.Controls.Add(this.PanelDiscardInput_2);
             this.PanelInputPanel_2.Controls.Add(this.PanelSendInput_2);
             this.PanelInputPanel_2.Controls.Add(this.PanelInputTextBox_2);
-            this.PanelInputPanel_2.Location = new System.Drawing.Point(16, 53);
+            this.PanelInputPanel_2.Location = new System.Drawing.Point(17, 53);
             this.PanelInputPanel_2.Name = "PanelInputPanel_2";
             this.PanelInputPanel_2.Size = new System.Drawing.Size(231, 34);
             this.PanelInputPanel_2.TabIndex = 64;
@@ -383,9 +383,9 @@
             this.display4.BackColor = System.Drawing.Color.Transparent;
             this.display4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.display4.ForeColor = System.Drawing.Color.White;
-            this.display4.Location = new System.Drawing.Point(28, 49);
+            this.display4.Location = new System.Drawing.Point(16, 49);
             this.display4.Name = "display4";
-            this.display4.Size = new System.Drawing.Size(109, 38);
+            this.display4.Size = new System.Drawing.Size(121, 38);
             this.display4.TabIndex = 43;
             this.display4.Text = "display4";
             this.display4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -838,14 +838,17 @@
             // 
             // openFileDialog2
             // 
+            this.openFileDialog2.CheckFileExists = false;
             this.openFileDialog2.FileName = "openFileDialog2";
             // 
             // openFileDialog3
             // 
+            this.openFileDialog3.CheckFileExists = false;
             this.openFileDialog3.FileName = "openFileDialog3";
             // 
             // openFileDialog4
             // 
+            this.openFileDialog4.CheckFileExists = false;
             this.openFileDialog4.FileName = "openFileDialog4";
             // 
             // VirtualPanelForm

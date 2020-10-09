@@ -1278,6 +1278,12 @@ namespace VirtualPanel
             bool ValueValid = false;
             Color EditColor = Color.FromArgb(255, 64, 64, 64);
 
+            // PanelSendInput_1
+            // PanelSendInput_2
+            // PanelDiscardInput_1
+
+            
+
             if (sender == PanelInputTextBox_1 && !PanelInputColor_1) { EditColor = Color.White; PanelInputColor_1 = true; }
             if (sender == PanelInputTextBox_2 && !PanelInputColor_2) { EditColor = Color.White; PanelInputColor_2 = true; }
 
@@ -1285,10 +1291,16 @@ namespace VirtualPanel
             vp_type InputType = vp_type.vp_int;
 
             if (sender == PanelInputTextBox_1)
-            { InputType = PanelInputType_1; MinInput = MinPanelInput_1; MaxInput = MaxPanelInput_1; MinInputF = MinPanelInputF_1; MaxInputF = MaxPanelInputF_1; }
+            { 
+                InputType = PanelInputType_1; MinInput = MinPanelInput_1; MaxInput = MaxPanelInput_1; MinInputF = MinPanelInputF_1; MaxInputF = MaxPanelInputF_1;
+                AcceptButton = PanelSendInput_1; CancelButton = PanelDiscardInput_1;
+            }
 
             if (sender == PanelInputTextBox_2)
-            { InputType = PanelInputType_2; MinInput = MinPanelInput_2; MaxInput = MaxPanelInput_2; MinInputF = MinPanelInputF_2; MaxInputF = MaxPanelInputF_2; }
+            { 
+                InputType = PanelInputType_2; MinInput = MinPanelInput_2; MaxInput = MaxPanelInput_2; MinInputF = MinPanelInputF_2; MaxInputF = MaxPanelInputF_2;
+                AcceptButton = PanelSendInput_2; CancelButton = PanelDiscardInput_2;
+            }
 
 
             if (InputType == vp_type.vp_byte && byte.TryParse(TextBox.Text, out InputValueByte))
@@ -1447,9 +1459,8 @@ namespace VirtualPanel
                 if (sender == PanelSendInput_1) PanelInputText_2 = TextBox.Text;
             }
 
-
-
-
+            AcceptButton = null;
+            CancelButton = null;
         }
 
         private void PanelDiscardInput_Click(object sender, EventArgs e)
@@ -1468,6 +1479,8 @@ namespace VirtualPanel
                 PanelInputTextBox_2.Text = PanelInputText_2;
                 PanelInputTextBox_2.ForeColor = Color.White;
             }
+            AcceptButton = null;
+            CancelButton = null;
         }
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1520,5 +1533,6 @@ namespace VirtualPanel
             FileHandle_3.toDisk();
             FileHandle_4.toDisk();
         }
+
     }
 }

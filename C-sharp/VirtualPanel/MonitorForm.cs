@@ -385,6 +385,9 @@ namespace VirtualPanel
                 MonitorInputTextBox_6.Text = MonitorText_6;
                 MonitorInputTextBox_6.ForeColor = Color.Black;
             }
+
+            AcceptButton = null;
+            CancelButton = null;
         }
 
 
@@ -535,6 +538,9 @@ namespace VirtualPanel
                 if (sender == MonitorSendInput_5) MonitorText_5 = TextBox.Text;
                 if (sender == MonitorSendInput_6) MonitorText_6 = TextBox.Text;
             }
+
+            AcceptButton = null;
+            CancelButton = null;
         }
 
         private void MonitorInputTextBox_TextChange(object sender, EventArgs e)
@@ -567,17 +573,29 @@ namespace VirtualPanel
             if (sender == MonitorInputTextBox_6 && !MonInputEdit_6) { EditColor = Color.Black; MonInputEdit_6 = true; }
 
             if (sender == MonitorInputTextBox_1)
-            { MonitorInputType = MonitorInputType_1; MinInput = MinMonInput_1; MaxInput = MaxMonInput_1; MinInputF = MinMonInputF_1; MaxInputF = MaxMonInputF_1; }
+            { MonitorInputType = MonitorInputType_1; MinInput = MinMonInput_1; MaxInput = MaxMonInput_1; MinInputF = MinMonInputF_1; MaxInputF = MaxMonInputF_1;
+                AcceptButton = MonitorSendInput_1; CancelButton = MonitorDiscardInput_1;
+            }
             if (sender == MonitorInputTextBox_2)
-            { MonitorInputType = MonitorInputType_2; MinInput = MinMonInput_2; MaxInput = MaxMonInput_2; MinInputF = MinMonInputF_2; MaxInputF = MaxMonInputF_2; }
+            { MonitorInputType = MonitorInputType_2; MinInput = MinMonInput_2; MaxInput = MaxMonInput_2; MinInputF = MinMonInputF_2; MaxInputF = MaxMonInputF_2;
+                AcceptButton = MonitorSendInput_2; CancelButton = MonitorDiscardInput_2;
+            }
             if (sender == MonitorInputTextBox_3)
-            { MonitorInputType = MonitorInputType_3; MinInput = MinMonInput_3; MaxInput = MaxMonInput_3; MinInputF = MinMonInputF_3; MaxInputF = MaxMonInputF_3; }
+            { MonitorInputType = MonitorInputType_3; MinInput = MinMonInput_3; MaxInput = MaxMonInput_3; MinInputF = MinMonInputF_3; MaxInputF = MaxMonInputF_3;
+                AcceptButton = MonitorSendInput_3; CancelButton = MonitorDiscardInput_3;
+            }
             if (sender == MonitorInputTextBox_4)
-            { MonitorInputType = MonitorInputType_4; MinInput = MinMonInput_4; MaxInput = MaxMonInput_4; MinInputF = MinMonInputF_4; MaxInputF = MaxMonInputF_4; }
+            { MonitorInputType = MonitorInputType_4; MinInput = MinMonInput_4; MaxInput = MaxMonInput_4; MinInputF = MinMonInputF_4; MaxInputF = MaxMonInputF_4;
+                AcceptButton = MonitorSendInput_4; CancelButton = MonitorDiscardInput_4;
+            }
             if (sender == MonitorInputTextBox_5)
-            { MonitorInputType = MonitorInputType_5; MinInput = MinMonInput_5; MaxInput = MaxMonInput_5; MinInputF = MinMonInputF_5; MaxInputF = MaxMonInputF_5; }
+            { MonitorInputType = MonitorInputType_5; MinInput = MinMonInput_5; MaxInput = MaxMonInput_5; MinInputF = MinMonInputF_5; MaxInputF = MaxMonInputF_5;
+                AcceptButton = MonitorSendInput_5; CancelButton = MonitorDiscardInput_5;
+            }
             if (sender == MonitorInputTextBox_6)
-            { MonitorInputType = MonitorInputType_6; MinInput = MinMonInput_6; MaxInput = MaxMonInput_6; MinInputF = MinMonInputF_6; MaxInputF = MaxMonInputF_6; }
+            { MonitorInputType = MonitorInputType_6; MinInput = MinMonInput_6; MaxInput = MaxMonInput_6; MinInputF = MinMonInputF_6; MaxInputF = MaxMonInputF_6;
+                AcceptButton = MonitorSendInput_6; CancelButton = MonitorDiscardInput_6;
+            }
 
 
             TextBox.ForeColor = EditColor;
