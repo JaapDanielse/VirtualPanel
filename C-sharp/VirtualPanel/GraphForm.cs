@@ -516,7 +516,7 @@ namespace VirtualPanel
                 startAngle = startAngle - 90;
                 radius = radius * 2; // radius to box size
 
-                if (DrawLineColor == Color.Black || radius == 0)
+                if (DrawCircleColor == Color.Black || radius == 0)
                     PersistentDrawing.Delete(new Circle(xc, yc, DrawCircleColor, radius, DrawCirclePenSize, startAngle, arcAngle));
                 else
                     PersistentDrawing.Add(new Circle(xc, yc, DrawCircleColor, radius, DrawCirclePenSize, startAngle, arcAngle));

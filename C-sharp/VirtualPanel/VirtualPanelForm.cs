@@ -1,6 +1,12 @@
 ﻿
 // VirtualPanel Windows application - Documentation https://github.com/JaapDanielse/VirtualPanel/wiki/Basic-Examples
 // MIT Licence - Copyright (c) 2020 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
+/*
+ * V1.3.0 30-01-2021 JD - Key repeat
+ * V1.2.1 25-01-2021 JD - Bugfix Input edit color reset on new input
+ * 
+ * 
+ */
 
 
 
@@ -237,6 +243,8 @@ namespace VirtualPanel
 
         bool PanelConnected = false;
 
+        private bool[] ButtonRepeat = new bool[17];
+
         private vp_type PanelInputType_1 = vp_type.vp_int;
         private vp_type PanelInputType_2 = vp_type.vp_int;
 
@@ -354,9 +362,6 @@ namespace VirtualPanel
             port.MessageReceived += Port_MessageReceived;
             port.SearchPortTimeout = TimeSpan.FromSeconds(2);
             port.SearchPollFrequency = TimeSpan.FromMilliseconds(200);
-
-
-
         }
 
         private void VirtualPanelForm_Shown(object sender, EventArgs e)
@@ -476,7 +481,12 @@ namespace VirtualPanel
             button16.Font = new Font(button16.Font, FontStyle.Regular);
             button17.Font = new Font(button17.Font, FontStyle.Regular);
 
-            timer1.Enabled = false;
+            for (int i=0; i<17; i++) // 17 = number of buttons
+            {
+               ButtonRepeat[i]=false;
+            }
+
+                timer1.Enabled = false;
             timer1.Interval = 500;
             panel1.Visible = true;
 
@@ -660,6 +670,7 @@ namespace VirtualPanel
                         PanelInputPanel_1.Visible = true;
                         PanelInputPanel_1.BringToFront();
                         PanelInputText_1 = mse.Data.ToString();
+                        PanelInputColor_1 = false;
                         PanelInputTextBox_1.Text = PanelInputText_1;
                     }
                 }
@@ -671,6 +682,7 @@ namespace VirtualPanel
                         PanelInputPanel_2.Visible = true;
                         PanelInputPanel_2.BringToFront();
                         PanelInputText_2 = mse.Data.ToString();
+                        PanelInputColor_2 = false;
                         PanelInputTextBox_2.Text = PanelInputText_2;
                     }
                 }
@@ -683,7 +695,7 @@ namespace VirtualPanel
 
         private void SetAppearance(Control control, MessageEventArgs<object> mse)
         {
-            if (control is Button) SetButtonAppearance((Button)control, mse);
+            if (control is Button && !SetButtonRepeat((Button)control, mse)) SetButtonAppearance((Button)control, mse);
             if (control is PictureBox) SetLedAppearance((PictureBox)control, mse);
             if (control is Label) SetDisplayAppearance((Label)control, mse);
             if (control is VScrollBar) SetScrollBarAppearance((VScrollBar)control, mse);
@@ -877,6 +889,7 @@ namespace VirtualPanel
             if (ColorString == "$BLACK") convertedColor = Color.Black;
             if (ColorString == "$OFF") convertedColor = Color.Black;
             if (ColorString == "$DEL") convertedColor = Color.Black;
+            if (ColorString == "$DELETE") convertedColor = Color.Black;
 
             return convertedColor;
         }
@@ -913,8 +926,6 @@ namespace VirtualPanel
                 button.Visible = false;
             else
                 button.Visible = true;
-
-
 
             if (mse.Type == vp_type.vp_string)
             {
@@ -970,6 +981,7 @@ namespace VirtualPanel
                 {
                     button.Font = new Font("Microsoft Sans Serif", 18);
                 }
+
                 else
                 {
                     button.Text = (string)mse.Data;
@@ -981,6 +993,25 @@ namespace VirtualPanel
             }
         }
 
+        public bool SetButtonRepeat(Button button, MessageEventArgs<object> mse)
+        {
+            int channelId = mse.ChannelID - Convert.ToInt32(ChannelId.Button_1);
+
+            if (mse.Type == vp_type.vp_string)
+            {
+                if ((string)mse.Data == "$REPEAT")
+                {
+                    ButtonRepeat[channelId] = true;
+                    return true;
+                }
+                if ((string)mse.Data == "$NOREPEAT")
+                {
+                    ButtonRepeat[channelId] = false;
+                    return true;
+                }
+            }
+            return false;
+        }
 
         private void SetLedAppearance(PictureBox led, MessageEventArgs<object> mse)
         {
@@ -1155,10 +1186,51 @@ namespace VirtualPanel
             Tuple<ChannelId, Control> channel = panelControlList.Find(t => t.Item2 == sender);
             if (channel != null)
             {
-                if (port.IsConnected) port.Send((byte)channel.Item1);
+                int i = ButtonId - Convert.ToByte(ChannelId.Button_1);
+                if (!ButtonRepeat[i])
+                {
+                    if (port.IsConnected) port.Send((byte)channel.Item1);
+                }
             }
         }
 
+        private byte ButtonId = 0;
+
+        private void button_MouseDown(object sender, MouseEventArgs e)
+        {
+            Tuple<ChannelId, Control> channel = panelControlList.Find(t => t.Item2 == sender);
+            if (channel != null)
+            {
+                ButtonId = (byte)channel.Item1;
+                int i = ButtonId - Convert.ToByte(ChannelId.Button_1);
+                if (ButtonRepeat[i])
+                {
+                    if (port.IsConnected) port.Send((byte)channel.Item1);
+                    ButtonRepeatTimer.Interval = 500;
+                    ButtonRepeatTimer.Enabled = true;
+                }
+            }
+        }
+
+        private void button_MouseUp(object sender, MouseEventArgs e)
+        {
+            ButtonRepeatTimer.Enabled = false;
+        }
+
+        private void ButtonRepeatTimer_Tick(object sender, EventArgs e)
+        {
+            if (port.IsConnected) port.Send(ButtonId);
+            ButtonRepeatTimer.Interval = 150;
+        }
+
+        private void button_Repeate(object sender, EventArgs e)
+        {
+            Tuple<ChannelId, Control> channel = panelControlList.Find(t => t.Item2 == sender);
+            if (channel != null)
+            {
+                if (port.IsConnected) port.Send((byte)channel.Item1);
+            }
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -1284,8 +1356,10 @@ namespace VirtualPanel
 
             
 
-            if (sender == PanelInputTextBox_1 && !PanelInputColor_1) { EditColor = Color.White; PanelInputColor_1 = true; }
-            if (sender == PanelInputTextBox_2 && !PanelInputColor_2) { EditColor = Color.White; PanelInputColor_2 = true; }
+            if (sender == PanelInputTextBox_1 && !PanelInputColor_1) 
+            { EditColor = Color.White; PanelInputColor_1 = true; }
+            if (sender == PanelInputTextBox_2 && !PanelInputColor_2) 
+            { EditColor = Color.White; PanelInputColor_2 = true; }
 
             TextBox TextBox = (TextBox)sender;
             vp_type InputType = vp_type.vp_int;
@@ -1453,10 +1527,17 @@ namespace VirtualPanel
                 Panel.Visible = true;
                 Valid = false;
             }
+
             if (Valid)
             {
-                if (sender == PanelSendInput_1) PanelInputText_1 = TextBox.Text;
-                if (sender == PanelSendInput_1) PanelInputText_2 = TextBox.Text;
+                if (sender == PanelSendInput_1)
+                {
+                    PanelInputText_1 = TextBox.Text;
+                }
+                if (sender == PanelSendInput_1)
+                {
+                    PanelInputText_2 = TextBox.Text;
+                }
             }
 
             AcceptButton = null;
