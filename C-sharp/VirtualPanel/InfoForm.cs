@@ -34,7 +34,7 @@ namespace VirtualPanel
             InfoRichTextBox.AppendText("Application design and development: Jaap, Tim and Paul Daniëlse\n");
             InfoRichTextBox.AppendText("Documentation review and electronics advice: Jan Daniëlse\n\n");
             InfoRichTextBox.AppendText("© 2021, J.C. Daniëlse, Published under MIT Licence\n\n");
-            InfoRichTextBox.AppendText("Documentation:\n");
+            InfoRichTextBox.AppendText("Documentation: \n");
             InfoRichTextBox.AppendText("https://github.com/JaapDanielse/VirtualPanel/wiki\n");
         }
 
