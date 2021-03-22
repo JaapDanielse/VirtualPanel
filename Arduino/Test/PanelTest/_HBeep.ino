@@ -51,6 +51,7 @@ void BeepCallback(vp_channel event)
       Duration = Panel.vpr_int+1; // get Slider value and add minimum
       Panel.sendf(Display_2, "Duration. %d mS", Duration); // write display_2
       break;
+      
+    default: break;
   }
-
 }

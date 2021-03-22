@@ -125,7 +125,10 @@ void DrawCallback(vp_channel event)
         i--;
       }
       break;
+
     }
+
+    default: break;
   }
 }
 

@@ -29,6 +29,8 @@
     case UnixTime: // receive (local) time in unix timestamp 
       setTime(Panel.vpr_ulong); // set time using received unsigend long from panel
       break;
+      
+    default: break;
   }
 }
  

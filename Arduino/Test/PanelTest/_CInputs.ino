@@ -193,7 +193,8 @@ void InputsCallback(vp_channel event)
         Panel.sendf(MonitorLog, F("Input 6: %s"), Panel.vpr_string );
       }
       break;
-
+      
+    default: break;
   }
 
   if ( event != Button_4) 

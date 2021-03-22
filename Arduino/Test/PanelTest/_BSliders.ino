@@ -18,6 +18,7 @@ void SlidersCallback(vp_channel event)
       if (event >= Slider_1 && event <= Slider_5)
         Panel.sendf(MonitorLog,F("ChannelId %d Slider_%d Value %d"), event, (event - Slider_1) + 1, Panel.vpr_int );
       break;
+
   }
 }
 

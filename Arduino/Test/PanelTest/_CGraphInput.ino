@@ -95,6 +95,8 @@ void GraphInputCallback(vp_channel event)
         strcpy(Value,Panel.vpr_string); // ok, store
       Panel.send(GraphLabel_5, Value); // write display_1
     break;
+
+    default: break;
   }
   Panel.send(Display_1, Value); // write display_1
 }

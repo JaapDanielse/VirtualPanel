@@ -72,5 +72,7 @@ void FilesCallback(vp_channel event)
           Panel.send(ReadLineFile_1); // request next line form file one (when read comes in at ReadLineFile_1:)
         }
       break;
+
+    default: break;
   }
 }

@@ -79,5 +79,7 @@ void ClickCallback(vp_channel event)
       Panel.send(Display_2, F("Right Click"));
       Panel.send(GraphDrawLine); // Start a new line
     break;
+    
+    default: break;
   }
 }
