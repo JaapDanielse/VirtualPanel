@@ -69,7 +69,7 @@ namespace VirtualPanel
         }
 
         // Event raised from RichTextBox when user clicks on a link:
-        private void richTextBox_LinkClicked(object sender, LinkClickedEventArgs e)
+        private void RichTextBox_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(e.LinkText);
         }

@@ -53,7 +53,7 @@
             this.InfoRichTextBox.Size = new System.Drawing.Size(386, 160);
             this.InfoRichTextBox.TabIndex = 2;
             this.InfoRichTextBox.Text = "";
-            this.InfoRichTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox_LinkClicked);
+            this.InfoRichTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.RichTextBox_LinkClicked);
             // 
             // InfoForm
             // 
