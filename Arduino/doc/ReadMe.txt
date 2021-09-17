@@ -1,4 +1,4 @@
-VirtualPanel Release 1.3.1
+VirtualPanel Release 1.3.1 (September 2021)
 
 VirtualPanel and ArduinoPort library
 * Copy the VirtualPanel\ directory to the myDocuments\Arduino\libraries\ directory
@@ -16,9 +16,10 @@ V1.3.1 Release notes
 
 - Bugfix: $DELETE not working ($DEL did). Now both work.
 - Bugfix: $DEL(ETE) for GraphDrawCircle did not work.
+- Bugfix: Display_3 and _4 set to front actively when needed.
 
 V1.3.1 is backward compatible: the executable will operate correctly on earlier Arduino implementations, 
 Recompiling Arduino implementations will compile unchanged.
 
 VirtualPanel V1.3.1 was built with Visual studio 2019 / .NET Framework 4.7.2
-Testing of the Arduino code was done using Arduino 1.8.13 IDE
+Testing of the Arduino code was done using Arduino 1.8.16 IDE

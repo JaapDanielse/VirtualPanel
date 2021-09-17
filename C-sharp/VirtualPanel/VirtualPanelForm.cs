@@ -981,7 +981,6 @@ namespace VirtualPanel
                 {
                     button.Font = new Font("Microsoft Sans Serif", 18);
                 }
-
                 else
                 {
                     button.Text = (string)mse.Data;
@@ -1087,12 +1086,18 @@ namespace VirtualPanel
                     display.Font = new Font("Microsoft Sans Serif", 18);
                 }
                 else
+                {
                     display.Text = (string)mse.Data;
+                }
+
             }
             else
             {
                 display.Text = mse.Data.ToString();
             }
+
+            if (display.Name == display3.Name && display.Visible == true && PanelInputPanel_1.Visible == false) display.BringToFront();
+            if (display.Name == display4.Name && display.Visible == true && PanelInputPanel_2.Visible == false) display.BringToFront();
         }
 
         private void SetScrollBarMax(VScrollBar ScrollBar, int MaxValue)
