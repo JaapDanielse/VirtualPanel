@@ -62,10 +62,27 @@ namespace ArduinoCom
             port = new SerialPort(portname);
             SetPortSettings(baudrate);
 
+            AutoSearchPortName = false;
+
+            port.DataReceived += Port_DataReceived;
+            port.Open();
+
+            Debug.WriteLine("Starting with fixed Port " + port.PortName);
+
+            Debug.WriteLine("It is now " + port.IsOpen);
+
+            read_buffer = "";
+
             // Setup port checker timer.
             checkPort.Elapsed += CheckPort_Elapsed;
+            checkPort.Start();
 
-            AutoSearchPortName = false;
+            // Reattach handler.
+       
+            checkPort.Start();
+
+            connected = true;
+            Connected?.ThreadAwareRaise(this, new ConnectedEventArgs(port.PortName));
 
         }
 
@@ -77,7 +94,7 @@ namespace ArduinoCom
             port.StopBits = StopBits.One;
             port.Handshake = Handshake.None;
             port.RtsEnable = false;
-            port.DtrEnable = false;
+            port.DtrEnable = true;
             port.NewLine = "\r\n";
             port.Encoding = Encoding.UTF8;
             port.WriteTimeout = 200;
