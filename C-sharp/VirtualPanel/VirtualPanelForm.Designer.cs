@@ -285,13 +285,13 @@
             // 
             // PanelDiscardInput_1
             // 
-            this.PanelDiscardInput_1.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.PanelDiscardInput_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PanelDiscardInput_1.ForeColor = System.Drawing.Color.DarkRed;
             this.PanelDiscardInput_1.Location = new System.Drawing.Point(190, 4);
             this.PanelDiscardInput_1.Name = "PanelDiscardInput_1";
             this.PanelDiscardInput_1.Size = new System.Drawing.Size(20, 27);
             this.PanelDiscardInput_1.TabIndex = 2;
-            this.PanelDiscardInput_1.Text = "";
+            this.PanelDiscardInput_1.Text = "❌";
             this.PanelDiscardInput_1.UseVisualStyleBackColor = true;
             this.PanelDiscardInput_1.Click += new System.EventHandler(this.PanelDiscardInput_Click);
             // 
@@ -358,13 +358,13 @@
             // 
             // PanelDiscardInput_2
             // 
-            this.PanelDiscardInput_2.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.PanelDiscardInput_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PanelDiscardInput_2.ForeColor = System.Drawing.Color.DarkRed;
             this.PanelDiscardInput_2.Location = new System.Drawing.Point(190, 3);
             this.PanelDiscardInput_2.Name = "PanelDiscardInput_2";
             this.PanelDiscardInput_2.Size = new System.Drawing.Size(20, 27);
             this.PanelDiscardInput_2.TabIndex = 2;
-            this.PanelDiscardInput_2.Text = "";
+            this.PanelDiscardInput_2.Text = "❌";
             this.PanelDiscardInput_2.UseVisualStyleBackColor = true;
             this.PanelDiscardInput_2.Click += new System.EventHandler(this.PanelDiscardInput_Click);
             // 

@@ -289,7 +289,7 @@
             // 
             // button3
             // 
-            this.button3.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.button3.ForeColor = System.Drawing.Color.DarkRed;
             this.button3.Location = new System.Drawing.Point(182, 4);
             this.button3.Name = "button3";
@@ -342,13 +342,13 @@
             // 
             // MonitorDiscardInput_1
             // 
-            this.MonitorDiscardInput_1.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.MonitorDiscardInput_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MonitorDiscardInput_1.ForeColor = System.Drawing.Color.DarkRed;
             this.MonitorDiscardInput_1.Location = new System.Drawing.Point(182, 0);
             this.MonitorDiscardInput_1.Name = "MonitorDiscardInput_1";
             this.MonitorDiscardInput_1.Size = new System.Drawing.Size(23, 33);
             this.MonitorDiscardInput_1.TabIndex = 2;
-            this.MonitorDiscardInput_1.Text = "";
+            this.MonitorDiscardInput_1.Text = "❌";
             this.MonitorDiscardInput_1.UseVisualStyleBackColor = true;
             this.MonitorDiscardInput_1.Click += new System.EventHandler(this.MonitorDiscardInput_Click);
             // 
@@ -421,7 +421,7 @@
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.button1.ForeColor = System.Drawing.Color.DarkRed;
             this.button1.Location = new System.Drawing.Point(182, 4);
             this.button1.Name = "button1";
@@ -473,13 +473,13 @@
             // 
             // MonitorDiscardInput_2
             // 
-            this.MonitorDiscardInput_2.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.MonitorDiscardInput_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MonitorDiscardInput_2.ForeColor = System.Drawing.Color.DarkRed;
             this.MonitorDiscardInput_2.Location = new System.Drawing.Point(182, 0);
             this.MonitorDiscardInput_2.Name = "MonitorDiscardInput_2";
             this.MonitorDiscardInput_2.Size = new System.Drawing.Size(23, 33);
             this.MonitorDiscardInput_2.TabIndex = 2;
-            this.MonitorDiscardInput_2.Text = "";
+            this.MonitorDiscardInput_2.Text = "❌";
             this.MonitorDiscardInput_2.UseVisualStyleBackColor = true;
             this.MonitorDiscardInput_2.Click += new System.EventHandler(this.MonitorDiscardInput_Click);
             // 
@@ -552,7 +552,7 @@
             // 
             // button7
             // 
-            this.button7.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.button7.ForeColor = System.Drawing.Color.DarkRed;
             this.button7.Location = new System.Drawing.Point(182, 4);
             this.button7.Name = "button7";
@@ -604,13 +604,13 @@
             // 
             // MonitorDiscardInput_3
             // 
-            this.MonitorDiscardInput_3.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.MonitorDiscardInput_3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MonitorDiscardInput_3.ForeColor = System.Drawing.Color.DarkRed;
             this.MonitorDiscardInput_3.Location = new System.Drawing.Point(182, 0);
             this.MonitorDiscardInput_3.Name = "MonitorDiscardInput_3";
             this.MonitorDiscardInput_3.Size = new System.Drawing.Size(23, 33);
             this.MonitorDiscardInput_3.TabIndex = 2;
-            this.MonitorDiscardInput_3.Text = "";
+            this.MonitorDiscardInput_3.Text = "❌";
             this.MonitorDiscardInput_3.UseVisualStyleBackColor = true;
             this.MonitorDiscardInput_3.Click += new System.EventHandler(this.MonitorDiscardInput_Click);
             // 
@@ -683,7 +683,7 @@
             // 
             // button11
             // 
-            this.button11.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.button11.ForeColor = System.Drawing.Color.DarkRed;
             this.button11.Location = new System.Drawing.Point(182, 4);
             this.button11.Name = "button11";
@@ -735,13 +735,13 @@
             // 
             // MonitorDiscardInput_4
             // 
-            this.MonitorDiscardInput_4.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.MonitorDiscardInput_4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MonitorDiscardInput_4.ForeColor = System.Drawing.Color.DarkRed;
             this.MonitorDiscardInput_4.Location = new System.Drawing.Point(182, 0);
             this.MonitorDiscardInput_4.Name = "MonitorDiscardInput_4";
             this.MonitorDiscardInput_4.Size = new System.Drawing.Size(23, 33);
             this.MonitorDiscardInput_4.TabIndex = 2;
-            this.MonitorDiscardInput_4.Text = "";
+            this.MonitorDiscardInput_4.Text = "❌";
             this.MonitorDiscardInput_4.UseVisualStyleBackColor = true;
             this.MonitorDiscardInput_4.Click += new System.EventHandler(this.MonitorDiscardInput_Click);
             // 
@@ -814,7 +814,7 @@
             // 
             // button15
             // 
-            this.button15.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.button15.ForeColor = System.Drawing.Color.DarkRed;
             this.button15.Location = new System.Drawing.Point(182, 4);
             this.button15.Name = "button15";
@@ -866,13 +866,13 @@
             // 
             // MonitorDiscardInput_5
             // 
-            this.MonitorDiscardInput_5.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.MonitorDiscardInput_5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MonitorDiscardInput_5.ForeColor = System.Drawing.Color.DarkRed;
             this.MonitorDiscardInput_5.Location = new System.Drawing.Point(182, 0);
             this.MonitorDiscardInput_5.Name = "MonitorDiscardInput_5";
             this.MonitorDiscardInput_5.Size = new System.Drawing.Size(23, 33);
             this.MonitorDiscardInput_5.TabIndex = 2;
-            this.MonitorDiscardInput_5.Text = "";
+            this.MonitorDiscardInput_5.Text = "❌";
             this.MonitorDiscardInput_5.UseVisualStyleBackColor = true;
             this.MonitorDiscardInput_5.Click += new System.EventHandler(this.MonitorDiscardInput_Click);
             // 
@@ -945,7 +945,7 @@
             // 
             // button19
             // 
-            this.button19.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.button19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.button19.ForeColor = System.Drawing.Color.DarkRed;
             this.button19.Location = new System.Drawing.Point(182, 4);
             this.button19.Name = "button19";
@@ -997,13 +997,13 @@
             // 
             // MonitorDiscardInput_6
             // 
-            this.MonitorDiscardInput_6.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.MonitorDiscardInput_6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MonitorDiscardInput_6.ForeColor = System.Drawing.Color.DarkRed;
             this.MonitorDiscardInput_6.Location = new System.Drawing.Point(182, 0);
             this.MonitorDiscardInput_6.Name = "MonitorDiscardInput_6";
             this.MonitorDiscardInput_6.Size = new System.Drawing.Size(23, 33);
             this.MonitorDiscardInput_6.TabIndex = 2;
-            this.MonitorDiscardInput_6.Text = "";
+            this.MonitorDiscardInput_6.Text = "❌";
             this.MonitorDiscardInput_6.UseVisualStyleBackColor = true;
             this.MonitorDiscardInput_6.Click += new System.EventHandler(this.MonitorDiscardInput_Click);
             // 

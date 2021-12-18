@@ -324,13 +324,13 @@
             // 
             // GraphDiscardInput_1
             // 
-            this.GraphDiscardInput_1.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.GraphDiscardInput_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GraphDiscardInput_1.ForeColor = System.Drawing.Color.DarkRed;
             this.GraphDiscardInput_1.Location = new System.Drawing.Point(111, 0);
             this.GraphDiscardInput_1.Name = "GraphDiscardInput_1";
             this.GraphDiscardInput_1.Size = new System.Drawing.Size(20, 28);
             this.GraphDiscardInput_1.TabIndex = 1;
-            this.GraphDiscardInput_1.Text = "";
+            this.GraphDiscardInput_1.Text = "❌";
             this.GraphDiscardInput_1.UseVisualStyleBackColor = true;
             this.GraphDiscardInput_1.Click += new System.EventHandler(this.GraphDiscardInput_Click);
             // 
@@ -391,13 +391,13 @@
             // 
             // GraphDiscardInput_2
             // 
-            this.GraphDiscardInput_2.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.GraphDiscardInput_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GraphDiscardInput_2.ForeColor = System.Drawing.Color.DarkRed;
             this.GraphDiscardInput_2.Location = new System.Drawing.Point(111, 1);
             this.GraphDiscardInput_2.Name = "GraphDiscardInput_2";
             this.GraphDiscardInput_2.Size = new System.Drawing.Size(20, 28);
             this.GraphDiscardInput_2.TabIndex = 1;
-            this.GraphDiscardInput_2.Text = "";
+            this.GraphDiscardInput_2.Text = "❌";
             this.GraphDiscardInput_2.UseVisualStyleBackColor = true;
             this.GraphDiscardInput_2.Click += new System.EventHandler(this.GraphDiscardInput_Click);
             // 
@@ -458,13 +458,13 @@
             // 
             // GraphDiscardInput_3
             // 
-            this.GraphDiscardInput_3.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.GraphDiscardInput_3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GraphDiscardInput_3.ForeColor = System.Drawing.Color.DarkRed;
             this.GraphDiscardInput_3.Location = new System.Drawing.Point(111, 1);
             this.GraphDiscardInput_3.Name = "GraphDiscardInput_3";
             this.GraphDiscardInput_3.Size = new System.Drawing.Size(20, 28);
             this.GraphDiscardInput_3.TabIndex = 1;
-            this.GraphDiscardInput_3.Text = "";
+            this.GraphDiscardInput_3.Text = "❌";
             this.GraphDiscardInput_3.UseVisualStyleBackColor = true;
             this.GraphDiscardInput_3.Click += new System.EventHandler(this.GraphDiscardInput_Click);
             // 
@@ -525,13 +525,13 @@
             // 
             // GraphDiscardInput_4
             // 
-            this.GraphDiscardInput_4.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.GraphDiscardInput_4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GraphDiscardInput_4.ForeColor = System.Drawing.Color.DarkRed;
             this.GraphDiscardInput_4.Location = new System.Drawing.Point(111, 1);
             this.GraphDiscardInput_4.Name = "GraphDiscardInput_4";
             this.GraphDiscardInput_4.Size = new System.Drawing.Size(20, 28);
             this.GraphDiscardInput_4.TabIndex = 1;
-            this.GraphDiscardInput_4.Text = "";
+            this.GraphDiscardInput_4.Text = "❌";
             this.GraphDiscardInput_4.UseVisualStyleBackColor = true;
             this.GraphDiscardInput_4.Click += new System.EventHandler(this.GraphDiscardInput_Click);
             // 
@@ -592,13 +592,13 @@
             // 
             // GraphDiscardInput_5
             // 
-            this.GraphDiscardInput_5.Font = new System.Drawing.Font("Wingdings 2", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.GraphDiscardInput_5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GraphDiscardInput_5.ForeColor = System.Drawing.Color.DarkRed;
             this.GraphDiscardInput_5.Location = new System.Drawing.Point(111, 1);
             this.GraphDiscardInput_5.Name = "GraphDiscardInput_5";
             this.GraphDiscardInput_5.Size = new System.Drawing.Size(20, 28);
             this.GraphDiscardInput_5.TabIndex = 1;
-            this.GraphDiscardInput_5.Text = "";
+            this.GraphDiscardInput_5.Text = "❌";
             this.GraphDiscardInput_5.UseVisualStyleBackColor = true;
             this.GraphDiscardInput_5.Click += new System.EventHandler(this.GraphDiscardInput_Click);
             // 
