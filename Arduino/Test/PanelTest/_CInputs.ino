@@ -38,8 +38,8 @@ void InputsCallback(vp_channel event)
       break;
 
     case Display_1: // display has been double clicked 
-      Panel.send(MinPanelInput_1, (int)-500); // 
-      Panel.send(MaxPanelInput_1, (int)500); // 
+      Panel.send(MinPanelInput_1, (int16_t)-500); // 
+      Panel.send(MaxPanelInput_1, (int16_t)500); // 
       Panel.send(PanelInputLabel_1, F("One (Integer):")); // 
       Panel.send(PanelInput_1, MyInt); // 
     break;
@@ -66,29 +66,29 @@ void InputsCallback(vp_channel event)
     break;
 
    case MonitorField_3: // display has been double clicked 
-     Panel.send(MinMonitorInput_3, 0); // 
-     Panel.send(MaxMonitorInput_3, 1000); // 
+     Panel.send(MinMonitorInput_3, (int16_t)0); // 
+     Panel.send(MaxMonitorInput_3, (int16_t)1000); // 
      Panel.send(MonitorInput_3, MonValue_3); // 
      Panel.send(MonitorInputLabel_3, F("Mon Field 3:")); // 
      break;
 
    case MonitorField_4: // display has been double clicked 
-     Panel.send(MinMonitorInput_4, 0); // 
-     Panel.send(MaxMonitorInput_4, 1000); // 
+     Panel.send(MinMonitorInput_4, (int16_t)0); // 
+     Panel.send(MaxMonitorInput_4, (int16_t)1000); // 
      Panel.send(MonitorInput_4, MonValue_4); // 
      Panel.send(MonitorInputLabel_4, F("Mon Field 4:")); // 
      break;
 
    case MonitorField_5: // display has been double clicked 
-     Panel.send(MinMonitorInput_5, 0); // 
-     Panel.send(MaxMonitorInput_5, 1000); // 
+     Panel.send(MinMonitorInput_5, (int16_t)0); // 
+     Panel.send(MaxMonitorInput_5, (int16_t)1000); // 
      Panel.send(MonitorInput_5, MonValue_5); // 
      Panel.send(MonitorInputLabel_5, F("Mon Field 5:")); // 
      break;
     
    case MonitorField_6: // display has been double clicked 
-     Panel.send(MinMonitorInput_6, 2); // 
-     Panel.send(MaxMonitorInput_6, 10); // 
+     Panel.send(MinMonitorInput_6, (int16_t)2); // 
+     Panel.send(MaxMonitorInput_6, (int16_t)10); // 
      Panel.send(MonitorInput_6, "test"); // 
      Panel.send(MonitorInputLabel_6, F("Mon Field 6 Text:")); // 
      break;
@@ -219,15 +219,15 @@ void InputsInit()
   Panel.send(Button_6,  F("moni\ntor"));
 
 
-  Panel.send(MonitorInput_1, true); // 
-  Panel.send(MinMonitorInput_1, 0); // 
-  Panel.send(MaxMonitorInput_1, 1000); // 
+  Panel.send(MonitorInput_1, (bool)true); // 
+  Panel.send(MinMonitorInput_1, (int16_t)0); // 
+  Panel.send(MaxMonitorInput_1, (int16_t)1000); // 
   Panel.send(MonitorInputLabel_1, F("Mon Field 1:")); // 
   Panel.send(MonitorInput_1, MonValue_1); // 
   
-  Panel.send(MonitorInput_2, true); // 
-  Panel.send(MinMonitorInput_2, 0); // 
-  Panel.send(MaxMonitorInput_2, 1000); // 
+  Panel.send(MonitorInput_2, (bool)true); // 
+  Panel.send(MinMonitorInput_2, (int16_t)0); // 
+  Panel.send(MaxMonitorInput_2, (int16_t)1000); // 
   Panel.send(MonitorInputLabel_2, F("Mon Field 2:")); // 
   Panel.send(MonitorInput_2, MonValue_2); // 
   
@@ -236,8 +236,8 @@ void InputsInit()
   Panel.send(Monitor, Monmode); // 
 
   Panel.send(MonitorLog, "bool");
-  Panel.send(MonitorLog, false);
-  Panel.send(MonitorLog, true);
+  Panel.send(MonitorLog, (bool)false);
+  Panel.send(MonitorLog, (bool)true);
   Panel.send(MonitorLog, "byte");
   Panel.send(MonitorLog, (byte)0 );
   Panel.send(MonitorLog, (byte)255 );

@@ -1,6 +1,13 @@
 // Clock (using PanelOne) 
 
 #include "VirtualPanel.h"
+
+// for SAM architecture (Arduino Due) redefine the F() macro 
+#ifdef ARDUINO_ARCH_SAM 
+  #undef F
+  #define F(string_literal) (string_literal) 
+#endif
+
 #include <TimeLib.h>  
 
 boolean Graphmode = false;

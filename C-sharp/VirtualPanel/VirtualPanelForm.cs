@@ -957,13 +957,25 @@ namespace VirtualPanel
                 {
                     button.Font = new Font("Microsoft Sans Serif", 6);
                 }
+                else if ((string)mse.Data == "$7PT")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 7);
+                }
                 else if ((string)mse.Data == "$8PT")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 8);
+                }
+                else if ((string)mse.Data == "$9PT")
                 {
                     button.Font = new Font("Microsoft Sans Serif", 8);
                 }
                 else if ((string)mse.Data == "$10PT")
                 {
                     button.Font = new Font("Microsoft Sans Serif", 10);
+                }
+                else if ((string)mse.Data == "$11PT")
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 11);
                 }
                 else if ((string)mse.Data == "$12PT")
                 {
@@ -1069,9 +1081,17 @@ namespace VirtualPanel
                 {
                     display.Font = new Font("Microsoft Sans Serif", 10);
                 }
+                else if ((string)mse.Data == "$11PT")
+                {
+                    display.Font = new Font("Microsoft Sans Serif", 11);
+                }
                 else if ((string)mse.Data == "$12PT")
                 {
                     display.Font = new Font("Microsoft Sans Serif", 12);
+                }
+                else if ((string)mse.Data == "$13PT")
+                {
+                    display.Font = new Font("Microsoft Sans Serif", 13);
                 }
                 else if ((string)mse.Data == "$14PT")
                 {

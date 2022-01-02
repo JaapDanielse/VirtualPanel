@@ -40,7 +40,7 @@ enum vp_type : uint8_t
 class ArduinoPort
 {
 	public:
-		using PanelCallbackFunction = void(*)(int);
+		using PanelCallbackFunction = void(*)(uint16_t);
 		
 		ArduinoPort() = default;
 		ArduinoPort(const char* panel_id, PanelCallbackFunction CallBackPointer, Stream& comport);

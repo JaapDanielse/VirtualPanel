@@ -107,7 +107,7 @@ void StaticCallback(vp_channel event)
     case DynamicDisplay: // dynamic display request (requested every 500ms)
     {
       Panel.sendf(Display_1,F("amp. %d"), (int16_t)vdiv);  
-      Panel.sendf(Display_2,F("freq. %d"), sincount);  
+      Panel.sendf(Display_2,F("freq. %d"), (int16_t)(sincount*10));  
       Sinus();
       break;
     }

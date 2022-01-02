@@ -103,8 +103,10 @@ namespace ArduinoCom
         public void Reset()
         {
             port.DtrEnable = !port.DtrEnable;
+            port.RtsEnable = !port.RtsEnable;
             Thread.Sleep(1000);
             port.DtrEnable = !port.DtrEnable;
+            port.RtsEnable = !port.RtsEnable;
             //Thread.Sleep(50);
 
             Disconnect(true);
@@ -143,6 +145,9 @@ namespace ArduinoCom
             // While we haven't found a port.
             while (!connected)
             {
+                port.DtrEnable = !port.DtrEnable;
+                port.RtsEnable = !port.RtsEnable;
+
                 foreach (String name in SerialPort.GetPortNames())
                 {
                     Debug.WriteLine(name);

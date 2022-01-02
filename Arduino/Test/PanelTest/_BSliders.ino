@@ -33,11 +33,11 @@ void SlidersInit()
   Panel.send(Display_3, F("Display_3"));
   Panel.send(Display_4, F("Display_4"));
 
-  Panel.send(Slider_1, true);
-  Panel.send(Slider_2, true);
-  Panel.send(Slider_3, true);
-  Panel.send(Slider_4, true);
-  Panel.send(Slider_5, true);
+  Panel.send(Slider_1, (bool)true);
+  Panel.send(Slider_2, (bool)true);
+  Panel.send(Slider_3, (bool)true);
+  Panel.send(Slider_4, (bool)true);
+  Panel.send(Slider_5, (bool)true);
 
   Panel.send(Slider_1, F("slider1"));
   Panel.send(Slider_2, F("slider2"));
@@ -45,7 +45,7 @@ void SlidersInit()
   Panel.send(Slider_4, F("slider4"));
   Panel.send(Slider_5, F("slider5"));
 
-  Panel.send(Slider_2, 0);
+  Panel.send(Slider_2, (int16_t)0);
 
   Panel.send(Button_4,  F("button\n4"));
   Panel.send(Button_8,  F("button\n8"));

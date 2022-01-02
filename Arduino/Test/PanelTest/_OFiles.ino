@@ -11,7 +11,7 @@ void FilesCallback(vp_channel event)
         Panel.send(Button_6,"Create\nFile");
         Panel.send(Button_7,"Copy\nFile");
         Panel.send(OpenFile_1, "C:\\users\\public\\"); // set a default directory (dialog overwrites)
-        Panel.send(Monitor, true);
+        Panel.send(Monitor, (bool)true);
       break;
 
     case Button_4:
