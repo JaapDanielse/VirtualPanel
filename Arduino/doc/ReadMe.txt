@@ -1,4 +1,4 @@
-VirtualPanel Release 1.4.0 (Januari 2022)
+VirtualPanel Release 1.4.0 (January 2022)
 
 VirtualPanel and ArduinoPort library
 * Copy the VirtualPanel\ directory to the myDocuments\Arduino\libraries\ directory
@@ -27,5 +27,5 @@ V1.4.0 Release notes
 V1.4.0 is backward compatible: the executable will operate correctly on earlier Arduino implementations, 
 Recompiling Arduino implementations will compile unchanged.
 
-VirtualPanel V1.3.2 was built with Visual studio 2019 - 16.9.5 / .NET Framework 4.7.2
+VirtualPanel V1.4.0 was built with Visual studio 2019 - 16.9.5 / .NET Framework 4.7.2
 Testing of the Arduino code was done using Arduino 1.8.19 IDE
