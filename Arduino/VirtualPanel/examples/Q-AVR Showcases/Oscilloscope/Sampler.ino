@@ -172,6 +172,11 @@ void InitADConversion()
   ADCSRB  = 0; //clear ADCSRB register 
   ADMUX   = 0; //clear ADMUX register (A0 input default)
   ADMUX   = (1 << ADLAR) | (1 << REFS0); 
+  ADMUX   = 0; //clear ADMUX register (A0 input default)
+  ADMUX  |= (1 << ADLAR) | (1 << REFS0); // 
+#if defined(__AVR_ATmega32U4__)
+  ADMUX  |= (1 <<MUX2) | (1 <<MUX1) | (1 <<MUX0); // A0 for ATMEGA 
+#endif 
 }
 
 

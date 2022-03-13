@@ -22,6 +22,20 @@ void GraphInputCallback(vp_channel event)
       Panel.send(GraphLabel_5, "Channel 5");
       Panel.send(GraphLabel_5, "$YELLOW");
       Panel.send(GraphDrawCircle, _Circle(128,110,100));
+      Panel.send(GraphDrawCircle,"$8PX");
+      Panel.send(GraphDrawCircle, _Circle(128,110,75));
+      Panel.send(GraphDrawCircle,"$16PX");
+      Panel.send(GraphDrawCircle, _Circle(128,110,50));
+      Panel.send(GraphDrawLine, _Line(20, 20, 200, 200));
+      Panel.send(GraphDrawLine,"$8PX");
+      Panel.send(GraphDrawLine, _Line(30, 20, 210, 200));
+      Panel.send(GraphDrawLine,"$16PX");
+      Panel.send(GraphDrawLine, _Line(60, 20, 240, 200));
+      Panel.send(GraphDrawPixel, _Point(20,200));
+      Panel.send(GraphDrawPixel,"$8PX");
+      Panel.send(GraphDrawPixel, _Point(30,200));
+      Panel.send(GraphDrawPixel,"$16PX");
+      Panel.send(GraphDrawPixel, _Point(50,200));
       Panel.send(MinGraphInput_1, (int16_t)0); // 
       Panel.send(MaxGraphInput_1, (int16_t)100); // 
       Panel.send(GraphInputLabel_1, "descr."); // 

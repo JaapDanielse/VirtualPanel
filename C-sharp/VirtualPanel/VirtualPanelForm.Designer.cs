@@ -794,35 +794,35 @@
             // monitorToolStripMenuItem
             // 
             this.monitorToolStripMenuItem.Name = "monitorToolStripMenuItem";
-            this.monitorToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.monitorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.monitorToolStripMenuItem.Text = "Monitor";
             this.monitorToolStripMenuItem.Click += new System.EventHandler(this.monitorToolStripMenuItem_Click);
             // 
             // graphToolStripMenuItem
             // 
             this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
-            this.graphToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.graphToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.graphToolStripMenuItem.Text = "Graph";
             this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
             // 
             // messageLogToolStripMenuItem
             // 
             this.messageLogToolStripMenuItem.Name = "messageLogToolStripMenuItem";
-            this.messageLogToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.messageLogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.messageLogToolStripMenuItem.Text = "MessageLog";
             this.messageLogToolStripMenuItem.Click += new System.EventHandler(this.messageLogToolStripMenuItem_Click);
             // 
             // resetArduinoToolStripMenuItem
             // 
             this.resetArduinoToolStripMenuItem.Name = "resetArduinoToolStripMenuItem";
-            this.resetArduinoToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.resetArduinoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetArduinoToolStripMenuItem.Text = "Reset Arduino";
             this.resetArduinoToolStripMenuItem.Click += new System.EventHandler(this.resetArduinoToolStripMenuItem_Click);
             // 
             // infoToolStripMenuItem
             // 
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            this.infoToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.infoToolStripMenuItem.Text = "Info";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 

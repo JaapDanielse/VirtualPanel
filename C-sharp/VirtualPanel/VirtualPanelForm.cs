@@ -879,9 +879,12 @@ namespace VirtualPanel
             if (ColorString == "$YELLOW") convertedColor = Color.Yellow;
             if (ColorString == "$ORANGE") convertedColor = Color.Orange;
             if (ColorString == "$RED") convertedColor = Color.Red;
+            if (ColorString == "$LBLUE") convertedColor = Color.DeepSkyBlue;
             if (ColorString == "$BLUE") convertedColor = Color.DodgerBlue;
+            if (ColorString == "$DBLUE") convertedColor = Color.MidnightBlue;
             if (ColorString == "$PINK") convertedColor = Color.Fuchsia;
             if (ColorString == "$PURPLE") convertedColor = Color.SlateBlue;
+            if (ColorString == "$DPURPLE") convertedColor = Color.DarkSlateBlue;
             if (ColorString == "$BROWN") convertedColor = Color.Sienna;
             if (ColorString == "$GREEN") convertedColor = Color.Lime;
             if (ColorString == "$GRAY") convertedColor = Color.DarkGray;

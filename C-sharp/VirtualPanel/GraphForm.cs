@@ -571,30 +571,36 @@ namespace VirtualPanel
         {
             Color col = VirtualPanelForm.String2Color(PenColor);
             if (!col.IsEmpty) DrawPointColor = col; //
-            if (PenColor == "$1PX") DrawPixelSize = 1;
-            if (PenColor == "$2PX") DrawPixelSize = 2;
-            if (PenColor == "$3PX") DrawPixelSize = 3;
-            if (PenColor == "$4PX") DrawPixelSize = 4;
+            if (PenColor == "$1PX")  DrawPixelSize = 1;
+            if (PenColor == "$2PX")  DrawPixelSize = 2;
+            if (PenColor == "$3PX")  DrawPixelSize = 3;
+            if (PenColor == "$4PX")  DrawPixelSize = 4;
+            if (PenColor == "$8PX")  DrawPixelSize = 8;
+            if (PenColor == "$16PX") DrawPixelSize = 16;
         }
 
         private void SetDrawPen(string PenColor)
         {
             Color col = VirtualPanelForm.String2Color(PenColor);
             if (!col.IsEmpty) DrawLineColor = col; //
-            if (PenColor == "$1PX") DrawPenSize = 1;
-            if (PenColor == "$2PX") DrawPenSize = 2;
-            if (PenColor == "$3PX") DrawPenSize = 3;
-            if (PenColor == "$4PX") DrawPenSize = 4;
+            if (PenColor == "$1PX")  DrawPenSize = 1;
+            if (PenColor == "$2PX")  DrawPenSize = 2;
+            if (PenColor == "$3PX")  DrawPenSize = 3;
+            if (PenColor == "$4PX")  DrawPenSize = 4;
+            if (PenColor == "$8PX")  DrawPenSize = 8;
+            if (PenColor == "$16PX") DrawPenSize = 16;
         }
 
         private void SetCirclePen(string PenColor)
         {
             Color col = VirtualPanelForm.String2Color(PenColor);
             if (!col.IsEmpty) DrawCircleColor = col; //
-            if (PenColor == "$1PX") DrawCirclePenSize = 1;
-            if (PenColor == "$2PX") DrawCirclePenSize = 2;
-            if (PenColor == "$3PX") DrawCirclePenSize = 3;
-            if (PenColor == "$4PX") DrawCirclePenSize = 4;
+            if (PenColor == "$1PX")  DrawCirclePenSize = 1;
+            if (PenColor == "$2PX")  DrawCirclePenSize = 2;
+            if (PenColor == "$3PX")  DrawCirclePenSize = 3;
+            if (PenColor == "$4PX")  DrawCirclePenSize = 4;
+            if (PenColor == "$8PX")  DrawCirclePenSize = 8;
+            if (PenColor == "$16PX") DrawCirclePenSize = 16;
         }
 
 

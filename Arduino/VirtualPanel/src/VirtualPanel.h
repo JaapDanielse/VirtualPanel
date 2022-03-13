@@ -219,7 +219,7 @@ enum vp_channel : uint16_t // event/channel list
   FileOpenDialogTitle_3,
   FileOpenDialogTitle_4,
   //
-  EndChannel //
+  EndChannel // 168 items before end
   //
 };
 
