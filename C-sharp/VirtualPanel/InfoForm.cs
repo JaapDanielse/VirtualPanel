@@ -28,7 +28,7 @@ namespace VirtualPanel
         {
             InfoLabel.Text = "VirtualPanel";
             InfoRichTextBox.Text = "";
-            InfoRichTextBox.AppendText("V1.5.0 - (March 2022)\n");
+            InfoRichTextBox.AppendText("V1.5.1 - (April 2022)\n");
             InfoRichTextBox.AppendText("Arduino experiment control panel\n\n");
             InfoRichTextBox.AppendText("Functional design: Jaap Daniëlse\n");
             InfoRichTextBox.AppendText("Application design and development: Jaap, Tim and Paul Daniëlse\n");

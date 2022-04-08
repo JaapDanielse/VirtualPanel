@@ -126,7 +126,7 @@ bool ArduinoPort::delay(uint16_t delaytime, bool doReceive)
 	uint32_t ResumeTime = millis() + delaytime;
 	bool DataReceived = false;
 	
-	while (ResumeTime > millis())
+	do
 	{
 		if (_comport->available())
 		{
@@ -134,7 +134,8 @@ bool ArduinoPort::delay(uint16_t delaytime, bool doReceive)
     		if(doReceive)
 				receive();
   		}
-	}
+	}while (ResumeTime > millis());
+	
   return DataReceived;
 }
 
