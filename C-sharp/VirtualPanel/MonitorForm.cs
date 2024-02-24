@@ -153,6 +153,10 @@ namespace VirtualPanel
                     MonitorText_1 = mse.Data.ToString();
                     MonitorInputTextBox_1.Text = MonitorText_1;
                 }
+                if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                {
+                    MonitorInputPanel_1.Visible = false;
+                }
             }
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_2)
             {
@@ -162,6 +166,10 @@ namespace VirtualPanel
                     MonitorInputPanel_2.Visible = true;
                     MonitorText_2 = mse.Data.ToString();
                     MonitorInputTextBox_2.Text = MonitorText_2;
+                }
+                if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                {
+                    MonitorInputPanel_2.Visible = false;
                 }
             }
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_3)
@@ -173,6 +181,10 @@ namespace VirtualPanel
                     MonitorText_3 = mse.Data.ToString();
                     MonitorInputTextBox_3.Text = MonitorText_3;
                 }
+                if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                {
+                    MonitorInputPanel_3.Visible = false;
+                }
             }
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_4)
             {
@@ -182,6 +194,10 @@ namespace VirtualPanel
                     MonitorInputPanel_4.Visible = true;
                     MonitorText_4 = mse.Data.ToString();
                     MonitorInputTextBox_4.Text = MonitorText_4;
+                }
+                if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                {
+                    MonitorInputPanel_4.Visible = false;
                 }
             }
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_5)
@@ -193,6 +209,10 @@ namespace VirtualPanel
                     MonitorText_5 = mse.Data.ToString();
                     MonitorInputTextBox_5.Text = MonitorText_5;
                 }
+                if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                {
+                    MonitorInputPanel_5.Visible = false;
+                }
             }
             if ((ChannelId)mse.ChannelID == ChannelId.MonitorInput_6)
             {
@@ -203,6 +223,10 @@ namespace VirtualPanel
                     MonitorText_6 = mse.Data.ToString();
                     MonitorInputTextBox_6.Text = MonitorText_6;
                 }
+                if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                {
+                    MonitorInputPanel_6.Visible = false;
+                }
             }
         }
 
@@ -211,7 +235,7 @@ namespace VirtualPanel
             if(inputline == "$CLEAR")
                 textBox1.Text = "";
             else
-              log.Add(inputline + "\n");
+              log.Add(inputline);
         }
 
         public void MonitorClear()
@@ -294,7 +318,9 @@ namespace VirtualPanel
             MonitorText_5 = "";
             MonitorText_6 = "";
 
-    }
+            monitor = true;
+            MonitorHoldButton.Text = "hold";
+        }
 
 
     private void StatisticsForm_FormClosing(object sender, FormClosingEventArgs e)

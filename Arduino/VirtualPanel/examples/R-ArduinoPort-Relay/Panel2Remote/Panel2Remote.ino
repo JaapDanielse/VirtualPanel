@@ -25,7 +25,7 @@ int RemoteValue2 = 0;
 unsigned long SerialTimeout = 0;
 
 SoftwareSerial SoftSerial_1 ( 8,  9); // RX, TX
-void SoftPortCallback_1 (int event);
+void SoftPortCallback_1 (unsigned int event);
 ArduinoPort SoftPort_1 =  ArduinoPort("[Soft1]", SoftPortCallback_1, SoftSerial_1);
 int Remote_1_Value1 = 0;
 int Remote_1_Value2 = 0;
@@ -33,7 +33,7 @@ int Remote_1_Calc   = 0;
 bool SoftPortPrio_1 = false;
 
 SoftwareSerial SoftSerial_2(10, 11); // RX, TX
-void SoftPortCallback_2 (int event);
+void SoftPortCallback_2 (unsigned int event);
 ArduinoPort SoftPort_2 =  ArduinoPort("[Soft2]", SoftPortCallback_2, SoftSerial_2);
 int Remote_2_Value1 = 0;
 int Remote_2_Value2 = 0;
@@ -68,7 +68,7 @@ void loop()
 
 
 // -- Catch SoftPort events
-void SoftPortCallback_1(int event)
+void SoftPortCallback_1(unsigned int event)
 { 
   switch (event) 
   {
@@ -93,7 +93,7 @@ void SoftPortCallback_1(int event)
 
 
 // -- Catch SoftPort events
-void SoftPortCallback_2(int event)
+void SoftPortCallback_2(unsigned int event)
 { 
   switch (event) 
   {

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VirtualPanel</RootNamespace>
     <AssemblyName>VirtualPanel</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -73,6 +73,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArduinoPort\ArduinoPort.cs" />
+    <Compile Include="ArduinoPort\CustomEventArgs.cs" />
+    <Compile Include="ArduinoPort\ExtentionMethods.cs" />
+    <Compile Include="ArduinoPort\Type.cs" />
     <Compile Include="ExtentionMethods.cs" />
     <Compile Include="FileHandle.cs" />
     <Compile Include="InfoForm.cs">
@@ -172,12 +176,6 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ArduinoPort\ArduinoPort.csproj">
-      <Project>{39e7749c-94b2-41e1-b2db-ce683a8f8ec7}</Project>
-      <Name>ArduinoPort</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

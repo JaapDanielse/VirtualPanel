@@ -15,7 +15,7 @@ enum vp_channel // event/channel list
 
 SoftwareSerial mySerial(10, 11); // RX, TX
 
-void SoftPortCallback(int event);
+void SoftPortCallback(unsigned int event);
 
 ArduinoPort SoftPort =  ArduinoPort("[Soft1]", SoftPortCallback, mySerial);
 
@@ -36,7 +36,7 @@ void loop()
 
 }
 
-void SoftPortCallback(int event)
+void SoftPortCallback(unsigned int event)
 {
   switch (event) 
   {

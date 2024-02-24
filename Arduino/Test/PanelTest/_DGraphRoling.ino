@@ -12,7 +12,8 @@ byte green = 0;
     { 
      // initialize panel layout
       Panel.send(ApplicationName,F("PanelTest - RolingGraph")); // set the application name
-      Panel.send(PanelColor,"$PINK"); // set the application name
+      Panel.send(PanelColor,F("$BUE")); // set the application name
+      // Panel.send(PanelColor,F("$PINK")); // set the application name
       Panel.send(DynamicDisplay,(int16_t) 100);     // enable dynamic display request
       Panel.send(Button_4,  F("next\npanel"));
       Panel.send(Button_5,  F("info"));

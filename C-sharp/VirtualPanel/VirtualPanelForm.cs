@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using ArduinoCom;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace VirtualPanel
 {
@@ -238,6 +239,8 @@ namespace VirtualPanel
         private GraphForm graph;
         private InfoForm info;
         private ArduinoPort port;
+        private bool searching = true;
+
         private List<Tuple<ChannelId, Control>> panelControlList;
         int MsgNum = 0;
 
@@ -286,7 +289,7 @@ namespace VirtualPanel
         public Point GraphLocation = new Point(0, 0);
 
 
-        public VirtualPanelForm()
+        public VirtualPanelForm(String preSelectedComPort)
         {
             InitializeComponent();
 
@@ -333,7 +336,16 @@ namespace VirtualPanel
             panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_4, ScrollBar4));
             panelControlList.Add(new Tuple<ChannelId, Control>(ChannelId.Slider_5, ScrollBar5));
 
-            port = new ArduinoPort("[VirtualPanel]");
+            preSelectedComPort = preSelectedComPort.ToUpper();
+
+            if (!preSelectedComPort.StartsWith("COM") || !preSelectedComPort.Substring(3).All(char.IsDigit))
+            {
+                Console.WriteLine("Pre Selected COM port" + preSelectedComPort + "is incorrectly formatted: shoud be COM(NUM)");
+                preSelectedComPort = "";
+            }
+
+            port = new ArduinoPort("[VirtualPanel]", preSelectedComPort);
+
             menuStrip1.Renderer = new MenuRenderer();
 
             PreviousLocation = Location;
@@ -425,7 +437,10 @@ namespace VirtualPanel
             ScrollBar4.Value = ScrollBar4.Maximum;
             ScrollBar5.Value = 0;
 
+            ApplicationTitle.Text = "";
             ApplicationTitle.ForeColor = Color.White;
+            ApplicationTitle.Font = new Font("Microsoft Sans Serif", 11);
+            ApplicationTitle.Font = new Font(ApplicationTitle.Font, FontStyle.Bold);
 
             display1.Text = "";
             display1.ForeColor = Color.White;
@@ -486,7 +501,7 @@ namespace VirtualPanel
                ButtonRepeat[i]=false;
             }
 
-                timer1.Enabled = false;
+            timer1.Enabled = false;
             timer1.Interval = 500;
             panel1.Visible = true;
 
@@ -562,11 +577,13 @@ namespace VirtualPanel
                     if ((int)mse.Data >= 100 && (int)mse.Data <= 2500) timer1.Interval = (int)mse.Data;
                     timer1.Enabled = true;
                 }
+                if ((ChannelId)mse.ChannelID == ChannelId.PanelConnected && PanelConnected) port.Send((byte)ChannelId.PanelConnected);
 
-                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_1 && mse.Type == vp_type.vp_string) FileOpen(FileHandle_1, ChannelId.OpenFile_1, (string)mse.Data);
-                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_2 && mse.Type == vp_type.vp_string) FileOpen(FileHandle_2, ChannelId.OpenFile_2, (string)mse.Data);
-                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_3 && mse.Type == vp_type.vp_string) FileOpen(FileHandle_3, ChannelId.OpenFile_3, (string)mse.Data);
-                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_4 && mse.Type == vp_type.vp_string) FileOpen(FileHandle_4, ChannelId.OpenFile_4, (string)mse.Data);
+
+                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_1 && (mse.Type == vp_type.vp_string || mse.Type == vp_type.vp_void)) FileOpen(FileHandle_1, ChannelId.OpenFile_1, (string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_2 && (mse.Type == vp_type.vp_string || mse.Type == vp_type.vp_void)) FileOpen(FileHandle_2, ChannelId.OpenFile_2, (string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_3 && (mse.Type == vp_type.vp_string || mse.Type == vp_type.vp_void)) FileOpen(FileHandle_3, ChannelId.OpenFile_3, (string)mse.Data);
+                if ((ChannelId)mse.ChannelID == ChannelId.OpenFile_4 && (mse.Type == vp_type.vp_string || mse.Type == vp_type.vp_void)) FileOpen(FileHandle_4, ChannelId.OpenFile_4, (string)mse.Data);
 
                 if ((ChannelId)mse.ChannelID == ChannelId.ReadLineFile_1 && mse.Type == vp_type.vp_void) FileReadLine(FileHandle_1, ChannelId.ReadLineFile_1);
                 if ((ChannelId)mse.ChannelID == ChannelId.ReadLineFile_2 && mse.Type == vp_type.vp_void) FileReadLine(FileHandle_2, ChannelId.ReadLineFile_2);
@@ -673,6 +690,10 @@ namespace VirtualPanel
                         PanelInputColor_1 = false;
                         PanelInputTextBox_1.Text = PanelInputText_1;
                     }
+                    if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                    {
+                        PanelInputPanel_1.Visible = false;
+                    }
                 }
                 if ((ChannelId)mse.ChannelID == ChannelId.PanelInput_2)
                 {
@@ -684,6 +705,10 @@ namespace VirtualPanel
                         PanelInputText_2 = mse.Data.ToString();
                         PanelInputColor_2 = false;
                         PanelInputTextBox_2.Text = PanelInputText_2;
+                    }
+                    if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                    {
+                        PanelInputPanel_2.Visible = false;
                     }
                 }
             }
@@ -1307,15 +1332,26 @@ namespace VirtualPanel
 
         private void connected_box_Click(object sender, EventArgs e)
         {
-            if (port.IsConnected)
+            if (!port.IsConnected)
             {
-                port.Close();
-                connected_box.BackColor = Color.Black;
+                if (searching)
+                {
+                    searching = false;
+                    port.Close();
+                    connected_box.BackColor = Color.Black;
+                }
+                else
+                {
+                    searching = true;
+                    port.Open();
+                    connected_box.BackColor = Color.DarkGreen;
+                }
             }
             else
             {
-                port.Open();
-                connected_box.BackColor = Color.DarkGreen;
+                searching = false;
+                port.Close();
+                connected_box.BackColor = Color.Black;
             }
         }
 

@@ -226,6 +226,7 @@ enum vp_channel : uint16_t // event/channel list
 // Channels allowed for Synchronous request
 const int vpsrq_Channels[] = 
 {
+	PanelConnected,
 	UnixTime,
 	ReadLineFile_1, 
 	ReadLineFile_2, 

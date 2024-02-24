@@ -366,6 +366,10 @@ namespace VirtualPanel
                         GraphInputText_1 = mse.Data.ToString();
                         GraphInputTextBox_1.Text = GraphInputText_1;
                     }
+                    if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                    {
+                        GraphInputPanel_1.Visible = false;
+                    }
                 }
                 else if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_2)
                 {
@@ -375,6 +379,10 @@ namespace VirtualPanel
                         GraphInputPanel_2.Visible = true;
                         GraphInputText_2 = mse.Data.ToString();
                         GraphInputTextBox_2.Text = GraphInputText_2;
+                    }
+                    if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                    {
+                        GraphInputPanel_2.Visible = false;
                     }
                 }
                 else if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_3)
@@ -386,6 +394,10 @@ namespace VirtualPanel
                         GraphInputText_3 = mse.Data.ToString();
                         GraphInputTextBox_3.Text = GraphInputText_3;
                     }
+                    if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                    {
+                        GraphInputPanel_3.Visible = false;
+                    }
                 }
                 else if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_4)
                 {
@@ -396,6 +408,10 @@ namespace VirtualPanel
                         GraphInputText_4 = mse.Data.ToString();
                         GraphInputTextBox_4.Text = GraphInputText_4;
                     }
+                    if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                    {
+                        GraphInputPanel_4.Visible = false;
+                    }
                 }
                 else if ((ChannelId)mse.ChannelID == ChannelId.GraphInput_5)
                 {
@@ -405,6 +421,10 @@ namespace VirtualPanel
                         GraphInputPanel_5.Visible = true;
                         GraphInputText_5 = mse.Data.ToString();
                         GraphInputTextBox_5.Text = GraphInputText_5;
+                    }
+                    if (mse.Type == vp_type.vp_boolean && (bool)mse.Data == false)
+                    {
+                        GraphInputPanel_5.Visible = false;
                     }
                 }
             }

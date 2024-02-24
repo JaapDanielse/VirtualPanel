@@ -78,6 +78,7 @@ void ButtonsCallback(vp_channel event)
 
 void AllButtonInit()
 {
+  Panel.send(PanelColor,F("$BUE")); // set the application name
   Panel.send(ApplicationName,F("ApplicationName")); // set the application name
 
   Panel.send(Display_1, F("Display_1"));
