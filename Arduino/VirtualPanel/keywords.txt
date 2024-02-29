@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For VirtualPanel Library V1.2.x
+# Syntax Coloring Map For VirtualPanel Library V1.6.x
 #KEYWORD	KEYWORD_TOKENTYPE	REFERENCE_LINK	RSYNTAXTEXTAREA_TOKENTYPE (separation single tab)
 #######################################
 
@@ -32,6 +32,31 @@ Panel	KEYWORD2
 
 # Constants (LITERAL1)
 #######################################
+
+# ArduinoPort variable types
+######################
+vp_void	LITERAL1
+vp_string	LITERAL1
+vp_boolean	LITERAL1
+vp_byte	LITERAL1
+vp_int	LITERAL1
+vp_uint	LITERAL1
+vp_long	LITERAL1
+vp_ulong	LITERAL1
+vp_float	LITERAL1
+
+# ArduinoPort Built in varables (LITERAL2)
+#######################################
+vpr_type	LITERAL2
+vpr_void	LITERAL2
+vpr_string	LITERAL2
+vpr_boolean	LITERAL2
+vpr_byte	LITERAL2
+vpr_int	LITERAL2
+vpr_uint	LITERAL2
+vpr_long	LITERAL2
+vpr_ulong	LITERAL2
+vpr_float	LITERAL2
 
 # VirtualPanel variable types
 #######################################

@@ -1,12 +1,12 @@
 /*
   VirtualPanel.h 
-  MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
+  MIT Licence - Copyright (c) 2024 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
 
   VirtualPanel is a small libray implementing the comunication
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V1.2.0	19-7-2020  
+	V1.6.0	25-2-2024  
 */
 
 #pragma once
@@ -224,7 +224,7 @@ enum vp_channel : uint16_t // event/channel list
 };
 
 // Channels allowed for Synchronous request
-const int vpsrq_Channels[] = 
+const int16_t vpsrq_Channels[] = 
 {
 	PanelConnected,
 	UnixTime,

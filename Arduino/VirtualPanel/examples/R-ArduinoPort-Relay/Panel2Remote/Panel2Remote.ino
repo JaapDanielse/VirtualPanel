@@ -8,7 +8,7 @@
 #include <ArduinoPort.h>
 #include <VirtualPanel.h>
 
-enum Soft_Channel // event/channel list for slave Arduino communication
+enum Soft_Channel : uint16_t// event/channel list for slave Arduino communication
 {
   DataRequest,
   SetValue_1,
@@ -68,7 +68,7 @@ void loop()
 
 
 // -- Catch SoftPort events
-void SoftPortCallback_1(unsigned int event)
+void SoftPortCallback_1(uint16_t event)
 { 
   switch (event) 
   {

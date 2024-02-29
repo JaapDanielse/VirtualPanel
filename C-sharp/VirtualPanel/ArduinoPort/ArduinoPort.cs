@@ -242,22 +242,25 @@ namespace ArduinoCom
 
         public void Send(byte channel, bool data)
         {
-            SendMessage(channel, vp_type.vp_boolean, Convert.ToInt16(Convert.ToBoolean(data)).ToString("X"));
+            SendMessage(channel, vp_type.vp_boolean, Convert.ToInt16(Convert.ToBoolean(data)).ToString("X"), data);
         }
 
         public void Send(byte channel, float data)
         {
-            SendMessage(channel, vp_type.vp_float, data.ToString("0.0000", CultureInfo.InvariantCulture));
+            byte[] bytes = BitConverter.GetBytes(data);
+            String hexdata = Convert.ToUInt32(BitConverter.ToUInt32(bytes, 0)).ToString("X8");
+            SendMessage(channel, vp_type.vp_float, hexdata, data);
+            // SendMessage(channel, vp_type.vp_float, data.ToString("0.0000", CultureInfo.InvariantCulture));
         }
 
         public void Send(byte channel, string data)
         {
-            SendMessage(channel, vp_type.vp_string, data);
+            SendMessage(channel, vp_type.vp_string, data, data);
         }
 
         public void Send(byte channel)
         {
-            SendMessage(channel, vp_type.vp_void, "");
+            SendMessage(channel, vp_type.vp_void, "", "");
         }
 
         public void Send(byte channel, vp_type type, long data)
@@ -287,15 +290,15 @@ namespace ArduinoCom
                 throw new OverflowException("Numeric data not compatible with: " + type.ToString(), oe);
             }
 
-           SendMessage(channel, type, hexdata);
+           SendMessage(channel, type, hexdata, data);
         }
 
         // Wrapper for converted Send functions helps with even and prevents duplicate code.
-        private void SendMessage(byte channel, vp_type type, string data)
+        private void SendMessage(byte channel, vp_type type, string data, object messageData)
         {
             String message = channel.ToString("X2") + ((byte)type).ToString("X1") + data;
             this.Write(message);
-            MessageSent?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, data));
+            MessageSent?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, messageData));
         }
 
         // Write to Arduino port (GUI thread)
@@ -389,7 +392,9 @@ namespace ArduinoCom
                             messagedata = Convert.ToInt64(Convert.ToUInt32(value_string, 16));
                             break;
                         case vp_type.vp_float:
-                            messagedata = float.Parse(value_string, CultureInfo.InvariantCulture);
+                            byte[] bytes = BitConverter.GetBytes(Convert.ToUInt32(value_string, 16));
+                            messagedata = BitConverter.ToSingle(bytes, 0);
+                            //messagedata = float.Parse(value_string, CultureInfo.InvariantCulture);
                             break;
                         default:
                             continue;

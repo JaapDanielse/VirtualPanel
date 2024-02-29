@@ -1,12 +1,12 @@
 /*
   VirtualPanel.cpp 
-  MIT Licence - Copyright (c) 2019 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
+  MIT Licence - Copyright (c) 2024 Jaap Danielse - https://github.com/JaapDanielse/VirtualPanel
 
   VirtualPanel is a small libray implementing the comunication
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V1.2.0 19-7-2020  
+	V1.6.0	25-2-2024  
 */
 
 #include "VirtualPanel.h"
@@ -16,17 +16,17 @@ VirtualPanel Panel(PanelCallback); // instantiation of the Panel object
 vpsrq_Stats PanelSrqStatus = vpsrq_Success;
 
 // Synchronous request handling
-bool PanelSyncRequest(int event)
+bool PanelSyncRequest(int16_t event)
 {
   static bool SyncBusy = false;
-  unsigned long SyncTimeout = 0;
+  uint32_t SyncTimeout = 0;
 
   if(SyncBusy)
   {
 	  PanelSrqStatus = vpsrq_ConcurrencyErr; // ConcurrencyErr
 	  return false; 
   }
-  
+    
   for (uint16_t i=0; i < sizeof(vpsrq_Channels)/2; i++)
   {
     if(event == vpsrq_Channels[i])
@@ -153,7 +153,7 @@ char * _FString(float FloatValue, int16_t StringSize, int16_t Decimals)
 char * _FString(float FloatValue, int16_t StringSize, int16_t Decimals, char * ReturnBuffer)
 {
   dtostrf(FloatValue, StringSize, Decimals, ReturnBuffer);
-  int i=0;
+  uint16_t i=0;
   while (ReturnBuffer[i]==' ') ReturnBuffer[i++]='0';
   return(ReturnBuffer);
 }

@@ -22,6 +22,9 @@ V1.6.0 Release notes
 - OpenFile(1..4)  can now be used as void to open file via dialog
 - Comm button (top left next to the drop down) can now also stop the comm search
 - Command string property port=COMx to start with designated port.
+- ArduinoPort library combined in VirtualPanel library
+- ArduinoPort DLL combined in VirtualPanel.exe
+- R-ArduinoPort-Relay sketch adapted to work with combined VP and AP libraries
 - Moved to .NET Framework 4.8
 
 

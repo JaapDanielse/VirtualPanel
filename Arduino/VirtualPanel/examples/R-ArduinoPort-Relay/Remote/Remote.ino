@@ -2,9 +2,9 @@
 //
 
 #include <SoftwareSerial.h>
-#include <ArduinoPort.h>
+#include <VirtualPanel.h>
 
-enum vp_channel // event/channel list 
+enum Soft_channel : uint16_t // event/channel list 
 {
   DataRequest,
   SetValue_1,
@@ -36,7 +36,7 @@ void loop()
 
 }
 
-void SoftPortCallback(unsigned int event)
+void SoftPortCallback(uint16_t event)
 {
   switch (event) 
   {
@@ -56,3 +56,5 @@ void SoftPortCallback(unsigned int event)
       break;
   }  
 }
+
+void PanelCallback(vp_channel){}
