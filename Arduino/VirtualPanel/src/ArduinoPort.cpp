@@ -36,44 +36,43 @@ void ArduinoPort::send(uint16_t channel, bool value)
 #ifndef ARDUINO_ARCH_SAM
 void ArduinoPort::sendf(uint16_t channel, const __FlashStringHelper* message, ...)
 {
+	char hbuf[6];
 	char buf[SENDFBUFFERSIZE];
-	sprintf(buf, "%02X%1X", channel, (uint8_t)vp_type::vp_string);
-	_comport->print(buf);
-	
 	va_list args;
 	va_start(args, message);
-	
 	vsnprintf_P(buf, SENDFBUFFERSIZE, (const char*)message, args);
-	
 	va_end(args);
+	sprintf(hbuf, "%02X%1X%02X", channel, (uint8_t)vp_type::vp_string, (uint8_t)strlen(buf));
+	_comport->print(hbuf);
 	_comport->println(buf);
 }
 #endif
 
 void ArduinoPort::sendf(uint16_t channel, const char* message, ...)
 {
+	char hbuf[6];
 	char buf[SENDFBUFFERSIZE];
-	sprintf(buf, "%02X%1X", channel, (uint8_t)vp_type::vp_string);
-	_comport->print(buf);
 	va_list args;
 	va_start(args, message);
 	vsnprintf(buf, SENDFBUFFERSIZE, message, args);
 	va_end(args);
+	sprintf(hbuf, "%02X%1X%02X", channel, (uint8_t)vp_type::vp_string, (uint8_t)strlen(buf));
+	_comport->print(hbuf);
 	_comport->println(buf);
 }
 
 void ArduinoPort::send(uint16_t channel, const char* message)
 {
-	char buf[4];
-	sprintf(buf, "%02X%1X", channel, vp_type::vp_string);
+	char buf[6];
+	sprintf(buf, "%02X%1X%02X", channel, vp_type::vp_string, (uint8_t)strlen(message));
 	_comport->print(buf);
 	_comport->println(message);
 }
 
 void ArduinoPort::send(uint16_t channel, const __FlashStringHelper* message)
 {
-	char buf[4];
-	sprintf(buf, "%02X%1X", channel, vp_type::vp_string);
+	char buf[6];
+	sprintf(buf, "%02X%1X%02X", channel, vp_type::vp_string, (uint8_t)FSHLength(message));
 	_comport->print(buf);
 	_comport->println(message);
 }
@@ -182,15 +181,24 @@ bool ArduinoPort::receive(int16_t SyncChannel)
 			hex = IsAllHex(&SerialInpBuf[3]) && len <= 8;
 			if (hex)
 				value = Hex2Bin(&SerialInpBuf[3]);
+			
+			if(type == vp_string)
+			{
+				strncpy(buf, &SerialInpBuf[3], 2);
+				buf[2] = 0;
+				uint16_t SentStrLen = Hex2Bin(buf);
+				uint16_t RcvStrLen = strlen(&SerialInpBuf[5]);
+				if(SentStrLen != RcvStrLen) type = vp_error;
+			}
 			   
-      vpr_type = type;
+			vpr_type = type;
 			
 			switch (type)
 			{
 				case vp_type::vp_void:
 					break;
 				case vp_type::vp_string:
-					vpr_string = &SerialInpBuf[3]; break;
+					vpr_string = &SerialInpBuf[5]; break;
 				case vp_type::vp_boolean:
 					if (hex && len == 1) { vpr_boolean = (value == 1) ? true : false; } break;
 				case vp_type::vp_byte:
@@ -251,5 +259,16 @@ uint32_t ArduinoPort::Hex2Bin(char* hexvalue)
 }
 
 
-
+uint16_t ArduinoPort::FSHLength(const __FlashStringHelper* fshString)
+{
+  PGM_P p = reinterpret_cast<PGM_P>(fshString);
+  uint16_t n = 0;
+  while (1) 
+  {
+    byte c = pgm_read_byte(p++);
+    if (c == 0) break;
+    n++;
+  }
+  return n;
+}
 

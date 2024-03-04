@@ -81,4 +81,5 @@ class ArduinoPort
 		
 		bool IsAllHex(char * hexvalue);
 		uint32_t Hex2Bin(char* hexvalue);
+		uint16_t FSHLength(const __FlashStringHelper* fshString);
 };

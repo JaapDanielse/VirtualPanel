@@ -255,7 +255,8 @@ namespace ArduinoCom
 
         public void Send(byte channel, string data)
         {
-            SendMessage(channel, vp_type.vp_string, data, data);
+            string stringLenght = Convert.ToByte(data.Length).ToString("X2"); 
+            SendMessage(channel, vp_type.vp_string, stringLenght + data, data);
         }
 
         public void Send(byte channel)
@@ -357,10 +358,23 @@ namespace ArduinoCom
                 int type_temp;
                 if (!int.TryParse(data.Substring(2, 1), NumberStyles.HexNumber, null, out type_temp))
                     continue;
-
                 vp_type type = (vp_type)type_temp;
 
-                string value_string = data.Substring(3, data.Length - 3);
+                int string_length = 0;
+                string value_string = "";
+                if (type == vp_type.vp_string)
+                {
+                    if (!int.TryParse(data.Substring(3, 2), NumberStyles.HexNumber, null, out string_length))
+                        continue;
+                    value_string = data.Substring(5, data.Length - 5);
+                    if (value_string.Length != string_length) 
+                        continue;
+                }
+                else
+                {
+                    value_string = data.Substring(3, data.Length - 3);
+                }
+                             
                 object messagedata = null;
 
                 try
