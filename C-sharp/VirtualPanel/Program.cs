@@ -14,6 +14,7 @@ namespace VirtualPanel
         static void Main(string[] args)
         {
             string preSelectedCOM = "";
+            string preSelSpeedString = "";
 
             if (args.Length > 0)
             {
@@ -28,13 +29,13 @@ namespace VirtualPanel
                         arguments[splitted[0]] = splitted[1];
                     }
                 }
-
-                preSelectedCOM = arguments["port"];
+                if(arguments.ContainsKey("port")) preSelectedCOM = arguments["port"];
+                if (arguments.ContainsKey("speed")) preSelSpeedString = arguments["speed"];
             }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VirtualPanelForm(preSelectedCOM));
+            Application.Run(new VirtualPanelForm(preSelectedCOM, preSelSpeedString));
         }
     }
 }

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Text;
+using VirtualPanel;
 
 namespace ArduinoCom
 {
@@ -28,6 +29,7 @@ namespace ArduinoCom
 
         public event EventHandler<MessageEventArgs<object>> MessageReceived;
         public event EventHandler<MessageEventArgs<object>> MessageSent;
+        public event EventHandler<MessageEventArgs<object>> MessageError;
         public event EventHandler<ConnectedEventArgs> Connected;
         public event EventHandler<ConnectedEventArgs> Disconnected;
 
@@ -327,6 +329,9 @@ namespace ArduinoCom
         // Attached to port receive event (PORT thread)
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            object messagedata = null;
+            vp_type type = vp_type.vp_error;
+
             if (!(connected && port.IsOpen))
                 return;
 
@@ -353,29 +358,42 @@ namespace ArduinoCom
 
                 int channel;
                 if (!int.TryParse(data.Substring(0, 2), NumberStyles.HexNumber, null, out channel))
+                {
+                    channel = (int) ChannelId.EndChannel;
+                    messagedata = data;
+                    MessageError?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, messagedata));
                     continue;
+                }
 
                 int type_temp;
                 if (!int.TryParse(data.Substring(2, 1), NumberStyles.HexNumber, null, out type_temp))
+                {
+                    messagedata = data;
+                    MessageError?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, messagedata));
                     continue;
-                vp_type type = (vp_type)type_temp;
+                }
+                type = (vp_type)type_temp;
 
                 int string_length = 0;
                 string value_string = "";
-                if (type == vp_type.vp_string)
+                if (type == vp_type.vp_string && data.Length >= 5)
                 {
                     if (!int.TryParse(data.Substring(3, 2), NumberStyles.HexNumber, null, out string_length))
                         continue;
                     value_string = data.Substring(5, data.Length - 5);
-                    if (value_string.Length != string_length) 
+                    int received_Lenght = ASCIIEncoding.UTF8.GetByteCount(value_string);
+                    if (received_Lenght != string_length)
+                    {
+                        messagedata = data;
+                        MessageError?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, messagedata));
                         continue;
+                    }
                 }
                 else
                 {
                     value_string = data.Substring(3, data.Length - 3);
                 }
                              
-                object messagedata = null;
 
                 try
                 {
@@ -411,7 +429,10 @@ namespace ArduinoCom
                             //messagedata = float.Parse(value_string, CultureInfo.InvariantCulture);
                             break;
                         default:
-                            continue;
+                            {
+                                MessageError?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, value_string));
+                                continue;
+                            }
                     }
 
                     MessageReceived?.ThreadAwareRaise(this, new MessageEventArgs<object>(channel, type, messagedata));

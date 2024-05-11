@@ -23,6 +23,8 @@ namespace VirtualPanel
             InitializeComponent();
             arduinoport.MessageSent += Arduinoport_MessageSent;
             arduinoport.MessageReceived += Arduinoport_MessageReceived;
+            arduinoport.MessageError += Arduinoport_MessageError;
+            logmonitor.SelectionTabs = new int[] { 120, 180 };
         }
 
         private void Arduinoport_MessageReceived(object sender, MessageEventArgs<object> e)
@@ -33,6 +35,11 @@ namespace VirtualPanel
         private void Arduinoport_MessageSent(object sender, MessageEventArgs<object> e)
         {
             log.Add(MsgNum++ + "  S  " + ((ChannelId)e.ChannelID).ToString() + "\t" + e.Type.ToString() + "\t" + e.Data.ToString());
+
+        }
+        private void Arduinoport_MessageError(object sender, MessageEventArgs<object> e)
+        {
+            log.Add(MsgNum++ + "  E  " + ((ChannelId)e.ChannelID).ToString() + "\t" + e.Type.ToString() + "\t" + e.Data.ToString());
 
         }
 

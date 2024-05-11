@@ -19,7 +19,7 @@ enum Soft_Channel : uint16_t // event/channel list for slave Arduino communicati
 
 
 SoftwareSerial mySerial(10, 11); // RX, TX
-void SoftPortCallback(uint16_t event);
+void SoftPortCallback(uint8_t event);
 ArduinoPort SoftPort =  ArduinoPort("[Soft1]", SoftPortCallback, mySerial);
 
 int RemoteValue1 = 0;
@@ -50,7 +50,7 @@ void loop()
 }
 
 // -- Catch SoftPort events
-void SoftPortCallback(uint16_t event)
+void SoftPortCallback(uint8_t event)
 { 
   switch (event) 
   {

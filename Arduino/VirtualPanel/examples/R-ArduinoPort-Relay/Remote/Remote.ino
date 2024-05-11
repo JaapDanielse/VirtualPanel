@@ -4,7 +4,7 @@
 #include <SoftwareSerial.h>
 #include <VirtualPanel.h>
 
-enum Soft_channel : uint16_t // event/channel list 
+enum Soft_channel : uint8_t // event/channel list 
 {
   DataRequest,
   SetValue_1,
@@ -15,7 +15,7 @@ enum Soft_channel : uint16_t // event/channel list
 
 SoftwareSerial mySerial(10, 11); // RX, TX
 
-void SoftPortCallback(unsigned int event);
+void SoftPortCallback(uint8_t event);
 
 ArduinoPort SoftPort =  ArduinoPort("[Soft1]", SoftPortCallback, mySerial);
 
@@ -36,7 +36,7 @@ void loop()
 
 }
 
-void SoftPortCallback(uint16_t event)
+void SoftPortCallback(uint8_t event)
 {
   switch (event) 
   {

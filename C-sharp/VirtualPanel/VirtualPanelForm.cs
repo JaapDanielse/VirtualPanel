@@ -20,6 +20,7 @@ using ArduinoCom;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace VirtualPanel
 {
@@ -289,7 +290,7 @@ namespace VirtualPanel
         public Point GraphLocation = new Point(0, 0);
 
 
-        public VirtualPanelForm(String preSelectedComPort)
+        public VirtualPanelForm(String preSelectedComPort, String preSelectedSpeedString)
         {
             InitializeComponent();
 
@@ -344,7 +345,14 @@ namespace VirtualPanel
                 preSelectedComPort = "";
             }
 
-            port = new ArduinoPort("[VirtualPanel]", preSelectedComPort);
+            Int32 ComSpeed;
+            if(!Int32.TryParse(preSelectedSpeedString, out ComSpeed))
+            {
+                ComSpeed = 115200;
+            }
+
+
+            port = new ArduinoPort("[VirtualPanelV2]", preSelectedComPort, ComSpeed);
 
             menuStrip1.Renderer = new MenuRenderer();
 
@@ -372,6 +380,7 @@ namespace VirtualPanel
             port.Connected += Port_Connected;
             port.Disconnected += Port_Disconnected;
             port.MessageReceived += Port_MessageReceived;
+            port.MessageError += Port_MessageError;
             port.SearchPortTimeout = TimeSpan.FromSeconds(2);
             port.SearchPollFrequency = TimeSpan.FromMilliseconds(200);
         }
@@ -388,6 +397,7 @@ namespace VirtualPanel
             port.Connected -= Port_Connected;
             port.Disconnected -= Port_Disconnected;
             port.MessageReceived -= Port_MessageReceived;
+            port.MessageError -= Port_MessageError;
         }
 
         private void Panel_Reset()
@@ -620,8 +630,8 @@ namespace VirtualPanel
                 if ((ChannelId)mse.ChannelID == ChannelId.FileOpenDialogTitle_3 && mse.Type == vp_type.vp_string) DialogTitleFile_3 = (string)mse.Data;
                 if ((ChannelId)mse.ChannelID == ChannelId.FileOpenDialogTitle_4 && mse.Type == vp_type.vp_string) DialogTitleFile_4 = (string)mse.Data;
 
-                if (id == ChannelId.Beep && mse.Type == vp_type.vp_void) System.Console.Beep(500, 400);
-                if (id == ChannelId.Beep && mse.Type == vp_type.vp_int) System.Console.Beep((int)mse.Data, 400);
+                if (id == ChannelId.Beep && mse.Type == vp_type.vp_void) Task.Run(() => System.Console.Beep(500, 400));
+                if (id == ChannelId.Beep && mse.Type == vp_type.vp_int) Task.Run(() => System.Console.Beep((int)mse.Data, 400));
                 if (id == ChannelId.Beep && mse.Type == vp_type.vp_ulong)
                 {
                    Int64 Data = (Int64)mse.Data;
@@ -629,7 +639,8 @@ namespace VirtualPanel
                    int Frequency = (int)(Data >> 16);
                    int Duration = (int)(Data & 0x0000FFFF);
                    if (Frequency >= 37 && Frequency <= 32767)
-                     System.Console.Beep(Frequency, Duration);
+                        Task.Run(() => System.Console.Beep(Frequency, Duration));
+
                 }
 
                 if (id == ChannelId.Monitor && mse.Type == vp_type.vp_boolean)
@@ -1355,6 +1366,14 @@ namespace VirtualPanel
             }
         }
 
+        private void Port_MessageError(object sender, MessageEventArgs<object> mse)
+        {
+            if (port.IsConnected)
+            {
+                connected_box.BackColor = Color.Orange;
+                ShowMsgErr.Enabled = true;
+            }
+        }
 
         private void graphToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1679,5 +1698,13 @@ namespace VirtualPanel
             FileHandle_4.toDisk();
         }
 
+        private void ShowMsgErr_Tick(object sender, EventArgs e)
+        {
+            ShowMsgErr.Enabled = false;
+            if (port.IsConnected)
+            {
+                connected_box.BackColor = Color.Lime;
+            }
+        }
     }
 }

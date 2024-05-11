@@ -78,8 +78,8 @@ void ButtonsCallback(vp_channel event)
 
 void AllButtonInit()
 {
-  Panel.send(PanelColor,F("$BUE")); // set the application name
-  Panel.send(ApplicationName,F("ApplicationName")); // set the application name
+  Panel.send(PanelColor, F("$BLUE")); // set the application name
+  Panel.send(ApplicationName, F("ApplicationName")); // set the application name
 
   Panel.send(Display_1, F("Display_1"));
   Panel.send(Display_2, F("Display_2"));
@@ -104,19 +104,19 @@ void AllButtonInit()
   Panel.send(Button_16, F("button 16"));
   Panel.send(Button_17, F("button 17"));
 
-  Panel.send(Led_1, F("$OFF"));
-  Panel.send(Led_2, F("$WHITE"));
-  Panel.send(Led_3, F("$YELLOW"));
-  Panel.send(Led_4, F("$ORANGE"));
-  Panel.send(Led_5, F("$RED"));
-  Panel.send(Led_6, F("$BLUE"));
-  Panel.send(Led_7, F("$GREEN"));
-  Panel.send(Led_8, F("$YELLOW"));
-  Panel.send(Led_9, F("$ORANGE"));
-  Panel.send(Led_10,F("$BLUE"));
-  Panel.send(Led_11,F("$GREEN"));
-  Panel.send(Led_12,F("$YELLOW"));
-  Panel.send(Led_13,F("$ORANGE"));
+  Panel.send(Led_1,  F("$OFF"));
+  Panel.send(Led_2,  F("$WHITE"));
+  Panel.send(Led_3,  F("$YELLOW"));
+  Panel.send(Led_4,  F("$ORANGE"));
+  Panel.send(Led_5,  F("$RED"));
+  Panel.send(Led_6,  F("$BLUE"));
+  Panel.send(Led_7,  F("$GREEN"));
+  Panel.send(Led_8,  F("$YELLOW"));
+  Panel.send(Led_9,  F("$ORANGE"));
+  Panel.send(Led_10, F("$BLUE"));
+  Panel.send(Led_11, F("$GREEN"));
+  Panel.send(Led_12, F("$YELLOW"));
+  Panel.send(Led_13, F("$ORANGE"));
 
   Panel.send(MonitorLog, F("MonitorLog"));
   Panel.send(MonitorField_1, F("MonitorField_1"));
@@ -131,6 +131,5 @@ void AllButtonInit()
   Infomode = false;
   Monmode = false;
   Graphmode = false;
-
 
 }

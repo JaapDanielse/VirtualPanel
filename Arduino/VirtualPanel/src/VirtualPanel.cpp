@@ -6,7 +6,7 @@
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V1.6.0	25-2-2024  
+	V2.0.0b2	11-4-2024  
 */
 
 #include "VirtualPanel.h"
@@ -16,7 +16,7 @@ VirtualPanel Panel(PanelCallback); // instantiation of the Panel object
 vpsrq_Stats PanelSrqStatus = vpsrq_Success;
 
 // Synchronous request handling
-bool PanelSyncRequest(int16_t event)
+bool PanelSyncRequest(uint8_t event)
 {
   static bool SyncBusy = false;
   uint32_t SyncTimeout = 0;
@@ -36,7 +36,7 @@ bool PanelSyncRequest(int16_t event)
       SyncTimeout = millis() + 100;
       while(SyncTimeout > millis())
       {
-        if(Panel.receive(event)) 
+        if(Panel.receive((int16_t) event)) 
         {
           SyncBusy = false;
 					PanelSrqStatus = vpsrq_Success; // Succes!

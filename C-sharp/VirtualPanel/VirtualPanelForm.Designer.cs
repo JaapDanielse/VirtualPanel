@@ -104,6 +104,7 @@
             this.openFileDialog3 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog4 = new System.Windows.Forms.OpenFileDialog();
             this.ButtonRepeatTimer = new System.Windows.Forms.Timer(this.components);
+            this.ShowMsgErr = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.connected_box)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Led1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -794,35 +795,35 @@
             // monitorToolStripMenuItem
             // 
             this.monitorToolStripMenuItem.Name = "monitorToolStripMenuItem";
-            this.monitorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.monitorToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.monitorToolStripMenuItem.Text = "Monitor";
             this.monitorToolStripMenuItem.Click += new System.EventHandler(this.monitorToolStripMenuItem_Click);
             // 
             // graphToolStripMenuItem
             // 
             this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
-            this.graphToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.graphToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.graphToolStripMenuItem.Text = "Graph";
             this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
             // 
             // messageLogToolStripMenuItem
             // 
             this.messageLogToolStripMenuItem.Name = "messageLogToolStripMenuItem";
-            this.messageLogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.messageLogToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.messageLogToolStripMenuItem.Text = "MessageLog";
             this.messageLogToolStripMenuItem.Click += new System.EventHandler(this.messageLogToolStripMenuItem_Click);
             // 
             // resetArduinoToolStripMenuItem
             // 
             this.resetArduinoToolStripMenuItem.Name = "resetArduinoToolStripMenuItem";
-            this.resetArduinoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetArduinoToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.resetArduinoToolStripMenuItem.Text = "Reset Arduino";
             this.resetArduinoToolStripMenuItem.Click += new System.EventHandler(this.resetArduinoToolStripMenuItem_Click);
             // 
             // infoToolStripMenuItem
             // 
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            this.infoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.infoToolStripMenuItem.Text = "Info";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
@@ -889,6 +890,11 @@
             // ButtonRepeatTimer
             // 
             this.ButtonRepeatTimer.Tick += new System.EventHandler(this.ButtonRepeatTimer_Tick);
+            // 
+            // ShowMsgErr
+            // 
+            this.ShowMsgErr.Interval = 150;
+            this.ShowMsgErr.Tick += new System.EventHandler(this.ShowMsgErr_Tick);
             // 
             // VirtualPanelForm
             // 
@@ -1051,6 +1057,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog3;
         private System.Windows.Forms.OpenFileDialog openFileDialog4;
         private System.Windows.Forms.Timer ButtonRepeatTimer;
+        private System.Windows.Forms.Timer ShowMsgErr;
     }
 }
 

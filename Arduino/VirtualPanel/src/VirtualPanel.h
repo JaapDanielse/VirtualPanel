@@ -6,20 +6,26 @@
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V1.6.0	25-2-2024  
+	V2.0.0b3	11-04-2024  
 */
 
 #pragma once
 #include "ArduinoPort.h" 
 
-enum vp_channel : uint16_t // event/channel list 
+// for SAM architecture (Arduino Due) redefine the F() macro 
+#ifdef ARDUINO_ARCH_SAM 
+  #undef F
+  #define F(string_literal) (string_literal) 
+#endif
+
+enum vp_channel : uint8_t // event/channel list 
 {
   //
   ApplicationName, // >string, >color string
-  PanelConnected,  // <void (triggers Static Display)
+  PanelConnected,  // <void (triggers Static Display) + Synchronous
   Reset,           // >void
   DynamicDisplay,  // >bool (true/false), >int delay  <void
-  UnixTime,        // >void <unixtime (local)
+  UnixTime,        // >void <unixtime (local) + Synchronous
   Beep,            // >void (500,400) >int (F,400) >long (F,D) 
   //
   Button_1,  // >any >colorstring >symbolstring <void
@@ -194,10 +200,10 @@ enum vp_channel : uint16_t // event/channel list
   OpenFile_3, //
   OpenFile_4, //
   //
-  ReadLineFile_1, //
-  ReadLineFile_2, //
-  ReadLineFile_3, //
-  ReadLineFile_4, //
+  ReadLineFile_1, // + Synchronous
+  ReadLineFile_2, // + Synchronous
+  ReadLineFile_3, // + Synchronous
+  ReadLineFile_4, // + Synchronous
   //
   WriteLineFile_1, //
   WriteLineFile_2, //
@@ -224,7 +230,7 @@ enum vp_channel : uint16_t // event/channel list
 };
 
 // Channels allowed for Synchronous request
-const int16_t vpsrq_Channels[] = 
+const uint8_t vpsrq_Channels[] = 
 {
 	PanelConnected,
 	UnixTime,
@@ -235,7 +241,7 @@ const int16_t vpsrq_Channels[] =
 };
 
 // Synchronous request stati
-enum vpsrq_Stats : byte
+enum vpsrq_Stats : uint8_t
 {
   vpsrq_Success,
   vpsrq_Timeout,
@@ -250,10 +256,11 @@ class VirtualPanel : public ArduinoPort
 	public:
 	 using VP_CallbackFunction = void (*)(vp_channel);
 	 
-	 VirtualPanel(VP_CallbackFunction cb) : ArduinoPort("[VirtualPanel]", (PanelCallbackFunction) cb, Serial){}
-	 void begin()
+	 VirtualPanel(VP_CallbackFunction cb) : ArduinoPort("[VirtualPanelV2]", (PanelCallbackFunction) cb, Serial){}
+	 
+	 void begin(int32_t speed = 115200)
 	 {
-	    Serial.begin(115200);
+	    Serial.begin(speed);
 	 }
 };
 
@@ -261,7 +268,7 @@ void PanelCallback(vp_channel event); // Callback Function declaration. Calback 
 
 extern VirtualPanel Panel; // Panel object declaration
 
-bool PanelSyncRequest(int event); // Synchronous request
+bool PanelSyncRequest(uint8_t event); // Synchronous request
 
 uint16_t _Point( uint8_t x, uint8_t y); // Declaration of graph point helper function (packs two bytes in a iunt16_t).
 

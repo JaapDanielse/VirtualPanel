@@ -6,7 +6,7 @@
 	event communication between an Arduino and a PC based application
 	under C# using the ArduinoPort.dll.
   	
-	V2.0.0	26-2-2024  
+	V2.0.0b2	11-04-2024  
 */
 
 #include "ArduinoPort.h"
@@ -19,14 +19,20 @@ ArduinoPort::ArduinoPort(const char* panel_id, PanelCallbackFunction CallBackPoi
 	_comport = &comport;
 }
 
-void ArduinoPort::send(uint16_t channel)
+#pragma GCC diagnostic push // save warning level
+#ifndef ARDUINO_ARCH_SAM // next pragma's not valid for SAM arch.
+  #pragma GCC diagnostic ignored "-Wformat-overflow" // temp. ignore format-overflow warnings
+  #pragma GCC diagnostic ignored "-Wformat" // temp. ignore format warnings
+#endif
+
+void ArduinoPort::send(uint8_t channel)
 {
 	char buf[4];
 	sprintf(buf, "%02X%1X", channel, (uint8_t)vp_type::vp_void);
 	_comport->println(buf);
 }
 
-void ArduinoPort::send(uint16_t channel, bool value)
+void ArduinoPort::send(uint8_t channel, bool value)
 {
 	char buf[5];
 	sprintf(buf, "%02X%1X%1X", channel, (uint8_t)vp_type::vp_boolean, value);
@@ -34,7 +40,7 @@ void ArduinoPort::send(uint16_t channel, bool value)
 }
 
 #ifndef ARDUINO_ARCH_SAM
-void ArduinoPort::sendf(uint16_t channel, const __FlashStringHelper* message, ...)
+void ArduinoPort::sendf(uint8_t channel, const __FlashStringHelper* message, ...)
 {
 	char hbuf[6];
 	char buf[SENDFBUFFERSIZE];
@@ -48,7 +54,7 @@ void ArduinoPort::sendf(uint16_t channel, const __FlashStringHelper* message, ..
 }
 #endif
 
-void ArduinoPort::sendf(uint16_t channel, const char* message, ...)
+void ArduinoPort::sendf(uint8_t channel, const char* message, ...)
 {
 	char hbuf[6];
 	char buf[SENDFBUFFERSIZE];
@@ -61,7 +67,7 @@ void ArduinoPort::sendf(uint16_t channel, const char* message, ...)
 	_comport->println(buf);
 }
 
-void ArduinoPort::send(uint16_t channel, const char* message)
+void ArduinoPort::send(uint8_t channel, const char* message)
 {
 	char buf[6];
 	sprintf(buf, "%02X%1X%02X", channel, vp_type::vp_string, (uint8_t)strlen(message));
@@ -69,7 +75,7 @@ void ArduinoPort::send(uint16_t channel, const char* message)
 	_comport->println(message);
 }
 
-void ArduinoPort::send(uint16_t channel, const __FlashStringHelper* message)
+void ArduinoPort::send(uint8_t channel, const __FlashStringHelper* message)
 {
 	char buf[6];
 	sprintf(buf, "%02X%1X%02X", channel, vp_type::vp_string, (uint8_t)FSHLength(message));
@@ -77,50 +83,52 @@ void ArduinoPort::send(uint16_t channel, const __FlashStringHelper* message)
 	_comport->println(message);
 }
 
-void ArduinoPort::send(uint16_t channel, uint8_t value)
+void ArduinoPort::send(uint8_t channel, uint8_t value)
 {
 	char buf[6];
 	sprintf(buf, "%02X%1X%02X", channel, vp_type::vp_byte, value);
 	_comport->println(buf);
 }
 
-void ArduinoPort::send(uint16_t channel, int16_t value)
+void ArduinoPort::send(uint8_t channel, int16_t value)
 {
 	char buf[8];
 	sprintf(buf, "%02X%1X%04X", channel, vp_type::vp_int, (uint16_t)value);
 	_comport->println(buf);
 }
 
-void ArduinoPort::send(uint16_t channel, uint16_t value)
+void ArduinoPort::send(uint8_t channel, uint16_t value)
 {
 	char buf[8];
 	sprintf(buf, "%02X%1X%04X", channel, vp_type::vp_uint, value);
 	_comport->println(buf);
 }
 
-void ArduinoPort::send(uint16_t channel, int32_t value)
+void ArduinoPort::send(uint8_t channel, int32_t value)
 {
 	char buf[12];
-	sprintf(buf, "%02X%1X%08lX", channel, vp_type::vp_long, (unsigned long)value);
+	sprintf(buf, "%02X%1X%08lX", channel, vp_type::vp_long, (uint32_t)value);
 	_comport->println(buf);
 }
 
-void ArduinoPort::send(uint16_t channel, uint32_t value)
+void ArduinoPort::send(uint8_t channel, uint32_t value)
 {
 	char buf[12];
-	sprintf(buf, "%02X%1X%08lX", channel, vp_type::vp_ulong, (unsigned long)value);
+	sprintf(buf, "%02X%1X%08lX", channel, vp_type::vp_ulong, value);
 	_comport->println(buf);
 }
 
-void ArduinoPort::send(uint16_t channel, float value)
+void ArduinoPort::send(uint8_t channel, float value)
 {
 	char buf[12];
 	uint32_t FloatAsUint32;
 	
 	memcpy(&FloatAsUint32, &value, sizeof FloatAsUint32);
-	sprintf(buf, "%02X%1X%08lX", channel, vp_type::vp_float, FloatAsUint32);
+	sprintf(buf, "%02X%1X%08lX", channel, vp_type::vp_float, (uint32_t) FloatAsUint32);
 	_comport->println(buf);
 }
+
+#pragma GCC diagnostic pop // restore warning level
 
 bool ArduinoPort::delay(uint16_t delaytime, bool doReceive)
 {
@@ -170,7 +178,7 @@ bool ArduinoPort::receive(int16_t SyncChannel)
 
 			strncpy(buf, SerialInpBuf, 2);
 			buf[2] = 0;
-			uint16_t channel = Hex2Bin(buf);
+			uint8_t channel = Hex2Bin(buf);
 
 			strncpy(buf, &SerialInpBuf[2], 1);
 			buf[1] = 0;
@@ -182,15 +190,6 @@ bool ArduinoPort::receive(int16_t SyncChannel)
 			if (hex)
 				value = Hex2Bin(&SerialInpBuf[3]);
 			
-			if(type == vp_string)
-			{
-				strncpy(buf, &SerialInpBuf[3], 2);
-				buf[2] = 0;
-				uint16_t SentStrLen = Hex2Bin(buf);
-				uint16_t RcvStrLen = strlen(&SerialInpBuf[5]);
-				if(SentStrLen != RcvStrLen) type = vp_error;
-			}
-			   
 			vpr_type = type;
 			
 			switch (type)
@@ -198,7 +197,15 @@ bool ArduinoPort::receive(int16_t SyncChannel)
 				case vp_type::vp_void:
 					break;
 				case vp_type::vp_string:
-					vpr_string = &SerialInpBuf[5]; break;
+				{
+					strncpy(buf, &SerialInpBuf[3], 2);
+					buf[2] = 0;
+					uint16_t SentStrLen = Hex2Bin(buf);
+					uint16_t RcvStrLen = strlen(&SerialInpBuf[5]);
+					if(SentStrLen != RcvStrLen) type = vp_error;
+					vpr_string = &SerialInpBuf[5]; 
+					break;
+				}
 				case vp_type::vp_boolean:
 					if (hex && len == 1) { vpr_boolean = (value == 1) ? true : false; } break;
 				case vp_type::vp_byte:

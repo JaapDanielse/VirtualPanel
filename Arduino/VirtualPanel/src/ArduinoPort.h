@@ -6,7 +6,7 @@
 	event communication between an Arduino and a PC based application
 	under C# using the ArduinoPort.dll.
   	
-	V2.0.0	26-2-2024  
+	V2.0.0b2	11-4-2024  
 */
 
 #pragma once
@@ -40,23 +40,23 @@ enum vp_type : uint8_t
 class ArduinoPort
 {
 	public:
-		using PanelCallbackFunction = void(*)(uint16_t);
+		using PanelCallbackFunction = void(*)(uint8_t);
 		
 		ArduinoPort() = default;
 		ArduinoPort(const char* panel_id, PanelCallbackFunction CallBackPointer, Stream& comport);
 
-		void send(uint16_t channel);
-		void send(uint16_t channel, bool value);
-		void send(uint16_t channel, const char* message);
-		void send(uint16_t channel, const __FlashStringHelper* message);
-		void send(uint16_t channel, uint8_t value);
-		void send(uint16_t channel, int16_t value);
-		void send(uint16_t channel, uint16_t value);
-		void send(uint16_t channel, int32_t value);
-		void send(uint16_t channel, uint32_t value);
-		void send(uint16_t channel, float value);
-		void sendf(uint16_t channel, const char* message, ...);
-		void sendf(uint16_t channel, const __FlashStringHelper* message, ...);
+		void send(uint8_t channel);
+		void send(uint8_t channel, bool value);
+		void send(uint8_t channel, const char* message);
+		void send(uint8_t channel, const __FlashStringHelper* message);
+		void send(uint8_t channel, uint8_t value);
+		void send(uint8_t channel, int16_t value);
+		void send(uint8_t channel, uint16_t value);
+		void send(uint8_t channel, int32_t value);
+		void send(uint8_t channel, uint32_t value);
+		void send(uint8_t channel, float value);
+		void sendf(uint8_t channel, const char* message, ...);
+		void sendf(uint8_t channel, const __FlashStringHelper* message, ...);
 		bool delay(uint16_t delaytime, bool receive = true);
 		bool receive(int16_t SyncChannel = -1);
 
