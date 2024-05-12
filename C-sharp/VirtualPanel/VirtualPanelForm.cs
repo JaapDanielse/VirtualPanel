@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace VirtualPanel
 {
@@ -289,6 +290,9 @@ namespace VirtualPanel
 
         public Point GraphLocation = new Point(0, 0);
 
+        private Queue<Action> jobQueue = new Queue<Action>();
+        private object queueLock = new object();
+
 
         public VirtualPanelForm(String preSelectedComPort, String preSelectedSpeedString)
         {
@@ -383,6 +387,38 @@ namespace VirtualPanel
             port.MessageError += Port_MessageError;
             port.SearchPortTimeout = TimeSpan.FromSeconds(2);
             port.SearchPollFrequency = TimeSpan.FromMilliseconds(200);
+            
+            // Start the worker thread
+            Thread workerThread = new Thread(Worker);
+            workerThread.IsBackground = true;
+            workerThread.Start();
+
+        }
+
+        private void EnqueueJob(Action job)
+        {
+            lock (queueLock)
+            {
+                jobQueue.Enqueue(job);
+                Monitor.Pulse(queueLock);
+            }
+        }
+
+        private void Worker()
+        {
+            while (true)
+            {
+                Action job;
+                lock (queueLock)
+                {
+                    while (jobQueue.Count == 0)
+                    {
+                        Monitor.Wait(queueLock);
+                    }
+                    job = jobQueue.Dequeue();
+                }
+                job(); // Execute the job
+            }
         }
 
         private void VirtualPanelForm_Shown(object sender, EventArgs e)
@@ -398,6 +434,8 @@ namespace VirtualPanel
             port.Disconnected -= Port_Disconnected;
             port.MessageReceived -= Port_MessageReceived;
             port.MessageError -= Port_MessageError;
+
+            
         }
 
         private void Panel_Reset()
@@ -630,17 +668,16 @@ namespace VirtualPanel
                 if ((ChannelId)mse.ChannelID == ChannelId.FileOpenDialogTitle_3 && mse.Type == vp_type.vp_string) DialogTitleFile_3 = (string)mse.Data;
                 if ((ChannelId)mse.ChannelID == ChannelId.FileOpenDialogTitle_4 && mse.Type == vp_type.vp_string) DialogTitleFile_4 = (string)mse.Data;
 
-                if (id == ChannelId.Beep && mse.Type == vp_type.vp_void) Task.Run(() => System.Console.Beep(500, 400));
-                if (id == ChannelId.Beep && mse.Type == vp_type.vp_int) Task.Run(() => System.Console.Beep((int)mse.Data, 400));
+                if (id == ChannelId.Beep && mse.Type == vp_type.vp_void) EnqueueJob(() => System.Console.Beep(500, 400));
+                if (id == ChannelId.Beep && mse.Type == vp_type.vp_int) EnqueueJob(() => System.Console.Beep((int)mse.Data, 400));
                 if (id == ChannelId.Beep && mse.Type == vp_type.vp_ulong)
                 {
-                   Int64 Data = (Int64)mse.Data;
+                    Int64 Data = (Int64)mse.Data;
 
-                   int Frequency = (int)(Data >> 16);
-                   int Duration = (int)(Data & 0x0000FFFF);
-                   if (Frequency >= 37 && Frequency <= 32767)
-                        Task.Run(() => System.Console.Beep(Frequency, Duration));
-
+                    int Frequency = (int)(Data >> 16);
+                    int Duration = (int)(Data & 0x0000FFFF);
+                    if (Frequency >= 37 && Frequency <= 32767)
+                        EnqueueJob(() => System.Console.Beep(Frequency, Duration));
                 }
 
                 if (id == ChannelId.Monitor && mse.Type == vp_type.vp_boolean)
