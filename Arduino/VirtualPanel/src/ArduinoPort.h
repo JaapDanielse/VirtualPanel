@@ -6,7 +6,7 @@
 	event communication between an Arduino and a PC based application
 	under C# using the ArduinoPort.dll.
   	
-	V2.0.0b2	11-4-2024  
+	V2.0.0b4	16-8-2024  
 */
 
 #pragma once
@@ -71,7 +71,7 @@ class ArduinoPort
 		uint32_t vpr_ulong = 0;
 		float    vpr_float = 0.0f;
 
-	private:
+	protected:
 		const char* _panel_id;
 		PanelCallbackFunction _CallBackPointer;
 		Stream* _comport;

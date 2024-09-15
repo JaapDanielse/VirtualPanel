@@ -6,10 +6,11 @@
 	event communication between an Arduino and a PC based application
 	under C# using the ArduinoPort.dll.
   	
-	V2.0.0b2	11-04-2024  
+	V2.0.0b4	16-08-2024  
 */
 
 #include "ArduinoPort.h"
+#include <stdarg.h>
 
 // ArduinoPort 
 ArduinoPort::ArduinoPort(const char* panel_id, PanelCallbackFunction CallBackPointer, Stream& comport)
@@ -39,7 +40,7 @@ void ArduinoPort::send(uint8_t channel, bool value)
 	_comport->println(buf);
 }
 
-#ifndef ARDUINO_ARCH_SAM
+#if !defined(ARDUINO_ARCH_SAM) && !defined(ARDUINO_ARCH_SAMD) && !defined(ARDUINO_ARCH_RENESAS)
 void ArduinoPort::sendf(uint8_t channel, const __FlashStringHelper* message, ...)
 {
 	char hbuf[6];

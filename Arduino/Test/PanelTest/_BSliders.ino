@@ -25,9 +25,10 @@ void SlidersCallback(vp_channel event)
 
 void SlidersInit()
 {
-  Panel.send(ApplicationName,F("PanelTest - Sliders")); // set the application name
+//  Panel.send(ApplicationName,F("PanelTest - Sliders")); // set the application name
+  Panel.send(ApplicationName,F("ApplicationName")); // set the application name
   // Panel.send(PanelColor,F("$RED")); // set the application name
-  Panel.send(PanelColor,F("$BUE")); // set the application name
+  Panel.send(PanelColor,F("$BLUE")); // set the application name
 
 
   Panel.send(Display_1, F("Display_1"));

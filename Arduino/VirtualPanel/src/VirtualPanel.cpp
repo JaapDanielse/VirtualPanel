@@ -6,7 +6,7 @@
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V2.0.0b2	11-4-2024  
+	V2.0.0b4	15-08-2024  
 */
 
 #include "VirtualPanel.h"
@@ -140,7 +140,7 @@ uint32_t _Sound( uint16_t frequency, uint16_t duration)
 	return(BeepParam);
 }
 
-#ifndef ARDUINO_ARCH_SAM
+#if !defined(ARDUINO_ARCH_SAM) && !defined(ARDUINO_ARCH_SAMD)
 // _FString - dtostrf wrapper for use in sendf.
 char * _FString(float FloatValue, int16_t StringSize, int16_t Decimals)
 {

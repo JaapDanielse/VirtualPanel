@@ -6,14 +6,14 @@
 	from an Arduino to VirtualPanel.exe on a PC.
 	This library uses the ArduinoPort library as communications protocol.
   	
-	V2.0.0b3	11-04-2024  
+	V2.0.0b4	15-08-2024  
 */
 
 #pragma once
 #include "ArduinoPort.h" 
 
 // for SAM architecture (Arduino Due) redefine the F() macro 
-#ifdef ARDUINO_ARCH_SAM 
+#if defined(ARDUINO_ARCH_SAM) || defined(ARDUINO_ARCH_SAMD) || defined(ARDUINO_ARCH_RENESAS)
   #undef F
   #define F(string_literal) (string_literal) 
 #endif
@@ -255,13 +255,20 @@ class VirtualPanel : public ArduinoPort
 {
 	public:
 	 using VP_CallbackFunction = void (*)(vp_channel);
+
+	VirtualPanel(VP_CallbackFunction cb) : ArduinoPort("[VirtualPanelV2]", (PanelCallbackFunction) cb, Serial){}
 	 
-	 VirtualPanel(VP_CallbackFunction cb) : ArduinoPort("[VirtualPanelV2]", (PanelCallbackFunction) cb, Serial){}
+	void begin(int32_t speed = 115200)
+	{
+		Serial.begin(speed);
+	}
 	 
-	 void begin(int32_t speed = 115200)
-	 {
-	    Serial.begin(speed);
-	 }
+	void begin(HardwareSerial& s , int32_t speed = 115200)
+	{
+		s.begin(speed);
+		while (!s);
+	    _comport = &s;
+	} 
 };
 
 void PanelCallback(vp_channel event); // Callback Function declaration. Calback routine itself must be created in the sketch

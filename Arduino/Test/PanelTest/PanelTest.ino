@@ -1,12 +1,11 @@
-// Clock (using PanelOne) 
-
 #include "VirtualPanel.h"
 
+// Clock (using PanelOne) 
 // for SAM architecture (Arduino Due) redefine the F() macro 
-#ifdef ARDUINO_ARCH_SAM 
-  #undef F
-  #define F(string_literal) (string_literal) 
-#endif
+// #ifdef ARDUINO_ARCH_SAM 
+//   #undef F
+//   #define F(string_literal) (string_literal) 
+// #endif
 
 #include <TimeLib.h>  
 
@@ -23,7 +22,14 @@ byte GraphValue=0;
 
 void setup()
 {
-	Panel.begin(); // init port and protocol
+
+#ifdef ARDUINO_SAMD_ZERO
+  Panel.begin(SerialUSB);
+#else
+  Panel.begin();
+#endif
+
+
   randomSeed(analogRead(0));
 }
 
